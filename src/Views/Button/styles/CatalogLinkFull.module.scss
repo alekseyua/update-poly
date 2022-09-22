@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.btn {
+    background-color: var(--gx-color-primary);
+    height: 58px;
+    border-radius: 2px;
+    min-width: 286px;
+    -ms-flex-align: center;
+    align-items: center;
+    color: var(--gx-color-white);
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+}

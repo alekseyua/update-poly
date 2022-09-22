@@ -1,0 +1,40 @@
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables.scss';
+
+
+
+.cabinet-menu{
+  //.cabinet-menu__wrapper{}
+  &__wrapper{
+    position: relative;
+    max-width: 276px;
+    width: 100%;
+  }
+  //.cabinet-menu__menu-list{}
+  &__menu-list{
+    width: 100%;
+
+  }
+  //.cabinet-menu__item{}
+  &__item{
+    &:not(:last-child){
+      margin-bottom: 5px;
+    }
+  }
+  //.cabinet-menu__link{}
+  &__link{
+    @extend %font;
+    color: $p;
+    font-size: $fontSize;
+    &:hover{
+      color: $a;
+    }
+  }
+  //.cabinet-menu__bage{}
+  &__bage{
+    @extend %font;
+    font-style: normal;
+    color: $p;
+    font-weight: bold;
+  }
+}

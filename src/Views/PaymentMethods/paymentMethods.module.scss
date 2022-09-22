@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+//.payment-methods{}
+.payment-methods {
+  // .payment-methods__list{}
+  &__list {
+    @include ul;
+    @include flex(lc);
+    //.payment-methods__list-item{}
+    &-item {
+      margin-right: 10px;
+      &:last-child {
+        margin: 0;
+      }
+      //.payment-methods__list-item-icon{}
+      &-icon {
+        width: 58px;
+        height: 40px;
+      }
+    }
+    @include tablet-lg {
+      justify-content: center;
+    }
+  }
+}

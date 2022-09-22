@@ -1,0 +1,26 @@
+@import '../../../styles/variables.scss';
+
+.btn{
+  @include flex('cc');
+  // padding: 20px 32px;
+  padding-left: 0;
+  outline: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: right;
+  letter-spacing: 0.04em;
+  color: var(--gx-color-darkgray2);
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  &:active {
+  }
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}

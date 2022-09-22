@@ -1,0 +1,12 @@
+@import '../../../styles/variables.scss';
+
+
+.catalog_mobile__icon{
+    margin: 0 15px 0;
+    transform: scale(1.6);
+    cursor: pointer;
+    position: relative;
+    & > object {
+        cursor: pointer;
+    };
+}

@@ -1,0 +1,41 @@
+@import '../../../styles/fonts/index.scss';
+
+.stepsBreadcrumbs {
+
+  //.stepsBreadcrumbs__wrapper{}
+  &__wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    --icon-width: 15px;
+    --icon-height: 15px;
+
+    //.stepsBreadcrumbs__wrapper-steps-btn{}
+    &-steps-btn {
+      border: none;
+    }
+
+    //.stepsBreadcrumbs__wrapper-steps-icon{}
+    &-steps-icon {
+      margin-right: 10px;
+      top: -6px;
+      position: relative;
+    }
+
+    &-back-btn {}
+
+    //.stepsBreadcrumbs__wrapper-steps-text{}
+    &-steps-text {
+      @extend %font;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 140%;
+      text-align: right;
+      text-transform: uppercase;
+      color: var(--gx-color-darkgray);
+    }
+  }
+}

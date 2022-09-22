@@ -1,0 +1,61 @@
+@import '../../../styles/variables.scss';
+
+
+//.new-views__wrapper-filters{}
+.wrapper-filters {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @include laptop-sm {
+    padding: 0 15px;
+  }
+
+  @include mobile {
+    justify-content: center;
+  }
+
+  //.wrapper-filters__button{}
+  &__button {
+    background-color: var(--gx-color-white);
+    border: 2px solid var(--gx-color-lightpink);
+    border-radius: 30px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    color: var(--gx-color-accent);
+    padding: 10px;
+    min-width: 75px;
+
+    @include mobile {
+      margin-bottom: 15px;
+    }
+
+    //.wrapper-filters__button--active{}
+    &--active {
+      background-color: var(--gx-color-lightpink);
+    }
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+
+  @include laptop-sm {
+    padding: 0 15px;
+  }
+
+  @include tablet-lg() {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.paginations_wrapper {
+  padding: 60px 0 60px 0;
+}

@@ -1,0 +1,15 @@
+.raiting-star {
+
+    //.raiting-star__container{}
+    &__container {
+        max-width: 150px;
+        display: flex;
+    }
+
+    //.raiting-star__star{}
+    &__star {
+        display: flex;
+                
+    }
+
+}

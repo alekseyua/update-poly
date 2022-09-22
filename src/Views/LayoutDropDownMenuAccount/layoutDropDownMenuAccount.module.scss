@@ -1,0 +1,69 @@
+@import '../../styles/variables.scss';
+
+.wrapper{
+    padding: 15px;
+    border: 1px solid $dg;
+    background-color: $g2;
+    position: absolute;
+    width: 320px;
+    transform: translate(-175px,45px);
+    &::before{
+        content: '';
+        // top: 0;
+        width: 0px;
+        height: 0px;
+        // background-color: #000;
+        position: absolute;
+        // transform: translate(161px, -8px) rotate(314deg);
+        left: 177px;
+        top: -11px;
+        transform: rotate(-45deg);
+        border: 11px solid;
+        border-color: $g2 $g2 transparent transparent;    
+    }
+    &::after{
+        content: '';
+        // top: 0;
+        width: 21px;
+        height: 21px;
+        position: absolute;
+        //transform: translate(-126px, -255px) rotate(-45deg); //translate(73px, -336px) rotate(-45deg); //translate(162px, -198px) rotate(-45deg);
+        left: 177px;
+        top: -11px;
+        transform: rotate(-45deg);
+        border: 2px solid;
+        border-color: $dg $dg transparent transparent;
+    }
+
+    @include mobile {
+            transform: translate(-155px);
+            bottom: 55px;
+            &::before{
+                content: '';
+                // top: 0;
+                width: 0px;
+                height: 0px;
+                // background-color: #000;
+                position: absolute;
+                // transform: translate(139px, 367px) rotate(134deg); //translate(138px, 188px) rotate(134deg);
+                left: 154px;
+                top: 279px;
+                transform: rotate(134deg); 
+                border: 11px solid;
+                border-color: $g2 $g2 transparent transparent;        
+            }
+            &::after{
+                content: '';
+                // top: 0;
+                width: 21px;
+                height: 21px;
+                position: absolute;
+                //transform:  translate(52px, 45px) rotate(134deg); //translate(139px, 5px) rotate(133deg);
+                left: 154px;
+                top: 279px;
+                transform: rotate(134deg);                
+                border: 2px solid;
+                border-color: $dg $dg transparent transparent;
+            }
+        }
+}

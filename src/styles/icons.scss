@@ -1,0 +1,286 @@
+
+
+@font-face {
+	font-family: 'icons';
+	font-display: swap;
+	 src:url("./fonts/icons.woff") format("woff");
+
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+%ic {
+	font-family: 'icons';
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none; 
+	list-style: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="_icon-"],
+[class*=" _icon-"] {
+	&:before {
+		@extend %ic;
+		display: block;
+	}
+}
+
+//Font Name  icons
+//Class Prefix _icon-
+//иконочнвый шрифт   gulp allfont
+
+._icon-clothes-hanger-svgrepo-com:before {
+  content: "\e901";
+}
+._icon-status-list-ok:before {
+  content: "\e935";
+}
+._icon-status-cloused-around:before {
+  content: "\e936";
+}
+._icon-slider-arrow-left:before {
+  content: "\e940";
+}
+._icon-shopping-bag:before {
+  content: "\e941";
+}
+._icon-share:before {
+  content: "\e947";
+}
+._icon-search:before {
+  content: "\e94a";
+}
+._icon-reward:before {
+  content: "\e94b";
+}
+._icon-ReviewsCard-thumbs-up:before {
+  content: "\e94c";
+}
+._icon-ReviewsCard-review-tag:before {
+  content: "\e94d";
+}
+._icon-ReviewsCard-play:before {
+  content: "\e94f";
+}
+._icon-RETAIL_icon:before {
+  content: "\e950";
+}
+._icon-promocode:before {
+  content: "\e952";
+}
+._icon-newPhoto:before {
+  content: "\e955";
+}
+._icon-money:before {
+  content: "\e956";
+}
+._icon-logo:before {
+  content: "\e95f";
+}
+._icon-leftArrowIcon:before {
+  content: "\e964";
+}
+._icon-instagram:before {
+  content: "\e984";
+}
+._icon-infoTopTool-5:before {
+  content: "\e988";
+}
+._icon-infoTopTool-4:before {
+  content: "\e989";
+}
+._icon-infoTopTool-3:before {
+  content: "\e98a";
+}
+._icon-infoTopTool-2:before {
+  content: "\e98b";
+}
+._icon-infoTopTool-1:before {
+  content: "\e98c";
+}
+._icon-garbageicon:before {
+  content: "\e991";
+}
+._icon-feedback:before {
+  content: "\e993";
+}
+._icon-favoriteNew:before {
+  content: "\e994";
+}
+._icon-favorite:before {
+  content: "\e996";
+}
+._icon-facebook-msg:before {
+  content: "\e997";
+}
+._icon-facebook:before {
+  content: "\e998";
+}
+._icon-errorCanceled:before {
+  content: "\e999";
+}
+._icon-DROPSHIPPER_icon:before {
+  content: "\e99c";
+}
+._icon-disabledArrowSlider:before {
+  content: "\e99d";
+}
+._icon-delivery:before {
+  content: "\e99e";
+}
+._icon-common-dropdown:before {
+  content: "\e99f";
+}
+._icon-common-close:before {
+  content: "\e9a0";
+}
+._icon-closeRed:before {
+  content: "\e9a2";
+}
+._icon-clock-woomen:before {
+  content: "\e9a5";
+}
+._icon-clock-waiting:before {
+  content: "\e9a6";
+}
+._icon-chats:before {
+  content: "\e9a7";
+}
+._icon-chat:before {
+  content: "\e9a9";
+}
+._icon-cd:before {
+  content: "\e9ab";
+}
+._icon-cart:before {
+  content: "\e9ad";
+}
+._icon-btnload:before {
+  content: "\e9ae";
+}
+._icon-btndownNoFill:before {
+  content: "\e9af";
+}
+._icon-bayicon:before {
+  content: "\e9b1";
+}
+._icon-bag-check:before {
+  content: "\e9b2";
+}
+._icon-arrowTopNoFill:before {
+  content: "\e9b3";
+}
+._icon-arrowRightCatalog:before {
+  content: "\e9b4";
+}
+._icon-arrowRightBlack:before {
+  content: "\e9b5";
+}
+._icon-arrow-left-square-fill:before {
+  content: "\e9b7";
+}
+._icon-arrowDownNoFill:before {
+  content: "\e9b8";
+}
+._icon-activeArrowSlider:before {
+  content: "\e9c2";
+}
+._icon-about-us-tehnology-badge:before {
+  content: "\e9c5";
+}
+._icon-about-us-badge:before {
+  content: "\e9c9";
+}
+._icon-about-us-4:before {
+  content: "\e9ca";
+}
+._icon-about-us-3:before {
+  content: "\e9cb";
+}
+._icon-about-us-2:before {
+  content: "\e9cc";
+}
+._icon-aboutpage-shopping:before {
+  content: "\e9ce";
+}
+._icon-aboutpage-check:before {
+  content: "\e9f8";
+}
+._icon-aboutpage-box:before {
+  content: "\e9f9";
+}
+._icon-aboutpage-1:before {
+  content: "\ea18";
+}
+._icon-tick-2:before {
+  content: "\e920";
+}
+._icon-tick-1:before {
+  content: "\e921";
+}
+._icon-TradingPlatform-arc:before {
+  content: "\e91f";
+}
+._icon-telIcon:before {
+  content: "\e923";
+}
+._icon-store:before {
+  content: "\e926";
+}
+._icon-trempel:before {
+  content: "\e91e";
+}
+._icon-viber:before {
+  content: "\e919";
+}
+._icon-vectorIcon:before {
+  content: "\e91a";
+}
+._icon-user:before {
+  content: "\e91b";
+}
+._icon-truck:before {
+  content: "\e91c";
+}
+._icon-visa:before {
+  content: "\e91d";
+}
+._icon-vkontakte:before {
+  content: "\e916";
+}
+._icon-wallet:before {
+  content: "\e915";
+}
+._icon-whatsapp:before {
+  content: "\e914";
+}
+._icon-WHOLESALE_icon:before {
+  content: "\e913";
+}
+._icon-womansizes-womansizes:before {
+  content: "\e900";
+}
+._icon-bubble:before {
+  content: "\e96b";
+}
+._icon-bubble2:before {
+  content: "\e96e";
+}
+._icon-clipboard:before {
+  content: "\e9b9";
+}
+._icon-list:before {
+  content: "\e9ba";
+}
+._icon-notification:before {
+  content: "\ea08";
+}
+._icon-info:before {
+  content: "\ea0c";
+}
+._icon-cancel-circle:before {
+  content: "\ea0d";
+}

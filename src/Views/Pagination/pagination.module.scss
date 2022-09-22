@@ -1,0 +1,28 @@
+.pagination{
+    //.pagination__container{}
+    &__container{
+        width: 100%;
+        // max-width: 320px;
+        display: grid;
+        // grid-template-columns: repeat(max, 1fr);
+        grid-auto-columns: 50px; 
+        grid-auto-flow:column;
+        grid-template-rows: 1fr;
+        column-gap: 15;
+        align-items: end;
+        justify-items: center;
+    }
+    //.pagination__item{}
+    &__item{
+        font-size: 14px;
+        &-active{
+            color: rgb(134, 79, 116);
+            font-size: 16px;
+        }
+
+        &:hover{
+            cursor: pointer;
+            color: rgb(134, 79, 116);
+        }
+    }
+}

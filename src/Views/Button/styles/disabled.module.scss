@@ -1,0 +1,11 @@
+@import '../../../styles/variables.scss';
+
+.button--disabled{
+    background-color: $dg2;
+    &:hover{
+      cursor: not-allowed;
+      box-shadow: none;
+      background-color: $dg2;
+    }
+  }
+  

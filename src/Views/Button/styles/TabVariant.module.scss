@@ -1,0 +1,28 @@
+@import '../../../styles/variables.scss';
+
+.btn {
+  position: relative;
+  @include flex('cc');
+  padding-top: 20px;
+  padding-bottom: 16px;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--gx-color-primary2);
+  line-height: 140%;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease-in;
+  border: none;
+  background-color: transparent;
+  background: var(--gx-color-white);
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: var(--gx-color-white);
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

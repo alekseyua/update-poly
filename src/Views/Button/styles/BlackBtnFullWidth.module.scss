@@ -1,0 +1,30 @@
+@import '../../../styles/variables.scss';
+
+.btn {
+  width: 100%;
+  position: relative;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+  outline: none;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--gx-color-white);
+  letter-spacing: 1px;
+  // border: 2px solid var(--gx-color-primary);
+  background-color: $p;
+  border-radius: 2px;
+  overflow: hidden;
+  height: 70px;
+
+  &:hover {
+    box-shadow: 0px 26px 18px rgba(0, 0, 0, 0.2);
+    background-color: $p2;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: 0px 26px 18px rgba(0, 0, 0, 0.2);
+  }
+}

@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+
+//.layout__container{}
+.layout{
+    &__container{
+        // max-width: $maxWidthContainer + px;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0 auto;
+        overflow: auto;
+    }
+    //.layout__header{}
+    &__header{
+        position: relative;
+        flex: 0 0 120px;
+        @include mobile{
+            flex: 0 0 50px;
+        }
+    }
+    // .layout__main{}
+    &__main{
+        position: relative;
+        padding: 0 15px;
+        flex: 1 1 auto;
+
+        // overflow: auto;
+        @include scrollbar;
+    }
+    //.layout__footer{}
+    &__footer{
+        position: relative;
+        flex: 0 0 150px;
+    }
+}

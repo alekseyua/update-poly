@@ -1,0 +1,77 @@
+@import '../../../styles/variables.scss';
+
+.top-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  transition: 0.2s;
+  @include tablet-lg {
+    top: 0px;
+  }
+  @include mobile {
+    // display: none;
+    background-color: $w;
+  }
+  //.top-header__logo-inner{}
+  &__logo-inner{
+    display: none;
+    @include tablet-lg {
+      margin-left: 0;
+      display: block;
+    }
+    @include mobile{
+      @include adaptive-value('margin-left',500,73,'px',2);
+    }
+  }
+  //.top-header__top{}
+  &__top{
+    height: 60px;
+    background-color: $back;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 2%;
+    @include mobile{
+      background-color: $w;
+      align-items: flex-start;
+    }
+  }
+  &.scrolled {
+    top: 0;
+    background-color: $w;
+    border-bottom: 1px solid $g;
+    @include mobile {
+      @include padding-for-mobile;
+      display: block;
+      bottom: 0;
+      top: auto;
+      background-color: $w;
+      border-bottom: 1px solid $g;
+    }
+  }
+  
+  &.top {
+    // top: 0;
+  }
+  //.top-header-wrapper{}
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    // padding-right: 30px;
+    // padding-left: 50px;
+    @include mobile {
+      flex-direction: row-reverse;
+      // padding-left: 10px;
+      // padding-right: 45%;
+    }
+    @include tablet-md {
+      // justify-content: flex-end;
+    }
+
+  }
+  }

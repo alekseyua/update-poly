@@ -1,0 +1,72 @@
+@import '../../../styles/variables.scss';
+
+.rightSide {
+
+  //.rightSide__wrapper{}
+  &__wrapper {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    @include laptop-sm {
+      align-items: start;
+    }
+  }
+
+  //.rightSide__links{}
+  &__links {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 155px 40px 133px;
+    bottom: 0px;
+    position: absolute;
+    @include mobile{
+      padding: 0;
+      margin: 0 10px;
+    }
+    &>div {
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 160%;
+
+      &:hover {
+        color: $a2;
+      }
+    }
+
+    @include laptop-sm {
+      position: static;
+      padding: 0 0 60px 0;
+    }
+
+    & a {
+      text-decoration: underline;
+      margin-top: 10px;
+    }
+  }
+
+  //.rightSide__right-side{}
+  &__right-side {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 450px;
+    margin: 0 auto;
+    @include laptop-sm {
+      align-items: center;
+    }
+
+    @include mobile {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    @include mobile-lg {
+      padding: 0 5px;
+
+    }
+  }
+}

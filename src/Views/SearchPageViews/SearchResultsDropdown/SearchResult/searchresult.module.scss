@@ -1,0 +1,53 @@
+@import '../../../../styles/variables.scss';
+
+//.search-result{}
+.search-result {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    &:hover{
+      background-color: rgba(240, 195, 195, 0.3);
+      border: 1px solid rgba(240, 195, 195, 0.3);
+      border-radius: 5px;
+      &>div>  span{
+          color: $a2;
+      }
+    }
+    //.search-result__info{}
+    &__info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      margin-right: 30px;
+    }
+    //.search-result__title
+    &__title {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: $p;
+      max-width: 206px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      @include mobile-sm {
+        max-width: 165px;
+      }
+    }
+    //.search-result__images{}
+    &__images {
+      display: flex;
+      align-items: center;
+      &>span{
+        color: $dg;
+      }
+    }
+    //.search-result__preview{}
+    &__preview {
+      width: 26px;
+      margin-right: 10px;
+    }
+  }
+  

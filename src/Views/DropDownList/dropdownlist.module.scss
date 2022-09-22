@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.drop-down {
+    //.drop-down__form{}
+    &__form{
+        margin-right: 15px;
+    }
+    //.drop-down__select{}
+    &__select {
+        background: transparent;
+        color: $a2;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        // отключаем стандартную стрелку
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        &::-ms-expand {
+            display: none;
+        }
+    &> option{
+        cursor: pointer;
+      }
+    }
+}

@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+.registrBlock {
+
+  //.registrBlock__wrapper{}
+  &__wrapper {
+    width: 100%;
+    @include mobile {
+      
+    }
+
+    //.registrBlock__wrapper-help_text{}
+    &-help_text {
+      color: $dg2;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: 0.04em;
+    }
+
+    //registrBlock__wrapper-link{}
+    &-link {
+      color: $a2;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: 0.04em;
+    }
+  }
+}

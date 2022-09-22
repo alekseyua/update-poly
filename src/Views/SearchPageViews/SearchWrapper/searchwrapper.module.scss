@@ -1,0 +1,101 @@
+@import '../../../styles/variables.scss';
+
+//.header-buttons__search-wrapper
+.header-buttons__search {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 40px; //225px
+    transition: all 0.3s;
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+    border: 2px solid #d2cfcf;
+    border-radius: 7px;
+    font-size: 25px;
+    // box-shadow: 1px 1px 1px 1px #000 inset;
+
+    // visibility: hidden;
+
+    @include laptop-md {
+      right: 195px;
+    }
+
+    @include laptop-sm {
+      right: 250px;
+    }
+
+    @include tablet-lg {
+      right: 0;
+      top: 50px;
+    }
+
+    @include mobile {
+      right: 0;
+      top: calc(-100vh + 120px);
+      z-index: 99999;
+      position: absolute;
+    }
+
+    //.header-buttons__search-wrapper--fade-in{}
+    &--fade-in {
+      transition: all 0.3s;
+      width: 320px;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(-8px);
+      background-color: rgb(236, 236, 236);
+      border-color: $a2;
+      font-size: $fontSize;
+      height: auto;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include laptop-sm {
+        // width: 100%;
+        position: fixed;
+        top: 80px;
+        transform: translate(28px, -10px);
+      }
+
+      @include tablet-lg {
+        width: 100%;
+        position: fixed;
+        top: 118px;
+        transform: translate(0, 0);
+      }
+
+      @include mobile {
+        width: 100%;
+        position: fixed;
+        top: 49px;
+      }
+
+    }
+
+    //.header-buttons__search-wrapper__bg{}
+    &__bg {
+      display: none;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+
+      //.header-buttons__search-wrapper__bg--active{}
+      &--active {
+        // display: block;
+      }
+
+      @include tablet-lg {
+        background-color: $w;
+      }
+    }
+  }
+
+}

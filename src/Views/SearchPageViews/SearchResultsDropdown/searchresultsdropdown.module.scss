@@ -1,0 +1,44 @@
+@import '../../../styles/variables.scss';
+
+.search-result{
+    //.search-result__dropdown{}
+    &__dropdown{
+        width: 100%;
+        max-height: 300px;
+        // height: 400px;
+        overflow: auto;
+    }
+    //.search-result__list{}
+    &__list{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    //.search-result__items{}
+    &__items{
+        display: flex;
+        align-items: center;
+        height: 50px;
+        width: 100%;
+        padding: 0 5px;
+        &:hover{
+            background-color: $pi3;
+        }
+        //.search-result__items-all{}
+        &-all {
+            font-size: $fontSize;
+            line-height: 140%;
+            &:hover{
+                background-color: transparent;
+            }
+            &>a{
+                color: $a2;
+            }
+        }
+        // border-bottom: 1px solid $dg;
+        &:not(:last-child) {
+            box-shadow: 0 0 2px 0 $dg;
+        }
+    }
+}

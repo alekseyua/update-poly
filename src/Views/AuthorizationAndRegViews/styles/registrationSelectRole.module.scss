@@ -1,0 +1,180 @@
+@import '../../../styles/variables.scss';
+
+.registrationSelectRole {
+  //.registrationSelectRole__wrapper{}
+  &__wrapper {
+    position: relative;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    max-width: 445px;
+
+    //.registrationSelectRole__wrapper-btn{}
+    &-btn {
+      margin-bottom: 40px;
+      height: auto;
+      position: relative;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      outline: none;
+      font-weight: bold;
+      font-size: $fontSize;
+      color: var(--gx-color-white);
+      letter-spacing: 1px;
+      align-items: center;
+      background: var(--gx-color-white);
+      box-shadow: 0px 2px 14px 1px rgba(0, 0, 0, 0.06);
+      border-radius: 6px;
+      border: none;
+      overflow: hidden;
+      min-height: 145px;
+
+      //.registrationSelectRole__wrapper-btn-help--text{}      
+      &-help--text {
+        width: 320px;
+        text-align: start;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        color: var(--gx-color-darkgray2);
+        line-height: 18px;
+        max-width: 450px;
+      }
+
+      @include mobile {
+        flex-direction: column;
+
+        &>div:not(:last-child) {
+          margin-bottom: 15px;
+          padding: 7px;
+          max-width: 300px;
+        }
+      }
+
+      @include mobile-md {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      &:hover {
+        background: var(--gx-color-palePurple);
+        box-shadow: 0px 0px 0px 2px var(--gx-color-accent2);
+
+        .registrationSelectRole__wrapper-btn-icon--left-icon {
+          object,
+          embed {
+            filter: invert(100%);
+          }
+        }
+        //.registrationSelectRole__wrapper-btn-icon--left{}
+        .registrationSelectRole__wrapper-btn-icon--left {
+          &::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            transform: rotate(45deg);
+            background: var(--gx-color-accent2);
+            border: 2px solid var(--gx-color-accent2);
+            box-sizing: border-box;
+            border-radius: 2px;
+          }
+        }
+
+        .registrationSelectRole__wrapper-btn-icon--right {
+          visibility: visible;
+          margin-right: 10px;
+        }
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0px 26px 18px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        outline: none;
+        box-shadow: 0px 26px 18px rgba(0, 0, 0, 0.2);
+      }
+
+      //.{}
+      &-icon {
+
+        //.registrationSelectRole__wrapper-btn-icon--left{}
+        &--left {
+          --icon-width: 20px;
+          --icon-height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          align-content: center;
+          margin-right: 35px;
+          margin-left: 25px;
+          color: var(--gx-color-accent2);
+          position: relative;
+
+          &::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            transform: rotate(45deg);
+            border: 2px solid var(--gx-color-accent2);
+            box-sizing: border-box;
+            border-radius: 2px;
+          }
+
+          //.registrationSelectRole__wrapper-btn-icon-left-icon{}
+          &-icon {
+            width: 20px;
+          }
+        }
+
+        //.registrationSelectRole__wrapper-btn-icon-right{}
+        &--right {
+          visibility: hidden;
+          --icon-width: 15px;
+          --icon-height: 15px;
+        }
+      }
+      //.registrationSelectRole__wrapper-btn-group-label{}
+      &-group-label {
+        position: relative;
+        white-space: normal;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+        align-content: center;
+      }
+      //.registrationSelectRole__wrapper-btn-label{}
+      &-label {
+        color: var(--gx-color-primary);
+        line-height: 25px;
+      }
+      //.registrationSelectRole__wrapper-btn-help-text{}
+      &-help-text {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        color: var(--gx-color-darkgray2);
+        line-height: 18px;
+        text-align: left;
+        max-width: 450px;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+      }
+    }
+
+    &-link-group {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: baseline;
+      align-content: space-between;
+    }
+  }
+}

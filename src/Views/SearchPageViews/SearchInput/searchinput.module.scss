@@ -1,0 +1,38 @@
+@import '../../../styles/variables.scss';
+
+//.input-search{}
+.input-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+//.input-search__close{}
+    &__close{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        border-radius: 50%;
+        border: 1px solid $dg;
+        &:hover{
+            border: 1px solid $a;
+            &::after,&::before{
+                background-color: $a;                
+            }
+        }
+        &::after,&::before{
+            content:'';
+            width: 100%;
+            height: 1px;
+            background-color: $dg;
+            display: block;
+        }
+        &::after{    
+            transform: translateY(8px) rotate(45deg);
+        }
+        &::before{
+            transform: translateY(9px) rotate(-45deg);
+        }
+
+    }
+}

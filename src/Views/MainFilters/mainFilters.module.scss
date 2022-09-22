@@ -1,0 +1,31 @@
+@import "../../styles/variables.scss";
+
+//.main-filters{}
+.main-filters {
+    width: 100%;
+    padding: 0 15px;
+    //.main-filters__container{}
+    &__container{
+        width: 100%;
+    }
+    //.main-filters__wrap{}
+    &__wrap {
+        position: relative;
+    }
+    //.main-filters__item{}
+    &__item {
+        min-width: max-content;
+    }
+    //.main-filters__list{}
+    &__list {
+        width: auto;
+        height: 70px;
+        @include tabs;
+        @include tablet-lg {
+            justify-content: unset;
+            overflow: auto;
+            padding: 0;            
+        }
+    }
+    
+}

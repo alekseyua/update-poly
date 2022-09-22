@@ -1,0 +1,6 @@
+@import '../../../styles/variables.scss';
+.form{
+    width: 100%;
+    background-color: $fontLayout;
+    @include scrollbar
+}

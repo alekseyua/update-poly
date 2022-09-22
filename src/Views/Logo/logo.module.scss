@@ -1,0 +1,70 @@
+@import '../../styles/variables.scss';
+
+.logo {
+    min-width: 0;
+    max-width: 250px;
+    max-height: 50px;
+    height: 50px;
+    width: 250px;
+    color: $back;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @include mobile{
+
+        @include adaptive-value('width',500,190,'px',2);
+    }
+    &:hover {
+        color: var(--gx-color-black);
+    }
+    &.light {
+        color: var(--gx-color-white);
+    }
+    // .log-head-top {}
+    &-head-top {
+        z-index: 999;
+        @media (min-width: 680.1px) {
+            display: none;
+        }
+    }
+    // .log-head-bottom {}
+    &-head-bottom {
+        @media (max-width: 680.1px) {
+            display: none;
+        }
+        @media (max-width: 400px) {
+            max-width: 186px;
+        }
+    }
+    //.logo-footer {}
+    &-footer  {
+        max-width: 438px;
+        max-height: 140px;
+        height: 140px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+   //.logo-img{}   
+    &-img{
+        height: 100%;
+        width: 100%;
+        max-width: 270px;
+        top: 0;
+        left: 0px;
+        max-height: 100%;
+        position: absolute;
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        @include mobile {
+            position: relative;
+            // left: calc(100% - 65px);
+            margin-top: 15px;
+        }
+    }
+}

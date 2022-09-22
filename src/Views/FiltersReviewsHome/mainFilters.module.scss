@@ -1,0 +1,10 @@
+@import '../../styles/variables.scss';
+
+//.main-filters{}
+.main-filters {
+    //.main-filters__list{}
+    &__list {
+        @include tabs;
+        width: auto;
+    }
+}

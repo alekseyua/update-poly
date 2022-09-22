@@ -1,0 +1,240 @@
+@import '../../../styles/variables.scss';
+
+.modal {
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+//.reviews-card{}
+.reviews-card {
+  position: relative;
+  padding: 20px;
+  letter-spacing: 0.04em;
+  height: 100%;
+  margin: 0 auto;
+  min-width: 175px;
+  max-width: 350px;
+  @include mobile {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    margin: 0;
+  }
+
+  //.reviews-card--block{}
+  &--block {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    max-width: inherit;
+  }
+
+  //.reviews-card__header{}
+  //.reviews-card__footer{}
+  &__header,
+  &__footer {
+    @include flex(sc);
+    align-items: flex-end;
+
+    //.reviews-card__header--right{}
+    //.reviews-card__header--left{}
+    &--left,
+    &--right {
+      @include flex(lc);
+    }
+
+    // @include mobile {
+      &--right {
+        position: absolute;
+        bottom: 15px;
+      }
+    // }
+  }
+
+  //.reviews-card__header{}
+  &__header {
+    margin-bottom: 10px;
+
+    @include mobile {
+      display: block;
+    }
+
+    //.reviews-card__header--left{}
+    &--left {
+      width: 100%;
+    }
+
+    //.reviews-card__header--right{}
+    &--right {
+      width: 100%;
+    }
+  }
+
+  //.reviews-card__username{}
+  &__username {
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  //.reviews-card__tag{}
+  &__tag {
+    @include flex(lc);
+
+    //.reviews-card__tag-img{}
+    &-name {
+      padding: 0 5px;
+      margin-left: 2px;
+      border: 2px solid var(--gx-color-lightpink);
+      border-radius: 12px;
+      font-size: 12px;
+      color: var(--gx-color-accent);
+
+      @include tablet-md {
+        display: none;
+      }
+    }
+
+    //.reviews-card__tag-name{}
+    &-img {
+      --icon-width: 14px;
+      --icon-height: 20px;
+    }
+  }
+
+  //.reviews-card__product-page{}
+  &__product-page {
+    color: var(--gx-color-primary);
+    font-size: 12px;
+    border-bottom: 1px dashed var(--gx-color-primary);
+  }
+
+  //.reviews-card__date{}
+  &__date {
+    margin-left: 20px;
+    font-size: 12px;
+    color: var(--gx-color-darkgray2);
+    white-space: nowrap;
+  }
+
+  //.reviews-card__rating{}
+  &__rating {
+    @include flex(lc);
+
+    &-item {
+      --icon-width: 20px;
+      --icon-height: 20px;
+      margin-right: 4px;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
+  //.reviews-card__content{}
+  &__content {
+    margin-top: 7px;
+    margin-bottom: 20px;
+  }
+
+  //.reviews-card__thumbnails{}
+  &__thumbnails {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  //.reviews-card__photo
+  &__photo {
+    width: 75px;
+    height: 96px;
+    margin-right: 10px;
+    padding: 3px;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--gx-color-gray);
+
+    //.reviews-card__photo-img{}
+    &-img {
+      object-fit: cover;
+      // width: 100%;
+      // height: 100%;
+    }
+  }
+
+  //.reviews-card__video
+  &__video {
+    width: 75px;
+    height: 96px;
+    margin-right: 10px;
+    padding: 3px;
+    background: var(--gx-color-gray);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 80px;
+      background: rgba(40, 37, 52, 0.6);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      z-index: 2;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('../../../images/ReviewsCard/play.svg');
+    }
+  }
+
+  //.reviews-card__like
+  &__like {
+    @include flex(lc);
+    align-items: flex-end;
+    cursor: pointer;
+    position: relative;
+    //.reviews-card__like-img{}
+    &-img {
+      color: var(--gx-color-darkgray);
+      margin-right: 8px;
+      cursor: pointer;
+      filter: invert(50%);
+      //.reviews-card__like-img-liked{}
+      &-liked {
+        color: var(--gx-color-red);
+        margin-right: 8px;
+        // filter: invert(0%);
+      }
+    }
+    
+    //.reviews-card__like-count{}
+    &-count {
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+    }
+  }
+}

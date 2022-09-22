@@ -1,0 +1,37 @@
+@import '../../../../styles/variables.scss';
+
+.bottom-header-menu {
+    width: 100%;
+    @include mobile {
+      display: none;
+    }
+ //.bottom-header-menu__list{}
+    &__list {
+      @include ul;
+      @include flex(cc);
+        justify-content: space-evenly;
+  
+      @media (min-width: 1460px) {
+        justify-content: space-evenly;
+      }
+      @media (min-width: 1420px) {
+              letter-spacing: calc((-3 + 6) * ((100vw - 320px) / (1920 - 320)));
+          }
+      @include laptop-sm {
+        display: none;
+      }
+    }
+ //.bottom-header-menu__li{} 
+    &__li {
+      position: relative;
+      //.bottom-header-menu__li-item{}
+      
+      & a {
+        color: #141414;
+        font-size: 24px;
+      }
+      & a:hover{
+        color: $a2;
+      }
+    }
+  }

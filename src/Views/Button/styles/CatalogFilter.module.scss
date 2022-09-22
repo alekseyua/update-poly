@@ -1,0 +1,97 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+.catalog_mobile {
+    //.catalog_mobile__apply{}
+    &__filter,
+    &__clear,
+    &__apply {
+        // display: none;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        padding: 0 0;
+        min-width: 147px;
+        margin-bottom: 40px;
+
+        @include tablet-md {
+            // display: block;
+            padding: 10px;
+        }
+
+        @include mobile-md {
+            padding: 10px 5px;
+        }
+    }
+
+    &__filter {
+        text-align: center;
+        border: 2px solid #282534;
+        box-sizing: border-box;
+        border-radius: 2px;
+        color: $p;
+        background-color: transparent;
+        width: 100%;
+        display: none;
+        @include tablet-md{
+            display: flex;
+        }
+        @include mobile{
+            display: flex;
+        }
+//.catalog_mobile__filter-closed{}
+        &-closed {
+            padding: 0 15px;
+            position: fixed;
+            z-index: 10000;
+            top: 0px;
+            @extend %font-title;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 28px;
+            line-height: 60px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--gx-color-primary);
+            text-align: center;
+            box-sizing: border-box;
+            color: $p;
+            border: none;
+            box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.08);
+            background-color: var(--gx-color-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            left: 0;
+            display: none;
+            &>div{
+                pointer-events: none;
+            }
+            @include tablet-md{
+                display: flex;
+                height: 120px;
+            }
+            @include mobile{
+                display: flex;
+                height: 60px;
+            }
+        }
+    }
+
+    //.catalog_mobile__apply{}
+    &__clear,
+    &__apply {
+        width: auto;
+        border-radius: 2px;
+    }
+
+    &__clear {
+        border: 2px solid $g2;
+        background-color: $g;
+    }
+    //.catalog_mobile__apply{}
+    &__apply {
+        background-color: $a2;
+        color: $w;
+    }
+}

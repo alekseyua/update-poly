@@ -1,0 +1,54 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+//.input__wrapper{}
+.input{
+    &__wrapper{
+        width: 100%;
+        margin: 5px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    //.input__input{}
+    &__input{
+        font-size: $fontSize;
+        width: 100%;
+    }
+    //.input__label{}
+    &__label{
+        font-size: $fontSize;
+        color: $p;
+        @extend %font;
+        margin: 0 0 0 10px;
+    }
+}
+
+
+[name=input-search]{
+    width: 320px;
+    background: transparent;
+    margin: 5px;
+    padding: 0 12px 0 8px;
+    @include tablet-lg{
+        width: 100%;
+    }
+    &::-webkit-input-placeholder {
+        /* Edge */
+        color: $dg2;
+        font-size: $fontSize;
+
+    }
+    &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: $dg2;
+        font-size: $fontSize;
+    }
+    &::placeholder {
+        color: $dg2;
+        font-size: $fontSize;
+    }
+}
+
+.input-mt_20{
+    margin-bottom: 20px;
+}

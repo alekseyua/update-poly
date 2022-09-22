@@ -1,0 +1,51 @@
+.marketInfo{
+  //.marketInfo__wrapper{}
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    //.marketInfo__wrapper-ellipse{}
+    &-ellipse {
+      height: 60px;
+      width: 60px;
+      border-radius: 60px;
+      align-items: center;
+      border: 2px solid var(--gx-color-darkgray2);
+      box-sizing: border-box;
+      text-align: center;
+      overflow: hidden;
+      div {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    //.marketInfo__wrapper-name_and_link{}
+    &-name_and_link {
+      font-weight: bold;
+      font-size: 16px;
+      color: var(--gx-color-primary);
+      letter-spacing: 0.02em;
+      padding-left: 10px;
+      p {
+        margin: 0;
+      }
+      //.marketInfo__wrapper-name_and_link-name{}
+      &-name {
+      }
+      //.marketInfo__wrapper-name_and_link-link{}
+      &-link {
+        position: relative;
+        top: -5px;
+        font-weight: normal;
+        font-size: 12px;
+        a {
+          color: var(--gx-color-blue);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+@import './fonts/index.scss';
+
+:root {
+  --gx-color-white: #fff;
+  --gx-color-blue: #1e34ff;
+  --gx-color-lightmauve: #ec8c97;
+  --gx-color-primary: #282534;
+  --gx-color-black: #1d1b1e;
+  --gx-color-primary2: #4b454b;
+  --gx-color-accent: #583f4c;
+  --gx-color-accent2: #933468;
+  --gx-color-accent2-rgb: 147, 52, 104;
+  --gx-color-pink: #ffa6b0;
+  --gx-color-pink2: #f2aab3;
+  --gx-color-pink3: #fee9eb;
+  --gx-color-lightpink: #fcd2d7;
+  --gx-color-lightpink-rgb: 252, 210, 215;
+  --gx-color-darkgray: #dbd7dc;
+  --gx-color-darkgray2: #a5a0a7;
+  --gx-color-pre-white: #fbfafb;
+  --gx-color-gray: #f3eff3;
+  --gx-color-gray2: #f7f4fc;
+  --gx-color-red: #e292c8;
+  --gx-color-green: #7abb7d;
+  --gx-color-palePurple: #faf5f7;
+  --gx-input-border-color-focus: var(--gx-color-pink3);
+  --gx-focus-ring-box-shadow: transparent;
+  --gx-input-color: #282534;
+  --gx-input-dark: #3d3b47;
+  --icon-width: 24px;
+  --icon-height: 24px;
+  --gx-color-primary-hue: 0;
+  --gx-z-index-dialog: 1000;
+  --gx-input-font-family: %font;
+  --gx-font-sans: %font;
+  --gx-overlay-background-color: #583f4c;
+  --textLink: #820c78;
+  --line: #BBC1E1;
+  --line-active: #275EFE;
+  --gx-font-weight: 500;
+  --gx-transition-fast: .6s;
+  --gx-input-height-medium: auto;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %font-head;
+}
+
+body, html {
+  background-color: #fff;
+}
+
+
+.video-react-video {
+  width: 100%;
+}
+
+img {
+  display: initial;
+}
+
+.video-react-control-bar,
+.video-react-button,
+.video-react-loading-spinner {
+  display: none;
+}
+
+
+
+.productdescription__inner-title {
+  margin: 0 15px;
+}
+
+.select__label {
+  color: #000;
+}
+
+
+.button--full {
+  width: 100%;
+}
+
+.button--med {
+  font-size: var(--gx-button-font-size-medium);
+  height: var(--gx-input-height-medium);
+  line-height: var(--gx-input-line-height-medium);
+  border-radius: var(--gx-input-border-radius-medium);
+  padding: 0 var(--gx-spacing-large);
+}
+
+.button {
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  // border: 1px solid;
+  @extend %font;
+  font-weight: var(--gx-font-weight);
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: var(--gx-transition-fast) background-color, var(--gx-transition-fast) color, var(--gx-transition-fast) border, var(--gx-transition-fast) box-shadow;
+  cursor: inherit;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button--spinner-line {
+
+  // position: relative;
+  &>span {
+    position: absolute;
+    display: block;
+  }
+
+  &>span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $pi2);
+    animation: btn-anim1 1s linear infinite;
+  }
+
+  &>span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, $pi2);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+
+  &>span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, $pi2);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+
+  &>span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, $pi2);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+  
+}
+
