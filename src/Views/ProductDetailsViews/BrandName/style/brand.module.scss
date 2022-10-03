@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+.prodpage__namebrand{
+    @extend %font;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 140%;
+    letter-spacing: 0.07em;
+    color: $pi;
+    margin-bottom: 4px;
+    padding-left: 4px;
+}

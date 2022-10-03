@@ -70,12 +70,12 @@
           position: absolute;
           right: 0;
           font-size: 8px;
-          transform: translate(9px, -12px) rotate(180deg);
+          transform: translate(9px, 6px) rotate(180deg);
         }
         &:hover{
           color: $pi;
           &::before{
-            transform: translate(9px, -12px) rotate(0deg);
+            transform: translate(9px, 6px) rotate(0deg);
           }
         }
       }

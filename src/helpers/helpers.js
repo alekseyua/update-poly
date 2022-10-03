@@ -143,8 +143,6 @@ export const rotateMatrix = (matrix) => {
     return result;
 };
 
-
-
 export const getCoordinat = (testBlock) => {
     const getCoords = (elem) => { // кроме IE8-
         let box = elem.getBoundingClientRect();
@@ -166,3 +164,11 @@ export const getCoordinat = (testBlock) => {
         }, false);
     }, false);
 }
+
+export const getActiveColor = (color) => {
+    return !Array.isArray(color)? color : color.filter(el=> el.selected)[0].id
+} 
+
+export const getActiveSize = (size) => {
+    return !Array.isArray(size)? size : size.filter(el=> el.selected)[0].id
+} 

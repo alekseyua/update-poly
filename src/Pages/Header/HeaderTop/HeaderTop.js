@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import Logo from '../../../Views/Logo/Logo';
 import TopHeaderMenu from './TopHeaderMenu/TopHeaderMenu';
@@ -15,11 +15,18 @@ import BurgerMenuContainer from './TopHeaderMenu/BurgerMenu/BurgerMenuContainer'
 import style from './index.module.scss';
 
 const HeaderTop = (props) => {
+// console.log('props header top', props)
+
+  useEffect(()=>{
+    !getCookie(COOKIE_KEYS.CURRENCIES)?
+      setCookie(COOKIE_KEYS.CURRENCIES, DEFAULT_CURRENCIES, ONE_YEARS)
+      : null
+  },[])
 
   const getCurrencies = () => {
-    if (props.currencies) {
-      return props.currencies[0];
-    } else {
+    if (getCookie(COOKIE_KEYS.CURRENCIES)) {
+      return getCookie(COOKIE_KEYS.CURRENCIES);
+    } else {        
       return DEFAULT_CURRENCIES;
     }
   };
@@ -38,8 +45,10 @@ const HeaderTop = (props) => {
       : CURRENCIES_DATA,
   };
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
+
   const setCurrenciesData = (data) => {
     setCookie(COOKIE_KEYS.CURRENCIES, data.active, ONE_YEARS);
+    props.setCurrencyCurrencies(data.active)
     setCurrencies(prev => ({
       ...prev,
       ...data

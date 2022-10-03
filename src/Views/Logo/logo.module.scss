@@ -14,7 +14,7 @@
     cursor: pointer;
     @include mobile{
 
-        @include adaptive-value('width',500,190,'px',2);
+        @include adaptive-value('width',500,190,px,2);
     }
     &:hover {
         color: var(--gx-color-black);

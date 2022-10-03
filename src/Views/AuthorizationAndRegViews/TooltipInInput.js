@@ -2,15 +2,17 @@ import React from 'react';
 import style from './styles/toolTip.module.scss';
 import classNames from 'classnames';
 const TooltipInInput = ({ content, children, trigger, local, ...props }) => {
-/**
+
+  /**
  * @param {
  *  нужна реализация;
  *  1) при наведении
  *  2) при клике
  *  3) ато показ до фокуса
  * }
- * return 
+ *  @returns 
  */
+
   if(trigger = 'hover'){
 
   }

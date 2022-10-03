@@ -4,6 +4,8 @@ import {
 } from './serializers';
 import UserApi from "./UserApi";
 import ContentApi from "./ContentApi";
+import ProfileApi from "./ProfileApi";
+import CartApi from "./CartApi";
 
 
 class Api extends AbstractBaseApi  {
@@ -11,12 +13,14 @@ class Api extends AbstractBaseApi  {
         super(MAIN_URL)
         this.userApi = new UserApi(MAIN_URL);
         this.contentApi = new ContentApi(MAIN_URL);
+        this.profileApi = new ProfileApi(MAIN_URL);
+        this.cartApi = new CartApi(MAIN_URL);
 
     }
 
     getPage = async (params, axiosParams) => {      
         try{
-            console.log('params[0]', params)
+            // console.log('params[0]', params)
             // console.log('axiosParams = ', axiosParams)
             const slug = !!params.url ? `${params.url}` : '/';
             const res = await this.get(`/content/page${slug}`, params, axiosParams);

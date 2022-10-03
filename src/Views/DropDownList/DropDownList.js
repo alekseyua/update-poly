@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Form from '../Form';
+import Select from '../Select';
 import style from './dropdownlist.module.scss';
 
 const DropDownList = ({ listItems, active, currenciesData, setCurrenciesData }) => {
@@ -13,8 +15,12 @@ const DropDownList = ({ listItems, active, currenciesData, setCurrenciesData }) 
     }
 
     return (
-        <form className={style['drop-down__form']}>
-            <select className={style['drop-down__select']} value={activeItem} onChange={handlerChangeDropDown}>
+        <Form className={style['drop-down__form']}>
+            <select 
+                className={style['drop-down__select']} 
+                value={activeItem} 
+                onChange={handlerChangeDropDown}
+            >
                 {
                     listItems.map((el, i) => {
                         return (
@@ -28,8 +34,14 @@ const DropDownList = ({ listItems, active, currenciesData, setCurrenciesData }) 
                     })
                 }
             </select>
-
-        </form>
+                {/* <Select
+                className={'drop-down__select'}                
+                value={activeItem}
+                onClick={handlerChangeDropDown}
+                options={listItems}
+                placeholder={activeItem}
+              /> */}
+        </Form>
     )
 }
 

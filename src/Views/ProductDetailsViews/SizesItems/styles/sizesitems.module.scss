@@ -1,0 +1,48 @@
+@import '../../../../styles/variables.scss';
+//.prodpage-sizes{}
+.prodpage-sizes{
+    padding: 0;
+    //.prodpage-sizes__items{}
+    &__items{
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    //.prodpage-sizes__item{}
+    &__item{
+        padding: 0;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        width: 60px;
+        height: 40px;
+        border: 1px solid $back;
+    }
+    //.prodpage-sizes__btn{}
+    &__btn{
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $w;
+        text-align: center;
+        color: $back;
+        font-weight: 900;
+        &:hover{
+            cursor: pointer;
+            border: 1px dotted $a2;
+            transform: scale(120%);
+        }
+        //.prodpage-sizes__btn--active{}
+        &--active{
+            background-color: $back;
+            transform: scale(120%);
+            color: $w;
+            &:hover{
+                cursor: not-allowed;
+            }
+        }
+    }
+}

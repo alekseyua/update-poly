@@ -22,19 +22,32 @@ const getVariantStyleCheckbox = (variant = variantEnum.default) => {
   }
 };
 
+/**
+ * 
+ * @param {
+ * работает только на onChange
+ * classNameLabel - класс для label
+ * className - класс для CheckBox
+ * 
+ * } param0 
+ * @returns checked 
+ */
+
+
 const CheckBox = ({
+  classNameLabel,
+  colorField = false,
+  className,
   onChange,
-  label,
+  disabled,
+  children,
   helpText,
   variant,
   checked,
-  disabled,
-  colorField = false,
-  className,
-  name,
   value,
+  label,
+  name,
   id,
-  children,
   ...props
 }) => {
   //todo: чтоб не светился ошибками сделаю мега костыль не бейте пж
@@ -53,8 +66,14 @@ const CheckBox = ({
   const classNameCustom = classNames({
     [style['type-checkbox']]: true,
     [getVariantStyleCheckbox(variant)]: true,
-    [style[className]]: !!className,
+    [className]: !!className,
   });
+
+  const classNameLabelCheckBox = classNames({
+    [style['checkbox__label']]: true,
+    [classNameLabel]: !!classNameLabel
+  })
+
   return (
     <div 
       className={style['checkbox__container']}
@@ -78,7 +97,7 @@ const CheckBox = ({
         id={id}
         value={value} 
       />
-        <label htmlFor="check" className={style['checkbox__label']}>
+        <label htmlFor="check" className={classNameLabelCheckBox}>
           <span></span>{label}
         </label>
 
@@ -87,7 +106,7 @@ const CheckBox = ({
           helpText
           : null        
       }
-
+      {children}
 
     </div>
   );

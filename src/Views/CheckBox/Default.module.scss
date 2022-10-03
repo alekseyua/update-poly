@@ -6,6 +6,7 @@
 
   //.checkbox__container{}
   &__container {
+    width: 100%;
     display: flex;
     align-items: center;
   }
@@ -19,6 +20,8 @@
     color: $dg2;
     cursor: pointer;
     position: relative; // important    
+    display: flex;
+    align-items: center;
 
     // Now we'll create the checkbox object    
     span {

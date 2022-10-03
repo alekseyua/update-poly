@@ -1,15 +1,25 @@
 import React, { useEffect } from "react";
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
+import Icon from '../Icon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 
 
-const Slider = ({ slides, paramsSlider, profileId, slidesData, SlideCard, ...props }) => {
+const Slider = ({ 
+    slides, 
+    paramsSlider, 
+    profileId, 
+    slidesData, 
+    SlideCard,
+    ...props 
+}) => {
 
-    //?! нужно будет более развёрнуто поработать с настройками
+
+
+
+     //?! нужно будет более развёрнуто поработать с настройками
     return (
         <Swiper
             // install Swiper modules

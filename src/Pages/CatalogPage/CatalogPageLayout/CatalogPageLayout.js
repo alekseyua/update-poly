@@ -30,6 +30,11 @@ const AsyncTypeProductFilters = AsyncComponent(() => {
   return import('./CatalogFilters/TypeProductFilters');
 });
 
+const AsyncProductCard = AsyncComponent(() => {
+  return import('../../../Views/ProductCard');
+});
+
+
 const CatalogPageLayout = ({
   breadcrumbs,
   setShowFilters,
@@ -43,7 +48,7 @@ const CatalogPageLayout = ({
   valueCheckBoxFilters,
   filterParams,
   options,
-
+  currency,
   role,
 
   isFilters,
@@ -193,7 +198,7 @@ const CatalogPageLayout = ({
                       textWarning={<div dangerouslySetInnerHTML={{ __html: content }}></div>}
                     />
                     <CatalogViews.SortSelect
-                      valueOptionsSort = {filterParams.ordering}
+                      valueOptionsSort={filterParams.ordering}
                       selectedSortFilters={(selected) => {
                         return loadData({ ordering: selected });
                       }}
@@ -201,31 +206,53 @@ const CatalogPageLayout = ({
                     />
                     {/* {status === 'loading' ? ( */}
                     {/* { 
-                     !!dataProducts.length ? (
+                     !!dataProducts?.result.length ? (
                        <BlockSpinner.SpinnerWrapper>
                          <BlockSpinner.Spinner size="200" />
                        </BlockSpinner.SpinnerWrapper>
                      ) : (*/}
-                      <>
-                        <CatalogViews.Tags>
+                    <>
+                      <CatalogViews.Tags>
 
-                          <EnabledFiltersOptions
-                           enabledFilterData={filterParams}
-                           defaultFilterData={options}
-                           translateKey={'options'}
-                           resetContextFilter={resetContextFilter}
-                           keyFilter={'ordering'}
-                          />
-
-                          <EnabledFilters
-                              enabledFilterData={filterParams}
-                              defaultFilterData={valueProducts}
-                              resetContextFilter={resetContextFilter}
-
-                              translateKey={'new'}
-                              keyFilter={'is_new'}
-                          />
-
+                        <EnabledFiltersOptions
+                          enabledFilterData={filterParams}
+                          defaultFilterData={options}
+                          translateKey={'options'}
+                          resetContextFilter={resetContextFilter}
+                          keyFilter={'ordering'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          resetContextFilter={resetContextFilter}
+                          translateItem={'inStock'}
+                          translateKey={'catalog'}
+                          keyFilter={'is_in_stock'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          resetContextFilter={resetContextFilter}
+                          translateItem={'new'}
+                          translateKey={'catalog'}
+                          keyFilter={'is_new'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          resetContextFilter={resetContextFilter}
+                          translateItem={'hit'}
+                          translateKey={'catalog'}
+                          keyFilter={'is_bestseller'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          resetContextFilter={resetContextFilter}
+                          translateItem={'sell.out'}
+                          translateKey={'catalog'}
+                          keyFilter={'is_closeout'}
+                        />
                         <EnabledFilters
                           enabledFilterData={filterParams}
                           defaultFilterData={valueProducts}
@@ -254,42 +281,47 @@ const CatalogPageLayout = ({
                           resetContextFilter={resetContextFilter}
                           keyFilter={'sizes'}
                         />
-                            {isFilters(filterParams, resetAllFilters)}
-                        </CatalogViews.Tags>
+                        {isFilters(filterParams, resetAllFilters)}
+                      </CatalogViews.Tags>
 
-                        {/* {
-                            !results.length ? <CatalogViews.EmptyCatalog /> : null
-                          } */}
+                      {
+                        !!!dataProducts?.results.length && showFilters ? <CatalogViews.EmptyCatalog /> : null
+                      }
 
-                        {/* <CatalogViews.WrapperCard>
+                      <CatalogViews.WrapperCard>
                             {
-                              results.map((el) => {
+                              !!dataProducts?.results.length?
+                              dataProducts.results.map((el) => {
+                                // console.log({el})
                               return (
                                 <AsyncProductCard
-                                  profile={newProfile}
-                                  url={el.url}
-                                  key={el.id}
-                                  title={el.title}
-                                  id={el.id}
-                                  brand={el.brand}
-                                  favorite={el.favorite}
-                                  prices={el.prices}
-                                  stock={el.stock}
-                                  colors={el.colors}
-                                  images={el.images}
-                                  isSales={el.isSales}
-                                  isNew={el.isNew}
-                                  isHit={el.isHit}
-                                  sizes={el.sizes}
-                                  product_rc={el.product_rc}
-                                  article={el?.id}//article}
+                                role={role}
+                                key={el.id}
+                                title={el.title}
+                                id={el.id}
+                                url={el.url}
+                                brand={el.brand}
+                                prices={el.prices}
+                                stock={el.stock}
+                                colors={el.colors}
+                                sizes={el.sizes}
+                                images={el.images}
+                                isSales={el.isSales}
+                                isNew={el.isNew}
+                                isHit={el.isHit}                                  
+                                favorite={el.is_liked}
+                                product_rc={el.product_rc}
+                                article={el.article}
+                                currency={currency}
                                 />
                                 );
                               })
+                              : null
                             }
-                          </CatalogViews.WrapperCard> */}
+                          </CatalogViews.WrapperCard> 
 
-                        {/* {
+
+                      {/* {
                           isNext ? (
                             <Button full onClick={showMore} variant={'show_more'}>
                               <Text text={'show.more'} />
@@ -297,17 +329,17 @@ const CatalogPageLayout = ({
                           ) : null
                           } */}
 
-                        {/* <Pagination
+                      {/* <Pagination
                             addClass={'left'}
                             activePage={activePage}
                             count={count}
                             params={filterParams}
                           /> */}
-                      </>
-                       {/* )} */}
+                    </>
+                    {/* )} */}
                   </CatalogViews.Catalog>
                   : null
-                }
+              }
             </React.Fragment>
           </CatalogViews.Row>
         </React.Fragment>

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import style from '../styles/grid.module.scss';
 
-const Row = ({ children }) => {
+const Row = ({ className, children }) => {
     return(
         <div 
             className={classNames({

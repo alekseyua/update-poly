@@ -1,0 +1,91 @@
+@import '../../../../styles/variables.scss';
+
+.prodpage-control-buttons {
+
+    //.prodpage-control-buttons__container{}
+    &__container {
+        position: relative;
+    }
+
+    //.prodpage-control-buttons__add-to-cart-container{}
+    &__add-to-cart-container, &__add-to-cart-container--fierst {
+        border: 2px solid $p;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 14px;
+        background-color: $w;
+        max-width: 376px;
+        // min-width: 300px;
+        @include adaptive-value('min-width', 300,  275, px,2);        
+        width: 100%;
+        min-height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    //.prodpage-control-buttons__add-to-cart-container--fierst{}
+    &__add-to-cart-container--fierst{
+        background-color: $back;
+
+    }
+    //.prodpage-control-buttons__descrement-button{}
+    &__descrement-button {
+        padding: 0;
+        &:hover{
+            color: $rd;
+        }
+    }
+
+    //.prodpage-control-buttons__increment-button{}
+    &__increment-button {
+        padding: 0;
+        &:hover{
+            color: $gr;
+        }
+    }
+
+    &__descrement-button, &__increment-button {
+        width: 60px;
+        height: 54px;
+        background-color: $back;
+        color: $w;
+        font-size: 22px;
+    }
+
+    //.prodpage-control-buttons__info-in-cart{}
+    &__info-in-cart {
+        padding: 0;
+    }
+
+    //.prodpage-control-buttons__fierst-add-to-cart{}
+    &__fierst-add-to-cart {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        text-transform: uppercase;
+        color: $w;
+        width: 100%;
+    }
+
+    //.prodpage-control-buttons__inner-button{}
+    &__inner-button{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        height: 54px;
+    }
+    //.prodpage-control-buttons__text-button{}
+    &__text-button{
+        pointer-events: none;
+    }
+
+
+}
+.prodpage-control-buttons__indicator{
+    background-color: aqua;
+}
+.prodpage-control-buttons__indicator--color__red{
+    background-color: yellow;
+}

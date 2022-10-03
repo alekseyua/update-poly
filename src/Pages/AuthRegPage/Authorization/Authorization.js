@@ -6,6 +6,7 @@ import { checkLocalStorage, getLocalStorage, removeLocalStorage, setLocalStorage
 import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
 import AuthorizationForm from './AuthorizationForm';
 import Text from '../../../helpers/Text';
+import { useNavigate } from 'react-router-dom';
 
 import style from '../styles/auth-regist.module.scss';
 
@@ -14,6 +15,7 @@ const Authorization = (props) => {
   const { site_configuration } = props.context;
   const { dispatch } = useStoreon();
   const { page_type_reg, video_page } = site_configuration;
+  const navigate = useNavigate();
 
   const errorsMessenge = {
     longUsername: Text({ text: 'long.nickname' }),
@@ -58,8 +60,15 @@ const Authorization = (props) => {
     const params = {
       username: data.username,
       password: data.password,
-      setFieldError: setFieldError
+      setFieldError: setFieldError,
+      callbackRedirect: (to) => {
+        const timerTimeout = setTimeout(()=>{
+          navigate(to);
+          return () => clearTimeout(timerTimeout);          
+        },2000)
+      }
     }
+
     dispatch('setAuthorithation', params)
     dispatch('setModalState', {
       show: true,

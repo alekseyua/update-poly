@@ -1,0 +1,42 @@
+@import '../../../../styles/variables.scss';
+//.prodpage-colors{}
+.prodpage-colors{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    // margin-right: 20px;
+    // margin-bottom: 20px;
+    //.prodpage-colors__name{}
+    &__name{
+        display: flex;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        padding: 0;
+    }
+    //.prodpage-colors__items{}
+    &__items{
+        padding: 0;
+        display: flex;
+    }
+    //.prodpage-colors__item{}
+    &__item{
+        padding: 0;
+        width: 25px;
+        height: 25px;
+        margin-right: 7px;
+    }
+    //.prodpage-colors__btn{}
+    &__btn{
+        padding: 0;
+        &:hover{
+            cursor: pointer;
+        }
+        &--active{
+            box-shadow: inset 3px 3px 3px #000, inset -4px -4px 3px #000;
+            transform: scale(120%);
+            &:hover{
+                cursor: not-allowed;
+            }
+        }
+    }
+}

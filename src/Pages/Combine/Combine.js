@@ -3,6 +3,7 @@ import Grid from '../../Views/GridContainerBlock';
 import Spinner from '../../Views/SpinnerWrapper/Spinner';
 import About from '../AboutPage/About';
 import { Authorization, Registration } from '../AuthRegPage';
+import CartPage from '../CartPage/CartPage';
 import CatalogPage from '../CatalogPage/CatalogPage';
 import InformationDelivery from '../DeliveryPage/InformationDelivery';
 import InformationExchange from '../ExchangePage/InformationExchange';
@@ -15,30 +16,15 @@ import InformationJuridical from '../JuridicalPage/InformationJuridical';
 import LoadingPage from '../LoadingPage';
 import NewsDetailsPage from '../NewsPage/NewsDetailsPage';
 import NewsPage from '../NewsPage/NewsPage';
+import OrderingPage from '../OrderingPage/OrderingPage';
 import PartnershipPage from '../PartnershipPage/PartnershipPage';
 import InformationPayments from '../PaymentPage/InformationPayments';
+import ProductDetails from '../ProductDetailsPage';
 
 
-
-
-
-// var _this$props = _this.props,
-//           fetchInitialData = _this$props.fetchInitialData,
-//           match = _this$props.match,
-//           _this$props$isScrollT = _this$props.isScrollTo,
-//           isScrollTo = _this$props$isScrollT === void 0 ? true : _this$props$isScrollT,
-//           location = _this$props.location;
-//       var search = location.search;
-//       var queryParams = qs.parse(search);
-//       fetchInitialData(match.params, queryParams).then(function (res) {
-//         if (isScrollTo) {
-//           window.scrollTo({
-//             top: 0
-//           });
-//         }
 
 const Combine = ({...props}) => {
-    const [ dataContext, setDataContext ] = useState(props.context.init_state);
+    const [ dataContext, setDataContext ] = useState(null);//init_state
     const PAGE_TYPES = {
         'loading-page': LoadingPage,
         1 :  Home,              //?! главная страница
@@ -57,17 +43,34 @@ const Combine = ({...props}) => {
         2: Information, //? страница информации
         20: InformationContacts, //? страница с информацией по контактам
         22: InformationReviews, //? страница с информацией по отзывам
+        4: ProductDetails, //? детальная страница продукта http://localhost:3000/product-181-shapkaia-pukhovaia-1
+        9: CartPage, //?корзина http://localhost:3000/cart
+        11: OrderingPage, //? страница Оформление заказа
 
+
+    
     }
+
+
+    useEffect(()=>{
+        setDataContext(c=>({            
+            ...c,
+            init_state: props.context
+        }))
+    },[props.context])
     
     useEffect( async ()=>{
         const data = await props.fetchInitialData({url: props.url})
-        setDataContext(data)
+        setDataContext(c=>({            
+            ...c,
+            type: data.type,
+            init_state: {...c.init_state, ...data.init_state}
+        }))
     },[props.url])
 
     const Page = PAGE_TYPES[dataContext?.type];
     const DevPage = PAGE_TYPES['loading-page']
-    console.log('PAGE = ', !!Page)
+    // console.log('PAGE = ', !!Page)
     return (<>
         {
             !!Page? <Page context={dataContext.init_state} /> : <Grid.WrapperBlock>

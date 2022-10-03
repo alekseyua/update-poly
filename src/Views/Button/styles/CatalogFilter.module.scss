@@ -64,9 +64,7 @@
             align-items: center;
             left: 0;
             display: none;
-            &>div{
-                pointer-events: none;
-            }
+            
             @include tablet-md{
                 display: flex;
                 height: 120px;

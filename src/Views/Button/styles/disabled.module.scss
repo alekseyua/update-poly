@@ -2,6 +2,10 @@
 
 .button--disabled{
     background-color: $dg2;
+    width: 100%;
+    height: 100%;
+    color: $w !important;
+    font-size: 22px;
     &:hover{
       cursor: not-allowed;
       box-shadow: none;

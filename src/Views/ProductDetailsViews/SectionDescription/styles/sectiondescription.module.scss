@@ -1,0 +1,40 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+
+.productdescription{
+    //.productdescription__container{}
+    &__container{
+        padding: 10px;
+        width: 100%;
+        box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+
+    }
+    //.productdescription__inner-title{}
+    &__inner-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-right: 25px;
+        margin-bottom: 20px;
+        @extend %font;
+        font-weight: 900;
+    }
+    //.productdescription__text-article{}
+    &__text-article{
+        text-transform: uppercase;
+        @extend %font;
+        font-size: 15px;
+    }
+    //.productdescription__row{}
+    &__row{
+        line-height: 22px;
+        letter-spacing: 1px;
+    }
+
+}
+
+//.productdescription__text{}
+
+

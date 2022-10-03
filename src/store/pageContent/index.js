@@ -1,13 +1,23 @@
 import api from '../../api/api';
 import initData from '../../../public/content-page.json';
 import { initValueCheckBoxFilters } from '../../helpers/initialValues/initialValues';
+import { getCookie } from '../../helpers/helpers';
+import { COOKIE_KEYS } from '../../const';
+
 
 export const pageContent = store => {
-
     store.on('@init', () => ({ context: initData }));
-    store.on('context', ({ context }, data) => {
+    store.on('context', ({ context, countWishList }, data) => {
+        const currency = getCookie(COOKIE_KEYS.CURRENCIES)
         // console.log({data})
-        return { context: { ...data } }
+        return { context: { 
+            ...data, 
+            "init_state": {
+                ...data.init_state,
+                currency: currency,
+                countWishList: countWishList,
+            }
+        } }
 
     })
     store.on('getContextPage', async ({ context, valueCheckBoxFilters }, url, { dispatch }) => {
@@ -84,6 +94,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                         "news": [],
                     },
                 }
@@ -102,6 +113,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 dispatch('setModalState', {
@@ -116,6 +128,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -131,6 +144,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -146,6 +160,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -161,6 +176,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -176,6 +192,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -191,6 +208,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -206,6 +224,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -221,6 +240,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -237,6 +257,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -247,7 +268,6 @@ export const pageContent = store => {
                 })
                 return dispatch('context', newContext)
             }
-
             if (url === '/catalog') {
                 const newContext = {
                     ...context,
@@ -255,7 +275,8 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
-                        filters_params: { ...initValueCheckBoxFilters }
+                        filters_params: { ...initValueCheckBoxFilters },
+                        
                     },
                 }
 
@@ -265,23 +286,62 @@ export const pageContent = store => {
                 dispatch('context', newContext)
                 return dispatch('getCatalog')
             }
-            if (url.includes('/catalog?')) {
-                let params = {
-                    page: 1,                
-                }
-                url.includes('is_closeout')? params = {...params, is_closeout: true}
-                    : url.includes('is_in_stock')? params = {...params, is_in_stock: true}
-                        : url.includes('is_new')? params = {...params, is_new: true}
-                            : url.includes('is_bestseller')? params = {...params, is_bestseller: true}
-                                : url.includes('is_closeout')? params = {...params, is_closeout: true}
-                                : null
-
+            if (url === '/cart') {
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        dataCart: {
+                            cartitem_set: [],
+                            in_stock: [],
+                        },
+                        listCurrentOrder: [],
+                    },
+                }
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getDataCart')
+                    return () => clearTimeout(timerTimeout);
+                },500)
+                // dispatch('getYouAlreadyWatch');
+                if(!!context.init_state.dataCart.cartitem_set.length){
+                    const timerTimeout = setTimeout(()=>{
+                        dispatch('getCatalog');
+                        return () => clearTimeout(timerTimeout);
+                    },4000)
+                return
+                }
+            }
+
+            if (url.includes('/catalog?')) {
+                let params = {
+                    page: 1,                
+                }
+
+                //?! необходимо при выборе категории добавлять результат в фильтр
+
+                url.includes('is_closeout')? params = {...params, is_closeout: true}
+                    : url.includes('is_in_stock')? params = {...params, is_in_stock: true}
+                        : url.includes('is_new')? params = {...params, is_new: true}
+                            : url.includes('is_bestseller')? params = {...params, is_bestseller: true}
+                                : url.includes('is_closeout')? params = {...params, is_closeout: true}
+                                    : url.includes('category')? params = {...params, categories: !!Number(url.split("=").pop())?[Number(url.split("=").pop())]:[]}
+                                        : null
+
+                // console.log({params})
+                // console.log('!!Number("http://localhost:5000/catalog?category=16".split(" ").pop())? [] :', !!Number(url.split("=").pop())?[Number(url.split("=").pop())]:[])
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
                         filters_params: { 
                             ...context.init_state.filters_params,
                             ...initValueCheckBoxFilters,
@@ -290,7 +350,7 @@ export const pageContent = store => {
                             colors: [],
                             sizes: [],
                             type: [] 
-                        }
+                        },
                     },
                 }
 
@@ -302,10 +362,79 @@ export const pageContent = store => {
                 return dispatch('getCatalog', params)
             }
 
-        } catch (err) {
-            // throw new Error('Error get request page',err);
-            console.log('ERROR CONTEXT PAGE', err)
+            if (url.includes('/product-')) {               
 
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        productDetails: {
+                            in_cart_count: null,
+                            in_stock_count: null,
+                            is_bestseller: false,
+                            is_closeout: false,
+                            is_in_stock: false,
+                            id: res.init_state.page_info.id,
+                            product_rc: '',
+                            minimum_rc: null,
+                            is_new: false,
+                            prices: {},
+                            colors: [],
+                            sizes: [],
+                            media: [],
+                            brand: '',
+                            title: res.init_state.page_info.title,
+                            collections: [],
+                            is_collection: false,
+                        },
+                        youAlredyWatch: {
+                            results: []
+                        }
+                    },
+                }
+
+                const params = {
+                    productId: res.init_state.page_info.id
+                }
+                
+                dispatch('setModalState', {
+                    show: false,
+                })
+                
+                dispatch('context', newContext)
+                return dispatch('getProductDetails', params)
+            }
+
+            if (url === '/order') {
+
+
+            console.log('STORE CONTEXT IN ORDER = ', 
+            {context}
+            
+            )         
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,                        
+                    }
+                }
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getDataCart')
+                    return ()=>clearTimeout(timerTimeout);
+                },400)
+            }
+            
+
+        } catch (err) {
+            console.log('ERROR CONTEXT PAGE', err)
         }
     })
 }

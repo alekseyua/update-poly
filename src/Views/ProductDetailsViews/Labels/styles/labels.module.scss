@@ -1,0 +1,13 @@
+
+// .prodpage-labels{}
+.prodpage-labels{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    //.prodpage-labels__item{}
+    &__item{
+        padding: 0;
+        margin-left: 20px;
+        
+    }
+}

@@ -1,7 +1,7 @@
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
 
 /**
- * @param = {
+ * @param {
  *  show: boolean 
  * 
  * } param
@@ -22,6 +22,7 @@ export const modalStorage = store => {
                 action: obj.action,
                 className: obj.className,
                 onClick: obj.onClick,
+                closeModal: obj.closeModal,
                 onClickCancel: obj.onClickCancel,
                 content: obj.content,
                 title: obj.title,

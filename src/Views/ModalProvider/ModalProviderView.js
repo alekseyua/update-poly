@@ -14,12 +14,13 @@ const ModalProviderView = ({content, show, action = null, title = <Text text={'a
     });
 
 /**
- * !params(
- *  ? content - содержимое сообщение попапа
- *  ? action -  title["button1", "button2"] - может включать в себя до 2-х кнопок с действиями
- *  ? title - информационное имя попапа
- *  ? iconImage - иконка в попапе
- * )
+ *  @param {
+ *       content - содержимое сообщение попапа
+ *       action -  title["button1", "button2"] - может включать в себя до 2-х кнопок с действиями
+ *       title - информационное имя попапа
+ *       iconImage - иконка в попапе
+ *  } 
+ *  @return
  */
 
     useEffect(()=>{

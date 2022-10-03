@@ -18,6 +18,7 @@ const ProductsInStock = ({
   catalog_url,
   in_stock_product_filters = [],
   front_admin,
+  role,
 }) => {
 
   // console.log('products', products)
@@ -44,6 +45,7 @@ const ProductsInStock = ({
               products.map((el, key) => {
                 return (
                   <ProductCardAsync 
+                    role={role}
                     key={el.id}
                     url={el.url}
                     id={el.id}

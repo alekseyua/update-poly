@@ -12,7 +12,11 @@ const RaitingContainer = ({
   precision,
   readonly,
   value,
+  label,
+  countRaiting,
 }) => {
+
+  
   return (
     <Raiting
       disabled={disabled}
@@ -23,6 +27,8 @@ const RaitingContainer = ({
       precision={precision}
       readonly={readonly}
       ActiveStar={value}
+      label={label}
+      countRaiting={countRaiting}
     />
   );
 };

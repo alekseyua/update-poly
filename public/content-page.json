@@ -697,9 +697,35 @@
         ],
         "newsDetails": {},
         
-
-
-
+        "productDetails": {
+            "in_cart_count": null,
+            "in_stock_count": null,
+            "is_bestseller": false,
+            "is_closeout": false,
+            "is_in_stock": false,
+            "id": null,
+            "product_rc": "",
+            "minimum_rc": null,
+            "is_new": false,
+            "prices": {},
+            "colors": [],
+            "sizes": [],
+            "media": [],
+            "brand": "",
+            "title": "",
+            "collections": [],
+            "is_collection": false
+        },           
+        "dataCart": {
+            "cartitem_set":[],
+            "in_stock": []
+        },
+        "listCurrentOrder": [],
+        "youAlredyWatch": {
+            
+            "results": []
+        },
+        
         "news": [],     
         "page_info": {
             "id": 1,

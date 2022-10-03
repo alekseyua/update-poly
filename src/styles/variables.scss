@@ -33,6 +33,7 @@ $fontSize: 1.2rem;//16px
 /* $startSize - начальный размер по задоном расширении по макету */
 /* $minSize - конечный размер до какого уменьшится при изменениях экрана до 320px */
 /* $type - параметр условия по которому выполнятся миксину*/
+/* $measurements - система измерения без ковычек*/
 
 @mixin adaptive-value($property, $startSize, $minSize, $measurements, $type) {
 	$addSize: $startSize - $minSize;

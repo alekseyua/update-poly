@@ -30,11 +30,14 @@ class BaseApi {
         }
     };
 
-   async post(url, params){       
+   async post(url, params){  
+
         try{
+            await this.axiosOverride(axios);
             const urlCorrect = `${this.MAIN_URL}${url}`;
-            // console.log(`Cылка на ${urlCorrect} ${params}`);
-            const request = await axios.post(urlCorrect,params);
+            console.log(`Cылка на ${urlCorrect} ${params}`, params);
+        //    const urlCorrect = `${this.MAIN_URL}${url}?${qs.stringify(params)}`;
+            const request = await axios.post(urlCorrect, params);
             console.log('request', request)
             return request;
 
@@ -44,8 +47,19 @@ class BaseApi {
     };
     
     async  delete(url, params){
-            console.log('delete')
-        };
+        try{
+        await this.axiosOverride(axios);
+        const urlCorrect = `${this.MAIN_URL}${url}`;
+        console.log({urlCorrect},{a: JSON.stringify(params)})
+        const request = await axios.delete(urlCorrect, {
+           data: params
+        });
+        console.log('request', request)
+        return request;
+        }catch(err){
+            throw err.response;
+        }
+    };
 
     async put(url, params){
         try{

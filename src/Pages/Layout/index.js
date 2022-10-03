@@ -56,7 +56,7 @@ const Layout = (props) => {
         title={modalState.title}
         className={modalState.className}
         onClick={modalState.onClick}
-        closeModal={closeModalState}
+        closeModal={modalState.closeModal? modalState.closeModal : closeModalState} 
         iconImage={modalState.iconImage}
       >
       <Helmet>
@@ -75,6 +75,7 @@ const Layout = (props) => {
             cabinet_menu={dataPage.init_state.cabinet_menu}
             profile={dataPage.init_state.profile}
             site_configuration={dataPage.init_state.site_configuration}
+            setCurrencyCurrencies={props.setCurrencyCurrencies}
           />
         </header>
 

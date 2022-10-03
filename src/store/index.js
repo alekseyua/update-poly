@@ -11,8 +11,18 @@ import { reviews } from './revievs/reviews';
 import { news } from './news/news';
 import { partnership } from './partnership/partnership';
 import { catalog } from './catalog/catalog';
+import { wishList } from './wishList/wishlist';
+import { quickViewProduct } from './quickViewProduct/quickViewProduct';
+import { collections } from './collections/collections';
+import { ProductDetails } from './productDetails/productDetails';
+import { cart } from './cart/cart';
 
 export const store = createStoreon([
+    cart,
+    ProductDetails,
+    collections,
+    quickViewProduct,
+    wishList,
     partnership,
     news,
     reviews,

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../../api/api';
 import dayjs from '../../../helpers/dayjs';
 
-const apiContent = api.contentApi;
+// const apiContent = api.contentApi;
 
 const NewsDetailsComponent = ({title, breadcrumbs, created_at, content, ...props}) => {
   // ?! необходимо перенести получение данных storeon
@@ -17,12 +17,12 @@ const NewsDetailsComponent = ({title, breadcrumbs, created_at, content, ...props
     navigate(-1);
   };
   
-  useEffect(() => {
-    apiContent.getNewsDetails(props.id).then((res) => {
-      console.log({res})
-      setImageOrVideoSet(res.media);
-    });
-  }, [props.id]);
+  // useEffect(() => {
+  //   apiContent.getNewsDetails(props.id).then((res) => {
+  //     console.log({res})
+  //     setImageOrVideoSet(res.media);
+  //   });
+  // }, [props.id]);
 
   return (
     <React.Fragment>

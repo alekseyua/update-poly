@@ -43,7 +43,7 @@ const Home = (props) => {
       
       {!!products.length?
           <HomeComponent.ProductsInStock
-            profile={profile}
+            role={profile.role}
             // front_admin = {props.profile.front_admin}
             in_stock_product_filters={in_stock_product_filters}
             products={products}

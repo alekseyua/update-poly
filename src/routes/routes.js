@@ -16,6 +16,8 @@ import InformationHowto from '../Pages/HowToPage/InformationHowto';
 import Information from '../Pages/InformationPage/Information';
 import InformationContacts from '../Pages/InformationContactsPage/InformationContacts';
 import InformationReviews from '../Pages/InformationReviewsPage/InformationReviews';
+import CartPage from '../Pages/CartPage/CartPage';
+import OrderingPage from '../Pages/OrderingPage/OrderingPage';
 
 
 
@@ -32,6 +34,14 @@ module.exports = [
         path: '/catalog',
         index: false,
         component: CatalogPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/cart',
+        index: false,
+        component: CartPage,
         caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
         fetchInitialData: PATHS.ALL.fetchInitialData,
         end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
@@ -136,6 +146,14 @@ module.exports = [
         path: '/reviews',
         index: false,
         component: InformationReviews,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/order',
+        index: false,
+        component: OrderingPage,
         caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
         fetchInitialData: PATHS.ALL.fetchInitialData,
         end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname

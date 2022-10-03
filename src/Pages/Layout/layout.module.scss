@@ -8,7 +8,7 @@
         flex-direction: column;
         height: 100vh;
         margin: 0 auto;
-        overflow: auto;
+        // overflow: auto; // не работает скрол
     }
     //.layout__header{}
     &__header{
@@ -23,9 +23,12 @@
         position: relative;
         padding: 0 15px;
         flex: 1 1 auto;
-
         // overflow: auto;
         @include scrollbar;
+        @include mobile-mlg{
+            padding: 0;
+            
+        }
     }
     //.layout__footer{}
     &__footer{

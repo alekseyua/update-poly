@@ -11,3 +11,7 @@ cache
 .env.development.local
 .env.test.local
 .env.production.local
+.git
+.vscode
+yarn.lock
+yarn-error.log

@@ -5,8 +5,11 @@ import BottomHeaderMenu from './BottomHeaderMenu/BottomHeaderMenu';
 import HeaderButtonsBottomLK from './HeaderButtonsBottomLK/HeaderButtonsBottomLK';
 import style from './headerbottom.module.scss';
 
-const HeaderBottom = (props) => {
+const HeaderBottom = ({
+    ...props
+}) => {
 //  console.log('headerBottom props',props )
+ const { profile } = props;
     return (
         <div
             className={classNames({
@@ -31,9 +34,9 @@ const HeaderBottom = (props) => {
                 </div>
 
                 <HeaderButtonsBottomLK 
-                    cabinet_menu={props.cabinet_menu}
-                    profile={props.profile}
                     site_configuration={props.site_configuration}
+                    cabinet_menu={props.cabinet_menu}
+                    profile={profile}
                 />
 
             </div>

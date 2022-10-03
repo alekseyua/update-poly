@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import routes from './routes/routes';
 import Layout from './Pages/Layout';
 import { useStoreon } from 'storeon/react';
-
 
 
 const App = (props) => {
@@ -13,23 +12,24 @@ const App = (props) => {
   const { context, goToPage, dispatch } = useStoreon('context', 'goToPage');
 
   const location = useLocation();
-  
+  const [ currencyCurrencies, setCurrencyCurrencies ] = useState(null)
+
   useEffect(()=>{
-    console.log('test',location.pathname)
-    console.log('test2', location.search)
+    // console.log('test',location.pathname)
+    // console.log('test2', location.search)
     let path = location.pathname;
     if (!!location.search){
       path = `${location.pathname}${location.search}`;
     }
     dispatch('getContextPage', path)
-  },[location.pathname, location.search])
+  },[location.pathname, location.search, currencyCurrencies])
 
 
 
   return (
     <Routes>
 
-      <Route path={'/'} element={<Layout context={context} />} >
+      <Route path={'/'} element={<Layout context={context} setCurrencyCurrencies={setCurrencyCurrencies}/>} >
         
         { 
 
@@ -39,7 +39,7 @@ const App = (props) => {
                 key={path}
                 index={index}
                 path={path}
-                element={<C context={context.init_state} url={location.pathname} fetchInitialData={fetchInitialData}/>}
+                element={<C context={context.init_state} type={context.type} url={location.pathname} fetchInitialData={fetchInitialData}/>}
               />
             )
           })
@@ -47,6 +47,11 @@ const App = (props) => {
         } 
 
       </Route>
+      {/* {
+        true?
+          <Route path="/cart" render={() => <Redirect to="/catalog" />} />
+          : null
+      } */}
     </Routes>
   )
 };

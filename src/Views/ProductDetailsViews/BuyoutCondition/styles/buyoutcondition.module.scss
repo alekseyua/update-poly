@@ -1,0 +1,52 @@
+@import '../../../../styles/variables.scss';
+
+.prodpage-condition{
+    padding: 0;
+    //.prodpage-condition__container{}
+    &__container{
+        padding: 0;
+        padding: 10px;
+        box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-bottom: 17px;
+        min-width: 300px;
+        max-width: max-content;
+    }
+    //.prodpage-condition__title{}
+    &__title{
+        padding: 0;
+        color: $dg2;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    //.prodpage-condition__body{}
+    &__body{
+        padding: 0;
+        color: $a2;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        @include adaptive-value('font-size', 12, 14, px, 2);
+    }
+    //.prodpage-condition__row-price{}
+    &__row-price{
+        padding: 0;
+        color: #111;
+        font-size: 12px;
+        margin: 10px 0;
+    }
+    //.prodpage-condition__context{}
+    &__context{
+        padding: 0;
+        font-size: 10px;
+        color: $dg2;
+        & > span{
+            font-weight: 900;
+        }
+    }
+}

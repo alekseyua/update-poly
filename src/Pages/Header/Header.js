@@ -11,6 +11,7 @@ const Header = (props) => {
                 logoLinkGoto={props.logoLinkGoto}
                 header_menu={props.header_menu}
                 currencies={props.currencies}
+                setCurrencyCurrencies={props.setCurrencyCurrencies}
             />
             <HeaderBottom 
                logo={props.logo}

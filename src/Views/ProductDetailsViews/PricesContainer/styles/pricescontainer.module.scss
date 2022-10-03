@@ -1,0 +1,22 @@
+
+.prodpage-price{
+    //.prodpage-price-container{}
+    &__container{
+        padding: 0;
+    }
+    //.prodpage-price__mainprice{}
+    &__mainprice{
+        padding-bottom: 10px;
+        //.prodpage-price__mainprice--old{}
+        &--old{
+            padding-bottom: 10px;
+        }
+    }
+    //.prodpage-price__recommended{}
+    &__recommended{
+        &>p{
+            padding-bottom: 10px;
+        }
+    }
+
+}

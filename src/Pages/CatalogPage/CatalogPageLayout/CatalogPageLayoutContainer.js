@@ -16,6 +16,8 @@ const CatalogPageLayoutContainer = ({
   role,
   content,
   dataProducts,
+  products,
+  currency,
 }) => {
 
   const { dispatch } = useStoreon();
@@ -24,6 +26,9 @@ const CatalogPageLayoutContainer = ({
   const [valueProducts, setValueProducts] = useState(initialValuesFilters)
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
   const [filterParams, setFilterParams] = useState({ ...initValueCheckBoxFilters })
+
+  console.log({filters_params})
+  console.log({filterParams})
 
   const loadData = (data) => {
     dispatch('changeParamsFilters', {
@@ -43,6 +48,7 @@ const CatalogPageLayoutContainer = ({
     };
     document.addEventListener('click', eventDocument);
     return () => document.removeEventListener('click', eventDocument);
+    
   }, [])
 
   const getTitleForDocument = (filterParams) => {
@@ -160,6 +166,7 @@ const CatalogPageLayoutContainer = ({
       ) : null
   }, [filters_params])
 
+
   return (
     <CatalogPageLayout
       breadcrumbs={breadcrumbs}
@@ -176,6 +183,7 @@ const CatalogPageLayoutContainer = ({
       options={optionsFiltersCatalog}
       getTitleForDocument={getTitleForDocument}
       role={role}
+      currency={currency}
 
       isFilters={isFilters}
       loadData={loadData}

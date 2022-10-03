@@ -8,6 +8,7 @@ import Icon from '../../Icon';
 import dayjs from '../../../helpers/dayjs';
 
 import style from './reviewsCard.module.scss';
+import api from '../../../api/api';
 
 const ReviewsCardView = ({
   blockEnableView,
@@ -28,7 +29,7 @@ const ReviewsCardView = ({
   openModalVideo,
   openModalImage,
 }) => {
-
+  
   return (
     <div
       className={classNames({
@@ -46,11 +47,11 @@ const ReviewsCardView = ({
         </div>
         <div className={style['reviews-card__header--right']}>
           {product_url ? (
-            <NavLink to={product_url} className={style['reviews-card__product-page']}>
+            <NavLink to={`/${product_url}`} className={style['reviews-card__product-page']}>
               <Text text={'productPage'} />
             </NavLink>
           ) : null}
-          <span className={style['reviews-card__date']}>{dayjs('ru', created_at).format('DD MM YYYY')}</span>
+          <span className={style['reviews-card__date']}>{dayjs(api.language, created_at).format('DD MMMM YYYY')}</span>
         </div>
       </div>
       <div className={style['reviews-card__rating']}>

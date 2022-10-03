@@ -1,0 +1,91 @@
+@import '../../../styles/fonts/index.scss';
+@import '../../../styles/variables/index.scss';
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 151px 1fr;
+  border-radius: 4px;
+  padding: 15px;
+  grid-column-gap: 10px;
+  @include mobile {
+    grid-row-gap: 20px;
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+}
+.product {
+  &__wrapper {
+    &-block {
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  &__base_info {
+
+    &-black {
+      color: var(--gx-color-primary);
+      margin-left: 3px;
+      &_lt {
+        color: var(--gx-color-primary);
+        margin-left: 3px;
+        text-decoration: line-through;
+      }
+    }
+    &-red {
+      color: var(--gx-color-red);
+      margin-left: 3px;
+    }
+  }
+  &__sales_info {
+
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      @include mobile {
+        flex-wrap: wrap;
+      }
+     }
+  }
+  &__count {
+
+
+    &-input {
+     
+    }
+    &__in_stock {
+      padding: 0 6px;
+      margin-top: 10px;
+      font-weight: 500;
+      text-transform: none;
+      // font-family: 'Nato Sans', sans-serif;
+      @extend %font;
+      font-size: 10px;
+      line-height: 14px;
+      width: fit-content;
+      letter-spacing: 0.03em;
+      color: var(--gx-color-accent2);
+      background: rgba(247, 244, 252, 0.75);
+      border: 1px solid var(--gx-color-accent2);
+      z-index: 2;
+    }
+  }
+  &__delete {
+
+    &-mobile {
+      display: none;
+      margin-left: auto;
+      height: min-content;
+      &::part(base) {
+        padding: 0;
+      }
+      @include mobile {
+        display: block;
+      }
+      &_icon {
+        --icon-width: 15px;
+        --icon-height: 15px;
+      }
+    }
+  }
+}

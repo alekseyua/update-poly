@@ -3,7 +3,7 @@ import CatalogPageLayoutContainer from './CatalogPageLayout/CatalogPageLayoutCon
 
 const CatalogPage = (props) => {
   // console.log('Catalog context = ', props.context)
-  const { breadcrumbs, multy_choise_filters,categories, profile, filters_params, page_info, dataProducts = [] } = props.context;
+  const { breadcrumbs, multy_choise_filters,categories, profile, filters_params, page_info, dataProducts, products = [], currency } = props.context;
   const { content } = page_info;
   const { role } = profile;
   return (
@@ -15,6 +15,8 @@ const CatalogPage = (props) => {
       filters_params={filters_params}
       content = {content}
       dataProducts={dataProducts}
+      products={products}
+      currency={currency}
       />
   )
 }

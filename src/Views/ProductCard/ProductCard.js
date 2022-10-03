@@ -25,12 +25,10 @@ const AsyncSlider = AsyncComponent(() => {
 const ProductCard = (props) => {
   const {
     swapperDisabled,
-    disabledHover,
     title,
     id,
     url,
     brand,
-    favorite,
     prices,
     stock,
     colors,
@@ -38,22 +36,15 @@ const ProductCard = (props) => {
     isSales,
     isNew,
     isHit,
-    setModalStates,
-    setLikeProductCard,
+    addLikeProductCard,
+    removeLikeProductCard,
+    handleQuickView=()=>{},
     sizes,
-    product_rc,
-    currenssies,
-    profile,
-    setCardIdproductFromSlider,
+    currency,
+    favorite,
   } = props;
 
-  
-  const [isFavorite, setIsFavorite] = useState();
-//   const { stateInPreveiwGoods } = useStoreon('stateInPreveiwGoods')
-//   useEffect(()=>{
-//     stateInPreveiwGoods.id === id? setIsFavorite(stateInPreveiwGoods.is_liked) : setIsFavorite(favorite)
-//   },[favorite,stateInPreveiwGoods])
-
+  // console.log( {favorite})
   return (
     <div       
       className={[style['product-card']]}
@@ -107,7 +98,6 @@ const ProductCard = (props) => {
               url={url} 
               images={images} 
               id={id}
-              setCardIdproductFromSlider={setCardIdproductFromSlider}
              />
           )}
           <div className={style['product-card__head']}>
@@ -118,13 +108,14 @@ const ProductCard = (props) => {
                 [style['product-card__favorite']]: true,
               })}
               onClick={() => {
-                setIsFavorite(!isFavorite);
-                // setLikeProductCard(id);
+                favorite?
+                removeLikeProductCard(id)
+                :addLikeProductCard(id);
               }}
             >
               <div
               >
-                <Icon src={isFavorite ? favoriteFilledIcon : favoriteIcon} />
+                <Icon src={favorite ? favoriteFilledIcon : favoriteIcon} />
               </div>
              
             </Button>
@@ -139,11 +130,11 @@ const ProductCard = (props) => {
                 [style['product-card__price--new']]: prices.old_price,
               })}
             >
-              {prices.price} {currenssies}
+              {prices.price} {currency}
             </div>
             {prices.old_price ? (
               <div className={style['product-card__price--old']}>
-                {prices.old_price} {currenssies}
+                {prices.old_price} {currency}
               </div>
             ) : null}
           </div>
@@ -174,7 +165,7 @@ const ProductCard = (props) => {
               );
             })}
           </ul>
-          <span onClick={setModalStates} className={style['product-card__link']}>
+          <span onClick={()=>handleQuickView(id)} className={style['product-card__link']}>
             <Text text={'quickView'} />
           </span>
         </div>

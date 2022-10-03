@@ -23,8 +23,8 @@ const ReviewsCard = ({
 }) => {
   const { dispatch } = useStoreon();
   const [isLiked, setisLiked] = useState(is_current_user_liked);
-  const setLike = (id) => {
-    
+  
+  const setLike = (id) => { 
     dispatch('updateLikeInReview', {id, profileId})
   };
 

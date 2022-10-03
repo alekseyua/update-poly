@@ -55,6 +55,7 @@ export const initModalState = {
     // },
     className: null,
     onClick: null,
+    closeModal: null,
     onClickCancel: null,
     content: null,
     title: null,
@@ -66,6 +67,7 @@ export const initCloseModalState = {
         action: null,
         className: null,
         onClick: null,
+        closeModal: null,
         onClickCancel: null,
         content: null,
         title: null,
@@ -170,3 +172,10 @@ export const optionsFiltersCatalog = [
   { title: 'Сначала дорогие', value: '-price' },
   { title: 'Популярные', value: '-created_at' },
 ];
+
+export const reviewInitialState = {
+  iAgreeDataProcessing: false,
+  uploadFiles: [],
+  content: '',
+  stars: 0,
+}

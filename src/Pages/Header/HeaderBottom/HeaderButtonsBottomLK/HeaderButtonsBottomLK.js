@@ -2,19 +2,27 @@ import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useStoreon } from 'storeon/react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import DropdownMenuAccount from '../DropdownMenuAccount/DropdownMenuAccount';
 import SearchPageViews from '../../../../Views/SearchPageViews';
 
 import style from './headerbuttonsbottonlk.module.scss';
 
-const HeaderButtonsBottomLK = (props) => {
+const HeaderButtonsBottomLK = ({
+    profile,
+    ...props
+}) => {
+    const inCartProducts = profile?.cart;
+    const inWishlist = profile?.wishlist;
+    const inNotification = profile?.notifications;
     const [searchInputShow, setSearchInputShow] = useState(false);
     const [ stateOpen, setStateOpen ] = useState(false);
     const { textSearch, dispatch } = useStoreon('textSearch');
     const { search } = useStoreon('search');
     const searchBgRef = useRef(null);
     const openMenuRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleClickSearchRoot = () => {
         console.log('click search', searchInputShow)
@@ -34,7 +42,15 @@ const HeaderButtonsBottomLK = (props) => {
         dispatch('setModalState', {
             show: true,
         })
-        dispatch('logoutOut')
+        const params = {
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(()=>{
+                    navigate(path);
+                    return () => clearTimeout(timerTimeout);
+                },2000)
+            }
+        }
+        dispatch('logoutOut', params)
     }
 
     const getKeyForAccess = () =>{
@@ -129,7 +145,7 @@ const HeaderButtonsBottomLK = (props) => {
                 <DropdownMenuAccount
                     site_configuration={props.site_configuration}
                     cabinet_menu={props.cabinet_menu}
-                    profile={props.profile}
+                    profile={profile}
                     stateOpen={stateOpen}
                     // openMenuRef={openMenuRef}
                     getKeyForAccess={getKeyForAccess}
@@ -143,16 +159,15 @@ const HeaderButtonsBottomLK = (props) => {
                     dataintro={"step7"}
                     name={'lk-menu'}
                 >
-                    {/* {!!notificationCount ? (
-                        <div
-                            className={classNames({
-                            [style['header-buttons__badge']]: true,
-                            [style['empty']]: !(!!notificationCount),
-                            })}
-                        >
-                            {notificationCount}
-                        </div>
-                        ) : null} */}
+                 {
+                        !!inNotification ?
+                            <span
+                                className={style['header-buttons__count-in']}
+                            >
+                                {inNotification}
+                            </span>
+                            : null
+                    }   
                 </span>
             </div>
             <div
@@ -165,6 +180,16 @@ const HeaderButtonsBottomLK = (props) => {
                     <span
                         className={'_icon-favorite'}
                         >
+                            
+                        {
+                            !!inWishlist ?
+                                <span
+                                    className={style['header-buttons__count-in']}
+                                >
+                                    {inWishlist}
+                                </span>
+                                : null
+                        }
                     </span>
                 </Link>
             </div>
@@ -177,7 +202,17 @@ const HeaderButtonsBottomLK = (props) => {
                 >   
                     <span
                         className={'_icon-cart'}
-                    >
+                        id={'cart-id'}
+                    >                        
+                        {
+                            !!inCartProducts ?
+                                <span
+                                    className={style['header-buttons__count-in']}
+                                >
+                                    {inCartProducts}
+                                </span>
+                                : null
+                        }
                     </span>
                 </Link>
             </div>

@@ -1,0 +1,89 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+.viewedproducts{
+    //.viewedproducts__container{}
+    padding-top: 61px;
+    position: relative;
+    width: 100%;
+    @include padding-for-mobile;
+    &__container{
+        padding: 0;
+        position: relative;
+        width: 100%;
+    }
+    //.viewedproducts__title{}
+    &__title{
+        padding: 0;
+        @extend %font;
+        font-size: 33px;
+        padding-bottom: 19px;
+    }
+    //.viewedproducts__slider-wrapper{}
+    &__slider-wrapper{
+        padding: 0;
+        width: 265px;
+        width: 100%;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    //.viewedproducts__slider-wrapper-inner{}
+    &__slider-wrapper-inner{
+        padding: 0;
+        // max-width: 1600px;
+        width: inherit;
+        margin: 0px auto;
+        position: relative;
+        .swiper-slide {
+          max-width: 224px;
+          margin-right: 10px;
+          min-width: 200px;
+        }
+
+        :global {
+          .swiper-button-prev, 
+          .swiper-button-next{
+            background-color: #fff;
+            width: 55px;
+            height: 55px;
+            z-index: 9999;
+            transform: translate(0, -20px) rotate(45deg);
+            &::after{
+              font-size: 17px;
+              font-weight: bold;
+              transform: rotate(-45deg);
+              color: #000;
+            }
+          }
+        }
+
+
+
+
+        .swiper-button-disabled {
+          pointer-events: auto;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+          top: 34%;
+          @include laptop-sm {
+            top: 43%;
+          }
+        }
+        .swiper-button-prev {
+          left: 65px;
+          @include laptop-md {
+            left: 5px;
+          }
+        }
+        .swiper-button-next {
+          right: 70px;
+          @include laptop-md {
+            right: 5px;
+          }
+        }
+    }
+}

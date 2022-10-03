@@ -1,0 +1,31 @@
+@import '../../../../styles/variables.scss';
+
+.prodpage-collections {
+
+  //.prodpage-collections__container{}
+  &__container {
+    padding: 0;
+  }
+
+  //.prodpage-collections__button{}
+  &__button {
+    border: 1px solid var(--gx-color-darkgray);
+    padding: 5px 10px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    background-color: transparent;
+    // min-width: 290px;
+    @include adaptive-value('min-width', 300, 275, px, 2);
+    // font-size: 14px;
+    @include adaptive-value('font-size', 19, 17, px, 2);
+
+    &:hover {
+      background-color: $pi3;
+      color: $a2;
+      border-color: $a;
+      cursor: pointer;
+    }
+  }
+}

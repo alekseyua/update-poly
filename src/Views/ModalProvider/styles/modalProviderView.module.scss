@@ -55,7 +55,6 @@
         // height: 100vh;
         width: auto;   
         transition: all 2s ease-in-out;
-        margin-bottom: 50px;
         //.modal-provider__container--show{}
         &--show{
             height: 100vh;
@@ -93,7 +92,7 @@
             left: 50%;
             transform: translate(-50%,-50%);
             background-color: #fff;
-            z-index: 10000;
+            z-index: 10001;
             padding: 10px;
             display: flex;
             flex-direction: column;

@@ -205,6 +205,10 @@
     height: 100%;
     top: 0;
     right: -15px;
+    @include tablet-lg {
+      height: 275px;
+      @include adaptive-value('height',1048,240,px,2);
+    }
     img {
       object-fit: cover;
       height: inherit;

@@ -38,8 +38,8 @@ const justDateSerializer = (data = []) => {
       ...el,
       original_date_create: el.created_at,
       original_date_update: el.updated_at,
-      created_at: dayjs(api.language, el.created_at).format('DD MMMM YYYY'),
-      updated_at: dayjs(api.language, el.updated_at).format('DD MMMM YYYY'),
+      created_at: el.created_at,//dayjs(api.language, el.created_at).format('DD MMMM YYYY'),
+      updated_at: el.created_at,//dayjs(api.language, el.updated_at).format('DD MMMM YYYY'),
     };
   });
 };

@@ -11,6 +11,8 @@ import TabVariantStyle from './styles/TabVariant.module.scss';
 import CatalogLinkFull from './styles/CatalogLinkFull.module.scss';
 import CatalogLinkTransparent from './styles/CatalogLinkTransparent.module.scss';
 import CatalogFilter from './styles/CatalogFilter.module.scss';
+import CounterBtn from './styles/CounterBtn.module.scss';
+import CatalogLinkTransparentModal from './styles/CatalogLinkTransparentModal.module.scss';
 import style from './styles/icons.module.scss';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
@@ -31,7 +33,7 @@ import Icon from '../Icon';
  * target - в связке вместе с href для открытия на новой странице
  * onClickIcon - навешиваем событие на иконку
  * classNameIcon - стилизауи
- * } param0 
+ * } 
  * @returns 
  */
 const Button = ({
@@ -84,7 +86,10 @@ const Button = ({
         return CatalogFilter['catalog_mobile__apply'];
       case 'catalog_mobile__clear':
         return CatalogFilter['catalog_mobile__clear'];
-        
+      case 'catalog-link-transparent__modal':
+        return CatalogLinkTransparentModal['catalog-link-transparent__modal']
+      case 'counter-btn':
+        return CounterBtn['btn']
       default: ''
     }
   }
@@ -117,9 +122,9 @@ const Button = ({
               datanoclick={datanoClick}
               disabled={disabled}
             >
-               {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]} onClick={onClickIcon} src={iconLeft} /> : null}
+               {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]} style={{marginRight: `10px`}} onClick={onClickIcon} src={iconLeft} /> : null}
               {children}
-              {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
+              {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} style={{marginLeftt: `10px`}} onClick={onClickIcon} src={iconRight} /> : null}
             </button>
             : <Link
               to='#'
@@ -136,7 +141,7 @@ const Button = ({
               className={customClassName}
               datanoclick={datanoClick}
             >
-              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]} onClick={onClickIcon} src={iconLeft} /> : null}
+              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} /> : null}
               {children}
               {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
             </button>
@@ -144,11 +149,11 @@ const Button = ({
               to={`${href}`}
               target={target}
               datanoclick={datanoClick}
-              // onClick={onClick}
+              onClick={onClick}
               className={customClassName}
               rel="noopener noreferrer"
             >
-              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]} onClick={onClickIcon} src={iconLeft} /> : null}
+              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} /> : null}
               {children}
               {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
             </Link>

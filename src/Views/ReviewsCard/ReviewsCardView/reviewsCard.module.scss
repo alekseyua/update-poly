@@ -221,12 +221,18 @@
       color: var(--gx-color-darkgray);
       margin-right: 8px;
       cursor: pointer;
-      filter: invert(50%);
+      opacity: .1;
+      position: absolute;
+      top: -4px;
+      left: 3px;
       //.reviews-card__like-img-liked{}
       &-liked {
         color: var(--gx-color-red);
         margin-right: 8px;
-        // filter: invert(0%);
+        position: absolute;
+        top: -4px;
+        left: 3px;
+        opacity: 1;
       }
     }
     
@@ -235,6 +241,8 @@
       font-size: 12px;
       line-height: 1;
       cursor: pointer;
+      padding: 4px 0 4px 30px;
+      margin-bottom: -8px;
     }
   }
 }

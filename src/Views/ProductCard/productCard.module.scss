@@ -109,6 +109,7 @@
     flex-wrap: nowrap;
     z-index: 0;
     margin-bottom: 10px;
+    min-height: 270px;
 
     &>div.product-card__slider-pagination {
       position: absolute;
@@ -236,7 +237,7 @@
     //.product-card__image-item{}
     &-item {
       position: relative;
-
+      min-height: 270px;
       &::after {
         position: absolute;
         left: 0;

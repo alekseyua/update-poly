@@ -4,12 +4,25 @@
     &__container {
         max-width: 150px;
         display: flex;
+        align-items: center;
     }
 
     //.raiting-star__star{}
     &__star {
         display: flex;
-                
+        &:hover{
+            cursor: pointer;
+        }
+        &--active{
+            padding: 0;
+        }
+    }
+    //.raiting-star__label{}
+    &__label{
+        padding: 0;
+        display: ruby;
+        margin-left: 25px;
+        white-space: pre;
     }
 
 }

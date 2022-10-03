@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom';
 
 import style from './styles/index.module.scss';
 
+
+/**
+ * 
+ * @param {
+ * 
+ * breadcrumbs: [] - массив хлебных крошек
+ * } param0 
+ * @returns 
+ */
+
 const BreadCrumbs = ({ breadcrumbs = [] }) => {
 
   return (
@@ -25,4 +35,4 @@ const BreadCrumbs = ({ breadcrumbs = [] }) => {
   );
 };
 
-export default React.memo(BreadCrumbs);
+export default BreadCrumbs;

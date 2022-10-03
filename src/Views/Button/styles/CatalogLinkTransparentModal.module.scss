@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.catalog-link-transparent__modal {
+    background-color: transparent;
+    height: 58px;
+    max-width: 376px;
+    margin-top: 10px;
+    border-radius: 2px;
+    border: 2px solid var(--gx-color-primary2);
+    align-items: center;
+    color: var(--gx-color-accent);
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    // min-width: 286px;
+    @include adaptive-value('min-width', 286,  275, px,2);
+    @include adaptive-value('font-size', 15, 13, px,2);
+}

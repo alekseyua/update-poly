@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Swiper from 'swiper';
 import style from './productCard.module.scss';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-const Slider = ({ images, url, id, setCardIdproductFromSlider}) => {
+const Slider = ({ images, url }) => {
 
   const swiperRef = useRef(null);
   const paginationRef = useRef(null);
@@ -39,36 +39,25 @@ const Slider = ({ images, url, id, setCardIdproductFromSlider}) => {
       >
         {images.map((el, i) => {
           return (
-            <NavLink
+            <Link
               className={classNames({
                 [style['product-card__image']]: true,
                 'swiper-slide': true,
               })}
               key={i}
               to={url}             
-              desabled={!clickDisables? 0 : 1}
-              onClick={() => {
-                setCardIdproductFromSlider(id)
-                setClickDisables(!clickDisables);
-                const startTimer = setTimeout(() => {
-                  setClickDisables(false)
-                  return ()=>clearTimeout(startTimer)
-                }, 3000);
-              }}
             >
               <div>
                 <div className={style['product-card__image-item']}>
                   <img
                     loading={'eager'}
-                    // width={'200px'}
-                    // height={'300px'}
                     className={style['product-card__image-img']}
                     src={el}
                     alt={'product-card__image-img'}
                   />
                 </div>
               </div>
-            </NavLink>
+            </Link>
           );
         })}
       </div>

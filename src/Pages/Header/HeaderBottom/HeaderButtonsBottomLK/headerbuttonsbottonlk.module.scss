@@ -39,7 +39,22 @@
         font-size: 27px;
       }
     }
-
+    //.header-buttons__count-in{}
+    &__count-in{
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      font-size: 12px;
+      background-color: $pi2;
+      width: 17px;
+      height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 600;
+      pointer-events: none;
+    }
      //.header-buttons__lk-profile-btn{}
     &__lk-profile-btn{
       width: 30px;

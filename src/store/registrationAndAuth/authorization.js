@@ -3,7 +3,6 @@ import api from '../../api/api';
 export const authorization = store => {
     const apiUser = api.userApi;
     const initAuth = {};
-
     //?! Вход в аккаунт
     store.on('@init', ()=>({authorization: initAuth}))
     store.on('setAuthorithation', ({closeModalState}, obj, {dispatch} )=>{
@@ -19,7 +18,7 @@ export const authorization = store => {
                     .then(res => {
                         let path = obj.type === 'restore'? '/catalog' : '/catalog';
 
-                        dispatch('getContextPage', path)
+                        // dispatch('getContextPage', path)
                         // ? запрос на подтверждение почты (авторизация при первой регистрации)
                         obj.email?
                             dispatch( 'keyRegistration/set',{ 
@@ -35,7 +34,8 @@ export const authorization = store => {
                             //  необходимо написать логикудля обычного входа
                             //  сдесь мы реализовываем вход в аккаунт в нашем локальном хранилище меняем статус,
                             // ! роль, те данные пользователя и делаем переход в каталог
-                        
+                            console.log('log in')
+                            obj.callbackRedirect('/catalog')
                     })
                     .catch((err) => {
                     if (err) {
@@ -58,6 +58,10 @@ export const authorization = store => {
     store.on('@init', ()=>({logout: false}));
     store.on('logoutOut', ( {logout}, obj, {dispatch} )=>{
         logout = apiUser.logout();
-        dispatch('getContextPage', '/catalog');
+        dispatch('setModalState', {
+            show: false,
+        })
+        dispatch('getContextPage', '/registration');
+        obj.redirectTo('/registration');
     })
 }
