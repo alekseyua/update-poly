@@ -2,12 +2,12 @@ import React from 'react';
 
 import style from '../styles/index.module.scss';
 
-const OrderingPayDescription = ({dataBalance, total_cost}) => {
+const OrderingPayDescription = ({balance, total_cost}) => {
 
   return (
 
     <div className={style['ordering__desc']}>
-      {dataBalance < total_cost?
+      {balance < total_cost?
         <p>
             Кнопка «Пополнить баланс» - Вы сможете пополнить баланс после оформления заказа, сайт предложит Вам заполнить форму с реквизитами. Также, пополнить баланс можно «внутри» самого заказа, и в разделе «Баланс и платежи»
         </p>

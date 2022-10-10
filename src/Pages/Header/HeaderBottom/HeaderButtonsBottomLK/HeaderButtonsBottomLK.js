@@ -202,7 +202,7 @@ const HeaderButtonsBottomLK = ({
                 >   
                     <span
                         className={'_icon-cart'}
-                        id={'cart-id'}
+                        id={'cart-id'}     
                     >                        
                         {
                             !!inCartProducts ?

@@ -49,15 +49,18 @@
       //             0 0 100px $pi;
 
     }
-    //.ordering__button-active{}
+    //.ordering__button--active{}
     &--active {
       cursor: default;
+      display: flex;
+    flex-direction: row-reverse;
     }
     &--active,
     &--active:hover {
       background: $w;
       border: 2px solid $a2;
       color: $a2;
+
     }
     //.ordering__button-wrap{}
     &-wrap {
@@ -397,19 +400,22 @@
     &-card {
       pointer-events: none;
       display: flex;
-      padding: 20px;
+      // padding: 20px;
       background-color: $w;
       margin-bottom: 10px;
       border: 2px solid transparent;
-      align-items: start;
-      border: 1px solid $p;
-      border-radius: 50%;
+      align-items: center;
+      // border-radius: 50%;
       background-color: $w;
-      border-color: $p;
+      box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+      &--active {
+        border: 2px solid $a2;
+      }
       &:focus {
         color: $p;
       }
       &:hover {
+        cursor: pointer;
         border: 2px solid $a2;
       }
       &[checked] {
@@ -422,11 +428,14 @@
         margin-top: 0;
         margin-bottom: 5px;
         word-break: break-word;
+        padding: 20px 5px;
       }
       //.ordering__address-card-client{}
       &-client {
         margin: 0;
         font-size: 14px;
+        padding: 20px 5px;
+
       }
       //.ordering__address-card-newbtn{}
       &-newbtn {

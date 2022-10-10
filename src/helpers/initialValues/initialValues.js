@@ -27,10 +27,10 @@ export const initialValuesRegistration = {
     firstname: 'a',
     patronymic: 'a',
     username: 'a1',
-    iAgreeDataProcessing: null,
+    iAgreeDataProcessing: false,
     email: 'alekseyuadnepr@gmail.com',
-    phone: '12334',
-    password: 'qqqqq11111',
+    phone: '',
+    password: '',
     whereDidYouHearAboutService: '',
     otherWhereDidHearAbout: '',
     receiveNewsletters: false,
@@ -179,3 +179,25 @@ export const reviewInitialState = {
   content: '',
   stars: 0,
 }
+
+export const initialValuesOrder = {
+  payment_methods: null,
+  variant: null,
+  needPassport: false,
+  lastname: null,
+  firstname: null,
+  patronomic: null,
+  serias_and_number_passport: null,
+  issued_passport: null,
+  issued_date: null,
+  comment: null,
+  agree_personal_data: true,
+  waitForCall: false,
+  selectedAdress: null,
+  comment_order: null,
+};
+
+export const initialFiltersOrders = {
+   page: 1, 
+   page_size: 10
+};

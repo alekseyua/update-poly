@@ -8,8 +8,16 @@ import Coll from './Coll/Coll';
 import CollPageLeft from './CollPageLeft/CollPageLeft';
 import CollPageRight from './CollPageRight/CollPageRight';
 import CollPageContainer from './CollPageContainer/CollPageContainer';
+// блоки для создания сетки личного кабинета
+import GridPageLK from './GridPageLK/GridPageLK';
+import GridPageLeftLK from './GridPageLeftLK/GridPageLeftLK';
+import GridPageRightLK from './GridPageRightLK/GridPageRightLK';
+
 
 export default {
+    GridPageLK,
+    GridPageLeftLK,
+    GridPageRightLK,
     CollPageContainer,
     CollPageLeft,
     CollPageRight,

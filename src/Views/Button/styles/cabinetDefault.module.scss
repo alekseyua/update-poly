@@ -1,0 +1,41 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+.btn{
+    @include flex('cc');
+    padding: 4px 20px;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 140%;
+    letter-spacing: 0.1em;
+    border: 2px solid var(--gx-color-primary);
+    background-color: var(--gx-color-primary);
+    color: var(--gx-color-white);
+    border-radius: 2px;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    min-width: 180px;
+    min-height: 44px;
+    max-width: 220px;
+    overflow: hidden;
+
+    &:hover {
+      color: var(--gx-color-white);
+      background-color: var(--gx-color-primary2);
+      outline: none;
+      box-shadow: none;
+    }
+    &:active {
+      color: var(--gx-color-white);
+      outline: none;
+      background-color: var(--gx-color-primary);
+      outline: none;
+      box-shadow: none;
+    }
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+}

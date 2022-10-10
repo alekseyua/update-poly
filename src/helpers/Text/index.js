@@ -1,5 +1,6 @@
 
 import locale from '../../locales';
+
 const Text = ({ text }) => {
   const lang = 'ru'
   const checkKey = locale[lang].hasOwnProperty(text);

@@ -30,11 +30,12 @@ export const registration = store => {
   store.on('setAllSteps', ({ allSteps }, s) => ({ allSteps: s }))
   //?! регистрация пользователя
   store.on('setRegistration', ({ registration, step, roleRegister }, obj, { dispatch }) => {
-    const { newValues, setFieldError } = obj;
+    const { newValues, setFieldError, setLoading } = obj;
     let params = serializeDataRegistration(newValues, roleRegister);
     apiUser
       .registration(params)
       .then((res) => {
+        setLoading(false)
         dispatch('setModalState', {
           show: true,
           action: {
@@ -93,6 +94,7 @@ export const registration = store => {
           // if (error && step !== state.allSteps) setNextStep();
 
         }
+        setLoading(false)
       });
   })
   //?! проверка ключа с указаной почты

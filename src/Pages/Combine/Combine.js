@@ -19,8 +19,14 @@ import NewsPage from '../NewsPage/NewsPage';
 import OrderingPage from '../OrderingPage/OrderingPage';
 import PartnershipPage from '../PartnershipPage/PartnershipPage';
 import InformationPayments from '../PaymentPage/InformationPayments';
+import PersonalPage from '../LK/PersonalPage/PersonalPage';
+import OrdersPage from '../LK/OrdersPage/OrdersPage';
 import ProductDetails from '../ProductDetailsPage';
-
+import NotificationsPage from '../LK/NotificationsPage/NotificationsPage';
+import BalancePage from '../LK/BalancePage/BalancePage';
+import ReviewsPersonalPage from '../LK/ReviewsPersonalPage/ReviewsPersonalPage';
+import WishPage from '../WishPage/WishPage';
+import ExportCatalog from '../ExportCatalog/ExportCatalog';
 
 
 const Combine = ({...props}) => {
@@ -46,12 +52,18 @@ const Combine = ({...props}) => {
         4: ProductDetails, //? детальная страница продукта http://localhost:3000/product-181-shapkaia-pukhovaia-1
         9: CartPage, //?корзина http://localhost:3000/cart
         11: OrderingPage, //? страница Оформление заказа
+        29: OrdersPage, //? страница с моими заказами (там же архив и активные)
+        34: PersonalPage, //? личный кабинет
+        35: NotificationsPage, //? кабинет уведомления
+        36: BalancePage, //? кабинет баланс
+        31: ReviewsPersonalPage, //? страница с деталкой заказа
+        13: WishPage, //? старница со списком желаемого
+        37: ExportCatalog,
 
-
-    
+        
     }
-
-
+    
+    
     useEffect(()=>{
         setDataContext(c=>({            
             ...c,

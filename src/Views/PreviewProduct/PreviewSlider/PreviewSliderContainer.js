@@ -63,11 +63,11 @@ const PreviewSliderContainer = ({
           observer={true}
           observeSlideChildren
           slidesPerView={5}
-          loop={true}
+          // loop={true}
           // freeMode={false}
           // longSwipesRatio={0.1}
           // previewslider={'true'}
-          size={100}
+          // size={100}
           // className={'swipper_container-vertical'}
         >
           {

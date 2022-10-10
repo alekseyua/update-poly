@@ -14,8 +14,8 @@
     margin-right: 0px;
     word-wrap: break-word;
     z-index: 0;
-    align-items: center;
-    @include adaptive-value('min-width', 150, 0, px,2);
+
+    @include adaptive-value('min-width', 100, 70, px,2);
     @include tablet-mmd {
       justify-content: center;
     }
@@ -100,8 +100,14 @@
   padding: 0;
   &>div{
     display: inline-flex;
-    @include adaptive-value('height', 700, 400,px,2);
-    // position: absolute;
+    margin-top: 25px;
+    @include adaptive-value('height', 650, 400,px,2);
+    @include tablet-md{
+      @include adaptive-value('height',850, 500,px,2);
+    }
+    @include mobile{
+      @include adaptive-value('height',850, 400,px,2);
+    }
   }
 }
 

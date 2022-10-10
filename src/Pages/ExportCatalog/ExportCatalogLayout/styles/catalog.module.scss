@@ -1,0 +1,31 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.export-card{
+    max-height: 168px;
+    width: 100%;
+    position: relative;
+    //.export-card__image{}
+    &__image{
+        padding: 0;
+        display: block;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+    //.export-card__checkbox{}
+    &__checkbox{
+        padding: 0;
+        max-width: 20px;
+        max-height: 20px;
+        @include flex(lc);
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: $w;
+        border-radius: 4px;
+            &> div> label {
+                margin: 0;
+            }
+        }
+}

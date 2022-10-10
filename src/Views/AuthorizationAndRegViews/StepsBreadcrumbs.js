@@ -9,7 +9,7 @@ const StepsBreadcrumbs = ({ step = 0, allSteps = 1, setPrevStep }) => {
   return (
     <div className={style['stepsBreadcrumbs__wrapper']}>
       <Button onClick={()=>setPrevStep(step)} variant={'backForm'} className={style['stepsBreadcrumbs__wrapper-steps-btn']}>
-        <Icon className={style['stepsBreadcrumbs__wrapper-steps-icon']} src={leftArrowIcon} slot={'icon-left'} />
+        <Icon className={style['stepsBreadcrumbs__wrapper-steps-icon']} src={leftArrowIcon} slot={'icon-left'}  width={20} height={20} />
         <Text text={'backTo'} />
       </Button>
       <span className={style['stepsBreadcrumbs__wrapper-steps-text']}>

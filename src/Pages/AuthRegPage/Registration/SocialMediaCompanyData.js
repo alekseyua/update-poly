@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { fbIcon, igIcon, vkContrastIcon } from '../../../images';
+import { igIcon, vkContrastIcon } from '../../../images';
 import { ROLE } from '../../../const';
 import Input from '../../../Views/Input';
 import ErrorField from '../../../Views/ErrorField';
@@ -8,16 +8,22 @@ import HelpTextAndLine from '../../../Views/HelpTextAndLine';
 import Button from '../../../Views/Button';
 import Text from '../../../helpers/Text';
 import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
 import {
   signUpFirstFormSchema,
   signUpSocialMediaFormSchema,
   signUpSocialMediaNotRequiredFormSchema,
 } from '../../../helpers/schemesFormic';
 
-import Select from '../../../Views/Select';
 import Icon from '../../../Views/Icon/Icon';
 
-const SocialMediaCompanyData = ({ onSaveFormData, initialValues, role, serverError }) => {
+const SocialMediaCompanyData = ({ 
+  onSaveFormData, 
+  initialValues, 
+  serverError,
+  loading,
+  role,
+ }) => {
   const errorsMessenge = {
     requiredField: Text({ text: 'requiredField' }),
     invalidInn: Text({ text: 'invalidInn' }),
@@ -131,6 +137,7 @@ const SocialMediaCompanyData = ({ onSaveFormData, initialValues, role, serverErr
                 data-cy={'registration_button_step_3'}
               >
                 <Text text={'registration'} />
+                {loading ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
               </Button>
             </form>
           )

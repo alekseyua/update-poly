@@ -4,49 +4,62 @@ import Block from '../SpinnerWrapper';
 
 import style from './styles/table.module.scss';
 
-const Table = ({ classNameTable, tableHeaderData, tableBodyData, statusLoad = null}) => {
+const Table = ({ classNameTable, tableHeaderData, tableBodyData = [], statusLoad = null}) => {
+  console.log({tableBodyData})
 
   return (
     <table className={style[classNameTable]}> 
       <thead> 
-        {tableHeaderData.map((trElData, i) => {
-          return (
-            <tr key={v4()}>
-              {trElData.map((th, thI) => {
-                return (
-                  <th key={v4()} {...th?.attr}>
-                    {th?.content}
-                  </th>
-                );
-              })}
+        {
+          tableHeaderData.map((trElData, i) => {
+            return (
+              <tr key={v4()}>
+                {trElData.map((th, thI) => {
+                  return (
+                    <th key={v4()} {...th?.attr}>
+                      {th?.content}
+                    </th>
+                  );
+                })}
 
-            </tr>
-          );
-        })}
+              </tr>
+            );
+          })
+        }
       </thead>
       <tbody>
-        {statusLoad === 'loading' ? (
+        {
+        statusLoad !== 'loading' ? (
           <tr>
             <td colSpan={5}>
-              <Block.Spinner />
+              <Block.Spinner sizeWidth='20' sizeHeight='20'/>
             </td>
           </tr>
-        ) : null}
-        {tableBodyData.map((trElData, i) => {
-          return (
-            <tr key={v4()}>
-              {trElData.map((td, tdI) => {
-                 
-                return (
-                  <td key={v4()} {...td?.attr}>
-                    {td?.content}
-                  </td>   
-                );
-              })}
-      
-            </tr>
-          );
-        })}
+        ) : null
+        }
+        
+        {
+          !!tableBodyData.length?
+            tableBodyData.map((trElData, i) => {
+              console.log({trElData})
+              return (
+                <tr key={v4()}>
+                  {
+                  trElData.map((td, tdI) => {
+                    
+                    return (
+                      <td key={v4()} {...td?.attr}>
+                        {td?.content}
+                      </td>   
+                    );
+                  })
+                  }
+          
+                </tr>
+              );
+            })
+            : null
+        }
       </tbody>
     </table>
   );

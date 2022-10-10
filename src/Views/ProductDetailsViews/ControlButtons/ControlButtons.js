@@ -80,6 +80,9 @@ const ControlButtons = ({
                             slot="icon-left"
                             src={shoppingIcon}
                             pointerEvents={'none'}
+                            width={25}
+                            height={25}
+
                         />
                         <div
                             className={style['prodpage-control-buttons__text-button']}

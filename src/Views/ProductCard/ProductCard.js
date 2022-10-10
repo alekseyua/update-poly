@@ -121,7 +121,7 @@ const ProductCard = (props) => {
             </Button>
           </div>
           <h5 className={style['product-card__name']}>
-            <Link to={url}>{title}</Link>
+            <Link to={`/${url}`}>{title}</Link>
           </h5>
           <div className={style['product-card__prices']}>
             <div
@@ -165,7 +165,7 @@ const ProductCard = (props) => {
               );
             })}
           </ul>
-          <span onClick={()=>handleQuickView(id)} className={style['product-card__link']}>
+          <span onClick={()=>handleQuickView(id, url)} className={style['product-card__link']}>
             <Text text={'quickView'} />
           </span>
         </div>

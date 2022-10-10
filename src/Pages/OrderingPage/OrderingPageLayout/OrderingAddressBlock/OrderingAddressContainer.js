@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useStoreon } from 'storeon/react';
 import OrderingAddress from './OrderingAddress';
 
 
 const OrderingAddressContainer = ({
-  role = 2,
-  selectedAdress,
-  setFieldValue,
-  openModalAddAddress, 
-  profileId,
-  closeModal,
-  setFieldCountry,
-  handleChange,
+  addressDilivery = {},
+  values,
+  role,
+  
+  setValues,
 }) => {
-  const [adresses, setadresses] = useState([]);
-  const [stateMarquee, setStateMarquee] = useState(true)
+
+  const { dispatch } = useStoreon();
+  const [ adresses, setadresses ] = useState([]);
+  const [ stateMarquee, setStateMarquee ] = useState(true)
   const [ allCount, setAllCount ] = useState(0);
   const [ searchCount, setSearchCount ] = useState([]);
 
   
-//   const getAdresses = (page=1) => {
-//     const params = {
-//       page: page
-//     }
-//     orderApi
-//       .getOrderAddressDeliviry(params)
-//       .then((res) => {
-//         setadresses(res.results);
-//         setAllCount(res.count);
-//       });
-//   };
 
-//   const updateAddressRenderData = (page) => {
-//     getAdresses(page);
-//     closeModal();
-//   };
-
-//   const decorOpenModalAddAddress = () => {
+  const decorOpenModalAddAddress = () => {
+    console.log('show popup for add address ')
 //     const content = (
 //       <ModalAddAddress
 //         updateAddressRenderData={updateAddressRenderData}
@@ -46,28 +31,51 @@ const OrderingAddressContainer = ({
 //       />
 //     );
 //     return openModalAddAddress(content);
-//   };
+  };
 
-//   const searchAddressRenderData = (data) => {
-//     orderApi
-//       .getOrderAddressSearch({ q: data })
-//       .then((res) => {
-//         setadresses(res);
-//         console.log('res****--*/***-', res)
-//         setSearchCount(c=> [...c, ...res])
-//       });
-//   };
+  const searchAddressRenderData = (data) => {
+    let paramsSearch = {
+      q: data
+    }
+    dispatch('searchAddressDilivery', paramsSearch)
+  };
 
-//   useEffect(() => {
-//     getAdresses();
-//   }, []);
+  const setChooseAddress = (id, country) => {
+    setValues({
+      ...values,
+      'selectedAdress': id
+    })
+    
+    const paramsGetCountryAddress = {
+      country: country
+    }
+
+    dispatch('getCountryDeliviry', paramsGetCountryAddress);
+
+  }
+
+  const updateAddressRenderData = (page) => {
+    console.log({page})
+    const paramsPage = {
+      page: page
+    }
+    dispatch('getAdresses', paramsPage)
+  }
 
 
-  return (
+return (
     <OrderingAddress
+      setChooseAddress = { setChooseAddress }
+      addressDilivery = { addressDilivery }
+      setStateMarquee = { setStateMarquee }
+      stateMarquee = { stateMarquee }
+      values = { values }
+      role = { role }
 
+      searchAddressRenderData = { searchAddressRenderData }
+      updateAddressRenderData = { updateAddressRenderData }
     />
-  );
+  )
 };
 
 export default React.memo(OrderingAddressContainer);

@@ -10,7 +10,8 @@ import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
 import { toolTipIcon } from '../../../images';
 import Error from '../../../Views/Error';
 import Icon from '../../../Views/Icon/Icon';
-
+import BlockSpinner from '../../../Views/SpinnerWrapper';
+import Form from '../../../Views/Form';
 const errorsMessenge = {
   requiredField: Text({ text: 'requiredField' }),
   shortLastName: Text({ text: 'short.last.name' }),
@@ -26,7 +27,12 @@ const errorsMessenge = {
 };
 
 
-const RegistrationFormFirst = ({ onSaveFormData, initialValues }) => {
+const RegistrationFormFirst = ({ 
+  onSaveFormData, 
+  initialValues,
+  loading,
+
+}) => {
 
   return (
     <Formik
@@ -37,9 +43,8 @@ const RegistrationFormFirst = ({ onSaveFormData, initialValues }) => {
       {
         (props)=>{
           const {values, handleBlur, errors, touched, setFieldValue, handleSubmit} = props
-
           return (
-            <form id={'form-second-data'} onSubmit={handleSubmit}>
+            <Form id={'form-second-data'} onSubmit={handleSubmit}>
               <Input
                 autofocus={true}
                 value={values.lastname}
@@ -98,10 +103,10 @@ const RegistrationFormFirst = ({ onSaveFormData, initialValues }) => {
                   onChange={(e) => setFieldValue('username', e.target.value.trim())}
                   helpText={errors.username && touched.username ? <ErrorField message={errors.username} /> : null}
                 >
-                  <Icon slot={'suffix'} src={toolTipIcon} />
+                  <Icon slot={'suffix'} src={toolTipIcon} height={20} width={20} />
                 </Input>
               </AuthorizationAndRegViews.WrapperInputForTooltip>
-              <div>
+              <AuthorizationAndRegViews.WrapperCheckBox>
                 <CheckBox
                    checked={values.iAgreeDataProcessing}
                    name={'iAgreeDataProcessing'}
@@ -110,14 +115,14 @@ const RegistrationFormFirst = ({ onSaveFormData, initialValues }) => {
                    label={Text({ text: 'iAgreeDataProcessing' })}
                    value={''} 
                    onChange={(e) => {
-                     let checked = e.target.checked;
+                     let checked = e.checked;
                      if (checked === null) return;
-                     setFieldValue('iAgreeDataProcessing', checked);
+                     setFieldValue('iAgreeDataProcessing', !checked);
                    }}
                 />
                   {values.iAgreeDataProcessing ? <ErrorField message={errors.iAgreeDataProcessing} /> : null} 
                   {errors.iAgreeDataProcessing && touched.iAgreeDataProcessing ? <Error message={!!errors.iAgreeDataProcessing?'необходимо соглассие на обработку данных': null} /> : null}
-              </div>
+              </AuthorizationAndRegViews.WrapperCheckBox>
                 <Button
                   form={'form-second-data'}
                   variant={'black_btn_full_width'}
@@ -125,9 +130,10 @@ const RegistrationFormFirst = ({ onSaveFormData, initialValues }) => {
                   data-cy={'registration_button'}
                 >
                   <Text text={'saveAndContinue'} />
+                  {loading ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
                 </Button>
 
-            </form>
+            </Form>
           )
         }
       }

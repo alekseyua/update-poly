@@ -116,7 +116,11 @@
         ],
         "reviews": {
             "service_reviews": [],
-            "product_reviews": []
+            "product_reviews": [],
+            "getMyReviewList": {
+                "count": 0,
+                "results": []
+            }
         },        
         "currencies": [
             "PLN",
@@ -725,7 +729,20 @@
             
             "results": []
         },
-        
+        "order":{
+            "addressDilivery": {},
+            "orders": {
+                "count": 0,
+                "results": [],
+                "tableBodyData": [],
+                "dateFilterData": {}
+            }
+        },
+        "notifications": {
+            "count": 0,
+            "results": [],
+            "selectItemsNotice": []
+        },
         "news": [],     
         "page_info": {
             "id": 1,
@@ -751,12 +768,22 @@
             "login_required": false,
             "components": []
         },
-
+        "exportCatalog": {
+            "count": 0,
+            "results": []
+        },
         "year": 2022,
         "cabinet_menu": [],
         "profile": {
             "role": 0,
-            "status": 0
+            "status": 0,
+            "opt_minimum_price": 0,
+            "wishlist": 0,
+            "list_wishes": []
+        },
+        "historyPayment": {
+            "count": 0,
+            "results": []
         },
         "breadcrumbs": [
             {

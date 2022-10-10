@@ -13,6 +13,9 @@ import CatalogLinkTransparent from './styles/CatalogLinkTransparent.module.scss'
 import CatalogFilter from './styles/CatalogFilter.module.scss';
 import CounterBtn from './styles/CounterBtn.module.scss';
 import CatalogLinkTransparentModal from './styles/CatalogLinkTransparentModal.module.scss';
+import cabinetDefault from './styles/cabinetDefault.module.scss';
+import cabinetLinkblue from './styles/cabinetLinkblue.module.scss';
+
 import style from './styles/icons.module.scss';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
@@ -38,6 +41,7 @@ import Icon from '../Icon';
  */
 const Button = ({
   size,
+  id,
   disabled = false,
   hasFocus,
   full,
@@ -89,7 +93,11 @@ const Button = ({
       case 'catalog-link-transparent__modal':
         return CatalogLinkTransparentModal['catalog-link-transparent__modal']
       case 'counter-btn':
-        return CounterBtn['btn']
+        return CounterBtn['btn'];
+      case 'cabinet_default':
+        return cabinetDefault['btn'];
+      case 'cabinet-linkblue':
+        return cabinetLinkblue['btn']
       default: ''
     }
   }
@@ -118,6 +126,7 @@ const Button = ({
         (
           !href ?
             <button
+              id = { id }
               className={customClassName}
               datanoclick={datanoClick}
               disabled={disabled}
@@ -127,6 +136,7 @@ const Button = ({
               {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} style={{marginLeftt: `10px`}} onClick={onClickIcon} src={iconRight} /> : null}
             </button>
             : <Link
+              id = { id }
               to='#'
               className={customClassName}
               disabled={disabled}
@@ -137,6 +147,7 @@ const Button = ({
         ) : (
           !href ?
             <button
+              id = { id }
               onClick={onClick}
               className={customClassName}
               datanoclick={datanoClick}
@@ -146,6 +157,7 @@ const Button = ({
               {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
             </button>
             : <Link
+              id = { id }
               to={`${href}`}
               target={target}
               datanoclick={datanoClick}

@@ -66,7 +66,7 @@ const CheckBox = ({
   const classNameCustom = classNames({
     [style['type-checkbox']]: true,
     [getVariantStyleCheckbox(variant)]: true,
-    [className]: !!className,
+    // [className]: !!className,
   });
 
   const classNameLabelCheckBox = classNames({
@@ -76,7 +76,11 @@ const CheckBox = ({
 
   return (
     <div 
-      className={style['checkbox__container']}
+      className={classNames({
+          [style['checkbox__container']]: true,
+          [className]: !!className
+        })
+      }
       onClick={handlerOnChange} 
     >
         {
@@ -96,6 +100,7 @@ const CheckBox = ({
         name={name}//iAgreeDataProcessing   ----- name="check" 
         id={id}
         value={value} 
+        {...props}
       />
         <label htmlFor="check" className={classNameLabelCheckBox}>
           <span></span>{label}

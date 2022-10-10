@@ -7,6 +7,7 @@ export const catalog = store => {
     const apiProfile = api.profileApi;
 
     store.on('@init', () => ({ valueCheckBoxFilters: initValueCheckBoxFilters }));
+    
     store.on('changeParamsFilters', ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
         console.log('obj in STORE filters = ', obj)
         // let updateValueCheckBoxFilter = {}
@@ -38,6 +39,7 @@ export const catalog = store => {
         dispatch('getCatalog', obj.valueCheckBoxFilters)
         return
     })
+
     store.on('getCatalog', async ({ context }, obj, { dispatch }) => {
         try {
             console.log({ objInport: obj?.is_import })
@@ -73,7 +75,6 @@ export const catalog = store => {
                     dataProducts: products,
                 }
             }
-            console.log('newContext 1', newContext)
             return dispatch('context', newContext)
 
         } catch (err) {
@@ -99,9 +100,51 @@ export const catalog = store => {
             }
             console.log({updateContext})
             dispatch('context', updateContext)
+
         }catch(err){
             console.log('Sorry something went wrong :) ', err)
         }
     })
+    
+    store.on('getExportCatalog', async ({ context }, obj, { dispatch }) => {
+        try {
+            console.log({ objInport: obj?.is_import })
+            console.log({ objPolish: obj?.is_polish })
 
+            let params = obj ? {
+                    page: 1,
+                    page_size: 30,
+                    ...obj,
+                    is_polish: obj?.is_polish ? false : true,
+                    is_import: obj?.is_import ? false : true
+                } : {}
+
+            const products = await apiContent.getPhotosListForExportCatalog(params);
+
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    filters_params: {
+                        ...context.init_state.filters_params,
+                        is_new: obj?.is_new ? obj.is_new : false,
+                        is_bestseller: obj?.is_bestseller ? obj.is_bestseller : false,
+                        is_closeout: obj?.is_closeout ? obj.is_closeout : false,
+                        is_in_collection: obj?.is_in_collection ? obj.is_in_collection : false,
+                        is_in_stock: obj?.is_in_stock ? obj.is_in_stock : false,
+                        is_not_range: obj?.is_not_range ? obj.is_not_range : false,
+                        is_polish: obj?.is_import ? false : true,
+                        is_import: obj?.is_polish ? false : true,
+
+                        categories: !!obj?.categories?.length ? obj.categories : []
+                    },
+                    exportCatalog: products,
+                }
+            }
+            return dispatch('context', newContext)
+
+        } catch (err) {
+            console.log('ERROR getCatalog STORE', err)
+        }
+    })
 }

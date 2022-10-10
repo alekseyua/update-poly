@@ -4,29 +4,57 @@ import OrderingPageLayoutContainer from './OrderingPageLayout/OrderingPageLayout
 const OrderingPage = ({
     ...props
 }) => {
-    console.log({OrderingPage: props.context})
+    console.log({ OrderingPage: props.context })
     const { context } = props;
-    const { 
+    const {
+        role_configuration,
+        delivery_methods,
+        payment_methods,
         cart_content,
         breadcrumbs,
-        dataCart,
         page_info,
+        dataCart,
         currency,
         profile,
-     } = context;
-       const { role } = profile;
-       const shriveledCartContent = {
+        order,
+    } = context;
+
+    const {        
+        balance,
+        role,
+    } = profile;
+
+    const profileId = profile.id;
+
+    const {
+        total_price,        
+    } = dataCart;
+
+    const { addressDilivery } = order;
+
+    const {
+        delivery_condition,        
+    } = role_configuration;
+
+    const shriveledCartContent = {
         cart_items: dataCart.cartitem_set,
         in_stock: dataCart.in_stock,
         selected: dataCart.selected,
-       }
+    }
 
     return (
         <OrderingPageLayoutContainer
             shriveledCartContent = { shriveledCartContent }
+            delivery_condition = { delivery_condition }
+            delivery_methods = { delivery_methods }
+            payment_methods = { payment_methods }
+            addressDilivery = { addressDilivery }
             cart_content = { cart_content }
             breadcrumbs = { breadcrumbs }
+            total_price = { total_price }
+            profileId = { profileId }
             currency = { currency }
+            balance = { balance }
             role = { role }
         />
     )

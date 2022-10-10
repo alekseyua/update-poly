@@ -11,13 +11,15 @@ import Select from '../../../Views/Select';
 import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
 import Text from '../../../helpers/Text';
 import Icon from '../../../Views/Icon/Icon';
-
+import Form from '../../../Views/Form';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
 
 const RegistrationFormBaseInfo = ({
   onSaveFormData,
   initialValues,
-  role,
   serverError,
+  loading,
+  role,
 }) => {
   const getIconSuccess = (error, value) => {
     // !!errors.password || !!!values.password ? toolTipIcon : successIcon;
@@ -63,9 +65,11 @@ const RegistrationFormBaseInfo = ({
     >
       {
         (props)=>{
-          const {values, handleBlur, errors, touched, setFieldError, setFieldValue, handleSubmit} = props
+          const {values, handleBlur, errors, touched, setFieldError, setFieldValue, handleSubmit} = props;
+          console.log('values', values)
+
           return (
-            <form id={'form-first-data'} onSubmit={handleSubmit}>
+            <Form id={'form-first-data'} onSubmit={handleSubmit}>
               {/* //! email */}
               <Input
                 value={values.email}
@@ -119,7 +123,7 @@ const RegistrationFormBaseInfo = ({
                   helpText={errors.password && touched.password ? <ErrorField message={errors.password} /> : null}
                   data-cy={'registration_password'}
                 >
-                  <Icon slot={'suffix'} src={getIconSuccess(errors.password, values.password)} />
+                  <Icon slot={'suffix'} src={getIconSuccess(errors.password, values.password)} height={20} width={20} />
                 </Input>
               </AuthorizationAndRegViews.WrapperInputForTooltip >
 
@@ -145,7 +149,7 @@ const RegistrationFormBaseInfo = ({
                 }
                 data-cy={'registration_confirm_password'}
               >
-                <Icon slot={'suffix'} src={getIconSuccess( errors.confirm_password, values.confirm_password)} />
+                <Icon slot={'suffix'} src={getIconSuccess( errors.confirm_password, values.confirm_password)} height={20} width={20}/>
               </Input>
 
               </AuthorizationAndRegViews.WrapperInputForTooltip >
@@ -178,7 +182,10 @@ const RegistrationFormBaseInfo = ({
                 name={'whereDidYouHearAboutService'}
                 placeholder={Text({ text: 'whereDidYouHearAboutService' })}
                 label={Text({ text: 'whereDidYouHearAboutService' })}
-                onChange={ e => setFieldValue('whereDidYouHearAboutService', e.target.value)}
+                onClick={(e) => {
+                  const value = e.target.getAttribute('value');
+                  setFieldValue('whereDidYouHearAboutService', value)
+                }}
                 onBlur={handleBlur}
                 helpText={
                   errors.whereDidYouHearAboutService ? (
@@ -189,9 +196,9 @@ const RegistrationFormBaseInfo = ({
                 data-cy={'registration_where_Did_You_Hear_About_Service'}
               />
               
-              <div>
 
                 {/* //! получать рассылку */}
+              <AuthorizationAndRegViews.WrapperCheckBox>
                 <CheckBox
                     checked={values.receiveNewsletters}
                     name={'receiveNewsletters'}
@@ -201,14 +208,14 @@ const RegistrationFormBaseInfo = ({
                     value={''} 
                     onBlur={handleBlur}
                     onChange={(e) => {
-                      let checked = e.target.checked;
+                      let checked = e.checked;
                       if (checked === null) return;
-                      setFieldValue('receiveNewsletters', checked);
+                      setFieldValue('receiveNewsletters', !checked);
                     }}
                     helpText={!values.receiveNewsletters && touched.receiveNewsletters? <ErrorField message={errors.receiveNewsletters} /> : null}
 
                 />
-              </div>
+              </AuthorizationAndRegViews.WrapperCheckBox>
 
 
               {
@@ -228,8 +235,9 @@ const RegistrationFormBaseInfo = ({
                 ) : (
                   <Text text={'saveAndContinue'} />
                 )}
+                  {loading ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
               </Button>
-            </form>
+            </Form>
         )}
       }
     </Formik>

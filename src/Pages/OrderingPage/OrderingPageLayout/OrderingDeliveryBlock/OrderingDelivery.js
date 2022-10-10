@@ -2,26 +2,29 @@ import React from 'react';
 import OrderingViews from '../../../../Views/OrderingViews';
 
 const OrderingDelivery = ({
-
-  idEnableBtn,
-  setActiveVariantPayments,
   delivery_condition,
   deliveryVariant,
+  idEnableBtn,
+  values,
   role,
+  
+  setActiveVariantPayments,
 }) => {
  
   return (
     <OrderingViews.OrderingDeliverySection>
       <OrderingViews.OrderingDeliveryHead />
       <OrderingViews.OrderingDeliveryDescription 
-        role={role}
+        role = { role }
       />
       <OrderingViews.OrderingDeliveryVariantsBtn
-        deliveryVariant={deliveryVariant}
-        delivery_condition={delivery_condition}
-        setActiveVariantPayments={setActiveVariantPayments}
-        idEnableBtn={idEnableBtn}
-      />
+        delivery_condition = { delivery_condition }
+        deliveryVariant = { deliveryVariant }
+        idEnableBtn = { idEnableBtn }
+        values = { values }
+
+        setActiveVariantPayments = { setActiveVariantPayments }
+        />
 
     </OrderingViews.OrderingDeliverySection>
   );

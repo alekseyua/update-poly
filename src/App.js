@@ -15,8 +15,8 @@ const App = (props) => {
   const [ currencyCurrencies, setCurrencyCurrencies ] = useState(null)
 
   useEffect(()=>{
-    // console.log('test',location.pathname)
-    // console.log('test2', location.search)
+     console.log('test',location.pathname)
+     console.log('test2', location.search)
     let path = location.pathname;
     if (!!location.search){
       path = `${location.pathname}${location.search}`;

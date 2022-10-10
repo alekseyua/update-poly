@@ -64,6 +64,7 @@
     &__reviews-list {
         @include ul;
         padding-top: 19px;
+        max-width: 450px;
         //.reviews__reviews-list-mb{}
         &-mb {
             margin-bottom: 30px;
@@ -82,7 +83,7 @@
         padding: 0 15px;
         padding-top: 30px;
         padding-bottom: 30px;
-        @include col(6, 0);
+        // @include col(6, 0);
 
         @include tablet-md {
             width: 100%;

@@ -1,5 +1,7 @@
+import classNames from 'classnames';
 import React from 'react';
 import {statusSend} from '../../../images';
+import Icon from '../../Icon';
 
 import style from '../styles/index.module.scss';
 
@@ -14,6 +16,7 @@ const OrderingAddressItem = ({
   middle_name,
   phone,
   post_code,
+  values, 
   profile,
   street,
   selectedAdress,
@@ -22,8 +25,13 @@ const OrderingAddressItem = ({
   handleChange,
   setStateMarquee,
   stateMarquee,
+  setChooseAddress,
 }) => {
 
+  const styleContainer = classNames({
+    [style['ordering__address-card']]: true,
+    [style['ordering__address-card--active']] : values.selectedAdress === id
+  })
   return (
     // <GxTooltip 
     //   content="сдесь можно выбрать адрес доставки"
@@ -31,31 +39,29 @@ const OrderingAddressItem = ({
     // >
       // <Radio
       <div
-        // checked={selectedAdress === id ? true : null}
-        id={id}
-        onClick={(e) => {
+        id={ id }
+        onClick = {(e) => {
           setStateMarquee(false)
-          setFieldValue('selectedAdress', id);
-          setFieldCountry(country);
-          handleChange(country)
+          setChooseAddress(id, country)
         }}
-        name="address"
-        className={style['ordering__address-card']}
+        name = { "address" }
+        className={ styleContainer }
       >
+        { 
+          values.selectedAdress === id?
+            <Icon
+              slot="icon-left"
+              src={statusSend}
+              className="cabinet_orders_details__base_info__icon"
+            />
+            :null
+        }
         <p className={style['ordering__address-card-address']}>
           {country}, {post_code}, {city}, {street}, {house}, {flat}
         </p>
         <p className={style['ordering__address-card-client']}>
           {last_name} {first_name} {middle_name}, {phone}
         </p>
-        { selectedAdress === id?
-          <Icon
-            slot="icon-left"
-            src={statusSend}
-            className="cabinet_orders_details__base_info__icon"
-          />
-          :null
-        }
      {/* </Radio> */}
      </div>
     // </GxTooltip>

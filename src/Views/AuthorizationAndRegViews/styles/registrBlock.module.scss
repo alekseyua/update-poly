@@ -8,6 +8,11 @@
     @include mobile {
       
     }
+    //.registrBlock__wrapper-checkbox{}
+    &-checkbox{
+      padding: 0;
+      margin-bottom: 25px;
+    }
 
     //.registrBlock__wrapper-help_text{}
     &-help_text {

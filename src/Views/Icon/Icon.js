@@ -19,10 +19,11 @@ const Icon = ({
     onClick, 
     className,
     slot,
+    bodrad,
     ref, 
     src, 
-    width='25', 
-    height='25', 
+    width, 
+    height, 
     filter, 
     pointerEvents,
     ...props}) => {
@@ -43,7 +44,8 @@ const Icon = ({
                 width: `${width}px`,
                 height:`${height}px`,
                 filter: `invert(${invert})`,
-                pointerEvents: pointerEvents
+                pointerEvents: pointerEvents,
+                borderRadius: `${bodrad}%`
             }}            
         >
         </div>

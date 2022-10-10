@@ -25,7 +25,11 @@ import BrandsFilters from './BrandsFilters';
 import ColorsFilters from './ColorsFilters';
 import SizesFilters from './SizesFilters';
 
+import WrapperExportCard from './WrapperExportCard.js';
+
+
 export default {
+  WrapperExportCard,
   SpinnerWrapperPopup,
   EmptyCatalog,
   CategoryMarkup,

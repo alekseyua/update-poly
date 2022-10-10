@@ -6,6 +6,7 @@ import UserApi from "./UserApi";
 import ContentApi from "./ContentApi";
 import ProfileApi from "./ProfileApi";
 import CartApi from "./CartApi";
+import OrderApi from "./OrderApi";
 
 
 class Api extends AbstractBaseApi  {
@@ -15,6 +16,8 @@ class Api extends AbstractBaseApi  {
         this.contentApi = new ContentApi(MAIN_URL);
         this.profileApi = new ProfileApi(MAIN_URL);
         this.cartApi = new CartApi(MAIN_URL);
+        this.orderApi = new OrderApi(MAIN_URL);
+
 
     }
 
@@ -40,6 +43,72 @@ class Api extends AbstractBaseApi  {
             return console.log('error message: ', err.message)
         }
     };
+
+
+  getUserBalance = async (params) => {
+    const res = await this.post('/user/get_user_balance/', params);
+    return res.data;
+  };
+
+  setPassword = async (params) => {
+    const res = await this.post('/user/set_password/', params);
+    return res.data;
+  };
+
+  restorePassword = async (params) => {
+    const res = await this.post('/user/restore_password/', params);
+    return res.data;
+  };
+
+  restorePasswordSetPassword = async (params) => {
+    const res = await this.post('/user/restore_password_set_password/', params);
+    return res.data;
+  };
+  getUser = async (params) => {
+    const res = await this.get('/user/', params);
+    return res.data;
+  };
+  createUser = async (params) => {
+    const res = await this.post('/user/', params);
+    return res.data;
+  };
+
+  getShop = async (params = {}) => {
+    const res = await this.get('/shop/shop/', params);
+    return res.data;
+  };
+
+  updateUser = async (id, params) => {
+    const res = await this.patch(`/user/${id}/`, params);
+    return res.data;
+  };
+
+  getCurrentUser = async () => {
+    const res = await this.get('/user/current/');
+    return res.data;
+  };
+
+  getSearch = async (params = {}) => {
+    const res = await this.get('/content/search/', params);
+    return searchContentSerializer(res.data.results);
+  };
+
+  getMoreThanFiveProductsOfSearch = async (params = {}) => {
+    const res = await this.get('/content/search/', params);
+    return res.data;
+  };
+
+  getTotalPrice = async (cart) => {
+    let promise = new Promise((resolve, reject) => {
+      const total = Object.values(cart).reduce(
+        (sum, item) => sum + Number(item.product.price) * Number(item.params.count),
+        0,
+      );
+      setTimeout(() => resolve(total), 300);
+    });
+    return promise;
+  };
+
 }
 
 const MAIN_URL = process.env.RAZZLE_APP_API_URL;

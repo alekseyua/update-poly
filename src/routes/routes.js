@@ -18,6 +18,13 @@ import InformationContacts from '../Pages/InformationContactsPage/InformationCon
 import InformationReviews from '../Pages/InformationReviewsPage/InformationReviews';
 import CartPage from '../Pages/CartPage/CartPage';
 import OrderingPage from '../Pages/OrderingPage/OrderingPage';
+import OrdersPage from '../Pages/LK/OrdersPage/OrdersPage';
+import PersonalPage from '../Pages/LK/PersonalPage/PersonalPage';
+import NotificationsPage from '../Pages/LK/NotificationsPage/NotificationsPage';
+import ReviewsPersonalPage from '../Pages/LK/ReviewsPersonalPage/ReviewsPersonalPage';
+import BalancePage from '../Pages/LK/BalancePage/BalancePage';
+import WishPage from '../Pages/WishPage/WishPage';
+import ExportCatalog from '../Pages/ExportCatalog/ExportCatalog';
 
 
 
@@ -154,6 +161,62 @@ module.exports = [
         path: '/order',
         index: false,
         component: OrderingPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/orders',
+        index: false,
+        component: OrdersPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/profile',
+        index: false,
+        component: PersonalPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/notifications',
+        index: false,
+        component: NotificationsPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/balance',
+        index: false,
+        component: BalancePage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/wishlist',
+        index: false,
+        component: WishPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },
+    {
+        path: '/my_reviews',
+        index: false,
+        component: ReviewsPersonalPage,
+        caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
+        fetchInitialData: PATHS.ALL.fetchInitialData,
+        end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname
+    },    
+    {
+        path: '/catalog_export',
+        index: false,
+        component: ExportCatalog,
         caseSensitive: false, // Optional. Should be `true` if the static portions of the `path` should be matched in the same case.
         fetchInitialData: PATHS.ALL.fetchInitialData,
         end: true, // Optional. Should be `true` if this pattern should match the entire URL pathname

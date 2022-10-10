@@ -2,5 +2,6 @@
 .form{
     width: 100%;
     background-color: $fontLayout;
-    @include scrollbar
+    @include scrollbar;
+    min-width: 300px;
 }

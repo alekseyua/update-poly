@@ -7,16 +7,22 @@ import style from './pagination.module.scss';
  *  @searchCount - количество совподений при поиске
  *  @count - max количество которое показывается или приходит по запросу
  *  @location - ореинтация на странице 'left', 'right', 'center'
- *  @handlerChange - функция запроса куда бегаем за данными
+ *  @handlerChangePaginations - функция запроса куда бегаем за данными
  * } = props
  * @returns 
  */
-const Pagination = (props) => {
+const Pagination = ({
+    handlerChangePaginations, 
+    searchCount = 0,
+    allCount = 0, 
+    count = 0, 
+    ...props
+}) => {
     // console.log('props =', props)
     const [activeStyle, setActiveStyle] = useState('pagination__item-active');
     const [dinamicLocation, setDinamicLocation] = useState('center');
     const [elItems, setElItems] = useState(null)
-    const { allCount, count, handlerChange, searchCount = 0 } = props;
+    const {  } = props;
     let pages = Math.ceil((!!searchCount ? searchCount : allCount) / count);
     const listNumber = new Array(pages).fill('').map((_, i) => i + 1);
 
@@ -42,10 +48,15 @@ const Pagination = (props) => {
     }, [searchCount])
 
     const handlerClickItem = (e) => {
-        const dataId = +e.target.getAttribute('dataid');
+        console.log({e: e.target.id})
+        const dataId = +e.target.id;
         setElItems(dataId);
         setActiveStyle('pagination__item-active');
-        handlerChange(dataId)
+        handlerChangePaginations(dataId)
+        const timerSetTimeout = setTimeout(()=>{
+            window.scrollTo(0,0);
+            return ()=>clearTimeout(timerSetTimeout)
+        },900)
     }
 
     // console.log('listNumber', listNumber)
@@ -58,9 +69,9 @@ const Pagination = (props) => {
                 listNumber.map(el => {
                     return (
                         pages > 1 ?
-                            <span
+                            <div
                                 key={el}
-                                dataId={el}
+                                id={el}
                                 className={
                                     elItems === el ?
                                         style[activeStyle]
@@ -69,7 +80,7 @@ const Pagination = (props) => {
                                 onClick={handlerClickItem}
                             >
                                 {el}
-                            </span>
+                            </div>
                             : null
                     )
                 })

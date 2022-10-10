@@ -12,9 +12,10 @@ import ErrorBlock from './ErrorBlock';
 import TooltipInInput from './TooltipInInput';
 import WrapperInputForTooltip from './WrapperInputForTooltip';
 import FormCreateIM from './FormCreateIM.js';
-
+import WrapperCheckBox from './WrapperCheckBox.js'
 
 export default {
+  WrapperCheckBox,
   FormCreateIM,
   WrapperInputForTooltip,
   TooltipInInput,

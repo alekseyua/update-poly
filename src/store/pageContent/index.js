@@ -7,6 +7,7 @@ import { COOKIE_KEYS } from '../../const';
 
 export const pageContent = store => {
     store.on('@init', () => ({ context: initData }));
+
     store.on('context', ({ context, countWishList }, data) => {
         const currency = getCookie(COOKIE_KEYS.CURRENCIES)
         // console.log({data})
@@ -20,6 +21,7 @@ export const pageContent = store => {
         } }
 
     })
+
     store.on('getContextPage', async ({ context, valueCheckBoxFilters }, url, { dispatch }) => {
 
         try {
@@ -44,7 +46,10 @@ export const pageContent = store => {
                         "announce": res.init_state.announce,
                         "breadcrumbs" : res.init_state.breadcrumbs,
                         "banners": !!res.init_state.banners.length ? res.init_state.banners : [],
-                        "profile": res.init_state.profile,
+                        "profile": {
+                            ...context.init_state.profile,
+                            ...res.init_state.profile
+                        },
                         "products": !!res.init_state.products.length ? res.init_state.products : [],
                         "main_page": {
                             ...res.init_state.main_page,
@@ -60,7 +65,11 @@ export const pageContent = store => {
                         "news": !!res.init_state.news.length? res.init_state.news : [],
                         "reviews": {
                             "service_reviews": !!res.init_state.reviews.service_reviews.length ? [...res.init_state.reviews.service_reviews] : [],
-                            "product_reviews": !!res.init_state.reviews.product_reviews.length ? [...res.init_state.reviews.product_reviews] : []
+                            "product_reviews": !!res.init_state.reviews.product_reviews.length ? [...res.init_state.reviews.product_reviews] : [],
+                            "getMyReviewList": {
+                                count: 0,
+                                results: []
+                            }
                         }
                     },
                 }
@@ -286,6 +295,59 @@ export const pageContent = store => {
                 dispatch('context', newContext)
                 return dispatch('getCatalog')
             }
+            // ExportCatalog
+            if (url === '/catalog_export') {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        filters_params: { ...initValueCheckBoxFilters },                        
+                    },
+                }
+
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext);
+                
+                return dispatch('getExportCatalog')
+            }
+
+            if (url === '/wishlist') {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                    },
+                }
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+
+                console.log('context.init_state.profile.wishlist',context.init_state.profile.wishlist)
+                
+                if(!!res.init_state.profile.wishlist){
+                    console.log('getWishlist')
+                    const timerTimeoutGetWishList = setTimeout(()=>{
+                        dispatch('getWishlist');
+                        return () => clearTimeout(timerTimeoutGetWishList);
+                    },400)
+                }
+
+                if(!!!res.init_state.profile.wishlist){
+                    console.log('getCatalog')
+                    const timerTimeout = setTimeout(()=>{
+                        dispatch('getCatalog');
+                        return () => clearTimeout(timerTimeout);
+                    },400)
+                }
+            }
+
             if (url === '/cart') {
                 const newContext = {
                     ...context,
@@ -303,18 +365,23 @@ export const pageContent = store => {
                 dispatch('setModalState', {
                     show: false,
                 })
+
                 dispatch('context', newContext)
                 const timerTimeout = setTimeout(()=>{
                     dispatch('getDataCart')
                     return () => clearTimeout(timerTimeout);
                 },500)
-                // dispatch('getYouAlreadyWatch');
-                if(!!context.init_state.dataCart.cartitem_set.length){
+
+                const timerTimeoutBalance = setTimeout(()=>{
+                    dispatch('getBalace')
+                    return () => clearTimeout(timerTimeoutBalance);
+                },1500)
+
+                if(!!!context.init_state.dataCart.cartitem_set.length && !!!context.init_state.dataCart.in_stock.length){
                     const timerTimeout = setTimeout(()=>{
                         dispatch('getCatalog');
                         return () => clearTimeout(timerTimeout);
                     },4000)
-                return
                 }
             }
 
@@ -408,7 +475,9 @@ export const pageContent = store => {
             }
 
             if (url === '/order') {
-
+                const paramsAddress = {
+                    page: 1
+                }
 
             console.log('STORE CONTEXT IN ORDER = ', 
             {context}
@@ -425,13 +494,180 @@ export const pageContent = store => {
                 dispatch('setModalState', {
                     show: false,
                 })
-                dispatch('context', newContext)
+
+                dispatch('context', newContext);
+
                 const timerTimeout = setTimeout(()=>{
                     dispatch('getDataCart')
-                    return ()=>clearTimeout(timerTimeout);
-                },400)
+                    return () => clearTimeout(timerTimeout);
+                },200);               
+                
+                const timerTimeoutAddress = setTimeout(()=>{
+                    dispatch('getAdresses', paramsAddress)
+                    return () => clearTimeout(timerTimeoutAddress);
+                },1500)
+                
             }
+            if (url === '/orders') {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                // console.log('newContext = ', newContext)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getOrders')
+                    return ()=>clearTimeout(timerTimeout);
+                },600)
+
+            }
+
+            if (url === '/profile') {
+                
+                const paramsAddress = {
+                    page: 1
+                }
+                
+                const initialValues = {
+                    // lastname: user.last_name,
+                    // firstname: user.first_name,
+                    // patronymic: user.middle_name,
+                    // phone: user.phone,
+                    // email: user.email,
+                    // receiveNewsletters: profile.receive_newsletter,
+                    // inn: organization?.inn,
+                    // companyName: organization?.organization,
+                    // addresSite: links.site_link,
+                    // vk: links.vk_link,
+                    // instagram: links.insta_link,
+                    // otherSocialLink: links.other_link,
+                  };
+
+
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                console.log('newContext = ', res.init_state)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getAdresses',paramsAddress)
+                    return ()=>clearTimeout(timerTimeout);
+                },600)
+
+            }  
+
+            if (url.includes('/orders/')) {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,                        
+                    },
+                }
+                // console.log('newContext = ', newContext)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+               
+
+            } 
             
+            if (url === '/notifications') {
+                
+
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                console.log('newContext = ', res.init_state)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+                
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getNotice');
+                    return ()=>clearTimeout(timerTimeout);
+                },600)
+
+            }             
+
+            if (url === '/balance') {                
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,                        
+                    },
+                }
+                console.log('newContext = ', res.init_state)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('context', newContext)
+
+                const timerTimeoutBalance = setTimeout(()=>{
+                        dispatch('getBalace');
+                    return ()=>clearTimeout(timerTimeoutBalance);
+                },400)
+
+                const timerTimeoutPayments = setTimeout(()=>{
+                        dispatch('getPayments');
+                    return ()=>clearTimeout(timerTimeoutPayments);
+                },800)
+
+            } 
+
+            if (url === '/my_reviews') {               
+
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                dispatch('setModalState', {
+                    show: false,
+                })
+
+                dispatch('context', newContext)
+
+                const timerTimeoutMyReviews = setTimeout(()=>{
+                    dispatch('getMyReviewList');
+                return ()=>clearTimeout(timerTimeoutMyReviews);
+                },400)
+                
+            } 
 
         } catch (err) {
             console.log('ERROR CONTEXT PAGE', err)

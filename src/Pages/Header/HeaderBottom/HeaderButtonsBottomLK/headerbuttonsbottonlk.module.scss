@@ -33,6 +33,9 @@
     //.header-buttons__links{}
     &__links{
       color: $a;
+      &> span::before{
+        pointer-events: none;
+      }
       &:hover{
         color: $a2;
         cursor: pointer;

@@ -23,7 +23,7 @@ const RegistrationSelectRole = ({ setNextStep }) => {
       >
 
         <div className={style['registrationSelectRole__wrapper-btn-icon--left']} slot={'icon-left'}>
-          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={retailtRegIcon} />
+          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={retailtRegIcon} height={25} />
         </div>
         
         <div className={style['registrationSelectRole__wrapper-btn-group-label']}>
@@ -51,7 +51,7 @@ const RegistrationSelectRole = ({ setNextStep }) => {
         data-cy={'role_wholesale_buyer'}
       >
         <div className={style['registrationSelectRole__wrapper-btn-icon--left']} slot={'icon-left'}>
-          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={wholesaleRegIcon} />
+          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={wholesaleRegIcon} height={25} />
         </div>
         <div className={style['registrationSelectRole__wrapper-btn-group-label']}>
           <span className={style['registrationSelectRole__wrapper-btn-label']}>
@@ -76,7 +76,7 @@ const RegistrationSelectRole = ({ setNextStep }) => {
         data-cy={'role_dropshipper'}
       >
         <div className={style['registrationSelectRole__wrapper-btn-icon--left']} slot={'icon-left'}>
-          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={dropshipperRegIcon} />
+          <Icon className={style['registrationSelectRole__wrapper-btn-icon--left-icon']} src={dropshipperRegIcon} height={25} />
         </div>
         <div className={style['registrationSelectRole__wrapper-btn-group-label']}>
           <span className={style['registrationSelectRole__wrapper-btn-label']}>

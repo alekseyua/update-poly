@@ -1,11 +1,12 @@
 @import '../../../styles/variables.scss';
 
 .button--disabled{
-    background-color: $dg2;
+    background-color: $dg2 !important;
     width: 100%;
     height: 100%;
     color: $w !important;
     font-size: 22px;
+   
     &:hover{
       cursor: not-allowed;
       box-shadow: none;

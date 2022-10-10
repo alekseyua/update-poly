@@ -5,7 +5,6 @@ const CartPage = ({...props}) => {
     console.log('cart page = ',props.context)
     const { breadcrumbs, 
         listCurrentOrder,
-        info_delivery, 
         dataProducts,
         page_info, 
         dataCart, 
@@ -27,12 +26,7 @@ const CartPage = ({...props}) => {
         in_cart, 
      } = dataCart
     const { role } = profile;
-    
-    
 
-    console.log('---------------------------',{
-        context: props.context
-    })
     return (
         <CartPageLayoutContainer
             textConditionPayPart_1 = { textConditionPayPart_1 }

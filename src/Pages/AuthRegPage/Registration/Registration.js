@@ -60,10 +60,10 @@ const Registration = (props) => {
   const { site_configuration } = props.context;
   const { page_type_auth, video_page } = site_configuration;
   const { roleRegister, step, registration, allSteps, dispatch } = useStoreon('roleRegister', 'step', 'registration', 'allSteps');  
-
+  const [ loading, setLoading ] = useState(false)
   const nextStepOrSubmitRegData = (newValues, setFieldError) => { 
     if (step >= 0) {
-      dispatch('setRegistration', { newValues, setFieldError})
+      dispatch('setRegistration', { newValues, setFieldError, setLoading})
     } else {
       setNextStep();
     }
@@ -73,9 +73,7 @@ const Registration = (props) => {
     const { setFieldError = () => {} } = callbacks;
     dispatch('setDataRegistration', data);
     nextStepOrSubmitRegData(data, setFieldError);
-    dispatch('setModalState', {
-      show: true,
-    })
+    setLoading(true)
   };
 
   const setNextStep = (roleRegister) => {
@@ -174,6 +172,7 @@ const Registration = (props) => {
             <RegistrationFormFirst
               initialValues={registration}
               onSaveFormData={onSaveFormData}
+              loading = { loading }
             />
           ),
           2: (
@@ -181,13 +180,15 @@ const Registration = (props) => {
               initialValues={registration}
               role={roleRegister}
               onSaveFormData={onSaveFormData}
+              loading = { loading }
             />
           ),
           3: (
             <SocialMediaCompanyData
               initialValues={registration}
               role={roleRegister}
-              onSaveFormData={onSaveFormData}
+              onSaveFormData={onSaveFormData} 
+              loading = { loading }
             />
           ),
         }[step] || (

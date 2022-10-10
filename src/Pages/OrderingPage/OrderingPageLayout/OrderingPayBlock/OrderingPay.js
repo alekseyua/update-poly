@@ -1,21 +1,30 @@
 import React from 'react';
 import OrderingViews from '../../../../Views/OrderingViews';
 
-const OrderingPay = ({ paymentsVariant, setActiveVariantPayments, role, dataBalance, total_cost }) => {
+const OrderingPay = ({ 
+  payment_methods, 
+  total_cost,
+  balance, 
+  role,
+
+  setActiveVariantPayments,
+  setValues,
+}) => {
 
   return (
     <OrderingViews.OrderingPaySection>
       <OrderingViews.OrderingPayHead />
       <OrderingViews.OrderingPayDescription 
-        dataBalance={dataBalance}
-        total_cost={total_cost}
+        total_cost = { total_cost }
+        balance = { balance }
       />
       <OrderingViews.OrderingPayButtons
-        payment_methods={paymentsVariant}
-        setActiveVariantPayments={setActiveVariantPayments}
-        role={role}
-        dataBalance={dataBalance}
-        total_cost={total_cost}
+        setActiveVariantPayments = { setActiveVariantPayments }
+        payment_methods = { payment_methods }
+        total_cost = { total_cost }
+        setValues = { setValues }
+        balance = { balance }
+        role = { role }
       />
     </OrderingViews.OrderingPaySection>
   );

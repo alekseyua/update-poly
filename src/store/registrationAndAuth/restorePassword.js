@@ -9,24 +9,24 @@ export const restorePassword = store => {
 
 
     const openModalFinallyRestorePassword = (data) => {
-        return setModalStates({
-            content: (
-                <ModalContentViews.ModalWrapper>
-                    <ModalContentViews.CloseBtn closeModal={() => closeModal(data)} />
-                    <ModalContentViews.ContentBlock>
-                        <ModalContentViews.CenterPosition>
-                            <ModalContentViews.SuccessOrError
-                                closeModal={() => closeModal(data)}
-                                success={data}
-                                content={data ? 'Ваш пароль успешно изменен' : 'Ошибка при смене пароля'}
-                            />
-                        </ModalContentViews.CenterPosition>
-                    </ModalContentViews.ContentBlock>
-                </ModalContentViews.ModalWrapper>
-            ),
-            show: true,
-            addClass: 'modal-success_error',
-        });
+        // return setModalStates({
+        //     content: (
+        //         <ModalContentViews.ModalWrapper>
+        //             <ModalContentViews.CloseBtn closeModal={() => closeModal(data)} />
+        //             <ModalContentViews.ContentBlock>
+        //                 <ModalContentViews.CenterPosition>
+        //                     <ModalContentViews.SuccessOrError
+        //                         closeModal={() => closeModal(data)}
+        //                         success={data}
+        //                         content={data ? 'Ваш пароль успешно изменен' : 'Ошибка при смене пароля'}
+        //                     />
+        //                 </ModalContentViews.CenterPosition>
+        //             </ModalContentViews.ContentBlock>
+        //         </ModalContentViews.ModalWrapper>
+        //     ),
+        //     show: true,
+        //     addClass: 'modal-success_error',
+        // });
     };
 
 

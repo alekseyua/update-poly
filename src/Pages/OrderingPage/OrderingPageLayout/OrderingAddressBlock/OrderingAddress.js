@@ -5,14 +5,22 @@ import Pagination from '../../../../Views/Pagination';
 
 
 const OrderingAddress = ({
-  role = 2,
+  addressDilivery,
   selectedAdress,
+  handleChange,
+  stateMarquee,
+  values,
+  role,
+  
   setFieldValue,
   setFieldCountry,
-  handleChange,
+  setStateMarquee,  
+  
+  setChooseAddress,
   searchAddressRenderData,
-  adresses = [],
   decorOpenModalAddAddress,
+  updateAddressRenderData,
+
 }) => {
 
   return (
@@ -21,28 +29,32 @@ const OrderingAddress = ({
         role={role}
       />
       {/* Поиск по ФИО только для дропа */}
-      {role === ROLE.DROPSHIPPER ? (
-        <OrderingViews.OrderingAddressSearcheInput
-          searchAddressRenderData={searchAddressRenderData}
-        />
-      ) : null}
-      
       {
-        adresses.map((res) => {
+        role === ROLE.DROPSHIPPER ? (
+          <OrderingViews.OrderingAddressSearcheInput
+            searchAddressRenderData={searchAddressRenderData}
+          />
+          ) : null
+      }
+      
+      {        
+      Object.keys(addressDilivery).length?
+        addressDilivery.results.map((res) => {
           const {
-            city,
-            country,
-            first_name,
-            flat,
-            house,
             id,
-            last_name,
-            middle_name,
+            flat,
+            city,
             phone,
-            post_code,
-            profile,
+            house,
             street,
+            profile,
+            country,
+            last_name,
+            post_code,
+            first_name,
+            middle_name,
           } = res;
+
           return (
             <OrderingViews.OrderingAddressItem
               key={id}
@@ -58,25 +70,34 @@ const OrderingAddress = ({
               post_code={post_code}
               profile={profile}
               street={street}
+              values = { values }
+
               selectedAdress={selectedAdress}
-              setFieldValue={setFieldValue}
               setFieldCountry={setFieldCountry}
               handleChange={handleChange}
               setStateMarquee={setStateMarquee}
               stateMarquee={stateMarquee}
+              setChooseAddress = { setChooseAddress }
             />
           );
         })
+        : (null)
       }
       
-      {/* <Pagination allCount={allCount} searchCount={searchCount.length} count={30} location={'center'} handlerChange={updateAddressRenderData} /> */}
+      {
+        Object.keys(addressDilivery).length?
+          <Pagination allCount={addressDilivery?.count} searchCount={addressDilivery?.results.length} count={30} location={'center'} handlerChange={updateAddressRenderData} />
+        : null
+      }
 
       {/* Для розницы и опта максимум 3 адреса. Если их меньше, то появляется кнопка добавить адрес 
           У дропа кнопка есть всегда */}
     {
-    (role !== ROLE.DROPSHIPPER && adresses.length > 2)
-        ?null
-        :<OrderingViews.OrderingAddressAddBtn onClick={decorOpenModalAddAddress} />
+      Object.keys(addressDilivery).length?
+        (role !== ROLE.DROPSHIPPER && addressDilivery?.results.length > 2)
+            ?null
+            :<OrderingViews.OrderingAddressAddBtn onClick={decorOpenModalAddAddress} />
+        : null
     }
 
     </OrderingViews.OrderingAddress>

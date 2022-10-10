@@ -1,7 +1,7 @@
 import React from "react";
 import { useStoreon } from "storeon/react";
 import ProductCard from './ProductCard';
-
+import { defaultProductCard } from '../../images'
 
 const ProductCardContainer = ({
     key,
@@ -16,33 +16,35 @@ const ProductCardContainer = ({
     images,
     isSales,
     isNew,
-    isHit,                                  
+    isHit,
     favorite,
     product_rc,
     article,
     currency,
-    ...props}) => {
-    
+    ...props
+}) => {
+
     const { dispatch } = useStoreon();
 
+    const defaultImageSet = [defaultProductCard];
+
     const addLikeProductCard = (id) => {
-        dispatch('addWishList',{id: id})
+        dispatch('addWishList', { id: id })
     }
 
-    const removeLikeProductCard = (id) => {       
-        dispatch('removeWishList',{id: id})
+    const removeLikeProductCard = (id) => {
+        dispatch('removeWishList', { id: id })
     }
 
-    const handleQuickView = (id) =>  {
-
-        console.log('id product = ', id)
-        dispatch('quickViewProduct', {
-            id:id,
-            url: url //?????!
-        })
+    const handleQuickView = (id, url) => {
+        const params = {
+            id: id,
+            url: url
+        }
+        dispatch('quickViewProduct', params);
     }
+
     return (
-        <>
         <ProductCard
             key={key}
             title={title}
@@ -53,10 +55,10 @@ const ProductCardContainer = ({
             stock={stock}
             colors={colors}
             sizes={sizes}
-            images={images}
+            images={images.length ? images : defaultImageSet}
             isSales={isSales}
             isNew={isNew}
-            isHit={isHit}                                  
+            isHit={isHit}
             favorite={favorite}
             product_rc={product_rc}
             article={article}
@@ -65,7 +67,6 @@ const ProductCardContainer = ({
             removeLikeProductCard={removeLikeProductCard}
             handleQuickView={handleQuickView}
         />
-        </>
     )
 }
 

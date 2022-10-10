@@ -1,8 +1,8 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/fonts/index.scss';
 
-//.spinner__wrapper-popup{}
 .spinner {
+  //.spinner__wrapper{}
   &__wrapper {
     width: 100%;
     margin-top: 30px;
@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    min-height: 100%;
   }
   //.spinner__center{}
   &__center{

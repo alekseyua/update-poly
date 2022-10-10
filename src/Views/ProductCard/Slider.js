@@ -45,7 +45,7 @@ const Slider = ({ images, url }) => {
                 'swiper-slide': true,
               })}
               key={i}
-              to={url}             
+              to={`/${url}`}             
             >
               <div>
                 <div className={style['product-card__image-item']}>

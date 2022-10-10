@@ -2,17 +2,24 @@ import React from 'react';
 import classNames from 'classnames';
 import {statusSend} from '../../../images';
 
-import style from '../styles/index.module.scss';
 import Button from '../../Button';
 import Icon from '../../Icon';
 
-const OrderingPayButtons = ({ payment_methods = [], setActiveVariantPayments,dataBalance,total_cost }) => {
+import style from '../styles/index.module.scss';
 
-  if (payment_methods.length) {
-    return (
-      <div className={style['ordering__button-wrap']}>
+const OrderingPayButtons = ({ 
+  payment_methods = [], 
+  total_cost,
+  balance,
+
+  setActiveVariantPayments,
+}) => {
+
+if (payment_methods.length) {
+  return (
+    <div className={style['ordering__button-wrap']}>
         {payment_methods.map((el,i) => {
-          if (dataBalance >= total_cost){
+          if (balance >= total_cost){
             if(el.id!==1){
             return (
               <Button
@@ -23,19 +30,16 @@ const OrderingPayButtons = ({ payment_methods = [], setActiveVariantPayments,dat
                 className={classNames({
                   [style['ordering__button']]: true,
                   [style[`ordering__button--${i}`]]: true,
-                  [style['ordering__button--active']]: el.active,
+                  [style['ordering__button--active']]: true,
                 })}
               >
                 {el.title}
                 
-                { !el.active?
-                  null
-                  : <Icon
+                <Icon
                   slot="icon-left"
                   src={statusSend}
                   className="cabinet_orders_details__base_info__icon"
                 />
-              }
                 </Button>
             );}
           }else{
@@ -48,18 +52,15 @@ const OrderingPayButtons = ({ payment_methods = [], setActiveVariantPayments,dat
                   onClick={setActiveVariantPayments}
                   className={classNames({
                     [style['ordering__button']]: true,
-                    [style['ordering__button--active']]: el.active,
+                    [style['ordering__button--active']]: true,
                   })}
                 >
                   {el.title}
-                  { !el.active?
-                  null
-                  : <Icon
-                  slot="icon-left"
-                  src={statusSend}
-                  className="cabinet_orders_details__base_info__icon"
-                />
-              }
+                  <Icon
+                    slot="icon-left"
+                    src={statusSend}
+                    className="cabinet_orders_details__base_info__icon"
+                  />
                 </Button>
               );
             }

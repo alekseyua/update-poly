@@ -164,7 +164,6 @@ export const reviews = store => {
 
     })
 
-
     store.on('filterReviews', async ({ context }, obj, { dispatch }) => {
         let params = { ...initialFetchFiltersReviews }
         !!obj?.product__isnull ? params = { ...params, product__isnull: obj.product__isnull } : null;
@@ -192,5 +191,87 @@ export const reviews = store => {
         }
         return dispatch('context', updateContext)
     })
+
+    store.on('addReview', ({ context }, obj, { dispatch }) => {
+
+        dispatch('setModalState',{
+            show: true,
+            content: 'add review'
+        })
+    })
+
+    store.on('getMyReviewList', async ({ context }, obj, { dispatch }) => {
+        try {
+
+            const params = {
+                page_size: 10,
+                page:  obj?.page ?? 1
+            }
+
+            const dataReview = await apiContent.getMyReviewList(params);
+
+            const updateContext = {
+                ...context,
+                init_state: {
+                    ...context.init_state,
+                    reviews: {
+                        ...context.init_state.reviews,
+                        getMyReviewList: dataReview
+                    }
+                }
+            }
+            console.log({updateContext})
+            return dispatch('context', updateContext);
+
+        } catch (err) {
+            console.log('ERROR getMyReviewList product', err)
+            if (err.request.status === 404){
+                console.log('Ошибка получение данных ', err.data.detail)
+            }
+        }
+    })
+
+    
+    const openModalFinalyAddReview = (data) => {
+        !!data ? reloadDataReview(): null
+        return setModalStates({
+          content: (
+            <ModalContentViews.ModalWrapper>
+              <ModalContentViews.CloseBtn closeModal={closeModal} />
+              <ModalContentViews.ContentBlock>
+                <ModalContentViews.CenterPosition>
+                  <ModalContentViews.SuccessOrError
+                    closeModal={closeModal}
+                    success={data}
+                    content={data ? 'Ваш отзыв успешно отправлен!' : 'Неправильно введены данные!'}
+                  />
+                </ModalContentViews.CenterPosition>
+              </ModalContentViews.ContentBlock>
+            </ModalContentViews.ModalWrapper>
+          ),
+          show: true,
+          addClass: 'modal-success_error',
+        });
+      };
+      const openModalAddReview = (data) => {
+        return setModalStates({
+          content: (
+            <ModalContentViews.ModalWrapper>
+              <ModalContentViews.CloseBtn closeModal={closeModal} />
+              <ModalContentViews.ContentBlock>
+                <ModalContentViews.CenterPosition>
+                  <AddReview.ModalAddReview
+                    openModalFinalyAddReview={openModalFinalyAddReview}
+                    profile={profile}
+                    closeModal={closeModal}
+                  />
+                </ModalContentViews.CenterPosition>
+              </ModalContentViews.ContentBlock>
+            </ModalContentViews.ModalWrapper>
+          ),
+          show: true,
+          addClass: 'modal-review',
+        });
+      };
 }
 

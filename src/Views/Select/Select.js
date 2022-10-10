@@ -28,9 +28,9 @@ const Select = ({
    *    value: 'value'
    *  }
    * ]
-   *  placeholder - текст в титуле
+   *  placeholder - текст в initial титуле
    *  
-   * } values
+   * } @values
    * @return 
    */
 

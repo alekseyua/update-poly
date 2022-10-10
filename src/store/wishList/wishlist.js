@@ -5,6 +5,42 @@ export const wishList = store => {
 
     store.on('@init', ()=>({countWishList: 0}));
 
+   
+      store.on('getWishlist', async ({ context }, obj, { dispatch }) => {
+
+        try {
+
+            const params = {
+                page_size: 30,
+                page: obj?.page || 1
+            }
+            
+            const res = await  apiProfile.getWishlist(params);
+           
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    profile: {
+                        ...context.init_state.profile,
+                        list_wishes: res,                        
+                    }
+                },
+            }
+            console.log('STORE CONTEXT IN list_wishes = ', 
+            {newContext}
+            
+            )
+            dispatch('context', newContext)
+
+            // console.log('result get data cart = ', res)
+
+        } catch (err) {
+            console.log('ERROR IN GET DATA list_wishes STORE', err)
+        }
+
+    })
+
     store.on('addWishList', async ({ context }, obj, { dispatch }) => {
         try{
 

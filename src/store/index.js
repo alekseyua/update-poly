@@ -16,8 +16,14 @@ import { quickViewProduct } from './quickViewProduct/quickViewProduct';
 import { collections } from './collections/collections';
 import { ProductDetails } from './productDetails/productDetails';
 import { cart } from './cart/cart';
+import { order } from './order/order';
+import { notifications } from './notifications/notifications';
+import { balance } from './balance/balance';
 
 export const store = createStoreon([
+    balance,
+    notifications,
+    order,
     cart,
     ProductDetails,
     collections,

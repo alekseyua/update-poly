@@ -5,9 +5,14 @@
 .input{
     &__wrapper{
         width: 100%;
-        margin: 5px 0;
+        // margin: 0 0 7px 0;
         display: flex;
         justify-content: space-between;
+        padding: 10px;
+        border: 1px solid $dg2;
+        border-radius: 2px;
+        // max-height: 40px;
+        position: relative;
     }
     //.input__input{}
     &__input{
@@ -16,10 +21,17 @@
     }
     //.input__label{}
     &__label{
-        font-size: $fontSize;
+        font-size: calc($fontSize - 6px);
         color: $p;
         @extend %font;
         margin: 0 0 0 10px;
+    }
+    //.input__error{}
+    &__error{
+        position: relative;
+        &>input{
+            color: $rd;
+        }
     }
 }
 

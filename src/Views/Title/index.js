@@ -21,7 +21,7 @@ const Title = ({ children, variant, type, className }) => {
     case 'h2':
       return <h2 className={classes}>{children}</h2>;
     case 'h3':
-      return <h2 className={classes}>{children}</h2>;
+      return <h3 className={classes}>{children}</h3>;
     case 'h4':
       return <h4 className={classes}>{children}</h4>;
     case 'h5':

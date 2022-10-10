@@ -15,10 +15,17 @@
     z-index: 2;
     &:hover{
       cursor: pointer;
-      .tooltip {
+      .toolTip__tooltip {
         visibility: visible;
         opacity: 1;
       }      
+    }
+    //.toolTip__wrapper-trigger--active{}
+    &--active{
+      .toolTip__tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
     }
   }
 }
