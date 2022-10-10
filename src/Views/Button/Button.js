@@ -131,9 +131,9 @@ const Button = ({
               datanoclick={datanoClick}
               disabled={disabled}
             >
-               {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]} style={{marginRight: `10px`}} onClick={onClickIcon} src={iconLeft} /> : null}
+               {iconLeft ? <Icon slot="icon-right" className={style[classNameIcon]} style={{marginRight: `10px`}} onClick={onClickIcon} src={iconLeft} width={25} height={25} /> : null}
               {children}
-              {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} style={{marginLeftt: `10px`}} onClick={onClickIcon} src={iconRight} /> : null}
+              {iconRight ? <Icon slot="icon-left" className={style[classNameIcon]} style={{marginLeftt: `10px`}} onClick={onClickIcon} src={iconRight} width={25} height={25} /> : null}
             </button>
             : <Link
               id = { id }
@@ -152,9 +152,9 @@ const Button = ({
               className={customClassName}
               datanoclick={datanoClick}
             >
-              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} /> : null}
+              {iconLeft ? <Icon slot="icon-right" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} width={25} height={25} /> : null}
               {children}
-              {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
+              {iconRight ? <Icon slot="icon-left" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} width={25} height={25} /> : null}
             </button>
             : <Link
               id = { id }
@@ -165,9 +165,9 @@ const Button = ({
               className={customClassName}
               rel="noopener noreferrer"
             >
-              {iconLeft ? <Icon slot="icon-left" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} /> : null}
+              {iconLeft ? <Icon slot="icon-right" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} width={25} height={25}  /> : null}
               {children}
-              {iconRight ? <Icon slot="icon-right" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} /> : null}
+              {iconRight ? <Icon slot="icon-left" className={style[classNameIcon]} onClick={onClickIcon} src={iconRight} width={25} height={25} /> : null}
             </Link>
         )}
     </>

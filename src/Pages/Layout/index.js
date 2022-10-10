@@ -25,25 +25,25 @@ const Layout = (props) => {
   
   useEffect(()=>{
 
-    // dispatch('goToPage', {path: '/about'})
-    //   show: true,
-    //   className: null,
-    //   iconImage: errorAlertIcon,
-    //   title: 'testing popup',
-    //   content: (
-    //     <div>
-    //       <i>{ Text({ text : 'error_server' }) }</i>
-    //       <p>{ Text({ text : 'call_admin' }) }</p>
-    //     </div>
-    //   ),
-    //   action : { title : ['next step', null]},
-    //   onClick : ()=>dispatch('setModalState',{
-    //               show: true,
-    //               content: 'hhhhhhhhh'
-    //             })
+    dispatch('setModalState',{
+      show: false,
+      className: null,
+      // iconImage: errorAlertIcon,
+      title: 'testing popup',
+      // content: (
+      //   <div>
+      //     <i>{ Text({ text : 'error_server' }) }</i>
+      //     <p>{ Text({ text : 'call_admin' }) }</p>
+      //   </div>
+      // ),
+      // action : { title : ['next step', null]},
+      // onClick : ()=>dispatch('setModalState',{
+      //             show: true,
+      //             content: 'hhhhhhhhh'
+      //           })
       
 
-    // })
+    })
 
   },[])
 

@@ -10,7 +10,7 @@ import './Home.css';
 const Home = (props) => {
 //  console.log({HOME: props})
   const { first_screen, in_stock_product_filters } = props.context.main_page;
-  const { banners, products, profile, partner_banners, news, about_banner, reviews } = props.context;
+  const { banners, dataProducts, profile, partner_banners, news, about_banner, reviews, currency } = props.context;
   const { page_type_catalog, page_type_news, page_type_reviews } = props.context.site_configuration;
   const { dispatch } = useStoreon();
   const navigate = useNavigate();
@@ -41,13 +41,14 @@ const Home = (props) => {
       />
       
       
-      {!!products.length?
+      {!!dataProducts?.length?
           <HomeComponent.ProductsInStock
             role={profile.role}
             // front_admin = {props.profile.front_admin}
             in_stock_product_filters={in_stock_product_filters}
-            products={products}
+            products={dataProducts}
             catalog_url={page_type_catalog}
+            currency = { currency }
           /> 
           :null
       }

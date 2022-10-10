@@ -10,6 +10,9 @@ const ProductsInStockLayout = ({
   children,
   catalog_url = '#',
   filterList,
+  activeItemList,
+
+  getProductsInStockForName,
 }) => {
   return (
     <div className={style['products-in-stock']}>
@@ -19,7 +22,10 @@ const ProductsInStockLayout = ({
             <Text text={'productInStock'} />
           </Title>
           <MainFilters
-            filters={filterList}
+            filters = { filterList }
+            activeItemList = { activeItemList }
+
+            getProductsInStockForName = { getProductsInStockForName }
           />
           <div className={style['products-in-stock__content']}>
             <div className={style['products-in-stock__list']}>

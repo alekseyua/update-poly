@@ -66,7 +66,6 @@ const RegistrationFormBaseInfo = ({
       {
         (props)=>{
           const {values, handleBlur, errors, touched, setFieldError, setFieldValue, handleSubmit} = props;
-          console.log('values', values)
 
           return (
             <Form id={'form-first-data'} onSubmit={handleSubmit}>

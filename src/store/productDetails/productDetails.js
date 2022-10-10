@@ -40,6 +40,14 @@ export const ProductDetails = store => {
             dispatch('context', updateContext)
         }catch(err){
             console.log('Sorry something went wrong :) ', err)
+            if (err.statusText === 'Not Found'){
+                dispatch('setModalState', {
+                    show: true,
+                    content: (
+                        <div>Товар отсутствует в нашем каталоге</div>
+                    )
+                })
+            }
         }
     })
 

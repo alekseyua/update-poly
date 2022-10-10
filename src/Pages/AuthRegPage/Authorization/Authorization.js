@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStoreon } from 'storeon/react';
 
 import { secretWordEncoding, serializerUserDataDencrypt, serializerUserDataEncript } from '../../../helpers/encrypt';
@@ -16,6 +16,7 @@ const Authorization = (props) => {
   const { dispatch } = useStoreon();
   const { page_type_reg, video_page } = site_configuration;
   const navigate = useNavigate();
+  const [ loading, setLoading ] = useState(false);
 
   const errorsMessenge = {
     longUsername: Text({ text: 'long.nickname' }),
@@ -37,7 +38,7 @@ const Authorization = (props) => {
     dispatch('openModalRestorePassword')
   };
 
-  const onHandleChangeRemember = (e, setValues, values) => {
+  const onHandleChangeRemember = (setValues, values) => {
     setValues({ ...values, remember: !values.remember })
     if (!values.remember) {
       setLocalStorage(secretWordEncoding('username'), serializerUserDataEncript(values.username));
@@ -57,22 +58,25 @@ const Authorization = (props) => {
   }
 
   const onSubmit = (data, { setFieldError }) => {
+    data.remember? onHandleChangeRemember(()=>{},data) : null;
+    setLoading(true)
     const params = {
       username: data.username,
       password: data.password,
       setFieldError: setFieldError,
-      callbackRedirect: (to) => {
+      setLoading: setLoading,
+      redirectTo: (to) => {
         const timerTimeout = setTimeout(()=>{
           navigate(to);
           return () => clearTimeout(timerTimeout);          
-        },2000)
+        },3000)
       }
     }
-
-    dispatch('setAuthorithation', params)
     dispatch('setModalState', {
-      show: true,
+      show: true,      
     })
+
+    dispatch('loginIn', params)
   };
 
 
@@ -96,6 +100,7 @@ const Authorization = (props) => {
               errorsMessenge={errorsMessenge}
               onHandleChangeRemember={onHandleChangeRemember}
               openModalRestorePassword={openModalRestorePassword}
+              loading = { loading }
             />
           </AuthorizationAndRegViews.FormSingnIn>
         </AuthorizationAndRegViews.RightSide>

@@ -8,6 +8,7 @@ import Text from '../../../helpers/Text';
 import { useStoreon } from 'storeon/react';
 
 import style from '../styles/auth-regist.module.scss';
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   step: 1, //0
@@ -60,10 +61,19 @@ const Registration = (props) => {
   const { site_configuration } = props.context;
   const { page_type_auth, video_page } = site_configuration;
   const { roleRegister, step, registration, allSteps, dispatch } = useStoreon('roleRegister', 'step', 'registration', 'allSteps');  
-  const [ loading, setLoading ] = useState(false)
+  const [ loading, setLoading ] = useState(false);
+  const navigate = useNavigate();
+
+  const redirectTo = (path) => {
+    const timerTimeout = setTimeout(()=>{
+        navigate(path);
+        return () => clearTimeout(timerTimeout);
+    },2000)
+  }
   const nextStepOrSubmitRegData = (newValues, setFieldError) => { 
+    console.log({step})
     if (step >= 0) {
-      dispatch('setRegistration', { newValues, setFieldError, setLoading})
+      dispatch('setRegistration', { newValues, setFieldError, setLoading, redirectTo})
     } else {
       setNextStep();
     }

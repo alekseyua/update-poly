@@ -19,7 +19,7 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
       >
         {(props) => {
           const { setValues, values, errors, setErrors, handleSubmit} = props;
-          // console.log('values submit code = ', values)
+
           return (
             <Form
               id={'modal-submit-code'}
@@ -58,6 +58,7 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
                 disabled={values.activeBtn}
               >
                 отправить код
+                
               </Button>
               <ModalProvider.ModalSubmitCodeView email={values.email} postKeyFromMail={postKeyFromMail} />
             </Form>

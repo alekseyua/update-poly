@@ -8,9 +8,10 @@ import Button from '../../../Views/Button';
 import Input from '../../../Views/Input';
 import Text from '../../../helpers/Text';
 import Form from '../../../Views/Form';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
 
 const AuthorizationForm = (props) => {
-    const { onSubmit, onHandleChangeRemember, errorsMessenge, initialValueAuthorization, openModalRestorePassword } = props;
+    const { onSubmit, onHandleChangeRemember, errorsMessenge, initialValueAuthorization, openModalRestorePassword, loading } = props;
     return (
         <Formik
             validationSchema={signInSchemaByUsername(errorsMessenge)}
@@ -51,7 +52,7 @@ const AuthorizationForm = (props) => {
                                 <CheckBox
                                     checked={values.remember}
                                     name={'remember'}
-                                    onChange={ e => onHandleChangeRemember(e, setValues, values)}
+                                    onChange={ () => onHandleChangeRemember(setValues, values)}
                                     label={Text({ text: 'remember' })}
                                     data-cy={'authorization_check_box_remember'}
                                 />
@@ -61,6 +62,7 @@ const AuthorizationForm = (props) => {
                                     onClick={openModalRestorePassword}
                                     data-cy={'authorization_forgot_password'}
                                 >
+
                                     <Text text={'forgotYourPassword'} />
                                 </Button>
                             </AuthorizationAndRegViews.GroupBlock>
@@ -74,6 +76,7 @@ const AuthorizationForm = (props) => {
 
                             >
                                 <Text text={'toComeIn'} />
+                                 {loading ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
                             </Button>
                         </Form>
                     )

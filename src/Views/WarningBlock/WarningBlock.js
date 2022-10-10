@@ -27,7 +27,7 @@ const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
       onClick={heandleClickSpoler}
     >
       <div className={style["warning-block__arrow-8"]}></div>
-      <Icon className={style['warning-block__wrapper-icon']} src={statusCancel} alt={'cansel'} />
+      <Icon className={style['warning-block__wrapper-icon']} src={statusCancel} alt={'cansel'} width={20} height={20} />
       <span 
         className={style['warning-block__wrapper-text']}
       >

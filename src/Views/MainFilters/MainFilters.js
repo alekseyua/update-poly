@@ -5,7 +5,13 @@ import classNames from 'classnames';
 import SpinnerWrapper from '../SpinnerWrapper/SpinnerWrapper';
 import Spinner from '../SpinnerWrapper/Spinner';
 
-const MainFilters = ({ filters = [], ...props }) => {
+const MainFilters = ({ 
+  filters = [],
+  activeItemList,
+  
+  getProductsInStockForName,
+  ...props 
+}) => {
 
   return (
     <div className={style['main-filters']}>
@@ -25,9 +31,9 @@ const MainFilters = ({ filters = [], ...props }) => {
                     >
                       <Button
                         onClick={(e) => {
-                          // setFilters(el.id);
+                          getProductsInStockForName(el.id);
                         }}
-                        variant={el.active ? 'tab_active' : 'tab'}
+                        variant={el.id === activeItemList ? 'tab_active' : 'tab'}
                       >
                         {el.title}
                       </Button>

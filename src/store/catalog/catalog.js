@@ -46,11 +46,11 @@ export const catalog = store => {
             console.log({ objPolish: obj?.is_polish })
 
             let params = obj ? {
-                page: 1,
-                page_size: 30,
+                page: obj?.page? obj.page : 1,
+                page_size: obj?.page_size? obj.page_size : 30,
                 ...obj,
-                is_polish: obj?.is_polish ? false : true,
-                is_import: obj?.is_import ? false : true
+                is_polish: obj?.is_polish ? true: false ,
+                is_import: obj?.is_import ? true: false
             } : {}
 
             const products = await apiContent.getCatalogData(params);

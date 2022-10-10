@@ -77,6 +77,49 @@ export const pageContent = store => {
                 dispatch('setModalState', {
                     show: false,
                 })
+                dispatch('context', newContext)
+
+                const paramsInstock = {
+                    page: 1,
+                    page_size: 12,
+                    is_in_stock: true,
+                    categories: res.init_state.main_page.in_stock_product_filters[0].id
+                }
+                const timerTimeout = setTimeout(()=>{
+                    dispatch('getCatalog',paramsInstock)
+                    return ()=>clearTimeout(timerTimeout);
+                },600)
+            }
+            if (url === '/registration') {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                // console.log('newContext = ', newContext)
+                dispatch('setModalState', {
+                    show: false,
+                })
+                return dispatch('context', newContext)
+            }
+            if (url === '/authorization') {
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                        
+                    },
+                }
+                // console.log('newContext = ', newContext)
+                dispatch('setModalState', {
+                    show: false,
+                })
                 return dispatch('context', newContext)
             }
             if (url === '/about') {
@@ -575,7 +618,7 @@ export const pageContent = store => {
 
             }  
 
-            if (url.includes('/orders/')) {
+            if (url.includes('/orders/2')) {
                 const newContext = {
                     ...context,
                     "type": res.type,

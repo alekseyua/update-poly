@@ -44,6 +44,8 @@ const ControlButtons = ({
                         <Icon
                             slot="icon-left"
                             src={shoppingIcon}
+                            width={20}
+                            height={20}
                         />
                         <span
                             className={style['prodpage-control-buttons__info-in-cart']}

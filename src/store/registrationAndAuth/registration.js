@@ -29,78 +29,80 @@ export const registration = store => {
   store.on('stepDecrement', ({ step }, s) => ({ step: s - 1 }))
   store.on('setAllSteps', ({ allSteps }, s) => ({ allSteps: s }))
   //?! регистрация пользователя
-  store.on('setRegistration', ({ registration, step, roleRegister }, obj, { dispatch }) => {
-    const { newValues, setFieldError, setLoading } = obj;
-    let params = serializeDataRegistration(newValues, roleRegister);
-    apiUser
-      .registration(params)
-      .then((res) => {
-        setLoading(false)
-        dispatch('setModalState', {
-          show: true,
-          action: {
-            title: ['Продолжить', null]
-          },
-          className: null,
-          iconImage: successAlertIcon,
-          title: res.username,
-          onClick: () => {
-            dispatch('setAuthorithation', {
-              // ? после регистрации авто авторизируемся
-              username: params.username,
-              password: params.password,
-              email: params.email,
-            })
-          },
-          content: (
-            <>
+
+  store.on('setRegistration', async ({ registration, step, roleRegister }, obj, { dispatch }) => {
+    const { newValues, setFieldError, setLoading, redirectTo } = obj;
+    try {
+      console.log({ obj })
+      let params = serializeDataRegistration(newValues, roleRegister);
+      const res = await apiUser.registration(params);
+
+      setLoading(false)
+
+      dispatch('setModalState', {
+        show: true,
+        action: {
+          title: ['Продолжить', null]
+        },
+        className: null,
+        iconImage: successAlertIcon,
+        title: res.username,
+        onClick: () => {
+          dispatch('firstLogin', {
+            // ? после регистрации авто авторизируемся
+            username: params.username,
+            password: params.password,
+            email: params.email,
+            redirectTo: redirectTo
+          })
+        },
+        content: (
+          <>
             {
-              Text({text: 'goodRegistration'})
+              Text({ text: 'goodRegistration' })
             }
-            </>
-          ),
-        })
+          </>
+        ),
+      })
 
-      }).catch((err) => {
-        if (err) {
-          const data = err.data;
-          let error = false;
-          let status = true
-          for (let key in data) {
-            const element = Array.isArray(data[key]) ? data[key][0] : data[key];
-            if (step === 1) {
-              dispatch('setModalState', { show: false })
-              if (initialValuesFirstStep.hasOwnProperty(key)) {
-                setFieldError(key, element);
-                status = false
-                return error = false
-              }
-              (key === 'email' || key === 'phone' || key === 'whereDidYouHearAboutService' || key === 'password') && status ? error = true : error = false;
-              dispatch('stepIncrement', step)
-            } else if (step === 2) {
-              dispatch('setModalState', { show: false })
-              if (initialValuesMiddleStep.hasOwnProperty(key)) {
-                setFieldError(key, element);
-              }
-              key === 'error' ? error = true : error = false;
-              if (roleRegister !== 1) dispatch('stepIncrement', step)
-            } else {
+    } catch (err) {
+      if (err) {
+        const data = err.data;
+        let error = false;
+        let status = true
+        for (let key in data) {
+          const element = Array.isArray(data[key]) ? data[key][0] : data[key];
+          if (step === 1) {
+            dispatch('setModalState', { show: false })
+            if (initialValuesFirstStep.hasOwnProperty(key)) {
               setFieldError(key, element);
-              error = true;
-              dispatch('setModalState', { show: false })
+              status = false
+              return error = false
             }
+            (key === 'email' || key === 'phone' || key === 'whereDidYouHearAboutService' || key === 'password') && status ? error = true : error = false;
+            dispatch('stepIncrement', step)
+          } else if (step === 2) {
+            dispatch('setModalState', { show: false })
+            if (initialValuesMiddleStep.hasOwnProperty(key)) {
+              setFieldError(key, element);
+            }
+            key === 'error' ? error = true : error = false;
+            if (roleRegister !== 1) dispatch('stepIncrement', step)
+          } else {
+            setFieldError(key, element);
+            error = true;
+            dispatch('setModalState', { show: false })
           }
-
-          // if (error && step !== state.allSteps) setNextStep();
-
         }
-        setLoading(false)
-      });
+
+        // if (error && step !== state.allSteps) setNextStep();
+
+      }
+      setLoading(false)
+    }
   })
   //?! проверка ключа с указаной почты
-  store.on('checkKey', ({ checkKey, closeModalState }, obj, { dispatch }) => {
-    //'auth',
-    //'resend'
+  store.on('checkKey', async ({ }, obj, { dispatch }) => {
     /**
      *    @param {
      *    type: {
@@ -110,152 +112,206 @@ export const registration = store => {
      *    }
      *    @returns
      */
-    const param = {
-      key: +obj.submit_code,
-      type: 'auth',
-      email: obj.email,
-      username: obj.username,
-      password: obj.password
+    const { email, submit_code, username, password, redirectTo, setErrors } = obj;
+    console.log('values submit code = ', {obj},{setErrors})
+
+    try {
+
+      const param = {
+        key: +submit_code,
+        type: 'auth',
+        email: email,
+        username: username,
+        password: password
+      }
+
+      const res = await apiUser.checkKey(param)
+
+      dispatch('setModalState', {
+        show: true,
+        action: {
+          title: ['Продолжить', null]
+        },
+        className: null,
+        iconImage: successAlertIcon,
+        title: param.username,
+        onClick: () => redirectTo('/juridical'),
+        content: (<div>
+          <p><code>Email: {email}</code> привязан к вашим учетным данным</p>
+          <h5>{`${Text({ text: 'fun_shoping' })}`}</h5>
+        </div>)
+      })
+
+    } catch (err) {
+      console.log(err)
+      if (err.status === 400) {
+        setErrors({ 'errorCod': `${Text({ text: 'inputCod' })}` })
+      }
     }
-
-    return (
-      apiUser
-        .checkKey(param)
-        .then(res => {
-
-          dispatch('setModalState', {
-            show: true,
-            action: {
-              title: ['Продолжить', null]
-            },
-            className: null,
-            iconImage: successAlertIcon,
-            title: param.username,
-            onClick: () => closeModalState(),
-            content: (<div>
-              {`${Text({ text: 'fun_shoping' })}`}
-            </div>)
-          })
-        })
-        .catch(err => {
-          if (err.response.status === 400) {
-            obj.setErrors({ 'errorCod': `${Text({ text: 'inputCod' })}` })
-          }
-          console.log(err)
-        }
-        )
-    )
   })
   //?! запрос на получение нового кода на почту
-  store.on('getNewSubmitCode', ({ getNewSubmitCode, closeModalState }, obj, { dispatch }) => {
-
-    /**
-     * @param {
-     *    email - проверка пользователя по email
-     *    type: {
-     *            resend  - получение кода для регистрации
-     *            restore - получение кода для востановления пароля
-     *          }
-     * } 
-     * @returns @param
-     */
-
-    let path = obj.type === 'restore' ? '/catalog' : '';
-    const param = {
-      email: obj.email,
-      path: path,
-      type: obj.type,
-      password: obj.password,
-      username: obj.username
-    }
-
-    return (
-        apiUser
-          .resendUserKey(param)
-          .then(res => {
-            //! после реализации попапов добавить сообщение что код для "подтверждения почты" отправлен на указаную почту
-            dispatch('setModalState', {
-              show: true,
-              className: null,
-              iconImage: successAlertIcon,
-              action: {
-                title: ['Продолжить', null]
-              },
-              title: obj.username,
-              //! можно добавить кнопку обратной связи 
-              content: (
-                <>
-                {
-                  obj.type === 'restore' ?
-                      <div>
-                        пороль сброшен, на почту отправлен новый код
-                        <br/>
-                      </div>
-                    : <div>                  
-                        код для "подтверждения почты" отправлен на указаную почту
-                        <br/>
-                      </div>
-                }
-                </>
-              ),
-              onClick: () => obj.type === 'restore' ? obj.nextStep(obj.email) : dispatch('keyRegistration/set', param)
-            })
-          })
-          .catch(err => {
-            const data = err.data;
-            for (const key in data) {
-                let element = Array.isArray(data[key]) ? data[key][0] : data[key];
-                if (element === 'wrong auth data') element = 'Неправильно введены учётные данные'
-                obj?.setFieldError('serverError', element)
-            }
-            dispatch('setModalState', {
-              show: true,
-              className: null,
-              iconImage: errorAlertIcon,
-              title: obj.username,
-              //! можно добавить кнопку обратной связи 
-              content: (
-                <div>
-                  <i>{Text({ text: 'error_server' })}</i>
-                  <p>{Text({ text: 'call_admin' })}</p>
-                </div>
-              ),
-            })
-          }
-          )
-      )
-  }
-  )
-  //?! форма ввода ключа с почты и подтверждение его
-  store.on('keyRegistration/set', ({ keyRegistration, closeModalState }, obj, { dispatch }) => {
-
-    const handleSubmit = (values, setErrors) => {
-      const params = {
-        username: obj.username,
-        password: obj.password,
+  store.on('getNewSubmitCode', async ({ }, obj, { dispatch }) => {
+    try {
+      /**
+       * @param {
+       *    email - проверка пользователя по email
+       *    type: {
+       *            resend  - получение кода для регистрации
+       *            restore - получение кода для востановления пароля
+       *          }
+       * } 
+       * @returns @param
+       */
+      console.log('obj get submit code', obj)
+      const param = {
         email: obj.email,
+        type: obj.type,
+      }
+      const paramsInputKey = {
+        email: obj.email,
+        username: obj.username,
+        redirectTo: obj.redirectTo
+      }
+      const res = await apiUser.resendUserKey(param);
+      //! после реализации попапов добавить сообщение что код для "подтверждения почты" отправлен на указаную почту
+      dispatch('setModalState', {
+        show: true,
+        className: null,
+        iconImage: successAlertIcon,
+        action: {
+          title: ['Продолжить', null]
+        },
+        title: obj.username,
+        //! можно добавить кнопку обратной связи 
+        content: (
+          <>
+            {
+              obj.type === 'restore' ?
+                <div>
+                  пороль сброшен, на почту отправлен новый код
+                  <br />
+                </div>
+                : <div>
+                  <h2>код для "подтверждения почты"</h2>
+                  <p>отправлен на указаную Вами при регистрации почту</p>
+                  <br />
+                </div>
+            }
+          </>
+        ),
+        onClick: () => obj.type === 'restore' ? obj.nextStep(obj.email) : dispatch('inputKeyFromEmail', paramsInputKey)
+      })
+    } catch (err) {
+      const data = err.data;
+      for (const key in data) {
+        let element = Array.isArray(data[key]) ? data[key][0] : data[key];
+        if (element === 'wrong auth data') element = 'Неправильно введены учётные данные'
+        obj?.setFieldError('serverError', element)
+      }
+      dispatch('setModalState', {
+        show: true,
+        className: null,
+        iconImage: errorAlertIcon,
+        title: obj.username,
+        //! можно добавить кнопку обратной связи 
+        content: (
+          <div>
+            <i>{Text({ text: 'error_server' })}</i>
+            <p>{Text({ text: 'call_admin' })}</p>
+          </div>
+        ),
+      })
+    }
+  })
+  //?! форма ввода ключа с почты и подтверждение его
+  store.on('inputKeyFromEmail', ({ keyRegistration, closeModalState }, obj, { dispatch }) => {
+
+    const { username, password, email, type, redirectTo } = obj;
+
+    //?! проверяем код
+    const handleSubmit = (values, callbacks) => {
+      const { setErrors } = callbacks;
+      const params = {
+        username: username,
+        password: password,
+        email: values.email,
         path: obj.path,
         type: obj.type,
         submit_code: values.submit_code,
         setErrors: setErrors,
+        redirectTo: redirectTo
+
       }
       dispatch('checkKey', params)
     };
 
+    console.log({ paramsKeyRegit: obj })
 
-
+    //?! запрос на получение нового кода
     const postKeyFromMail = (email) => {
-      dispatch('getNewSubmitCode', { email: email, type: 'resend' });
+      dispatch('getNewSubmitCode', {
+        email: email,
+        type: 'resend',
+      });
     }
+    //?! модалка с вводом ключа с почты
     dispatch('setModalState', {
       show: true,
-      title: obj.username,
-      content: <ModalSubmitCode initialValuesSubmitCode={initialValuesSubmitCode} handleSubmit={handleSubmit} postKeyFromMail={postKeyFromMail} />
+      title: username,
+      content: <ModalSubmitCode
+        initialValuesSubmitCode={email ? { ...initialValuesSubmitCode, email } : initialValuesSubmitCode}
+        handleSubmit={handleSubmit}
+        postKeyFromMail={postKeyFromMail}
+        redirectTo={redirectTo}
+      />
     })
   })
 
 
+  //?! Вход в аккаунт при регистрации
+  store.on('firstLogin', async ({ closeModalState }, obj, { dispatch }) => {
+    console.log({ objfirst: obj })
+    const { username, password, setLoading = () => { }, email, redirectTo } = obj;
+    try {
+      //?! отправляем запрос для получение ключа на почте
+      // const param = {
+      //   email: email,
+      //   type: 'resend',
+      // }
+      // await apiUser.resendUserKey(param);
 
+      const params = {
+        username: username,
+        password: password,
+      }
+      const res = await apiUser.loginByUsername(params)
+      setLoading(false)
+      console.log('log in', obj)
+
+      // ? запрос на подтверждение почты (авторизация при первой регистрации)
+      dispatch('inputKeyFromEmail', {
+        username: username,
+        password: password,
+        type: 'resend',
+        email: email,
+        redirectTo: redirectTo,
+      })
+
+    } catch (err) {
+      if (err) {
+        dispatch('setModalState', {
+          show: false,
+        })
+        const data = err.data;
+        let error = false;
+        for (const key in data) {
+          let element = Array.isArray(data[key]) ? data[key][0] : data[key];
+          if (element === 'wrong auth data') element = 'Неправильно введены учётные данные'
+          obj?.setFieldError('serverError', element)
+        }
+      }
+    }
+  })
 
 
 

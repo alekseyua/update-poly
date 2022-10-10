@@ -13,6 +13,7 @@ const HeaderButtonsBottomLK = ({
     profile,
     ...props
 }) => {
+    // console.log({props})
     const inCartProducts = profile?.cart;
     const inWishlist = profile?.wishlist;
     const inNotification = profile?.notifications;
@@ -53,8 +54,29 @@ const HeaderButtonsBottomLK = ({
         dispatch('logoutOut', params)
     }
 
-    const getKeyForAccess = () =>{
-        console.log('нужно сделать запрос на подтверждение почты через storeon')
+    const getKeyForAccess = (data) =>{
+
+        //?!отправляем запрос на почту
+        const paramsSendEmail = {
+            type : 'resend',
+            email: data.email,
+            username: data.username,
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(()=>{
+                    navigate(path);
+                    return () => clearTimeout(timerTimeout);
+                },2000)
+            }
+        }
+        dispatch('getNewSubmitCode', paramsSendEmail)
+        //?! открываем попап для ввода пароля с почты
+        // const params = {
+        //     username: data.username, 
+        //     type : 'resend',
+        //     email: data.email,
+           
+        // }
+        // dispatch('inputKeyFromEmail', params)
     }
 
     // !?закрываем строку поиска при клике вне поля с поиском
@@ -147,9 +169,9 @@ const HeaderButtonsBottomLK = ({
                     cabinet_menu={props.cabinet_menu}
                     profile={profile}
                     stateOpen={stateOpen}
-                    // openMenuRef={openMenuRef}
-                    getKeyForAccess={getKeyForAccess}
+
                     logOut={logOut}
+                    getKeyForAccess={getKeyForAccess}
                 />
                 
                 

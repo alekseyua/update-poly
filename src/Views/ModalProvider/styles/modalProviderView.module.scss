@@ -4,14 +4,16 @@
 
     //.modal-provider__close{}
     &__close{
-        position: absolute;
-        right: 10px;
+        position: sticky;
         top: 10px;
+        left: 100%;
         width: 20px;
         height: 20px;
         border: 1px solid $dg;
         z-index: 10005;
         border-radius: 50%;
+        min-width: 20px;
+        min-height: 20px;
         &::after,&::before{
             content: '';
             width: 1px;
@@ -79,14 +81,16 @@
         visibility: hidden; 
         position: absolute;
         transition: opacity 3s;
-
-    //.modal-provider__body--show{}
+        
+        //.modal-provider__body--show{}
         &--show{
+            overflow: auto;
             opacity: 1;
             visibility: visible;
             min-width: 320px;
             min-height: 250px;
-            height: auto;
+            height: 80vh;
+            width: 80vw;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -122,11 +126,15 @@
     }
     //.modal-provider__spinner{}
     &__spinner{
-        position: absolute;
+        // position: absolute;
+        position: relative;
         left: 33%;
         top: 20%;
         transform: scale(1.5);
         width: 100px;
+        animation-name: move-cart;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
       }
 
 
@@ -142,5 +150,14 @@
             flex-direction: column;
 
         }
+    }
+}
+
+@keyframes move-cart {
+    0% {
+        left: -120px;
+    }
+    100% {
+        left: 450px;
     }
 }

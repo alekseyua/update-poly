@@ -5,16 +5,19 @@ import DropDownHeaderLK from '../../Views/DropDownHeaderLK';
 import Button from '../../Views/Button';
 import { ROLE } from '../../const';
 import Text from '../../helpers/Text';
+import BlockSpinner from '../../Views/SpinnerWrapper';
 
 const AccessCheck = ({ 
   first_name = 'first_name', 
   last_name = 'last_name', 
   logOut, 
-  getKeyForAccess, 
   role,
   checkEmail,
+  email,
   stateOpen,
   openMenuRef,
+  
+  getKeyForAccess, 
   }) => {
  
   return (
@@ -45,12 +48,18 @@ const AccessCheck = ({
       }
       </DefaultAuthText.HelpText>
       { role === ROLE.RETAIL?
-        <Button full variant={'gray_full_width'} onClick={getKeyForAccess} className={activeSpinner}>
-          <DefaultAuthText.Spinner slot={'icon-left'} />
-          {Texr({ text: 'confirm' })}
+        <Button full variant={'gray_full_width'} onClick={()=>getKeyForAccess({
+          username: first_name,          
+          email: email
+        })} >
+          <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
+          {Text({ text: 'confirm' })}
         </Button>
-        :<Button full variant={'gray_full_width'} to={'#'} onClick={checkAccessToAccount} className={activeSpinner}>
-          <DefaultAuthText.Spinner slot={'icon-left'} />
+        :<Button full variant={'gray_full_width'} to={'#'} onClick={()=>getKeyForAccess({
+          username: first_name,          
+          email: email
+        })} >
+          <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
           {!checkEmail? Text({text: 'confirm_mail'}) : Text({text: 'varify_access'})}
         </Button>
       }

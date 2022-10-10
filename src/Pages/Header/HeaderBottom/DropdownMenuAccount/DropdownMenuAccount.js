@@ -30,9 +30,8 @@ const DropdownMenuAccount = (props) =>{
             email={email}
             stateOpen={stateOpen}
             openMenuRef={openMenuRef}
+            
             getKeyForAccess={getKeyForAccess}
-            // openModalKeyRegistration={openModalKeyRegistration}
-            // checkEmail={checkEmail}
           />
         ),
         rejectedAccount: (
