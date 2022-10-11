@@ -42,14 +42,29 @@ export const wishList = store => {
     })
 
     store.on('addWishList', async ({ context }, obj, { dispatch }) => {
-        try{
-
+        try{           
+            let newDataProductsResults = context.init_state.dataProducts.results;
             const params = {
                 product: obj.id,
             }
-            const resAddWishList = await apiProfile.postWishlist(params);
-            console.log('resAddWishList = ', resAddWishList);
 
+            const resAddWishList = await apiProfile.postWishlist(params);
+            newDataProductsResults = newDataProductsResults.map( el => el.id === obj.id? {...el, is_liked: true} : el)
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataProducts: {
+                        ...context.init_state.dataProducts,
+                        results: newDataProductsResults
+                    },
+                    profile: {
+                        ...context.init_state.profile,
+                        wishlist: +context.init_state.profile.wishlist + 1
+                    }
+                },
+            }
+            dispatch('context', newContext)
         }catch(err){
             console.log('Error add wish list ', err)
         }
@@ -57,10 +72,24 @@ export const wishList = store => {
 
     store.on('removeWishList', async ({ context }, obj, { dispatch }) => {
         try{
-
+            let newDataProductsResults = context.init_state.dataProducts.results;
             const resRemoveWishList = await apiProfile.deleteWishlist(obj.id);
-            console.log('resRemoveWishList = ', resRemoveWishList);
-
+            newDataProductsResults = newDataProductsResults.map( el => el.id === obj.id? {...el, is_liked: false} : el)
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataProducts: {
+                        ...context.init_state.dataProducts,
+                        results: newDataProductsResults
+                    },
+                    profile: {
+                        ...context.init_state.profile,
+                        wishlist: +context.init_state.profile.wishlist - 1
+                    }
+                },
+            }
+            dispatch('context', newContext)
         }catch(err){
             console.log('Error add wish list ', err)
         }
