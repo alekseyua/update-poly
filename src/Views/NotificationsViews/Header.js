@@ -37,7 +37,7 @@ const Header = ({
         size="med"
         className={style["cabinet-notifications__delete"]}
       >
-        <Icon slot="icon-left" src={garbageIcon} />
+        <Icon slot="icon-left" src={garbageIcon} height={20} width={20}/>
         Удалить
       </Button>
     </div>

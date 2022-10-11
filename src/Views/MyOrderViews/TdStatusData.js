@@ -41,7 +41,7 @@ const TdStatusData = ({ status = 'default', statusTitle = 'Название ст
       })}
     >
       <span className={style['cabinet-status__icon']}>
-        <Icon src={statusIcon[status]} alt={statusTitle} />
+        <Icon src={statusIcon[status]} alt={statusTitle} height={20} width={20}/>
       </span>
       <span
         className={classNames({

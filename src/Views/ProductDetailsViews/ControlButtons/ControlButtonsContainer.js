@@ -17,14 +17,14 @@ import { useStoreon } from 'storeon/react';
  */
 
 const ControlButtonsContainer = ({
-    in_cart_count,
     in_stock_count,
-    is_in_stock,
-    url,
-    productId,
     is_collection,
-    role,
+    in_cart_count,
+    is_in_stock,
+    productId,
     modalView,
+    role,
+    url,
 
 }) =>{
     const { dispatch } = useStoreon();
@@ -52,6 +52,9 @@ const ControlButtonsContainer = ({
       }
     },[is_in_stock,in_stock_count,in_cart_count])
 
+    const closeModal = () => {
+      dispatch('setModalState',{show: false})
+    }
 
     const cloneCart = (e) =>{
         let cartIcon
@@ -170,27 +173,30 @@ const ControlButtonsContainer = ({
     }, [changeColorBtn.red, changeColorBtn.green])
   
     //******************************************************************************************************* */
-    const linkToProductPage = () => {
+    const linkToProductPage = (url, modalView) => {
       if (!modalView) return null;
       return (
-        <Button href={url} full variant={'catalog-link-transparent__modal'}>
+        <Button href={`/${url}`} full variant={'catalog-link-transparent__modal'} onClick = {closeModal}>
           перейти на страницу товара
         </Button>
       );
     };
 
+
     return (
         <ControlButtons
-        linkToProductPage = { linkToProductPage }
-        stateInStockeBtn = { stateInStockeBtn }
-        addToCartProduct = { addToCartProduct }
-        in_cart_count = { in_cart_count }
-        colorBtnClick = { colorBtnClick }
-        is_collection = { is_collection }
-        countInBtn = { countInBtn }
-        productId = { productId }
-        cloneCart = { cloneCart }
-        role = { role }
+          linkToProductPage = { linkToProductPage }
+          stateInStockeBtn = { stateInStockeBtn }
+          addToCartProduct = { addToCartProduct }
+          in_cart_count = { in_cart_count }
+          colorBtnClick = { colorBtnClick }
+          is_collection = { is_collection }
+          countInBtn = { countInBtn }
+          modalView = { modalView } 
+          productId = { productId }
+          cloneCart = { cloneCart }
+          role = { role }
+          url = { url }
         />
     )
 }

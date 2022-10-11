@@ -12,7 +12,7 @@ const InfoCard = ({
   return (
     <div className={style['wrapper-card_info-card']}>
       <div className={style['wrapper-card_info-title']}>
-        <Icon className={style['wrapper-card_info-icon']} src={vectorIcon} />
+        <Icon className={style['wrapper-card_info-icon']} src={vectorIcon} height={20} width={20}/>
         <Title variant={'min_card'} type={'h3'}>
           {title}
         </Title>

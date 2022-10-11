@@ -11,7 +11,7 @@ const PaymentMethods = (props) => {
             <ul className={style['payment-methods__list']}>
                 { payment_methods.map((el, key) => {
                     return <li key={v4()} className={style['payment-methods__list-item']}>
-                        <Icon className={style['payment-methods__list-item-icon']} src={el.icon} alt=''/>
+                        <Icon className={style['payment-methods__list-item-icon']} src={el.icon} alt='' height={20} width={20}/>
                     </li>
                 })}
                 

@@ -2,12 +2,8 @@
 
 .button--disabled{
     background-color: $dg2 !important;
-    width: 100%;
-    height: 100%;
     color: $w !important;
-    font-size: 18px;
-    position: absolute;
-    margin: 0 -2px;
+    min-height: inherit;   
     &:hover{
       cursor: not-allowed;
       box-shadow: none;

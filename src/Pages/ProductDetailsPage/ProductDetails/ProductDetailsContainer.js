@@ -30,6 +30,7 @@ const ProductDetailsContainer = ({
         is_in_stock,
         product_rc,
         minimum_rc,
+        is_liked,
         article,
         content,
         is_new,
@@ -86,6 +87,7 @@ const ProductDetailsContainer = ({
             recommended={recommended}
             product_rc={product_rc}
             profileId={profileId}
+            is_liked = { is_liked }
             currency={currency}
             article={article}
             content={content}

@@ -33,6 +33,9 @@ const AsyncPreviewSlider = AsyncComponent(()=>{
     return import ('../PreviewSlider/PreviewSliderContainer');
 })
 
+const AsyncSectionRaitingAndSharingAndMyWish = AsyncComponent(()=> import('../../../Views/ProductDetailsViews/SectionRaitingAndSharingAndMyWish/SectionRaitingAndSharingAndMyWish'))
+
+
 import style from './styles/previewproduct.module.scss';
 import SceletonBlock from "../../SceletonBlock";
 
@@ -63,6 +66,7 @@ const PreviewProductCardModal = ({
     handlerOpenListCollection,
     url,
     modalView = true,
+    is_liked,
 }) => {
 
     return (
@@ -84,13 +88,17 @@ const PreviewProductCardModal = ({
                     <BlockGrid.Row // ? 1 информационный ряд Raiting
                         className={style['preview-product-modal__row']}
                     >
-                        <Raiting
-                            // ?! ДАННЫЕ НЕ ПРИХОДЯТ, ЖДЁМ ОТ БЭКА
-                            max={5}
-                            value={0}
-                            label={Text({ text: 'reviews-es' })}
-                        //  countRaiting={}
-                        />
+                        {/* // ?! ДАННЫЕ НЕ ПРИХОДЯТ, ЖДЁМ ОТ БЭКА Raiting 
+                            */}
+                            
+                            <AsyncSectionRaitingAndSharingAndMyWish
+                                 is_liked = { is_liked }
+                                 title = { title }
+                                 value = { 0 }
+                                 label = { Text({ text: 'reviews-es' }) }
+                                 max = { 5 }
+                                 
+                            />
 
                     </BlockGrid.Row>
                     <BlockGrid.Row // ? 2 информационный ряд Brand
@@ -98,7 +106,7 @@ const PreviewProductCardModal = ({
                     >
                         {
                             !!brand && (role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED) ?
-                                <ProductDetailsViews.BrandName name={brand} />
+                                <ProductDetailsViews.BrandName name = { brand } />
                                 : null
                         }
                     </BlockGrid.Row>
@@ -120,31 +128,31 @@ const PreviewProductCardModal = ({
                         className={style['preview-product-modal__row']}
                     >
                         <AsyncLabels
-                            is_in_stock={is_in_stock}
-                            is_bestseller={is_bestseller}
-                            is_new={is_new}
-                            is_closeout={is_closeout}
+                            is_bestseller = { is_bestseller }
+                            is_closeout = { is_closeout }
+                            is_in_stock = { is_in_stock }
+                            is_new = { is_new }
                         />
                     </BlockGrid.Row>
                     <BlockGrid.Row  // ? 5 информационный ряд стоимость товара
                         className={style['preview-product-modal__row']}
                     >
                         <AsyncPricesContainer
-                            prices={prices}
-                            in_cart_count={in_cart_count}
-                            currency={currency}
-                            recommended_price={recommended_price}
-                            role={role}
+                            recommended_price = { recommended_price }
+                            in_cart_count = { in_cart_count }
+                            currency = { currency }
+                            prices = { prices }
+                            role = { role }
                         />
                     </BlockGrid.Row>
                     <BlockGrid.Row  // ? 6 информационный ряд цветовая разкраска товара
                         className={style['preview-product-modal__row']}
                     >
                         <AsyncColorsButton
-                            handleChooseProduct={handleChooseProduct}
-                            productId={productId}
-                            colors={colors}
-                            sizes={sizes}
+                            handleChooseProduct = { handleChooseProduct }
+                            productId = { productId }
+                            colors = { colors }
+                            sizes = { sizes }
                         />
                     </BlockGrid.Row>
                     {
@@ -168,6 +176,7 @@ const PreviewProductCardModal = ({
                     >
                         <AsyncSizesButton
                             handleChooseProduct={handleChooseProduct}
+                            in_stock_count={in_stock_count}
                             productId={productId}
                             colors={colors}
                             sizes={sizes}

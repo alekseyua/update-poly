@@ -41,7 +41,7 @@ const ReviewsCardView = ({
         <div className={style['reviews-card__header--left']}>
           <span className={style['reviews-card__username']}>{user}</span>
           <div className={style['reviews-card__tag']}>
-            <Icon className={style['reviews-card__tag-img']} src={tagIcon} alt="card tag" />
+            <Icon className={style['reviews-card__tag-img']} src={tagIcon} alt="card tag" height={20} width={20}/>
             <span className={style['reviews-card__tag-name']}>{user_rating.rating_title}</span>
           </div>
         </div>
@@ -100,6 +100,7 @@ const ReviewsCardView = ({
             })}
             src={likeIcon}
             alt="like"
+            height={20} width={20}
           />
           <span className={style['reviews-card__like-count']}>{likes_count}</span>
         </div>

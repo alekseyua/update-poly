@@ -9,7 +9,7 @@ import Icon from '../../Icon';
 const OrderingPayHead = ({}) => {
   return (
     <div className={style['ordering__pay-head-wrap']}>
-      <Icon src={wallet} className={style['ordering__icon']} />
+      <Icon src={wallet} className={style['ordering__icon']} height={20} width={20}/>
       <Title variant={'cart'} type={'h2'}>
         <Text text="payment.method" />
       </Title>

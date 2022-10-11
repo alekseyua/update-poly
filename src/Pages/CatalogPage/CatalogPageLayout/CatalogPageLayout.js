@@ -195,7 +195,7 @@ const CatalogPageLayout = ({
                   <CatalogViews.Catalog>
                     <WarningBlock
                       variant={'catalog-wrapper'}
-                      textWarning={<div dangerouslySetInnerHTML={{ __html: content }}></div>}
+                      textWarning = { content? <div dangerouslySetInnerHTML = {{ __html: content }}></div> : '' }
                     />
                     <CatalogViews.SortSelect
                       valueOptionsSort={filterParams.ordering}
@@ -292,7 +292,6 @@ const CatalogPageLayout = ({
                             {
                               !!dataProducts?.results.length?
                               dataProducts.results.map((el) => {
-                                // console.log({el})
                               return (
                                 <AsyncProductCard
                                 role={role}
@@ -309,7 +308,7 @@ const CatalogPageLayout = ({
                                 isSales={el.isSales}
                                 isNew={el.isNew}
                                 isHit={el.isHit}                                  
-                                favorite={el.is_liked}
+                                is_liked={el.is_liked}
                                 product_rc={el.product_rc}
                                 article={el.article}
                                 currency={currency}

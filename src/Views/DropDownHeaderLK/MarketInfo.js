@@ -10,7 +10,7 @@ const MarketInfo = ({ image, to = '#', title = 'FASHION STORE' }) => {
   return (
     <div className={style['marketInfo__wrapper']}>
       <div className={style['marketInfo__wrapper-ellipse']}>
-        <Icon  src={image ? image : defaultImageMarketInfo} />
+        <Icon  src={image ? image : defaultImageMarketInfo} height={20} width={20}/>
       </div>
       <div className={style['marketInfo__wrapper-name_and_link']}>
         <p className={style['marketInfo__wrapper-name_and_link-name']}>

@@ -85,7 +85,7 @@ const Card = ({
             </div>
             <div className={style['cabinet-history__card-bonus-wrap']}>
               <div className={style['cabinet-history__card-bonus-likes-wrap']}>
-                <Icon src={likeIcon} className={style['cabinet-history__card-bonus-icon']} />
+                <Icon src={likeIcon} className={style['cabinet-history__card-bonus-icon']} height={20} width={20}/>
                 <p className={style['cabinet-history__card-bonus-likes']}>{likes_count}</p>
               </div>
               <p className={style['cabinet-history__card-bonus-plus']}>
@@ -104,7 +104,7 @@ const Card = ({
             >
               {status}
             </p>
-            <Icon src={arrowDown} className={style['cabinet-history__card-revstatus-icon']} />
+            <Icon src={arrowDown} className={style['cabinet-history__card-revstatus-icon']} height={20} width={20}/>
           </div>
         </summary>
         <div className={style['cabinet-history__card-details']}>

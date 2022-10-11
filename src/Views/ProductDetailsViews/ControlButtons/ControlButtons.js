@@ -9,7 +9,6 @@ import style from './style/controlbuttons.module.scss';
 import Text from '../../../helpers/Text';
 
 const ControlButtons = ({
-    linkToProductPage,
     stateInStockeBtn,
     colorBtnClick,
     in_cart_count,
@@ -17,12 +16,15 @@ const ControlButtons = ({
     countInBtn,
     cloneCart,
     productId,
+    modalView,
     role,
+    url,
     
+    linkToProductPage,
     addToCartProduct,
 
 }) => {
-    
+   
     if (!!in_cart_count) {
         return (
             <div className={style['prodpage-control-buttons__container']}>
@@ -44,8 +46,8 @@ const ControlButtons = ({
                         <Icon
                             slot="icon-left"
                             src={shoppingIcon}
-                            width={20}
-                            height={20}
+                            width={25}
+                            height={25}
                         />
                         <span
                             className={style['prodpage-control-buttons__info-in-cart']}
@@ -53,7 +55,6 @@ const ControlButtons = ({
                     </p>
                     <Button
                         disabled={stateInStockeBtn}
-
                         onClick={(e) => {
                             cloneCart(e)
                             addToCartProduct( 1, false, productId );
@@ -63,7 +64,7 @@ const ControlButtons = ({
                         +
                     </Button>
                 </div>
-                {linkToProductPage()}
+                {linkToProductPage(url, modalView)}
             </div>
         );
     } else {
@@ -84,7 +85,6 @@ const ControlButtons = ({
                             pointerEvents={'none'}
                             width={25}
                             height={25}
-
                         />
                         <div
                             className={style['prodpage-control-buttons__text-button']}
@@ -93,7 +93,7 @@ const ControlButtons = ({
                         </div>
                     </Button>
                 </div>
-                {linkToProductPage()}
+                {linkToProductPage(url, modalView)}
             </div>
         )
     }

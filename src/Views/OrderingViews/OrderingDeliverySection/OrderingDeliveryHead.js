@@ -9,7 +9,7 @@ import style from '../styles/index.module.scss';
 const OrderingDeliveryHead = ({}) => {
   return (
     <div className={style['ordering__pay-head-wrap']}>
-      <Icon src={truck} className={style['ordering__icon']} />
+      <Icon src={truck} className={style['ordering__icon']} height={20} width={20}/>
       <Title variant={'cart'} type={'h2'}>
         <Text text="delivery.method" />
       </Title>

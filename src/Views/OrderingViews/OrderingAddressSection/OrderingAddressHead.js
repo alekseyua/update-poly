@@ -10,7 +10,7 @@ const OrderingAddressHead = ({ }) => {
   return (
     <React.Fragment>
       <div className={style['ordering__pay-head-wrap']}>
-        <Icon src={addressIcon} className={style['ordering__icon']} />
+        <Icon src={addressIcon} className={style['ordering__icon']} height={20} width={20}/>
         <Title variant={'cart'} type={'h2'}>
           <Text text="addres.delivery" />
         </Title>

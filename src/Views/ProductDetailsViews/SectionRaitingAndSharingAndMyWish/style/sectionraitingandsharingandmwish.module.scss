@@ -1,0 +1,23 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.prodpage{
+    //.prodpage__raitsharewish-container{}
+    &__raitsharewish-container{
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    //.prodpage__raitsharewish-inner{}
+    &__raitsharewish-inner{
+        padding: 0;
+        display: flex;
+        
+    }
+    //.prodpage__raitsharewish-button-btn{}
+    &__raitsharewish-button-btn{
+        padding: 0;
+    }
+}

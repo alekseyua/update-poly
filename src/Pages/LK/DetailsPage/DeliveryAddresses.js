@@ -70,7 +70,7 @@ const DeliveryAddresses = ({
               placeholder={'Поиск по адресу'}
               inputmode={'search'}
             >
-              <Icon src={searchIcon} alt="search" slot={'prefix'}></Icon>
+              <Icon src={searchIcon} alt="search" slot={'prefix'} height={20} width={20} />
             </Input>
           </PersonalPageViews.FormGroup>
 

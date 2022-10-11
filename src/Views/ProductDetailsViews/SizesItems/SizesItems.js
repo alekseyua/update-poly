@@ -4,9 +4,12 @@ import Button from '../../Button';
 import classNames from "classnames";
 
 import style from './styles/sizesitems.module.scss';
+import Icon from "../../Icon";
+import { fire } from "../../../images";
 
 const SizesItems = ({
   handleChooseProduct,
+  in_stock_count,
   productId,
   colors,
   sizes,
@@ -41,6 +44,12 @@ const SizesItems = ({
           })
         }
       </ul>
+      {in_stock_count ? (
+        <p className={style['prodpage-sizes__remainder']}>
+          <Icon className={style['prodpage-sizes__remainder-btn']} src={fire} width={20} height={20} />
+          Осталось:{in_stock_count} ед.
+        </p>
+      ) : null}
     </div>
   )
 }

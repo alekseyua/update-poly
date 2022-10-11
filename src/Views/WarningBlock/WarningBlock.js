@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import style from './styles/index.module.scss';
 import Icon from '../Icon';
 
-const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
+const WarningBlock = ({ textWarning}) => {
 
   const [spolerActive, setSpolerActive] = useState(false)
   const heandleClickSpoler = () => {
-    setSpolerActive(!spolerActive)
+    setSpolerActive(c=>!c)
   }
 
   const classContext = classNames({
@@ -25,6 +25,9 @@ const WarningBlock = ({ textWarning = 'warning', variant = "wrapper" }) => {
     <div 
       className={classCross}
       onClick={heandleClickSpoler}
+      style = {
+        { opacity: textWarning? 1 : 0 }
+      }
     >
       <div className={style["warning-block__arrow-8"]}></div>
       <Icon className={style['warning-block__wrapper-icon']} src={statusCancel} alt={'cansel'} width={20} height={20} />

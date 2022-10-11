@@ -56,7 +56,7 @@ const ModalProviderView = ({content, show, action = null, title = <Text text={'a
                 {
                     iconImage? 
                         <div className={style['modal-provider__icon']} >
-                            <Icon src={iconImage} className={style['modal-provider__success-error']} /> 
+                            <Icon src={iconImage} className={style['modal-provider__success-error']} height={20} width={20}/> 
                         </div>                        
                         : null
                 }
@@ -70,7 +70,7 @@ const ModalProviderView = ({content, show, action = null, title = <Text text={'a
                                 {content}
                         </div>
                     </>
-                        : <Icon src={spinnerCart} className={style['modal-provider__spinner']} />
+                        : <Icon src={spinnerCart} className={style['modal-provider__spinner']} height={20} width={20}/>
                 }
                
                 {

@@ -39,6 +39,8 @@ if (payment_methods.length) {
                   slot="icon-left"
                   src={statusSend}
                   className="cabinet_orders_details__base_info__icon"
+                  height={20} 
+                  width={20}
                 />
                 </Button>
             );}
@@ -60,6 +62,8 @@ if (payment_methods.length) {
                     slot="icon-left"
                     src={statusSend}
                     className="cabinet_orders_details__base_info__icon"
+                    height={20} 
+                    width={20}
                   />
                 </Button>
               );

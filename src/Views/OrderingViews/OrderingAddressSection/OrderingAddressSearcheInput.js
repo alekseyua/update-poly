@@ -14,7 +14,7 @@ const OrderingAddressSearcheInput = ({ searchAddressRenderData }) => {
       placeholder="Поиск по ФИО"
       className={style['ordering__address-search']}
     >
-      <Icon slot="prefix" className={style['ordering__address-search-icon']} src={searchIcon} />
+      <Icon slot="prefix" className={style['ordering__address-search-icon']} src={searchIcon} height={20} width={20}/>
     </Input>
   );
 };

@@ -17,6 +17,27 @@
         height: 40px;
         border: 1px solid $back;
     }
+    //.prodpage-sizes__remainder{}
+    &__remainder{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: fit-content;
+        height: 18px;
+        padding: 0 8px;
+        border-radius: 10px;
+        font-size: 12px;
+        line-height: 140%;
+        color: $rd;
+        background: $g;
+        border-radius: 16px;
+        //.prodpage-sizes__remainder-btn{}
+        &-btn {
+          margin-right: 6px;
+          margin-top: -6px;
+          width: 20px;
+        }
+    }
     //.prodpage-sizes__btn{}
     &__btn{
         padding: 0;

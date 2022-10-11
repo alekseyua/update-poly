@@ -17,7 +17,7 @@ const ProductCardContainer = ({
     isSales,
     isNew,
     isHit,
-    favorite,
+    is_liked,
     product_rc,
     article,
     currency,
@@ -46,26 +46,27 @@ const ProductCardContainer = ({
 
     return (
         <ProductCard
-            key={key}
-            title={title}
             id={id}
-            url={url}
+            key={key}
+            url={ url }
             brand={brand}
             prices={prices}
             stock={stock}
-            colors={colors}
+            title={title}
             sizes={sizes}
             images={images.length ? images : defaultImageSet}
-            isSales={isSales}
             isNew={isNew}
             isHit={isHit}
-            favorite={favorite}
-            product_rc={product_rc}
-            article={article}
-            currency={currency}
-            addLikeProductCard={addLikeProductCard}
-            removeLikeProductCard={removeLikeProductCard}
-            handleQuickView={handleQuickView}
+            colors={colors}
+            isSales={isSales}
+            is_liked={is_liked}
+            article = { article }
+            currency = { currency }
+            product_rc = { product_rc }
+
+            handleQuickView = { handleQuickView }
+            addLikeProductCard = { addLikeProductCard }
+            removeLikeProductCard = { removeLikeProductCard }
         />
     )
 }

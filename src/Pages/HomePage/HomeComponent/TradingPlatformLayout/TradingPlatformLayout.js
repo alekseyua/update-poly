@@ -33,6 +33,7 @@ const TradingPlatformLayout = ({ first_screen, page_type_catalog, front_admin, g
                     slot={'icon-left'}
                     src={cartIcon}
                     className={style['trading-platform__btn-icon']}
+                    height={20} width={20}
                   />
                   <span>
                     <Text text={'collect_order'} />

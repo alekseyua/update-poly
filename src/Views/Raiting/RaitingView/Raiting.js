@@ -38,7 +38,7 @@ const Raiting = ({max = 5, ActiveStar, label, countRaiting, className, onChange,
                                 onClick={onChange}
                                 className={style['raiting-star__star']} 
                             >
-                                <Icon src={starIcon} invert={ i < ActiveStar? '0%' : '45%' } />
+                                <Icon src={starIcon} invert={ i < ActiveStar? '0%' : '45%' } width = {25} height={25} />
                             </div>
                         )
                     })

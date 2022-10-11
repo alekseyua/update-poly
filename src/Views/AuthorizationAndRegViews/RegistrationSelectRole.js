@@ -39,6 +39,8 @@ const RegistrationSelectRole = ({ setNextStep }) => {
           className={style['registrationSelectRole__wrapper-btn-icon--right']}
           src={arrowRight}
           slot={'icon-right'}
+          height={20} 
+          width={20}
         />
 
       </Button>
@@ -65,6 +67,8 @@ const RegistrationSelectRole = ({ setNextStep }) => {
           className={style['registrationSelectRole__wrapper-btn-icon--right']}
           src={arrowRight}
           slot={'icon-right'}
+          height={20} 
+          width={20}
         />
       </Button>
 
@@ -90,6 +94,8 @@ const RegistrationSelectRole = ({ setNextStep }) => {
           className={style['registrationSelectRole__wrapper-btn-icon--right']}
           src={arrowRight}
           slot={'icon-right'}
+          height={20} 
+          width={20}
         />
       </Button>
     </div>

@@ -25,14 +25,15 @@ export const quickViewProduct = store => {
             //     {params}
             // )
             const res = await apiContent.getProduct(obj.id, params)
-            // console.log({res})
+
+            // console.log({res}, {obj})
             // console.log({role}, {status})
             dispatch('setModalState',{
                 title: res.title,
                 content: (
                     <BlockGrid.BlockCenter>
                             <AsyncProductCardModal
-                                url = {obj.url}
+                                url = { obj.url }
                                 brand={res.brand}
                                 role={role}
                                 productId={res.id}

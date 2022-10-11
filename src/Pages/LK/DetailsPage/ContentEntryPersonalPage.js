@@ -254,7 +254,7 @@ const ContentEntryPersonalPage = ({
                                label={'VK *'}
                                placeholder={'Ссылка на профиль '}
                              >
-                               <Icon src={vkIcon} alt="" slot={'suffix'} />
+                               <Icon src={vkIcon} alt="" slot={'suffix'} height={20} width={20} />
                              </Input>
                            </PersonalPageViews.FormGroup>
                            <PersonalPageViews.FormGroup>
@@ -270,7 +270,7 @@ const ContentEntryPersonalPage = ({
                                label={'Instagram *'}
                                placeholder={'Ссылка на профиль '}
                              >
-                               <Icon src={igIcon} alt="" slot={'suffix'} />
+                               <Icon src={igIcon} alt="" slot={'suffix'} height={20} width={20} />
                              </Input>
                            </PersonalPageViews.FormGroup>
                            <PersonalPageViews.FormGroup>
@@ -312,7 +312,7 @@ const ContentEntryPersonalPage = ({
                                   label={'VK *'}
                                   placeholder={'Ссылка на профиль '}
                                 >
-                                  <Icon src={vkIcon} alt="" slot={'suffix'} />
+                                  <Icon src={vkIcon} alt="" slot={'suffix'} height={20} width={20} />
                                 </Input>
                               </PersonalPageViews.FormGroup>
                               <PersonalPageViews.FormGroup>
@@ -328,7 +328,7 @@ const ContentEntryPersonalPage = ({
                                   label={'Instagram *'}
                                   placeholder={'Ссылка на профиль '}
                                 >
-                                  <Icon src={igIcon} alt="" slot={'suffix'} />
+                                  <Icon src={igIcon} alt="" slot={'suffix'} height={20} width={20} />
                                 </Input>
                               </PersonalPageViews.FormGroup>
                               <PersonalPageViews.FormGroup>

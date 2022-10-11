@@ -2,7 +2,7 @@ import React from "react";
 import PreviewProductCardModal from "./PreviewProductCardModal";
 import { defaultProductCard } from '../../../images';
 import { useStoreon } from 'storeon/react';
-import { pageSerializerClientDetailsShop } from "../../../api/serializers";
+
 const PreviewProductCardModalContainer = ({
     url,
     productId,
@@ -70,15 +70,16 @@ const PreviewProductCardModalContainer = ({
         <PreviewProductCardModal
             defaultProductCard={defaultProductCard}
             recommended_price={recommended_price}
-            in_cart_count={in_cart_count}
+            product_rcAmount={product_rcAmount}
             in_stock_count={in_stock_count}
+            in_cart_count={in_cart_count}
             is_bestseller={is_bestseller}
             is_closeout={is_closeout}
             is_in_stock={is_in_stock}
             productId={productId}
             currency={currency}
             product_rc={product_rc}
-            product_rcAmount={product_rcAmount}
+            is_liked = { is_liked }
             is_new={is_new}
             prices={prices}
             colors={colors}
@@ -87,12 +88,12 @@ const PreviewProductCardModalContainer = ({
             brand={brand}
             title={title}
             role={role}
-            url={url}
             status={status}
             collections={collections}
             is_collection={is_collection}
             handlerOpenListCollection={handlerOpenListCollection}
             handleChooseProduct={handleChooseProduct}
+            url = { url }
         />
     )
 }

@@ -14,7 +14,7 @@ const BalanceItem = ({ greenText = false, value, text, icon }) => {
   return (
     <div className={style["cabinet-balance"]}>
       <div className={style["cabinet-balance__icon"]}>
-        <Icon src={icon} alt={text} />
+        <Icon src={icon} alt={text} height={20} width={20}/>
       </div>
       <div className={style["cabinet-balance__desc"]}>
         <div className={customClassName}>{value}</div>

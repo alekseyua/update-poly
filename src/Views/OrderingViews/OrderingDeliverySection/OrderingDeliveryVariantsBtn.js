@@ -42,6 +42,8 @@ const OrderingDeliveryVariantsBtn = ({
                     slot="icon-left"
                     src={statusSend}
                     className="cabinet_orders_details__base_info__icon"
+                    height={20} 
+                    width={20}
                   />
                   :null
               }

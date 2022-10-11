@@ -57,6 +57,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={
                   !errors.lastname && lastname
                     ? style['ordering__delivery-form-input-icon--visible']
@@ -97,6 +99,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={
                   !errors.firstname && firstname
                     ? style['ordering__delivery-form-input-icon--visible']
@@ -132,6 +136,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={
                   !errors.patronomic && patronomic
                     ? style['ordering__delivery-form-input-icon--visible']
@@ -173,6 +179,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={
                   !errors.serias_and_number_passport && serias_and_number_passport
                     ? style['ordering__delivery-form-input-icon--visible']
@@ -210,6 +218,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={
                   !errors.issued_passport && issued_passport
                     ? style['ordering__delivery-form-input-icon--visible']
@@ -247,6 +257,8 @@ const OrderingDeliveryForm = ({
               <Icon
                 src={successIcon}
                 slot="suffix"
+                height={20} 
+                width={20}
                 className={classNames({
                   [style['ordering__delivery-form-input-icon--visible']]:
                     !errors.issued_date && issued_date,

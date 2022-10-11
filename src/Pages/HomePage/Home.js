@@ -27,7 +27,7 @@ const Home = (props) => {
 
 
   return (
-    <div>
+    <React.Fragment>
       <HomeComponent.TradingPlatform
         first_screen={first_screen}
         page_type_catalog ={page_type_catalog}
@@ -86,7 +86,7 @@ const Home = (props) => {
         // setModalStates={setModalStates}
         // {...modalStates}
       /> 
-    </div>
+    </React.Fragment>
   );
 }
 

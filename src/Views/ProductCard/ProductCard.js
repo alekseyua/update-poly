@@ -41,7 +41,7 @@ const ProductCard = (props) => {
     handleQuickView=()=>{},
     sizes,
     currency,
-    favorite,
+    is_liked,
   } = props;
 
   // console.log( {favorite})
@@ -108,14 +108,14 @@ const ProductCard = (props) => {
                 [style['product-card__favorite']]: true,
               })}
               onClick={() => {
-                favorite?
+                is_liked?
                 removeLikeProductCard(id)
                 :addLikeProductCard(id);
               }}
             >
               <div
               >
-                <Icon src={favorite ? favoriteFilledIcon : favoriteIcon} />
+                <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} height={20} width={20}/>
               </div>
              
             </Button>
