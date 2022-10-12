@@ -12,6 +12,7 @@ const AsyncProductCard = AsyncComponent(() => {
 
 const MyWishList = ({
     list_wishes,
+    currency,
     
     changePaginationsWishList,
 }) => {
@@ -42,6 +43,7 @@ const MyWishList = ({
                                             id={data.id}
                                             brand={data.brand}
                                             is_liked={data.is_liked}
+                                            currency  = { currency }
                                             prices={data.prices}
                                             stock={data.stock}
                                             colors={data.colors}

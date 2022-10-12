@@ -5,9 +5,9 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import ModalProvider from '../../Views/ModalProvider/ModalProvider';
 import { Helmet } from 'react-helmet';
+import { useStoreon } from 'storeon/react';
 
 import style from './layout.module.scss';
-import { useStoreon } from 'storeon/react';
 
 
 

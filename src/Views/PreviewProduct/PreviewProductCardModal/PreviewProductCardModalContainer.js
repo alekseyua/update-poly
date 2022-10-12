@@ -37,6 +37,9 @@ const PreviewProductCardModalContainer = ({
     collections,
     currency,
     status,
+
+
+
 }) => {
     const { dispatch } = useStoreon();
 
@@ -66,6 +69,19 @@ const PreviewProductCardModalContainer = ({
         })
     }
 
+    const addLikeProductCard = (id) => {
+
+        console.log('addWishList = ', id,
+        {a: location.pathname}
+        )
+        dispatch('addWishList', { id: id, pathname: location.pathname})
+    }
+
+    const removeLikeProductCard = (id) => {
+        console.log('removeWishList = ', id)
+        dispatch('removeWishList', { id: id, pathname: location.pathname })
+    }
+
     return (
         <PreviewProductCardModal
             defaultProductCard={defaultProductCard}
@@ -76,7 +92,7 @@ const PreviewProductCardModalContainer = ({
             is_bestseller={is_bestseller}
             is_closeout={is_closeout}
             is_in_stock={is_in_stock}
-            productId={productId}
+            productId = { productId }
             currency={currency}
             product_rc={product_rc}
             is_liked = { is_liked }
@@ -91,9 +107,12 @@ const PreviewProductCardModalContainer = ({
             status={status}
             collections={collections}
             is_collection={is_collection}
+            url = { url }
+
             handlerOpenListCollection={handlerOpenListCollection}
             handleChooseProduct={handleChooseProduct}
-            url = { url }
+            addLikeProductCard = { addLikeProductCard }
+            removeLikeProductCard = { removeLikeProductCard }
         />
     )
 }

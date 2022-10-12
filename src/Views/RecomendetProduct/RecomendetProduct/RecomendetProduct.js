@@ -55,7 +55,7 @@ const RecomendetProduct = ({ recommended = [], currency }) => {
                 title={data.title}
                 id={data.id}
                 brand={data.brand}
-                favorite={data.is_liked}
+                is_liked={data.is_liked}
                 prices={data.prices}
                 stock={data.stock}
                 colors={data.colors}

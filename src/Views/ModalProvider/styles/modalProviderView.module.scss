@@ -84,13 +84,13 @@
         
         //.modal-provider__body--show{}
         &--show{
-            overflow: auto;
+            overflow-y: auto;
             opacity: 1;
             visibility: visible;
             min-width: 320px;
             min-height: 250px;
             height: 80vh;
-            width: 80vw;
+            // width: 80vw;
             position: absolute;
             top: 50%;
             left: 50%;

@@ -4,9 +4,9 @@ import { ROLE } from '../../../const';
 import { shoppingIcon } from '../../../images';
 import Button from '../../Button';
 import Icon from '../../Icon';
+import Text from '../../../helpers/Text';
 
 import style from './style/controlbuttons.module.scss';
-import Text from '../../../helpers/Text';
 
 const ControlButtons = ({
     stateInStockeBtn,
@@ -33,7 +33,7 @@ const ControlButtons = ({
                         disabled={in_cart_count > 1 ? false : in_cart_count === 1 ? true : stateInStockeBtn}
                         onClick={(e) => {
                             cloneCart(e)
-                            addToCartProduct( -1, true, productId );
+                            addToCartProduct( -1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__descrement-button']}
                     >
@@ -51,13 +51,13 @@ const ControlButtons = ({
                         />
                         <span
                             className={style['prodpage-control-buttons__info-in-cart']}
-                        > в корзине: {countInBtn} {is_collection && role === ROLE.WHOLESALE ? 'ряд(а)' : 'шт.'}</span>
+                        > в корзине: {in_cart_count} {is_collection && role === ROLE.WHOLESALE ? 'ряд(а)' : 'шт.'}</span>
                     </p>
                     <Button
                         disabled={stateInStockeBtn}
                         onClick={(e) => {
                             cloneCart(e)
-                            addToCartProduct( 1, false, productId );
+                            addToCartProduct( 1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__increment-button']}
                     >
@@ -75,7 +75,7 @@ const ControlButtons = ({
                         disabled={stateInStockeBtn}
                         onClick={(e) => {
                             cloneCart(e)
-                            addToCartProduct( 1, false, productId );
+                            addToCartProduct( 1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__fierst-add-to-cart']}
                     >

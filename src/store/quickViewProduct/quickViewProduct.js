@@ -26,8 +26,21 @@ export const quickViewProduct = store => {
             // )
             const res = await apiContent.getProduct(obj.id, params)
 
-            // console.log({res}, {obj})
-            // console.log({role}, {status})
+            const updateContext = {
+                ...context,
+                init_state: {
+                    ...context.init_state,
+                    productDetails: {
+                        ...context.init_state.productDetails,
+                        ...res,
+                    }
+                }
+            }            
+            
+            dispatch('context', updateContext)
+
+
+
             dispatch('setModalState',{
                 title: res.title,
                 content: (
@@ -66,6 +79,7 @@ export const quickViewProduct = store => {
                                 currency={currency}
                                 collections={res.collections}
                                 status={status}
+
                             />
                     </BlockGrid.BlockCenter>
 

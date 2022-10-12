@@ -2,6 +2,7 @@ import React from "react";
 import { useStoreon } from "storeon/react";
 import ProductCard from './ProductCard';
 import { defaultProductCard } from '../../images'
+import { useLocation } from "react-router-dom";
 
 const ProductCardContainer = ({
     key,
@@ -25,15 +26,20 @@ const ProductCardContainer = ({
 }) => {
 
     const { dispatch } = useStoreon();
-
+    const location = useLocation();
     const defaultImageSet = [defaultProductCard];
 
     const addLikeProductCard = (id) => {
-        dispatch('addWishList', { id: id })
+
+        console.log('addWishList = ', id,
+        {a: location.pathname}
+        )
+        dispatch('addWishList', { id: id, pathname: location.pathname})
     }
 
     const removeLikeProductCard = (id) => {
-        dispatch('removeWishList', { id: id })
+        console.log('removeWishList = ', id)
+        dispatch('removeWishList', { id: id, pathname: location.pathname })
     }
 
     const handleQuickView = (id, url) => {

@@ -12,9 +12,12 @@ import CollPageContainer from './CollPageContainer/CollPageContainer';
 import GridPageLK from './GridPageLK/GridPageLK';
 import GridPageLeftLK from './GridPageLeftLK/GridPageLeftLK';
 import GridPageRightLK from './GridPageRightLK/GridPageRightLK';
+// форма обратной связи feedback
+import BlockFeedback from './BlockFeedback/BlockFeedback.js';
 
 
 export default {
+    BlockFeedback,
     GridPageLK,
     GridPageLeftLK,
     GridPageRightLK,

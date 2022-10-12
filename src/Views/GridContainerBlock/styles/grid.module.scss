@@ -43,6 +43,10 @@
     max-width: $maxWidthContainer + px;
     padding: 0 10px;
   }
+  //.block__feedback-content{}
+  &__feedback-content{
+    padding: 0;
+  }
 }
 
 .block-page {
@@ -88,3 +92,4 @@
     padding: 0;
   }
 }
+

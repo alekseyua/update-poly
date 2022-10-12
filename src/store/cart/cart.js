@@ -257,7 +257,7 @@ export const cart = store => {
     })
 
     store.on('addToCart', async ({ context }, obj, { dispatch }) => {
-
+        console.log({obj}, context.init_state)
         try {
             const { profile, productDetails } = context.init_state;
             const { role } = profile;
@@ -267,7 +267,7 @@ export const cart = store => {
                     product: obj.productId,
                     color: getActiveColor(colors),
                     size: getActiveSize(sizes),
-                    qty: productDetails.in_cart_count + obj.count || 1,
+                    qty: productDetails?.in_cart_count + obj.count ?? 1,
                 };
 
                 role === ROLE.WHOLESALE ? params = Object.assign({}, params, { add_product: true }) : null;
@@ -278,18 +278,25 @@ export const cart = store => {
                         ...context.init_state,
                         profile: {
                             ...context.init_state.profile,
-                            cart: context.init_state.profile.cart + (obj.count || 1)
+                            cart: context.init_state.profile.cart + (obj.count ?? 1)
                         }
                     },
                 }
                 dispatch('context', newContext)
 
-
-                dispatch('getProductDetails',{
-                    productId: obj.productId,
-                    color: colors,
-                    size: sizes
-                })
+                if(obj.modalView){
+                    dispatch('quickViewProduct', {
+                      id: params.product,
+                      color: params.color,
+                      size: params.size
+                    })
+                }else{
+                    dispatch('getProductDetails',{
+                        productId: obj.productId,
+                        color: colors,
+                        size: sizes
+                    })
+                }
 
             } else {
                 //?! необходимо сделать попап для что не зарегин и переход на авторизацию

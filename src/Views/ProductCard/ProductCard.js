@@ -36,15 +36,15 @@ const ProductCard = (props) => {
     isSales,
     isNew,
     isHit,
-    addLikeProductCard,
-    removeLikeProductCard,
-    handleQuickView=()=>{},
     sizes,
     currency,
     is_liked,
+
+    handleQuickView,
+    addLikeProductCard,
+    removeLikeProductCard,
   } = props;
 
-  // console.log( {favorite})
   return (
     <div       
       className={[style['product-card']]}
@@ -110,7 +110,7 @@ const ProductCard = (props) => {
               onClick={() => {
                 is_liked?
                 removeLikeProductCard(id)
-                :addLikeProductCard(id);
+                : addLikeProductCard(id);
               }}
             >
               <div

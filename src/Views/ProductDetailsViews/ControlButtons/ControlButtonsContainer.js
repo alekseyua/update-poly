@@ -28,7 +28,7 @@ const ControlButtonsContainer = ({
 
 }) =>{
     const { dispatch } = useStoreon();
-    const [ countInBtn, setCountInBtn ] = useState();
+    const [ countInBtn, setCountInBtn ] = useState(in_cart_count);
     const [ stateInStockeBtn, setStateInStockeBtn ] = useState(false);
     const [ changeColorBtn, setChangeColorBtn ] = useState({
         red: false,
@@ -107,54 +107,13 @@ const ControlButtonsContainer = ({
     }
   
     //******************************************************************************************************* */
-    const addToCartProduct = (count, isRemoved = false, productId) => {
-
-      // console.log('add to cart = ',
-      // {count},
-      // {isRemoved},
-      // {productId}
-      // )
+    const addToCartProduct = (count, modalView, productId) => {
       const params = {
         productId,
         count,
+        modalView
       }
-      dispatch('addToCart', params)
-    //  // if (role === ROLE.UNREGISTRED){
-  
-    //     if(statuStorage === 0){
-    //     const params = {
-    //         path: 'authorization',
-    //         success: null,
-    //         fail: 'Что бы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться',
-    //       }
-    //       dispatch('warrning/set', params)
-    //     }
-    //     if(statuStorage === 2){
-    //       params = {
-    //         path: 'registration',
-    //         success: null,
-    //         fail: 'Вам отказано в регистрации, пользование сайтом ограничено',
-    //       }
-    //       dispatch('warrning/set', params)
-    //     }
-    //     // history.push('authorization')
-    //   // }else{
-    //     let idProductStorage = null;
-    //     if (checkLocalStorage('productId')){
-    //       idProductStorage = +localStorage.getItem('productId');
-    //     }
-      
-    //     (count === 1) ? setChangeColorBtn({ red: false, green: true }) : null;
-    //     (count === -1) ? setChangeColorBtn({ red: true, green: false }) : null;
-    //     const openModalSucces = (idProductStorage !== productId) ? true : false;
-    //     let countInCart;
-    //     countInCart = collections? sizes.lenght : count
-    //     countInCart === undefined? countInCart = 0 : countInCart = collections? sizes.lenght : count;
-    //     dispatch('stateCountCart/add', { ...stateCountCart, in_cart: stateCountCart.in_cart + countInCart})
-    //     count = countInBtn + count;
-    //     setCountInBtn(count)
-    //     addToCart({ count, openModalSucces });
-    //   // }
+      dispatch('addToCart', params);      
     };
   
     useEffect(()=>{

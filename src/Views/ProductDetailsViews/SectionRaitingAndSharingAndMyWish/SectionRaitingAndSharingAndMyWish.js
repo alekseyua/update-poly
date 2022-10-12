@@ -14,7 +14,8 @@ const SectionRaitingAndSharingAndMyWish = ({
     is_liked,
     countRaiting,
 
-    handleFavorite,
+    addLikeProductCard,
+    removeLikeProductCard,
 }) => {
 
    
@@ -26,8 +27,9 @@ const SectionRaitingAndSharingAndMyWish = ({
                 max={max}
                 value={value}
                 labal={label}
-
-                countRaiting={0}
+                ActiveStar = { 0 }//?!чтобы показать общий рейтинг товара
+                countRaiting={3}
+                className = { style['prodpage__raiting-star--disable']}
             />
 
             <div
@@ -38,7 +40,7 @@ const SectionRaitingAndSharingAndMyWish = ({
                 >
                 </Sharing>
 
-                <Button onClick={handleFavorite} className={style['prodpage__raitsharewish-button-btn']}>
+                <Button onClick={is_liked? removeLikeProductCard : addLikeProductCard} className={style['prodpage__raitsharewish-button-btn']}>
                     <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} width={25} height={25} />
                 </Button>
             </div>

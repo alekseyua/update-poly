@@ -4,3 +4,10 @@
     background-color: $fontLayout;
     @include scrollbar;
 }
+
+.feedback-container{
+    position: relative;
+    min-width: 300px;
+    padding: 0 10px;
+    
+}

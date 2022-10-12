@@ -1,4 +1,5 @@
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
+import { feedback } from './modalWindow/modalWindow';
 
 /**
  * @param {
@@ -6,8 +7,6 @@ import { initCloseModalState, initModalState } from '../../helpers/initialValues
  * 
  * } param
 */
-
-
 
 export const modalStorage = store => {
 
@@ -30,5 +29,19 @@ export const modalStorage = store => {
             }
         }
     })
+    /** ************************************************************************************************** */
+
+    store.on('feedback', async ({ context }, obj, { dispatch }) => {
+
+        const onSubmit = () =>{}
+        console.log(feedback(onSubmit))
+        dispatch('setModalState',{
+            show: true,
+            content: await feedback(onSubmit)
+        })
+    })
+
+
 
 }
+

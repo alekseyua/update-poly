@@ -42,17 +42,24 @@ export const catalog = store => {
 
     store.on('getCatalog', async ({ context }, obj, { dispatch }) => {
         try {
-            console.log({ objInport: obj?.is_import })
+
+            let params = {};
+            if (obj){
+                console.log({ objInport1: obj})
+    
+                delete obj['is_import']
+                delete obj['is_polish']
+                console.log({ objInport2: obj})
+                
+                params = { page: obj?.page? obj.page : 1,
+                    page_size: obj?.page_size? obj.page_size : 30,
+                    ...obj,
+                    // is_polish: obj?.is_polish ? true: false ,
+                    // is_import: obj?.is_import ? true: false
+                }
+            }
+            
             console.log({ objPolish: obj?.is_polish })
-
-            let params = obj ? {
-                page: obj?.page? obj.page : 1,
-                page_size: obj?.page_size? obj.page_size : 30,
-                ...obj,
-                is_polish: obj?.is_polish ? true: false ,
-                is_import: obj?.is_import ? true: false
-            } : {}
-
             const products = await apiContent.getCatalogData(params);
 
             const newContext = {
@@ -67,8 +74,8 @@ export const catalog = store => {
                         is_in_collection: obj?.is_in_collection ? obj.is_in_collection : false,
                         is_in_stock: obj?.is_in_stock ? obj.is_in_stock : false,
                         is_not_range: obj?.is_not_range ? obj.is_not_range : false,
-                        is_polish: obj?.is_import ? false : true,
-                        is_import: obj?.is_polish ? false : true,
+                        is_polish: true,
+                        is_import: true,
 
                         categories: !!obj?.categories?.length ? obj.categories : []
                     },

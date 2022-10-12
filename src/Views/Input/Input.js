@@ -7,8 +7,21 @@ import DarkStyle from './styles/Dark.module.scss'
 import DefaultStyle from './styles/Default.module.scss'
 import style from './styles/input.module.scss';
 
-const Input = (props) => {
-  const { variant, className, value, children, label, autofocus, type = 'text', placeholder, onChange, name, autocomplete = 'off' } = props;
+const Input = ({
+  variant, 
+  className, 
+  value, 
+  children, 
+  label, 
+  autofocus, 
+  type = 'text', 
+  placeholder, 
+  onChange, 
+  name, 
+  autocomplete = 'off',
+  helpText,
+  ...props
+}) => {
   // console.log('props input search', props)
   const inputRef = useRef(null);
 
@@ -34,9 +47,6 @@ const Input = (props) => {
         return DefaultStyle[variant];
     }
   };
-
-
-
 
   useEffect(() => {
     autofocus ?
@@ -70,8 +80,8 @@ const Input = (props) => {
         />
         {children}
         {
-          props.helpText?
-            props.helpText
+          helpText?
+            helpText
             : null        
         }
       </div>

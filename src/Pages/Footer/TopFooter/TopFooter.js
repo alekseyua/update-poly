@@ -21,7 +21,7 @@ const initialState = {
   delivery_link: {
     name: Text({ text: 'deliveryOptions' }),
     icon: deliveryIcon,
-    url: '/ru',
+    url: '/',
   },
 };
 
@@ -94,7 +94,7 @@ const TopFooter = ({
             <div className={style['top-footer__right']}>
               <h4 className={style1['footer-info__title']}>ДОСТАВКА</h4>
               <div className={style['footer-info__content']}>{state.delivery_info}</div>
-              <Link className={style1['footer-info__link']} to={'information/delivery'}>
+              <Link className={style1['footer-info__link']} to={'delivery'}>
                 <i className={style1['footer-info__link-img']}>
                   <img src={state.delivery_link.icon} alt="footer icon" width={'10px'} height={'10px'} />
                 </i>

@@ -20,4 +20,9 @@
     &__raitsharewish-button-btn{
         padding: 0;
     }
+    //.prodpage__raiting-star--disable{}
+    &__raiting-star--disable{
+        pointer-events: none;
+        cursor: not-allowed;
+    }
 }

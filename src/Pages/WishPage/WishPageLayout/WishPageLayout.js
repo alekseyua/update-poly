@@ -29,7 +29,8 @@ const WishPageLayout = ({
             <Breadcrumbs breadcrumbs={breadcrumbs}/>
             <MyWishList
                 list_wishes = { list_wishes }
-
+                currency = { currency }
+                
                 changePaginationsWishList = { changePaginationsWishList }
             />            
         </BlockGrid.Container>

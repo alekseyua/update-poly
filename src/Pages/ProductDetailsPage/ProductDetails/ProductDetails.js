@@ -93,7 +93,8 @@ const ProductDetails = ({
 
     handleChooseProduct,
     handlerOpenListCollection,
-
+    addLikeProductCard,
+    removeLikeProductCard,
 }) => {
 
 
@@ -129,6 +130,8 @@ const ProductDetails = ({
                                  label = {Text({ text: 'reviews-es' })}
                                  max = {5}
                                  
+                                 addLikeProductCard = { addLikeProductCard }
+                                 removeLikeProductCard = { removeLikeProductCard }
                             />
                         </BlockGrid.Row>
                         <BlockGrid.Row // ? 2 информационный ряд Brand

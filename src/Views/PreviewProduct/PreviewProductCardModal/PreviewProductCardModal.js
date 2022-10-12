@@ -63,10 +63,13 @@ const PreviewProductCardModal = ({
     is_collection,
     collections,
     status,
-    handlerOpenListCollection,
     url,
     modalView = true,
     is_liked,
+    
+    handlerOpenListCollection,
+    addLikeProductCard,
+    removeLikeProductCard,
 }) => {
 
     return (
@@ -98,6 +101,8 @@ const PreviewProductCardModal = ({
                                  label = { Text({ text: 'reviews-es' }) }
                                  max = { 5 }
                                  
+                                 addLikeProductCard = { addLikeProductCard }
+                                 removeLikeProductCard = { removeLikeProductCard }
                             />
 
                     </BlockGrid.Row>

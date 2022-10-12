@@ -7,7 +7,7 @@ import { authorization } from './registrationAndAuth/authorization';
 import { modalStorage } from './modalStorage/modalStorage';
 import { restorePassword } from './registrationAndAuth/restorePassword';
 import { navigator } from './navigator/navigator';
-import { reviews } from './revievs/reviews';
+import { reviews } from './reviews/reviews';
 import { news } from './news/news';
 import { partnership } from './partnership/partnership';
 import { catalog } from './catalog/catalog';

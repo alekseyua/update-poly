@@ -63,7 +63,18 @@ const ProductDetailsContainer = ({
         console.log('необходимо реализовать решение для отображения попапа со сборами')
     }
 
+    const addLikeProductCard = (id) => {
 
+        console.log('addWishList = ', id,
+        {a: location.pathname}
+        )
+        dispatch('addWishList', { id: id, pathname: location.pathname})
+    }
+
+    const removeLikeProductCard = (id) => {
+        console.log('removeWishList = ', id)
+        dispatch('removeWishList', { id: id, pathname: location.pathname })
+    }
 
     return (
         <ProductDetails
@@ -105,6 +116,8 @@ const ProductDetailsContainer = ({
             // url={url}
             handleChooseProduct={handleChooseProduct}
             handlerOpenListCollection={handlerOpenListCollection}
+            addLikeProductCard = { addLikeProductCard }
+            removeLikeProductCard = { removeLikeProductCard }
         />
     )
 }
