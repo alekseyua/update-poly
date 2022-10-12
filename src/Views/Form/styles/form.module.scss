@@ -3,6 +3,7 @@
     width: 100%;
     background-color: $fontLayout;
     @include scrollbar;
+    overflow: hidden;
 }
 
 .feedback-container{

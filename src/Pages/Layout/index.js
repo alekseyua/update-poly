@@ -12,7 +12,7 @@ import style from './layout.module.scss';
 
 
 const Layout = (props) => {
-  // console.log('start go to props == ', props)
+  console.log('start go to props == ', props)
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
@@ -54,7 +54,7 @@ const Layout = (props) => {
         content={modalState.content}
         action={modalState.action}
         title={modalState.title}
-        className={modalState.className}
+        addClass={modalState.addClass}
         onClick={modalState.onClick}
         closeModal={modalState.closeModal? modalState.closeModal : closeModalState} 
         iconImage={modalState.iconImage}
@@ -94,7 +94,7 @@ const Layout = (props) => {
             role_configuration = {dataPage.init_state.role_configuration}
             year = {dataPage.init_state.year}
             profile = {dataPage.init_state.profile}
-
+            activeButton = { dataPage.init_state.activeButton}
             // policy_1 = {dataPage.init_state}
             // policy_2 = {dataPage.init_state}
           />

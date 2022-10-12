@@ -85,7 +85,7 @@ export const quickViewProduct = store => {
 
                   ),
                   show: true,
-                  addClass: 'modal-min_wrap',
+                  addClass: 'modal-quick-view-product',
                 })
 
 

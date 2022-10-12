@@ -44,7 +44,6 @@ const ColorsFilters = ({
                 key={id}
                 checked={checked}
                 name={name}
-                id={id}
                 data-cy={`colorFilters-${el.id}`}
                 onChange={(e) => handlerChangeFilter(e, id)}
                 colorField={el.color}

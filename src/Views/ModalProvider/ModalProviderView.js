@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import Text from '../../helpers/Text';
 import { spinnerCart, spin } from '../../images';
@@ -7,7 +8,18 @@ import Title from '../Title';
 
 import style from './styles/modalProviderView.module.scss';
 
-const ModalProviderView = ({content, show, action = null, title = <Text text={'admin'}/>, children, onClickCancel = null, onClick, iconImage = null, closeModal, ...props}) => {
+const ModalProviderView = ({
+    content,
+    show,
+    action = null,
+    title = <Text text={'admin'}/>,
+    children,
+    onClickCancel = null,
+    onClick,
+    iconImage = null,
+    closeModal,
+    addClass,
+    ...props}) => {
     const [ showPopup, setShowPopup ] = useState({
         container : 'modal-provider__container',
         popup: 'modal-provider__body'
@@ -40,11 +52,16 @@ const ModalProviderView = ({content, show, action = null, title = <Text text={'a
 
     },[ show ])
 
+    console.log('classname = ', addClass)
     return(<div 
             className={style[showPopup.container]}
         >
             <div
-                className={style[showPopup.popup]}
+                className={classNames({
+                    [style[showPopup.popup]]:true,
+                    [style[addClass]]: !!addClass
+                })
+                }
                 // style={{
                     //     width: 
                     // }}

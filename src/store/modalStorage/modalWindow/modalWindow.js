@@ -9,25 +9,25 @@ import BlockGrid from '../../../Views/GridContainerBlock';
 import Input from "../../../Views/Input";
 import Offset from "../../../Views/Offset";
 import Select from "../../../Views/Select";
+import TextArea from "../../../Views/TextArea";
 import Title from "../../../Views/Title";
 import WarningBlock from "../../../Views/WarningBlock";
 
 const contentApi = api.contentApi;
 
-export const feedback = async (onSubmit) => {
+export const feedback = async (onSubmit, dispatch) => {
+    try{
 
-    const res = await contentApi.getProblemArea();
-    const optionsProblemArea = await res.map((el) => {
+      const res = await contentApi.getProblemArea();
+      const optionsProblemArea = await res.map((el) => {
             return {
               value: el.id,
               title: el.problem_area,
             };
           })
-    
-    console.log({optionsProblemArea})
-
+       
     return (
-            <Formik
+      <Formik
               enableReinitialize
               validationSchema={feedbackSheme()}
               initialValues={{
@@ -40,27 +40,26 @@ export const feedback = async (onSubmit) => {
               }}
               onSubmit={onSubmit}
             >
-              {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched}) => {
-    
+              {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched, onSubmit}) => {
                 return (
-                  <Form noValidate onClick={handleSubmit}>
+                  <Form noValidate onSubmit={handleSubmit}>
                     <BlockGrid.Container>
                       <Title mb={'40px'} title={'Форма обратной связи'} />
-                      <WarningBlock>
-                      В случае возниконовения вопросов Вы можете свызаться с нами с помощью формы ниже. Ответ по Вашему обращению Вы получите в течении 3х рабочих дней на указанный почтовый адрес
-                      </WarningBlock>
+                      <WarningBlock
+                        textWarning = {'В случае возниконовения вопросов Вы можете свызаться с нами с помощью формы ниже. Ответ по Вашему обращению Вы получите в течении 3х рабочих дней на указанный почтовый адрес'}
+                      />
                       <BlockGrid.BlockFeedback>
                         <Select
                           autocomplete={'off'}
-                          placeholder={'Введите'}
+                          placeholder={'Выбирете раздел'}
                           variant={'select-feedback'}
                           name={'problem_area'}
                           value={values.problem_area}
-                          onChange={handleChange}
+                          onClick={ e => setFieldValue('problem_area',e.target.getAttribute('name'))}
                           label={'Тематика обращения'}
                           options={optionsProblemArea}
     
-                        />
+                          />
                         <Input
                           className={'input-mt_20'}
                           value={values.name}
@@ -70,10 +69,10 @@ export const feedback = async (onSubmit) => {
                           data-cy={'registration_first_name'}
                           autocomplete={'off'}
                           label={'Как к Вам обращаться'}
-                          placeholder={'Введите'}
+                          placeholder={'Введите Ваше Имя'}
                           onBlur={handleBlur}
                           helpText={errors.name && touched.name? <ErrorField message={errors.name} /> : null}
-                        />
+                          />
                         <Input
                           className={'input-mt_20'}
                           value={values.email}
@@ -83,20 +82,20 @@ export const feedback = async (onSubmit) => {
                           data-cy={'registration_first_name'}
                           autocomplete={'off'}
                           label={'Адрес эл.почты'}
-                          placeholder={'Введите email'}
+                          placeholder={'Введите Ваш email'}
                           onBlur={handleBlur}
                           helpText={errors.email && touched.email? <ErrorField message={errors.email} /> : null}
                         />
-                        <textarea
+                        <TextArea
                           value={values.message}
                           name={'message'}
                           onChange={handleChange}
                           placeholder={'Напишите Ваш вопрос'}
                           label={'Описание'}
-                        //   className={style['text-area-form']}
+                          className={'feedback__textarea'}
                           onBlur={handleBlur}
-                        ></textarea>
-                        {errors.message && touched.message? <Error message={errors.message} /> : null}
+                          helpText = { errors.message && touched.message? <Error message={errors.message} /> : null }
+                        ></TextArea>
                         <Offset offset={'content'} />
                         <input
                           className={'wrapperBtnFile'}
@@ -114,7 +113,8 @@ export const feedback = async (onSubmit) => {
                         <Offset offset={'content'} />
                         <Button
                           type={'submit'} 
-                          full variant={'cancel-black-full'}
+                          full 
+                          variant={'black_btn_full_width'}
                           disable = {values.activeButton}
                         >
                           отправить
@@ -126,4 +126,10 @@ export const feedback = async (onSubmit) => {
               }}
             </Formik>
     )
+  }catch(err){
+    console.log('ERROR GET FEEDBACK', err)
+    dispatch('setModalState',{
+      show: false,
+    })
+  }
 }

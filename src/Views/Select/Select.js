@@ -54,6 +54,8 @@ const Select = ({
     switch (variant) {
       case 'select-theme__black-full':
         return BlackStyle['select__btn'];
+      case 'select-feedback':
+        return style['select-feedback']
       default:
         return style['select'];
     }

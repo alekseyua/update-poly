@@ -1,0 +1,44 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+.textarea{
+    //.textarea__container{}
+    &__container{
+        padding: 0;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -16px -16px 32px rgba(222, 226, 242, 0.2), 16px 16px 32px rgba(222, 226, 242, 0.3);
+        position: relative;
+    }
+    //.textarea__label{}
+    &__label{
+        padding: 0;
+        position: absolute;
+        top: -15px;
+        font-size: 13px;
+        left: 10px;
+        color: $dg2;
+    }
+    //.textarea__textarea{}
+    &__textarea{
+        padding: 11px;        
+        position: relative;
+        &::placeholder{
+            font-size: 14px;
+            color: $dg2;
+        }
+    }
+    //.textarea__help-text{}
+    &__help-text{
+        padding: 0;
+        position: absolute;
+        top: 91%;
+        right: 16px;
+        background: #fff;
+    }
+}
+
+.feedback__textarea{
+    height: 88px;
+}

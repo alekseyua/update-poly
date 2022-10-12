@@ -43,13 +43,15 @@ const ProductCardContainer = ({
     }
 
     const handleQuickView = (id, url) => {
+
+    console.log('url in function = ', url)
+
         const params = {
             id: id,
             url: url
         }
         dispatch('quickViewProduct', params);
     }
-
     return (
         <ProductCard
             id={id}

@@ -93,7 +93,6 @@ const TypeProductFilters = ({
             <CheckBox
               checked={checked}
               name={name}
-              id={id}
               key={id}
               onChange={(e) => handlerChangeFilter(e, id)}
               variant="light"

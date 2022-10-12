@@ -43,7 +43,6 @@ const SizesFilters = ({
               key={id}
               checked={checked}
               name={name}
-              id={id}
               data-cy={`sizesCheckBox-${el.id}`}
               onChange={(e) => handlerChangeFilter(e, id)}
               variant="light"

@@ -6,6 +6,8 @@ import { feedbackIcon, deliveryIcon } from '../../../images';
 import Text from '../../../helpers/Text';
 import Logo from '../../../Views/Logo';
 
+import classNames from 'classnames';
+
 import style1 from '../../../Views/FooterInfo/footerInfo.module.scss';
 import style from './topFooter.module.scss';
 
@@ -30,6 +32,7 @@ const TopFooter = ({
   site_configuration,
   role_configuration,
   openModalFeedback,
+  activeButton,
   role,
 }) => {
   const [state, setstate] = useState(initialState);
@@ -76,7 +79,14 @@ const TopFooter = ({
               </div>
               <div>
                 <div className={style1['footer-info__content']}>{state.main_info}</div>
-                <div className={style1['footer-info__link']} onClick={openModalFeedback}>
+                <div                  
+                  className={classNames({
+                    [style1['footer-info__link']]: true,
+                    [style1['footer-info__link--disable']]: !activeButton.feedbackBtn
+                    
+                    })} 
+                  onClick={ activeButton.feedbackBtn? openModalFeedback : null }
+                >
                   <i className={style1['footer-info__link-img']}>
                     <img src={state.main_link.icon} alt="footer icon" width={'10px'} height={'10px'} />
                   </i>

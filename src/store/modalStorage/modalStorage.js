@@ -19,7 +19,7 @@ export const modalStorage = store => {
             modalState : {
                 show: obj.show,
                 action: obj.action,
-                className: obj.className,
+                addClass: obj.addClass,
                 onClick: obj.onClick,
                 closeModal: obj.closeModal,
                 onClickCancel: obj.onClickCancel,
@@ -32,13 +32,47 @@ export const modalStorage = store => {
     /** ************************************************************************************************** */
 
     store.on('feedback', async ({ context }, obj, { dispatch }) => {
+        try{
+            dispatch('setModalState',{
+                show: true,
+            })
+                const newContext = {
+                    ...context,
+                    "init_state": {
+                        ...context.init_state,                
+                        activeButton: {
+                            feedbackBtn: false
+                        }
+                    }
+                }
+                const timerSetTimeout = setTimeout(()=>{
+                    const newContext = {
+                        ...context,
+                        "init_state": {
+                            ...context.init_state,                
+                            activeButton: {
+                                feedbackBtn: true
+                            }
+                        }
+                    }
+                    dispatch('context', newContext)
+                    return ()=>clearTimeout(timerSetTimeout)
+                },10000)
+                dispatch('context', newContext)
 
-        const onSubmit = () =>{}
-        console.log(feedback(onSubmit))
-        dispatch('setModalState',{
-            show: true,
-            content: await feedback(onSubmit)
-        })
+            const onSubmit = (data) =>{
+                console.log({data})
+            }
+            
+            dispatch('setModalState',{
+                show: true,
+                title: 'Форма обратной связи',
+                content: await feedback(onSubmit, dispatch)
+            })
+        
+        }catch(err){
+            console.log('ERROR feedback', err)
+        }
     })
 
 

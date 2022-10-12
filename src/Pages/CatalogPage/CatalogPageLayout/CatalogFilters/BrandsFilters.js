@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CheckBox from '../../../../Views/CheckBox';
 import CatalogViews from '../../../../Views/CatalogViews';
-
+import { v4 } from 'uuid'
 // const apiContent = api.contentApi;
 
 const BrandsFilters = ({
@@ -76,8 +76,8 @@ const BrandsFilters = ({
               <CheckBox
                 checked={checked}
                 name={name}
-                id={id}
-                key={id}
+                // id={id}
+                key={v4()}
                 data-cy={`brandFilters-${el.id}`}
                 onChange={(e) => handlerChangeFilter(e, id)}
                 variant="light"

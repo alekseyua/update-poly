@@ -1,6 +1,7 @@
 import React from 'react';
 import CheckBox from '../../../../Views/CheckBox';
 import CatalogViews from '../../../../Views/CatalogViews';
+import { v4 } from 'uuid';
 
 const ColorsFilters = ({
   colors = [],
@@ -41,10 +42,10 @@ const ColorsFilters = ({
           return (
             <CatalogViews.LayoutCheckBoxItem key={id}>
               <CheckBox
-                key={id}
+                key={v4()}
                 checked={checked}
                 name={name}
-                id={id}
+                // id={id}
                 data-cy={`colorFilters-${el.id}`}
                 onChange={(e) => handlerChangeFilter(e, id)}
                 colorField={el.color}

@@ -37,9 +37,6 @@ const PreviewProductCardModalContainer = ({
     collections,
     currency,
     status,
-
-
-
 }) => {
     const { dispatch } = useStoreon();
 
@@ -48,8 +45,7 @@ const PreviewProductCardModalContainer = ({
          * @param {
          *  productId - номер товара,
          *  color - приходит или массив цветов из которого нам необходимо вытянуть активный id или id цветовая
-         *  size - приходит или массив размеров из которого нам необходимо вытянуть активный id или id размерами
-         * 
+         *  size - приходит или массив размеров из которого нам необходимо вытянуть активный id или id размерами         * 
          * } 
          * @return
          */
@@ -57,12 +53,11 @@ const PreviewProductCardModalContainer = ({
         dispatch('quickViewProduct', {
             id: productId,
             color: color,
-            size: size
+            size: size,
         })
     }
     
     const handlerOpenListCollection = (collections, title) => {
-
        return dispatch('openInfoCollection',{
             collections: collections,
             title: title
@@ -70,7 +65,6 @@ const PreviewProductCardModalContainer = ({
     }
 
     const addLikeProductCard = (id) => {
-
         console.log('addWishList = ', id,
         {a: location.pathname}
         )

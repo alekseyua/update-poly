@@ -10,6 +10,7 @@
     width: max-content;
     padding: 3px;
     position: relative;
+    width: 100%;
   }
 
   //.select__body{}
@@ -26,6 +27,7 @@
     min-height: 40px;
     z-index: 99;
     pointer-events: all;
+    width: 100%;
     &>span{
       pointer-events: none;
       padding: 6px 15px 6px 6px;
@@ -103,6 +105,10 @@
       background-color: #f9edf980;
       ;
     }
+  }
+  //.select-feedback{}
+  &-feedback{
+    min-height: 58px;
   }
 }
 

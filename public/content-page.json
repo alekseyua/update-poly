@@ -791,6 +791,11 @@
                 "title": "Главная"
             }
         ],
-        "announce": null
+        "announce": null,
+        "activeButton": 
+            {
+                "feedbackBtn": true
+            }
     }
+
 }

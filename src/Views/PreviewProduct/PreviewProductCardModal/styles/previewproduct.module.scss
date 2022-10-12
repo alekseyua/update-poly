@@ -21,6 +21,9 @@
         &--modal{
             height: none;
             // overflow-y: scroll;
+            .modal-provider__body--show{
+                height: 100%;
+            }
         }
     }
     //.preview-product-modal__left{}

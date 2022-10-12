@@ -76,7 +76,6 @@ const BrandsFilters = ({
               <CheckBox
                 checked={checked}
                 name={name}
-                id={id}
                 key={id}
                 data-cy={`brandFilters-${el.id}`}
                 onChange={(e) => handlerChangeFilter(e, id)}
