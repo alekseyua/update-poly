@@ -24,6 +24,7 @@ const OrderingDeliveryVariantsBtn = ({
             key={v4()}
             content="сдесь можно выбрать почтовую службу"
             placement="top-start"
+            className = { style['ordering__button-tooltip'] }
           >
             <Button
               key={el.id}

@@ -413,7 +413,7 @@ export const pageContent = store => {
                 const timerTimeout = setTimeout(()=>{
                     dispatch('getDataCart')
                     return () => clearTimeout(timerTimeout);
-                },500)
+                },100)
 
                 const timerTimeoutBalance = setTimeout(()=>{
                     dispatch('getBalace')

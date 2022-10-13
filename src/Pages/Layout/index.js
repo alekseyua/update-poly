@@ -95,8 +95,6 @@ const Layout = (props) => {
             year = {dataPage.init_state.year}
             profile = {dataPage.init_state.profile}
             activeButton = { dataPage.init_state.activeButton}
-            // policy_1 = {dataPage.init_state}
-            // policy_2 = {dataPage.init_state}
           />
         </footer>
     </div>

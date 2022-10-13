@@ -6,6 +6,7 @@ import { initialFiltersOrders } from "../../helpers/initialValues/initialValues"
 export const order = store => {
 
     const orderApi = api.orderApi;
+    const apiCart = api.cartApi
 
     store.on('getAdresses', async ({ context }, obj, { dispatch }) => {
         try {
@@ -145,7 +146,6 @@ export const order = store => {
         }
 
     })
-
 
     store.on('sendToArchive', ({ context }, obj, { dispatch }) => {
         try {
@@ -320,5 +320,32 @@ export const order = store => {
         }
     })
 
+    store.on('changeAgreement-products', async ({ context }, obj, { dispatch }) => {
+        try{
 
+            const params = {
+                id: obj.productId,
+            change_agreement: !+obj.changeAgreement,
+            qty: +obj.qty,
+        }
+        const res = await apiCart.updateCartData([params]);
+        console.log({res})
+        const newContext = {
+            ...context,
+            "init_state": {
+                ...context.init_state,
+                dataCart: {
+                    ...context.init_state.dataCart,
+                    cartitem_set: res.cartitem_set,
+                    in_stock: res.in_stock
+
+                }
+            },
+        }
+
+        dispatch('context', newContext)
+        }catch(err){
+            console.log('ERROR GET DATA CHANGE AGREEMENT', err)
+        }
+    })
 }

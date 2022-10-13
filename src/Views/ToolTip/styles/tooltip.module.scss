@@ -1,7 +1,7 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/fonts/index.scss';
 
-.tooltip {
+.toolTip {
 
     //.toolTip__wrapper{}
     &__wrapper {
@@ -10,16 +10,15 @@
         //.toolTip__wrapper-trigger{}
         &-trigger {
             background-color: transparent;
-            top: 43px;
+            top: 17px;
             position: absolute;
-            right: 9px;
+            left: 24px;
             width: 20px;
             height: 20px;
             z-index: 2;
 
             &:hover {
                 cursor: pointer;
-
                 .tooltip {
                     visibility: visible;
                     opacity: 1;
@@ -28,11 +27,11 @@
         }
     }
 
-    //.tooltip__container{}
+    //.toolTip__container{}
     &__container {
         position: relative;
         &:hover {
-            .tooltip__tooltip{
+            .toolTip__tooltip{
                 // position: relative;
                 opacity: 1;
                 visibility: visible;
@@ -41,7 +40,7 @@
         }
     }
 
-    //.tooltip__tooltip{}
+    //.toolTip__tooltip{}
     &__tooltip {
         display: flex;
         justify-content: center;
@@ -59,7 +58,7 @@
         border: 2px solid var(--gx-color-gray);
         padding: 10px 7px;
         min-width: 160px;
-        transform: translate(-234px, -66px);
+        // transform: translate(-234px, -66px);
         font-size: 12px;
         @extend %font;
         visibility: hidden;

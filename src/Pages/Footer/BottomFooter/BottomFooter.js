@@ -26,8 +26,8 @@ const BottomFooter = ({ site_configuration, year, policy_1,policy_2, openModalFe
     },
   ];
   const heandlerPolicy = () => {
-    let link = role === ROLE.WHOLESALE? policy_2 : policy_1;
-    openModalFeedbackReedFile(link);
+    let link = role === ROLE.WHOLESALE? site_configuration.public_offer_2 : site_configuration.public_offer_1;
+    openModalFeedbackReedFile(link, 'Публичная оферта');
   }
 
   return (

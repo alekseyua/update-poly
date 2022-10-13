@@ -87,10 +87,12 @@ const OrderingPageLayout = ({
                                                 {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4> : null}
 
                                                 <OrderingCards
-                                                    shriveledCartContent={shriveledCartContent}
-                                                    cart_content={cart_content}
-                                                    currency={currency}
-                                                    role={role}
+                                                    shriveledCartContent = { shriveledCartContent }
+                                                    setValues = { setValues }
+                                                    values = { values }
+                                                    cart_content = { cart_content }
+                                                    currency = { currency }
+                                                    role={role} 
                                                 />
 
                                                 <OrderingPayContainer

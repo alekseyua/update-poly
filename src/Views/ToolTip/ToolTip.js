@@ -1,17 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import style from './styles/tooltip.module.scss';
 
-
-const ToolTip = ({
-    className,
-    children, 
-    content,
-    trigger, 
-    local, 
-    ...props
-}) => {
 /**
  * @param {
  *  нужна реализация;
@@ -22,29 +13,55 @@ const ToolTip = ({
  *  @returns 
  */
 
-  if(trigger = 'hover'){
+const ToolTip = ({
+  className,
+  children,
+  content,
+  trigger,
+  local,
+  ...props
+}) => {
+  const [activeToolTip, setActiveToolTip] = useState(false);
+
+  const handlerChangeState = () => {
+    setActiveToolTip(c => !c)
+    const timerCloseToolTip = setTimeout(() => {
+      setActiveToolTip(false);
+      return () => clearTimeout(timerCloseToolTip)
+    }, 1500)
+  }
+
+  if (trigger = 'hover') {
 
   }
 
   const classTooltip = classNames({
-    [style['tooltip__tooltip']]: true,
+    [style['toolTip__tooltip']]: true,
     [style[local]]: !!local,
     [className]: !!className
   })
 
   return (
     <div
-      className = { style['tooltip__container'] }
+      className={style['toolTip__container']}
     >
-      <div 
-        className={classTooltip}
+      <span
+        onClick={handlerChangeState}
+        className={classNames({
+          [style["toolTip__wrapper-trigger"]]: true,
+          [style["toolTip__wrapper-trigger--active"]]: activeToolTip
+
+        })
+        }
       >
-        { content }
-      </div>
-      { children }
+        <div
+          className={classTooltip}
+        >
+          {content}
+        </div>
+      </span>
+      {children}
     </div>
-    // <>
-    // </>
   );
 };
 

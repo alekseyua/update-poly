@@ -6,7 +6,7 @@
     &__close{
         position: sticky;
         top: 10px;
-        left: 100%;
+        left: 95%;
         width: 20px;
         height: 20px;
         border: 1px solid $dg;
@@ -167,7 +167,18 @@
 }
 
 .modal-quick-view-product{
-    height: 99%;
+    height: 100%;
+}
+
+.modal-feedback{
+    padding: 0;
+    height: 100%;
+}
+
+.modal-file-views{
+    padding: 0;
+    height: 100%;
+    width: 80vw;
 }
 
 @keyframes move-cart {

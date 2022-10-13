@@ -5,23 +5,18 @@ import { Link } from 'react-router-dom';
 import { categoryCard1 } from '../../../images';
 import SuccesMinOrder from '../../../Pages/CartPage/CartPageLayout/DatasPage/SuccesMinOrder';
 import BlockLine from '../../../Pages/CartPage/CartPageLayout/DatasPage/BlockLine';
+import ToolTip from '../../ToolTip';
 
 import style from '../styles/index.module.scss';
 
 const CardWoasale = ({ 
-  currenssies, 
+  changeAgreement,
+  currency, 
   title, 
   is_performed, 
   condition, 
   items, 
   isVisibleLine }) => {
-
-console.log('CardWoasale')
-    
-  const changeAgreement = (e, id,qty) => {
-   
-  };
-
 
   return (
     <div className={style['wrapper-woosale']}>
@@ -89,20 +84,18 @@ console.log('CardWoasale')
                       {color}
                     </div>
                     <div className={style['order-card__content-card-info-agree']}>
-                      {/* <GxTooltip
-                        content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
-                        placement="top"
-                        className={style['ordering_card__tooltip']}
-                      > */}
+                    <ToolTip
+                      content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
+                      placement="top"
+                      className={style['ordering-card__tooltip']}
+                    >
                         <CheckBox
-                          checked={!change_agreement}
-                          onGx-change={(e) => {
-                            changeAgreement(e, id, qty);
-                          }}
+                          checked={ change_agreement }
+                          onChange={ e => changeAgreement(e, id, qty)}
                           label={'Согласие на замену'}
                           classNameLabel={style['order-card__change-text']}
                         />
-                      {/* </GxTooltip> */}
+                      </ToolTip>
                     </div>
                   </div>
                   <div className={style['order-card__content-card-price-wrapper']}>
@@ -121,11 +114,11 @@ console.log('CardWoasale')
                       </span>
                       <span>
                         <span className={style['order-card__content-card-price--color']}>{price.toFixed(2)}</span>&nbsp;
-                        {currenssies}
+                        {currency}
                       </span>
                       {old_price ? (
                         <span className={style['order-card__content-card-price--old']}>
-                          {old_price} {currenssies}
+                          {old_price} {currency}
                         </span>
                       ) : null}
                     </div>
@@ -137,7 +130,7 @@ console.log('CardWoasale')
                       </span>
                       <span>
                         <span className={style['order-card__content-card-price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
-                        {currenssies}
+                        {currency}
                       </span>
                     </div>
                   </div>
@@ -163,11 +156,11 @@ console.log('CardWoasale')
                 </span>
                 <span>
                   <span className={style['order-card__content-card-price--color']}>{price}</span>&nbsp;
-                  {currenssies}
+                  {currency}
                 </span>
                 {old_price ? (
                   <span className={style['order-card__content-card-price-mob--old']}>
-                    {old_price} {currenssies}
+                    {old_price} {currency}
                   </span>
                 ) : null}
               </div>
@@ -180,7 +173,7 @@ console.log('CardWoasale')
                 </span>
                 <span>
                   <span className={style['order-card__content-card-price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
-                  {currenssies}
+                  {currency}
                 </span>
               </div>
             </div>

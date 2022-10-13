@@ -10,8 +10,6 @@ const Footer = ({
   role_configuration, 
   activeButton,
   footer_menu = [],
-  policy_1, 
-  policy_2,
   profile ,
   year, 
 
@@ -25,9 +23,11 @@ const Footer = ({
     dispatch('feedback', {feedbackBtn: true});
   }
   
-  const openModalFeedbackReedFile = () => {
-    console.log('openModalFeedbackReedFile');
-
+  const openModalFeedbackReedFile = (link, title) => {
+    dispatch('pdf-viewer', {
+      link: link,
+      title: title
+    });
   }
   return (
     <>
@@ -44,8 +44,6 @@ const Footer = ({
         site_configuration={site_configuration}
         
         year={year}
-        policy_1={policy_1}
-        policy_2={policy_2}
         front_admin={profile.front_admin}
         role={profile.role}
 
