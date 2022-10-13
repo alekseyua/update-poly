@@ -65,26 +65,30 @@ const Pagination = ({
             className={style['pagination__container']}
             style={{ justifyContent: dinamicLocation }}
         >
-            {
-                listNumber.map(el => {
-                    return (
-                        pages > 1 ?
-                            <div
-                                key={el}
-                                id={el}
-                                className={
-                                    elItems === el ?
-                                        style[activeStyle]
-                                        : style['pagination__item']
-                                }
-                                onClick={handlerClickItem}
-                            >
-                                {el}
-                            </div>
-                            : null
-                    )
-                })
-            }
+            <div
+                className={style['pagination__inner-container']}
+            >
+                {
+                    listNumber.map(el => {
+                        return (
+                            pages > 1 ?
+                                <div
+                                    key={el}
+                                    id={el}
+                                    className={
+                                        elItems === el ?
+                                            style[activeStyle]
+                                            : style['pagination__item']
+                                    }
+                                    onClick={handlerClickItem}
+                                >
+                                    {el}
+                                </div>
+                                : null
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

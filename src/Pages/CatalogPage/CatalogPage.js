@@ -14,19 +14,21 @@ const CatalogPage = (props) => {
     products = [], 
     currency 
   } = props.context;
+  
   const { content } = page_info;
   const { role } = profile;
+
   return (
     <CatalogPageLayoutContainer
-      breadcrumbs={breadcrumbs}
-      multy_choise_filters={multy_choise_filters}
-      categories={categories}
-      role={role}
-      filters_params={filters_params}
-      content = {content}
-      dataProducts={dataProducts}
-      products={products}
-      currency={currency}
+      multy_choise_filters = { multy_choise_filters }
+      filters_params = { filters_params }
+      dataProducts = { dataProducts }
+      breadcrumbs = { breadcrumbs }
+      categories = { categories }
+      currency = { currency }
+      products = { products }
+      content = { content }
+      role = { role }
       />
   )
 }

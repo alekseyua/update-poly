@@ -9,15 +9,15 @@ import CatalogViews from "../../../Views/CatalogViews";
 
 
 const CatalogPageLayoutContainer = ({
-  breadcrumbs,
   multy_choise_filters = [],
   filters_params = {},
-  categories = [],
-  role,
-  content,
   dataProducts,
+  breadcrumbs,
+  categories = [],
   products,
   currency,
+  content,
+  role,
 }) => {
 
   const { dispatch } = useStoreon();
@@ -76,7 +76,13 @@ const CatalogPageLayoutContainer = ({
       valueCheckBoxFilters: { ...filterParams, [key]: value }
     })
   }
-
+  const handlerChangePaginations = (page) => {
+    console.log({page})
+    const params = {
+      page: page
+    }
+    dispatch('getCatalog', params)
+  }
   const checkIsShowCategorysAndProducType = () => {
     //?! необходимо узнать при каких условиях будет работать
     // const queryStrin = qs.parse(location.search);
@@ -177,13 +183,13 @@ const CatalogPageLayoutContainer = ({
       setOffsetTopBtnSubmit={setOffsetTopBtnSubmit}
 
       content={content}
-      dataProducts={dataProducts}
-      valueProducts={valueProducts}
-      filterParams={filterParams}
-      options={optionsFiltersCatalog}
-      getTitleForDocument={getTitleForDocument}
-      role={role}
-      currency={currency}
+      getTitleForDocument = { getTitleForDocument }
+      valueProducts = { valueProducts }
+      dataProducts = { dataProducts }
+      filterParams = { filterParams }
+      currency = { currency }
+      options = { optionsFiltersCatalog }
+      role = { role }
 
       isFilters={isFilters}
       loadData={loadData}
@@ -192,7 +198,7 @@ const CatalogPageLayoutContainer = ({
       valueCheckBoxFilters={filterParams}
       resetAllFilters={resetAllFilters}
       checkIsShowCategorysAndProducType={checkIsShowCategorysAndProducType}
-
+      handlerChangePaginations = { handlerChangePaginations }
 
     />
   )

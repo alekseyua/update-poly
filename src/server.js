@@ -57,8 +57,6 @@ export const renderApp = async (req, res, next) => {
       headers: { Authorization: `Token ${auth_token}` } 
     } 
     : {};
-     console.log( '+++++++activeRoute *****', activeRoute )
-     
      const promise = activeRoute.fetchInitialData
      ? activeRoute.fetchInitialData(req.path, axiosParams)
      //: Promise.resolve();

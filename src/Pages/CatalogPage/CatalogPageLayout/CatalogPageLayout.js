@@ -13,7 +13,9 @@ import AsyncComponent from '../../../helpers/asyncComponent';
 import WarningBlock from '../../../Views/WarningBlock';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
-import EnabledFilters from './CatalogFilters/EnabledFilters'
+import EnabledFilters from './CatalogFilters/EnabledFilters';
+import Pagination from '../../../Views/Pagination';
+
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -58,6 +60,7 @@ const CatalogPageLayout = ({
   resetAllFilters,
   resetContextFilter,
   checkIsShowCategorysAndProducType,
+  handlerChangePaginations ,
 
 }) => {
 
@@ -205,12 +208,12 @@ const CatalogPageLayout = ({
                       options={options}
                     />
                     {/* {status === 'loading' ? ( */}
-                    {/* { 
-                     !!dataProducts?.result.length ? (
+                    { 
+                     !!dataProducts?.result?.length ? (
                        <BlockSpinner.SpinnerWrapper>
-                         <BlockSpinner.Spinner size="200" />
+                         <BlockSpinner.Spinner size="30" />
                        </BlockSpinner.SpinnerWrapper>
-                     ) : (*/}
+                     ) : (
                     <>
                       <CatalogViews.Tags>
 
@@ -328,14 +331,14 @@ const CatalogPageLayout = ({
                           ) : null
                           } */}
 
-                      {/* <Pagination
-                            addClass={'left'}
-                            activePage={activePage}
-                            count={count}
-                            params={filterParams}
-                          /> */}
+                      <Pagination
+                        location = {'left'}
+                        allCount ={ dataProducts?.count }
+                        count = { 30 }
+                        handlerChangePaginations = { handlerChangePaginations }
+                      />
                     </>
-                    {/* )} */}
+                    )}
                   </CatalogViews.Catalog>
                   : null
               }
