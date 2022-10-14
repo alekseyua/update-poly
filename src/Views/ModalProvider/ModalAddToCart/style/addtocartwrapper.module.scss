@@ -1,0 +1,58 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.add-to-cart{
+    //.add-to-cart__wrapper{}
+    &__wrapper{
+        padding: 0;
+    }
+    //.add-to-cart__container{}
+    &__container{
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+    //.add-to-cart__description{}
+    &__description{
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+    //.add-to-cart__description-image{}
+    &__description-image{
+        padding: 0;
+        width: 120px;
+        height: 120px;
+    }
+    //.add-to-cart__description-content{}
+    &__description-content{
+        padding: 0;
+    }
+    //.add-to-cart__price-container{}
+    &__price-container{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+    //.add-to-cart__price-discount{}
+    &__price-discount{
+        padding: 0;
+        margin-left: 40px;
+        font-size: 13px;
+        text-decoration: line-through;
+    }
+    //.add-to-cart__price{}
+    &__price{
+        padding: 0;
+        font-size: 20px;
+        color: $a2;
+    }
+    //.add-to-cart__price-collection{}
+    &__price-collection{
+        padding: 0;
+    }
+}

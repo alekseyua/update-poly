@@ -1,0 +1,70 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+.show_more{
+      @include flex('cc');
+      padding: 12px 32px;
+      min-width: 200px;
+      outline: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--gx-color-primary);
+      line-height: 140%;
+      letter-spacing: 0.1em;
+      background-color: transparent;
+      border-radius: 2px;
+      outline: none;
+      box-shadow: none;  
+      border: 2px solid #f3eff3;
+      &:hover {
+        outline: none;
+        box-shadow: none;
+        box-shadow: 0px 11px 19px rgba(0, 0, 0, 0.09);
+      }
+      &:active {
+        outline: none;
+        outline: none;
+        box-shadow: none;
+      }
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+      //.show_more-default{}
+      &-default {
+        margin-bottom: 10px;
+        &::after {
+          content: '';
+          position: absolute;
+          height: 4px;
+          left: 0px;
+          bottom: 0px;
+          width: 100%;
+          background-color: var(--gx-color-accent2);
+        }
+          @extend %font;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 42px;
+          text-align: center;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--gx-color-accent);
+          border-radius: 0px;
+          &:hover {
+            outline: none;
+            box-shadow: none;
+          }
+          &:active {
+            outline: none;
+            outline: none;
+            box-shadow: none;
+          }
+          &:focus {
+            box-shadow: none;
+            outline: none;
+          }
+      }
+}

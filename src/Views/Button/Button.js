@@ -15,6 +15,7 @@ import CounterBtn from './styles/CounterBtn.module.scss';
 import CatalogLinkTransparentModal from './styles/CatalogLinkTransparentModal.module.scss';
 import cabinetDefault from './styles/cabinetDefault.module.scss';
 import cabinetLinkblue from './styles/cabinetLinkblue.module.scss';
+import showMore from './styles/showMore.module.scss';
 
 import style from './styles/icons.module.scss';
 import { Link } from 'react-router-dom';
@@ -70,6 +71,8 @@ const Button = ({
         return backForm['btn'];
       case 'black_btn_full_width':
         return BlackBtnFullWidth['btn'];
+      case 'black_btn_full_width-modal':
+        return BlackBtnFullWidth['black_btn_full_width-modal'];
       case 'logout':
         return LogoutBtn['btn'];
       case 'accent':
@@ -98,6 +101,8 @@ const Button = ({
         return cabinetDefault['btn'];
       case 'cabinet-linkblue':
         return cabinetLinkblue['btn']
+      case 'show_more':
+        return showMore['show_more'];
       default: ''
     }
   }

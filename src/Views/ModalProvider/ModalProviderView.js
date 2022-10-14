@@ -8,6 +8,16 @@ import Title from '../Title';
 
 import style from './styles/modalProviderView.module.scss';
 
+/**
+ *  @param {
+ *       @content - содержимое сообщение попапа
+ *       @action -  title["button1", "button2"] - может включать в себя до 2-х кнопок с действиями
+ *       @title - информационное имя попапа
+ *       @iconImage - иконка в попапе
+ *       @onClickCancel -кнопка закрытия ()=>{}
+ *  } 
+ *  @return
+ */
 const ModalProviderView = ({
     content,
     show,
@@ -25,16 +35,6 @@ const ModalProviderView = ({
         popup: 'modal-provider__body'
     });
 
-/**
- *  @param {
- *       @content - содержимое сообщение попапа
- *       @action -  title["button1", "button2"] - может включать в себя до 2-х кнопок с действиями
- *       @title - информационное имя попапа
- *       @iconImage - иконка в попапе
- *       @onClickCancel -кнопка закрытия ()=>{}
- *  } 
- *  @return
- */
 
     useEffect(()=>{
 
@@ -52,7 +52,9 @@ const ModalProviderView = ({
 
     },[ show ])
 
-    console.log('classname = ', addClass)
+    console.log('onClickCancel', onClickCancel)
+    console.log('action', action)
+
     return(<div 
             className={style[showPopup.container]}
         >
@@ -95,7 +97,7 @@ const ModalProviderView = ({
                         <div className={style['modal-provider__action-container']}>
                             <Button 
                                 onClick={onClick}
-                                variant={'black_btn_full_width'}
+                                variant={'black_btn_full_width-modal'}
                             >
                                 {action.title[0]}
                             </Button>
@@ -104,7 +106,7 @@ const ModalProviderView = ({
                                 onClickCancel?
                                     <Button 
                                         onClick={onClickCancel}
-                                        variant={'black_btn_full_width'}
+                                        variant={'black_btn_full_width-modal'}
                                     >
                                         {action.title[1]}
                                     </Button>

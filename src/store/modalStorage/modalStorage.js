@@ -1,16 +1,32 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { feedback } from './modalWindow/modalWindow';
+import { addToCart, feedback } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
-import { getCookie } from '../../helpers/helpers';
+import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
 
 const contentApi = api.contentApi;
 
 /**
  * @param {
  *  show: boolean 
- * 
+ * dispatch('setModalState',{
+ * show: false,
+ * addClass: null,
+ * iconImage: errorAlertIcon,
+ * title: 'testing popup',
+ * content: (
+ *  <div>
+ *    <i>{ Text({ text : 'error_server' }) }</i>
+ *    <p>{ Text({ text : 'call_admin' }) }</p>
+ *  </div>
+ * ),
+ * action : { title : ['next step', null]},
+ * onClick : ()=>dispatch('setModalState',{
+ *            show: true,
+ *            content: 'hhhhhhhhh'
+ *          })
+ * //})
  * } param
 */
 
@@ -127,6 +143,29 @@ export const modalStorage = store => {
     
 
             )
+        })
+    })
+
+    store.on('modalRedirectToCart', async ({ context, closeModalState }, obj, { dispatch }) =>{
+        const { currency } = context.init_state;
+        const { minimum_rc, product_sku, product_rc, media, title, sizes, colors } = context.init_state.productDetails;
+        const { role } = context.init_state.profile;
+        const size = getActiveSize(sizes);
+        const { price, old_price } = context.init_state.productDetails.prices;
+        const product_rcAmount = minimum_rc * price;
+        const colorActive = getActiveColor(colors);
+        const productSkuImage = product_sku.filter( el => el.color === colorActive )[0].image
+        const image = productSkuImage? productSkuImage : media[0].image;
+
+        dispatch('setModalState', {
+            show: true,
+            title: title,
+            content: await addToCart( product_rcAmount, product_rc, old_price, currency, price, image, title, size, role ),           
+            action: {
+                title: ['продолжить покупки', 'перейти в карзину']
+            },
+            onClick: () => closeModalState(),
+            onClickCancel: () => console.log('cancel popupe')
         })
     })
 

@@ -20,6 +20,9 @@ import style from './DatasPage/styles/cartpage.module.scss';
 import WrapperCards from './DatasPage/WrapperCards';
 import WrapperRightSide from './DatasPage/WrapperRightSide';
 import DefaultCartPreview from './DefaultCartPreview';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
+
+
 const CartPageLayout = ({
     textConditionPayPart_1,
     textConditionPayPart_2,
@@ -29,6 +32,7 @@ const CartPageLayout = ({
     listCurrentOrder,
     total_discount,
     checkout_slug,
+    profileInCart, 
     cartitem_set,
     is_performed,
     total_price,
@@ -78,7 +82,7 @@ const CartPageLayout = ({
             </div>)
     }
     
-    if ( !cartitem_set.length && !in_stock.length ) {
+    if ( !cartitem_set.length && !in_stock.length && profileInCart === 0 ) {
         return <DefaultCartPreview
                     recomendetProducts = { recomendetProducts } 
                     breadcrumbs = { breadcrumbs }
@@ -129,45 +133,74 @@ const CartPageLayout = ({
                             </Title>
                             : null
                     }
+                    {
+                        (!!!cartitem_set.length && !!!in_stock.length) ?? profileInCart > 0  ?
+                            <BlockSpinner.SpinnerWrapper>
+                                <BlockSpinner.SpinnerCenter>
+                                    <BlockSpinner.Spinner sizeWidth='30' sizeHeight='30' />
+                                </BlockSpinner.SpinnerCenter>
+                            </BlockSpinner.SpinnerWrapper>
+                            : <WrapperCards>
 
-                    <WrapperCards>
 
+                            {/* карточка товара в корзине для опта */}
+                            {
+                                role === ROLE.WHOLESALE ?
 
-                        {/* карточка товара в корзине для опта */}
-                        {
-                            role === ROLE.WHOLESALE ?
-
-                                (<>
-                                   {
-                                        cartitem_set.map((el, i) => {
-                                            const isVisibleLine = cartitem_set.length - 1 !== i;
-                                            return (
-                                                <ProductWhosaleCard
-                                                    key={el.id}
-                                                    {...el}
-                                                    currency={currency}
-                                                    isVisibleLine={isVisibleLine}
-
-                                                    contextUpdateProductFromCard = { contextUpdateProductFromCard }
-                                                    deleteProductFromCart = { deleteProductFromCart }
-                                                    decCounterProduct = { decCounterProduct }
-                                                    incCounterProduct = { incCounterProduct }
-                                                />
-                                            );
-                                        })
-                                    }
-                                   
-                                   {
-                                    !!in_stock.length? 
-                                        <TextUnderTitle variant={'text-content__cart-info'}>
-                                            {/* <Text text={'text-onder-order'} /> */}
-                                                    Товары в наличии
-                                        </TextUnderTitle>
-                                        : null
-                                   }
+                                    (<>
                                     {
+                                            cartitem_set.map((el, i) => {
+                                                const isVisibleLine = cartitem_set.length - 1 !== i;
+                                                return (
+                                                    <ProductWhosaleCard
+                                                        key={el.id}
+                                                        {...el}
+                                                        currency={currency}
+                                                        isVisibleLine={isVisibleLine}
 
-                                        in_stock.map(el => {
+                                                        contextUpdateProductFromCard = { contextUpdateProductFromCard }
+                                                        deleteProductFromCart = { deleteProductFromCart }
+                                                        decCounterProduct = { decCounterProduct }
+                                                        incCounterProduct = { incCounterProduct }
+                                                    />
+                                                );
+                                            })
+                                        }
+                                    
+                                    {
+                                        !!in_stock.length? 
+                                            <TextUnderTitle variant={'text-content__cart-info'}>
+                                                {/* <Text text={'text-onder-order'} /> */}
+                                                        Товары в наличии
+                                            </TextUnderTitle>
+                                            : null
+                                    }
+                                        {
+
+                                            in_stock.map(el => {
+                                                return (
+
+                                                    <ProductHorizontalCard
+                                                        is_collection={el.is_collection}
+                                                        key={el.id}
+                                                        {...el}
+                                                        role={role}
+                                                        currency={currency}
+
+                                                        deleteProductFromCart={deleteProductFromCart}
+                                                        contextUpdateProductFromCard={contextUpdateProductFromCard}
+                                                        decCounterProduct={decCounterProduct}
+                                                        incCounterProduct={incCounterProduct}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </>)
+
+                                    : role === ROLE.DROPSHIPPER || role === ROLE.RETAIL?//если дроп
+                                        // карточка товара в корзине для дропа и розницы
+                                        // cardsGoodsDropAndRetail.other_goods ?
+                                        cartitem_set.map(el => {
                                             return (
 
                                                 <ProductHorizontalCard
@@ -184,47 +217,25 @@ const CartPageLayout = ({
                                                 />
                                             )
                                         })
-                                    }
-                                </>)
-
-                                : role === ROLE.DROPSHIPPER || role === ROLE.RETAIL?//если дроп
-                                    // карточка товара в корзине для дропа и розницы
-                                    // cardsGoodsDropAndRetail.other_goods ?
-                                    cartitem_set.map(el => {
-                                        return (
-
-                                            <ProductHorizontalCard
-                                                is_collection={el.is_collection}
-                                                key={el.id}
-                                                {...el}
-                                                role={role}
-                                                currency={currency}
-
-                                                deleteProductFromCart={deleteProductFromCart}
-                                                contextUpdateProductFromCard={contextUpdateProductFromCard}
-                                                decCounterProduct={decCounterProduct}
-                                                incCounterProduct={incCounterProduct}
-                                            />
-                                        )
-                                    })
-                                    // : cardsGoodsDropAndRetail.in_stock ?
-                                    //     cardsGoodsDropAndRetail.in_stock.map(el => {
-                                    //         return (
-                                    //             <ProductHorizontalCard
-                                    //                 is_collection={el.is_collection}
-                                    //                 key={el.id}
-                                    //                 {...el}
-                                    //                 role={role}
-                                    //                 currency={currency}
-                                    //                 deleteProductFromCart={deleteProductFromCart}
-                                    //                 updateProductFromCart={contextUpdateProductFromCard}
-                                    //             />
-                                    //         )
-                                    //     })
-                                    // :null
-                                    : null
-                        }
-                    </WrapperCards>
+                                        // : cardsGoodsDropAndRetail.in_stock ?
+                                        //     cardsGoodsDropAndRetail.in_stock.map(el => {
+                                        //         return (
+                                        //             <ProductHorizontalCard
+                                        //                 is_collection={el.is_collection}
+                                        //                 key={el.id}
+                                        //                 {...el}
+                                        //                 role={role}
+                                        //                 currency={currency}
+                                        //                 deleteProductFromCart={deleteProductFromCart}
+                                        //                 updateProductFromCart={contextUpdateProductFromCard}
+                                        //             />
+                                        //         )
+                                        //     })
+                                        // :null
+                                        : null
+                            }
+                            </WrapperCards>
+                    }
 
 
                 </BlockGrid.CollPageLeft>

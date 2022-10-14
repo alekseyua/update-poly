@@ -27,9 +27,6 @@ const CatalogPageLayoutContainer = ({
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
   const [filterParams, setFilterParams] = useState({ ...initValueCheckBoxFilters })
 
-  console.log({filters_params})
-  console.log({filterParams})
-
   const loadData = (data) => {
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...filterParams, ...data }
@@ -83,6 +80,11 @@ const CatalogPageLayoutContainer = ({
     }
     dispatch('getCatalog', params)
   }
+
+  const showMore = () => {
+    dispatch('showMoreCatalog')
+  }
+
   const checkIsShowCategorysAndProducType = () => {
     //?! необходимо узнать при каких условиях будет работать
     // const queryStrin = qs.parse(location.search);
@@ -193,6 +195,7 @@ const CatalogPageLayoutContainer = ({
 
       isFilters={isFilters}
       loadData={loadData}
+      showMore = { showMore }
       openBtnSubmit={openBtnSubmit}
       resetContextFilter={resetContextFilter}
       valueCheckBoxFilters={filterParams}

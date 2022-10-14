@@ -257,7 +257,7 @@ export const cart = store => {
     })
 
     store.on('addToCart', async ({ context }, obj, { dispatch }) => {
-        console.log({obj}, context.init_state)
+        // console.log({obj}, context.init_state)
         try {
             const { profile, productDetails } = context.init_state;
             const { role } = profile;
@@ -269,7 +269,7 @@ export const cart = store => {
                     size: getActiveSize(sizes),
                     qty: productDetails?.in_cart_count + obj.count ?? 1,
                 };
-
+                
                 role === ROLE.WHOLESALE ? params = Object.assign({}, params, { add_product: true }) : null;
                 const res = await apiCart.addToCart(params);
                 const newContext = {
@@ -284,9 +284,10 @@ export const cart = store => {
                 }
                 dispatch('context', newContext)
 
+                
                 if(obj.modalView){
                     dispatch('quickViewProduct', {
-                      id: params.product,
+                        id: params.product,
                       color: params.color,
                       size: params.size
                     })
@@ -297,6 +298,11 @@ export const cart = store => {
                         size: sizes
                     })
                 }
+
+                const timerSetTimeout = setTimeout(()=>{
+                    dispatch('modalRedirectToCart')
+                    return clearTimeout(timerSetTimeout)
+                },1500)
 
             } else {
                 //?! необходимо сделать попап для что не зарегин и переход на авторизацию

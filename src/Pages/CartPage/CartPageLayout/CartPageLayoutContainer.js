@@ -11,6 +11,7 @@ const CartPageLayoutContainer = ({
     listCurrentOrder,
     enableAllSelect,
     total_discount,
+    profileInCart,
     is_performed,
     cartitem_set,
     breadcrumbs,
@@ -80,6 +81,7 @@ const CartPageLayoutContainer = ({
         listCurrentOrder = { listCurrentOrder }
         enableAllSelect = { enableAllSelect }
         total_discount={ total_discount }
+        profileInCart = { profileInCart }
         is_performed= { is_performed }
         cartitem_set= { cartitem_set }
         total_price = { total_price }

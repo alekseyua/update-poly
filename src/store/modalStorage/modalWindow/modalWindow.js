@@ -1,5 +1,6 @@
 import { Formik } from "formik";
 import api from "../../../api/api";
+import { ROLE } from "../../../const";
 import { feedbackSheme } from "../../../helpers/schemesFormic";
 import Button from "../../../Views/Button";
 import Error from "../../../Views/Error";
@@ -7,6 +8,7 @@ import ErrorField from "../../../Views/ErrorField";
 import Form from "../../../Views/Form";
 import BlockGrid from '../../../Views/GridContainerBlock';
 import Input from "../../../Views/Input";
+import AddToCart from "../../../Views/ModalProvider/ModalAddToCart";
 import Offset from "../../../Views/Offset";
 import Select from "../../../Views/Select";
 import TextArea from "../../../Views/TextArea";
@@ -132,4 +134,85 @@ export const feedback = async (onSubmit, dispatch) => {
       show: false,
     })
   }
+}
+
+export const addToCart = (
+  product_rcAmount,
+  product_rc,
+  old_price,
+  currency,
+  price,
+  image,
+  title,
+  sise,
+  role,
+) => {
+  return (
+    <AddToCart.AddToCartWrapper>
+      <Title 
+        type = 'h1'
+        fontSize = { '25px' }
+        textAlign = { 'center' }
+      >
+        Добавлено в корзину
+      </Title>
+        <AddToCart.AddToCartContainer>
+
+          <AddToCart.AddToCartDescription>
+
+            <AddToCart.AddToCartDescriptionImage
+              image = { image }
+            />
+
+            <AddToCart.AddToCartDescriptionContent>
+              <AddToCart.AddToCartDescriptionContentTitle
+                title = { title }
+              />
+              {
+                role === ROLE.RETAIL || role === ROLE.DROPSHIPPER?
+                  <AddToCart.AddToCartDescriptionContentSize
+                    size = { sise }
+                  />
+                  : <AddToCart.AddToCartDescriptionContentProductRc
+                      product_rc = { product_rc }
+                    />
+              }
+            </AddToCart.AddToCartDescriptionContent> 
+
+          </AddToCart.AddToCartDescription>
+          
+          <AddToCart.AddToCartPriceContainer>
+          {
+            old_price ?
+              <AddToCart.AddToCartPriceDiscount 
+                currency = { currency }
+                old_price = { old_price }
+              />              
+              : null
+          }
+          
+          {
+            price ?
+              <AddToCart.AddToCartPrice
+                price = { price }
+                currency = { currency }
+              />              
+              : null
+          }
+
+          {
+            role === ROLE.WHOLESALE && is_collection?
+              <AddToCart.AddToCartPriceCollection
+                price = { price }
+                product_rcAmount = { product_rcAmount }
+                currency = { currency }
+              />              
+              : null
+          }
+         
+         </AddToCart.AddToCartPriceContainer>
+
+      </AddToCart.AddToCartContainer>
+    </AddToCart.AddToCartWrapper>
+  )
 }

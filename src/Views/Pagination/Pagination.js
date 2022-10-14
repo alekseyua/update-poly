@@ -12,17 +12,17 @@ import style from './pagination.module.scss';
  * @returns 
  */
 const Pagination = ({
-    handlerChangePaginations, 
+    handlerChangePaginations,
     searchCount = 0,
-    allCount = 0, 
-    count = 0, 
+    allCount = 0,
+    count = 0,
     ...props
 }) => {
     // console.log('props =', props)
     const [activeStyle, setActiveStyle] = useState('pagination__item-active');
     const [dinamicLocation, setDinamicLocation] = useState('center');
-    const [elItems, setElItems] = useState(null)
-    const {  } = props;
+    const [elItems, setElItems] = useState(1)
+    const { } = props;
     let pages = Math.ceil((!!searchCount ? searchCount : allCount) / count);
     const listNumber = new Array(pages).fill('').map((_, i) => i + 1);
 
@@ -48,18 +48,17 @@ const Pagination = ({
     }, [searchCount])
 
     const handlerClickItem = (e) => {
-        console.log({e: e.target.id})
+        console.log({ e: e.target.id })
         const dataId = +e.target.id;
         setElItems(dataId);
         setActiveStyle('pagination__item-active');
         handlerChangePaginations(dataId)
-        const timerSetTimeout = setTimeout(()=>{
-            window.scrollTo(0,0);
-            return ()=>clearTimeout(timerSetTimeout)
-        },900)
+        const timerSetTimeout = setTimeout(() => {
+            window.scrollTo(0, 0);
+            return () => clearTimeout(timerSetTimeout)
+        }, 900)
     }
 
-    // console.log('listNumber', listNumber)
     return (
         <div
             className={style['pagination__container']}
@@ -67,12 +66,15 @@ const Pagination = ({
         >
             <div
                 className={style['pagination__inner-container']}
+
             >
                 {
+
                     listNumber.map(el => {
+
                         return (
                             pages > 1 ?
-                                <div
+                                 <div
                                     key={el}
                                     id={el}
                                     className={
@@ -81,6 +83,9 @@ const Pagination = ({
                                             : style['pagination__item']
                                     }
                                     onClick={handlerClickItem}
+                                    style = {{
+                                        display: elItems - 1 === el || elItems - 2 === el || elItems === el || elItems + 1 === el || elItems + 2 === el ? `flex` : `none`
+                                    }}
                                 >
                                     {el}
                                 </div>

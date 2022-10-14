@@ -7,7 +7,8 @@ export const catalog = store => {
     const apiProfile = api.profileApi;
 
     store.on('@init', () => ({ valueCheckBoxFilters: initValueCheckBoxFilters }));
-    
+    store.on('@init', ({ page })=>({ page: 1 }))
+    store.on('setPage', ({ page }, obj, { dispatch }) => ({page: obj.page}))
     store.on('changeParamsFilters', ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
         console.log('obj in STORE filters = ', obj)
         // let updateValueCheckBoxFilter = {}
@@ -40,17 +41,16 @@ export const catalog = store => {
         return
     })
 
-    store.on('getCatalog', async ({ context }, obj, { dispatch }) => {
+    store.on('getCatalog', async ({ context, page }, obj, { dispatch }) => {
         try {
-
+            
             let params = {};
+            console.log({ objInport1: obj}, {page})
             if (obj){
-                console.log({ objInport1: obj})
     
                 delete obj['is_import']
                 delete obj['is_polish']
                 console.log({ objInport2: obj})
-                
                 params = { page: obj?.page? obj.page : 1,
                     page_size: obj?.page_size? obj.page_size : 30,
                     ...obj,
@@ -59,7 +59,8 @@ export const catalog = store => {
                 }
             }
             
-            console.log({ objPolish: obj?.is_polish })
+            obj?.page > 1 ? dispatch('setPage', { page: obj.page }) : dispatch('setPage', { page: 1 });
+            console.log({ objPolish: obj?.is_polish }, {page})
             const products = await apiContent.getCatalogData(params);
 
             const newContext = {
@@ -152,6 +153,39 @@ export const catalog = store => {
 
         } catch (err) {
             console.log('ERROR getCatalog STORE', err)
+        }
+    })
+
+    store.on('showMoreCatalog', async ({ context, page, valueCheckBoxFilters }, obj, { dispatch }) => {
+        try{
+
+            // const page = context.init_state.
+            console.log({pageShow: page})
+            delete valueCheckBoxFilters['is_import']
+            delete valueCheckBoxFilters['is_polish']
+            const params = { 
+                ...valueCheckBoxFilters,
+                page: page + 1,
+                page_size: 30
+            }
+
+            const products = await apiContent.getCatalogData(params);
+            dispatch('setPage', { page: page + 1 })
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,                    
+                    dataProducts: {
+                        ...context.init_state.dataProducts,
+                        results: [...context.init_state.dataProducts.results, ...products.results]
+                    },
+                }
+            }
+            return dispatch('context', newContext)
+
+            
+        }catch(err){
+            console.log('ERROR GET DATA CARALOG FOR BUTTON MORE', err)
         }
     })
 }

@@ -12,7 +12,7 @@ import style from './layout.module.scss';
 
 
 const Layout = (props) => {
-  console.log('start go to props == ', props)
+  // console.log('start go to props == ', props)
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
@@ -47,7 +47,7 @@ const Layout = (props) => {
 
   },[])
 
-
+  
   return (
       <ModalProvider.ModalProviderView
         show={modalState.show}
@@ -57,6 +57,7 @@ const Layout = (props) => {
         addClass={modalState.addClass}
         onClick={modalState.onClick}
         closeModal={modalState.closeModal? modalState.closeModal : closeModalState} 
+        onClickCancel = { modalState.onClickCancel}
         iconImage={modalState.iconImage}
       >
       <Helmet>

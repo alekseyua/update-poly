@@ -25,7 +25,7 @@ const CartPage = ({...props}) => {
         selected,
         in_cart, 
      } = dataCart
-    const { role } = profile;
+    const { role, cart } = profile;
 
     return (
         <CartPageLayoutContainer
@@ -37,6 +37,7 @@ const CartPage = ({...props}) => {
             listCurrentOrder = { listCurrentOrder }
             enableAllSelect = { enableAllSelect }
             total_discount = { total_discount }
+            profileInCart = { cart }
             is_performed = { is_performed }
             cartitem_set = { cartitem_set }
             breadcrumbs = { breadcrumbs }

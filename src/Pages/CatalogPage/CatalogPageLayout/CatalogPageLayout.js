@@ -16,7 +16,6 @@ import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
 import EnabledFilters from './CatalogFilters/EnabledFilters';
 import Pagination from '../../../Views/Pagination';
 
-
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
 });
@@ -61,7 +60,8 @@ const CatalogPageLayout = ({
   resetContextFilter,
   checkIsShowCategorysAndProducType,
   handlerChangePaginations ,
-
+  showMore,
+  
 }) => {
 
 
@@ -297,24 +297,24 @@ const CatalogPageLayout = ({
                               dataProducts.results.map((el) => {
                               return (
                                 <AsyncProductCard
-                                role={role}
-                                key={el.id}
-                                title={el.title}
-                                id={el.id}
-                                url={el.url}
-                                brand={el.brand}
-                                prices={el.prices}
-                                stock={el.stock}
-                                colors={el.colors}
-                                sizes={el.sizes}
-                                images={el.images}
-                                isSales={el.isSales}
-                                isNew={el.isNew}
-                                isHit={el.isHit}                                  
-                                is_liked={el.is_liked}
-                                product_rc={el.product_rc}
-                                article={el.article}
-                                currency={currency}
+                                  role = { role }
+                                  key = { `${el.title}-${el.id}` }
+                                  title = { el.title }
+                                  id = { el.id }
+                                  url = { el.url }
+                                  brand = { el.brand }
+                                  prices = { el.prices }
+                                  stock = { el.stock }
+                                  colors = { el.colors }
+                                  sizes = { el.sizes }
+                                  images = { el.images }
+                                  isSales = { el.isSales }
+                                  isNew = { el.isNew }
+                                  isHit = { el.isHit }                                  
+                                  is_liked = { el.is_liked }
+                                  product_rc = { el.product_rc }
+                                  article = { el.article }
+                                  currency = { currency }
                                 />
                                 );
                               })
@@ -323,13 +323,13 @@ const CatalogPageLayout = ({
                           </CatalogViews.WrapperCard> 
 
 
-                      {/* {
-                          isNext ? (
+                       {
+                          !!dataProducts?.results.length  !== dataProducts?.count ? (
                             <Button full onClick={showMore} variant={'show_more'}>
                               <Text text={'show.more'} />
                             </Button>
                           ) : null
-                          } */}
+                          }
 
                       <Pagination
                         location = {'left'}
