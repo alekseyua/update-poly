@@ -3,13 +3,13 @@ import { ROLE } from '../../../const';
 
 import style from './style/addtocartwrapper.module.scss';
 
-const AddToCartDescriptionContentSize = ({
-    size,
+const AddToCartDescriptionContentColor = ({
+    color,
 }) => {
 
     return(
-        <span>Размер: {size}</span>         
+        <span>Цвет: { color }</span>         
     )
 }
 
-export default AddToCartDescriptionContentSize;
+export default AddToCartDescriptionContentColor;

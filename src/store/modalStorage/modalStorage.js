@@ -150,7 +150,8 @@ export const modalStorage = store => {
         const { currency } = context.init_state;
         const { minimum_rc, product_sku, product_rc, media, title, sizes, colors } = context.init_state.productDetails;
         const { role } = context.init_state.profile;
-        const size = getActiveSize(sizes);
+        const size = sizes.filter( el => el.id === getActiveSize(sizes))[0].title;
+        const color = colors.filter( el => el.id === getActiveColor(colors))[0].title;
         const { price, old_price } = context.init_state.productDetails.prices;
         const product_rcAmount = minimum_rc * price;
         const colorActive = getActiveColor(colors);
@@ -160,7 +161,7 @@ export const modalStorage = store => {
         dispatch('setModalState', {
             show: true,
             title: title,
-            content: await addToCart( product_rcAmount, product_rc, old_price, currency, price, image, title, size, role ),           
+            content: await addToCart( product_rcAmount, product_rc, old_price, currency, color, price, image, title, size, role ),           
             action: {
                 title: ['продолжить покупки', 'перейти в карзину']
             },

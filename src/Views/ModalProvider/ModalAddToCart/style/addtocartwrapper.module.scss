@@ -12,6 +12,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
+        margin-top: 10px;
     }
     //.add-to-cart__description{}
     &__description{
@@ -23,7 +24,7 @@
     //.add-to-cart__description-image{}
     &__description-image{
         padding: 0;
-        width: 120px;
+        width: 100px;
         height: 120px;
     }
     //.add-to-cart__description-content{}

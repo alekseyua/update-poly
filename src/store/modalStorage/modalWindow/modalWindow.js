@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import * as React from "react";
 import api from "../../../api/api";
 import { ROLE } from "../../../const";
 import { feedbackSheme } from "../../../helpers/schemesFormic";
@@ -141,6 +142,7 @@ export const addToCart = (
   product_rc,
   old_price,
   currency,
+  color,
   price,
   image,
   title,
@@ -170,9 +172,14 @@ export const addToCart = (
               />
               {
                 role === ROLE.RETAIL || role === ROLE.DROPSHIPPER?
-                  <AddToCart.AddToCartDescriptionContentSize
-                    size = { sise }
-                  />
+                  <React.Fragment>
+                    <AddToCart.AddToCartDescriptionContentSize
+                      size = { sise }
+                      />
+                    <AddToCart.AddToCartDescriptionContentColor
+                      color = { color }
+                    />
+                  </React.Fragment>
                   : <AddToCart.AddToCartDescriptionContentProductRc
                       product_rc = { product_rc }
                     />

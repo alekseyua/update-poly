@@ -8,6 +8,7 @@ import AddToCartPriceCollection from './AddToCartPriceCollection';
 import AddToCartDescriptionImage from './AddToCartDescriptionImage';
 import AddToCartDescriptionContent from './AddToCartDescriptionContent';
 import AddToCartDescriptionContentSize from './AddToCartDescriptionContentSize';
+import AddToCartDescriptionContentColor from './AddToCartDescriptionContentColor';
 import AddToCartDescriptionContentTitle from './AddToCartDescriptionContentTitle';
 import AddToCartDescriptionContentProductRc from './AddToCartDescriptionContentProductRc';
 
@@ -23,6 +24,7 @@ export default {
     AddToCartDescriptionImage,
     AddToCartDescriptionContent,
     AddToCartDescriptionContentSize,
+    AddToCartDescriptionContentColor,
     AddToCartDescriptionContentTitle,
     AddToCartDescriptionContentProductRc,
 }
