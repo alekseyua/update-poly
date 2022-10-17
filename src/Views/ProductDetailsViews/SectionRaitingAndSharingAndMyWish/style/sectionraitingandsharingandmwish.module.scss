@@ -5,9 +5,10 @@
     //.prodpage__raitsharewish-container{}
     &__raitsharewish-container{
         padding: 0;
-        width: 100%;
+        width: calc( 100% - 30px );
         display: flex;
         justify-content: space-between;
+
 
     }
     //.prodpage__raitsharewish-inner{}

@@ -29,6 +29,7 @@ const OrderingPayContainer = AsyncComponent(() => {
 
 
 const OrderingPageLayout = ({
+    numberCurrentOrderForAddProduct,
     shriveledCartContent,
     delivery_condition,
     delivery_methods,
@@ -51,7 +52,7 @@ const OrderingPageLayout = ({
 }) => {
 
 
-
+    console.log('numberCurrentOrderForAddProduct', typeof numberCurrentOrderForAddProduct, ' : ', numberCurrentOrderForAddProduct )
     return (
         <React.Fragment>
             <BlockGrid.Container>
@@ -80,46 +81,58 @@ const OrderingPageLayout = ({
                                         <BlockGrid.CollPageContainer>
 
                                             <BlockGrid.CollPageLeft>
-                                                
+
                                                 <Title variant={'cart'} type={'h1'}>
                                                     <Text text="ordering" />
                                                 </Title>
-                                                {statusFildValue ? <h4>Заказ № {listOrders.filter(item => item.id === statusFildValue)[0]?.order_number}</h4> : null}
+                                                {/* 
+                                                //?! может быть добавить через Title
+                                                */}
+                                                {
+                                                    !!numberCurrentOrderForAddProduct ? <Title variant={'cart-order'} type={'h5'}>Заказ № {numberCurrentOrderForAddProduct}</Title> : null
+                                                }
 
                                                 <OrderingCards
-                                                    shriveledCartContent = { shriveledCartContent }
-                                                    setValues = { setValues }
-                                                    values = { values }
-                                                    cart_content = { cart_content }
-                                                    currency = { currency }
-                                                    role={role} 
-                                                />
-
-                                                <OrderingPayContainer
+                                                    shriveledCartContent={shriveledCartContent}
                                                     setValues={setValues}
                                                     values={values}
-                                                    payment_methods={payment_methods}
-                                                    role={role}
-                                                    balance={balance}
-                                                    total_cost={total_price}
-                                                />
-
-                                                <OrderingDeliveryContainer
-                                                    delivery_condition={delivery_condition}
-                                                    delivery_methods={delivery_methods}
-                                                    setValues={setValues}
+                                                    cart_content={cart_content}
                                                     currency={currency}
-                                                    values={values}
                                                     role={role}
                                                 />
+                                                {
+                                                    !!!numberCurrentOrderForAddProduct ?
+                                                        (
+                                                            <React.Fragment>
+                                                                <OrderingPayContainer
+                                                                    setValues={setValues}
+                                                                    values={values}
+                                                                    payment_methods={payment_methods}
+                                                                    role={role}
+                                                                    balance={balance}
+                                                                    total_cost={total_price}
+                                                                />
 
-                                                <OrderingAddressContainer
-                                                    addressDilivery={addressDilivery}
-                                                    profileId={profileId}
-                                                    setValues={setValues}
-                                                    values={values}
-                                                    role={role}
-                                                />
+                                                                <OrderingDeliveryContainer
+                                                                    delivery_condition={delivery_condition}
+                                                                    delivery_methods={delivery_methods}
+                                                                    setValues={setValues}
+                                                                    currency={currency}
+                                                                    values={values}
+                                                                    role={role}
+                                                                />
+
+                                                                <OrderingAddressContainer
+                                                                    addressDilivery={addressDilivery}
+                                                                    profileId={profileId}
+                                                                    setValues={setValues}
+                                                                    values={values}
+                                                                    role={role}
+                                                                />
+
+                                                            </React.Fragment>
+                                                        ) : null
+                                                }
 
                                             </BlockGrid.CollPageLeft>
 
@@ -134,7 +147,7 @@ const OrderingPageLayout = ({
                                                         {/* //?! товара (-ов)
                                 */}
                                                         <BlockText type={'text-sub'}>
-                                                            {shriveledCartContent.selected} <Text text={'product.s'} />
+                                                            { shriveledCartContent.selected } <Text text={'product.s'} />
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -147,7 +160,7 @@ const OrderingPageLayout = ({
                                                         {/* //?! 0
                                 */}
                                                         <BlockText type={'text-default-currency'}>
-                                                            {cart_content?.total_price ?? 0} {currency}
+                                                            { cart_content?.total_price ?? 0 } { currency }
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -161,7 +174,7 @@ const OrderingPageLayout = ({
                                                                 </BlockText>
 
                                                                 <BlockText type={'sale-text--red'}>
-                                                                    {cart_content?.discount ?? 0} {currency}
+                                                                    { cart_content?.discount ?? 0 } { currency }
                                                                 </BlockText>
                                                             </BlockRightSide>
                                                         ) : ROLE.WHOLESALE === role ? (
@@ -183,7 +196,7 @@ const OrderingPageLayout = ({
                                                             <Text text={'total.payable'} />:
                                                         </BlockText>
                                                         <BlockText type={'text-title'}>
-                                                            {cart_content?.total_price ?? 0} {currency}
+                                                            { cart_content?.total_price ?? 0 } { currency }
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -191,13 +204,12 @@ const OrderingPageLayout = ({
                             */}
                                                     <BlockRightSide mb={20}>
                                                         <OrderCarButton
-                                                            enabled={!values.agree_personal_data || !values.payment_methods || !values.variant || !values.selectedAdress}
-                                                            setStyleCar={setStyleCar}
-                                                            styleCar={styleCar}
-                                                            values={values}
-
-                                                            statusFildValue={false}
-                                                            handlerSubmitOrder={handlerSubmitOrder}
+                                                            numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
+                                                            handlerSubmitOrder = { handlerSubmitOrder }
+                                                            setStyleCar = { setStyleCar }
+                                                            styleCar = { styleCar }
+                                                            enabled = { !!numberCurrentOrderForAddProduct? false : (!values.agree_personal_data || !values.payment_methods || !values.variant || !values.selectedAdress) }
+                                                            values = { values }
                                                         />
                                                     </BlockRightSide>
                                                     {/* //?! 

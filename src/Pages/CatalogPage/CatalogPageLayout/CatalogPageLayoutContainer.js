@@ -10,9 +10,11 @@ import CatalogViews from "../../../Views/CatalogViews";
 
 const CatalogPageLayoutContainer = ({
   multy_choise_filters = [],
+  youAlredyWatch,
   filters_params = {},
   dataProducts,
   breadcrumbs,
+  currentPage,
   categories = [],
   products,
   currency,
@@ -66,7 +68,6 @@ const CatalogPageLayoutContainer = ({
     let value;
     if( typeof filterParams[key] === 'string' ) value = '';
     if( typeof filterParams[key] === 'boolean' ) value = !filterParams[key];
-    // console.log('filterParams->key] = ', key, ' value : ', value)
     if( typeof filterParams[key] === 'object' ) value = filterParams[key].filter(el=>el !== id)
 
     dispatch('changeParamsFilters', {
@@ -74,15 +75,17 @@ const CatalogPageLayoutContainer = ({
     })
   }
   const handlerChangePaginations = (page) => {
-    console.log({page})
     const params = {
+      ...filterParams,
       page: page
     }
     dispatch('getCatalog', params)
   }
 
   const showMore = () => {
-    dispatch('showMoreCatalog')
+    dispatch('showMoreCatalog', {
+      ...filterParams
+    })
   }
 
   const checkIsShowCategorysAndProducType = () => {
@@ -96,8 +99,6 @@ const CatalogPageLayoutContainer = ({
   };
 
   const isFilters = (filtersValues, resetAllFilters) => {
-// is_import: true
-// is_polish: true
     const {
       categories = [],
       brands = [],
@@ -107,6 +108,9 @@ const CatalogPageLayoutContainer = ({
       is_closeout,
       is_in_stock,
       is_new,
+      is_import,
+      is_polish,
+      
       is_not_range,
       is_in_collection,
       ordering,
@@ -125,9 +129,12 @@ const CatalogPageLayoutContainer = ({
       !!is_new ||
       !!is_not_range ||
       !!is_in_collection ||
-      !!ordering.length
+      !!ordering.length ||
+      !!!is_import ||
+      !!!is_polish
     ) {
       const title = <Text text={'clear.all'} />;
+
       return (
         <CatalogViews.ClearAllFilters
           onClick={resetAllFilters}
@@ -183,12 +190,14 @@ const CatalogPageLayoutContainer = ({
       isShowBtnSubmit={isShowBtnSubmit}
       offsetTopBtnSubmit={offsetTopBtnSubmit}
       setOffsetTopBtnSubmit={setOffsetTopBtnSubmit}
+      youAlredyWatch = { youAlredyWatch }
 
       content={content}
       getTitleForDocument = { getTitleForDocument }
       valueProducts = { valueProducts }
       dataProducts = { dataProducts }
       filterParams = { filterParams }
+      currentPage = { currentPage }
       currency = { currency }
       options = { optionsFiltersCatalog }
       role = { role }

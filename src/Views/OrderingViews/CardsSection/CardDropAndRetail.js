@@ -16,8 +16,8 @@ const CardDropAndRetail = ({
   el, 
 }) => {
 const id = el.id;
-    
-  return (
+
+return (
 
 
         <div className={style["order-card__wrapper"]}>
@@ -27,7 +27,7 @@ const id = el.id;
 
               <div className={style["order-card__imgage-inner"]}>
                 <Link
-                  to={el?.url? el.url : '/catalog' }
+                  to={el?.url? el.url.split('/').pop() : '/catalog' }
                 >
                   <div className={style["order-card__img"]} style={ 
                       !!el?.product?.image? 
@@ -40,8 +40,8 @@ const id = el.id;
             </div>
 
             <div className={style["order-card__content-card"]}>
-              <div className={style["order-card__content-card-title"]}>{el.title}</div>
-              <div className={style["order-card__content-card-brand"]}>{el.brand}</div>
+              <div className={style["order-card__content-card-title"]}>{el?.product?.title? el?.product?.title : el.title}</div>
+              <div className={style["order-card__content-card-brand"]}>{el?.product?.brand? el?.product?.brand : el.brand}</div>
 
               <div className={style["order-card__content-card-info"]}>
                 <div className={style["order-card__content-card-info-inner"]}>
@@ -69,8 +69,14 @@ const id = el.id;
                     <span><Text text="count" />:&nbsp;</span>{el.qty}&nbsp;шт.
                   </div>
                   <div className={style["order-card__content-card-price"]}>
-                    <span> <Text text="price" />:&nbsp;</span><span>
-                      <span className={style["order-card__content-card-price--color"]}>{el.price.toFixed(2)}</span>&nbsp;{currency}</span>
+                    <span> <Text text="price" />:&nbsp;</span>
+                    <div
+                        className={style['order-card__content-card-price-inner']}
+                      >
+                    <span>
+                      <span className={style["order-card__content-card-price--color"]}>{el.price.toFixed(2)}</span>
+                      &nbsp;{currency}
+                    </span>
                     {
                       el.old_price ? (
                         <span className = { style['order-card__content-card-price--old'] }>
@@ -78,6 +84,7 @@ const id = el.id;
                         </span>
                       ) : null
                     }
+                    </div>
                   </div>
 
                    <div className={style['order-card__content-card-price']}>

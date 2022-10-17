@@ -49,7 +49,7 @@ const CollectiionsInfo = ({
                                         <AsyncPricesContainer
                                             prices={pricesHook}
                                             role_configuration={role_configuration}
-                                            currenssies={currenssies}
+                                            currency={currency}
                                             recommended_price={recommended_priceHook}
                                             in_cart_count={in_cart_countHook}
                                         />

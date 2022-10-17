@@ -20,7 +20,7 @@ class BaseApi {
                 urlCorrect = `${this.MAIN_URL}${url}?${qs.stringify(params)}`;
             }
             
-            console.log(`Cылка на ${urlCorrect}`);
+            // console.log(`Cылка на ${urlCorrect}`);
 
             const request = await axios.get(urlCorrect)
             // console.log('response = ', request)
@@ -35,10 +35,10 @@ class BaseApi {
         try{
             await this.axiosOverride(axios);
             const urlCorrect = `${this.MAIN_URL}${url}`;
-            console.log(`Cылка на ${urlCorrect} ${params}`, params);
+            // console.log(`Cылка на ${urlCorrect} ${params}`, params);
         //    const urlCorrect = `${this.MAIN_URL}${url}?${qs.stringify(params)}`;
             const request = await axios.post(urlCorrect, params);
-            console.log('request', request)
+            // console.log('request', request)
             return request;
 
         }catch(err){
@@ -50,11 +50,11 @@ class BaseApi {
         try{
         await this.axiosOverride(axios);
         const urlCorrect = `${this.MAIN_URL}${url}`;
-        console.log({urlCorrect},{a: JSON.stringify(params)})
+        // console.log({urlCorrect},{a: JSON.stringify(params)})
         const request = await axios.delete(urlCorrect, {
            data: params
         });
-        console.log('request', request)
+        // console.log('request', request)
         return request;
         }catch(err){
             throw err.response;
@@ -66,7 +66,7 @@ class BaseApi {
             const urlCorrect = `${this.MAIN_URL}${url}`;
             // console.log(`Cылка на ${urlCorrect} ${params}`);
             const request = await axios.put(urlCorrect,params);
-            console.log('request', request)
+            // console.log('request', request)
             return request;
 
         }catch(err){

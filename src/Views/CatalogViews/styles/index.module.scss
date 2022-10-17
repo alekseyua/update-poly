@@ -245,15 +245,28 @@
   margin-bottom: 75px;
   grid-template-rows: minmax(388px, 1fr);
 
-  @include tablet-lg {
+  @include laptop-lgm {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include tablet-lgl {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @include tablet-md {
+  @include tablet-mmdl {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include mobile {
+  @include tablet-md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include mobile-mmlg {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+  }
+  @include mobile-lgm {
+    grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr;
   }
   //.wrapper__product-export-card{}

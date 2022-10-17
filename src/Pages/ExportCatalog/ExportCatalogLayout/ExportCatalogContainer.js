@@ -17,6 +17,7 @@ const ExportCatalogLayoutContainer = ({
   role,
   content,
   exportCatalog,
+  currentPage,
   products,
   currency,
 }) => {
@@ -171,6 +172,15 @@ const ExportCatalogLayoutContainer = ({
       ) : null
   }, [filters_params])
 
+  
+  const handlerChangePaginations = (page) => {
+    const params = {
+      page: page
+    }
+    dispatch('getExportCatalog', params)
+  }
+  
+  const showMore = () => dispatch('showMoreExportCatalog')
 
   return (
     <>
@@ -201,9 +211,12 @@ const ExportCatalogLayoutContainer = ({
       checkIsShowCategorysAndProducType={checkIsShowCategorysAndProducType}
       
       onSelectedPhoto = { onSelectedPhoto }
+      currentPage = { currentPage }
+      handlerChangePaginations = { handlerChangePaginations }
+      showMore = { showMore }
       />
       </>
   )
 }
 
-export default ExportCatalogLayoutContainer;
+export default ExportCatalogLayoutContainer

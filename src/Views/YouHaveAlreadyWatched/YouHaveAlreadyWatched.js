@@ -2,6 +2,7 @@ import React from 'react';
 import YouHaveAlreadyWatchedViews from '../../Views/YouHaveAlreadyWatchedViews';
 import ProductCard from '../../Views/ProductCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import Text from '../../helpers/Text';
@@ -18,11 +19,14 @@ const YouHaveAlreadyWatched = ({
     { 
       !!listAlreadySaw.length?
         <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
           navigation={listAlreadySaw.length > 6}
           noSwiping
           spaceBetween={10}
           speed={400}
           slidesPerView={6}
+          observer={true}
+          observeSlideChildren
           breakpoints={{
             // when window width is >= 320px
             320: {
@@ -48,7 +52,7 @@ const YouHaveAlreadyWatched = ({
               spaceBetween: 20
             }
           }}
-          allowTouchMove={false}
+          allowTouchMove={true}
 
         >
           {listAlreadySaw.map((el, i) => {

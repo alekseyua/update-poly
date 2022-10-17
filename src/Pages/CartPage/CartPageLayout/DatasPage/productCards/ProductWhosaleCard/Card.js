@@ -58,6 +58,7 @@ const Card = ({
     [style['product-card__wrapper']]: true,
     [style['product-card__wrapper--delete']]: deleteItem
   })
+  console.log({url})
 
   return (
     <div
@@ -77,7 +78,7 @@ const Card = ({
         </div>
         {/*фотография  */}
         <Link
-          to={`/${url}`}//{is_packUrl ? is_packUrl : cartitem_setUrl}
+          to={`/${url.split('/').pop()}`}//{is_packUrl ? is_packUrl : cartitem_setUrl}
         >
           <img
             src={image && image !== '#' ? image : categoryCard1}
@@ -156,7 +157,7 @@ const Card = ({
           <input 
             autoFocus
             type = {'number'}
-            onFocus={e => e.currentTarget.select()}
+            onFocus={e => e.currentTarget.select() }
             className={style['product-card__count-input']}
             value = {valueInputNumber}
             onChange={(e) =>{

@@ -8,9 +8,9 @@ const ExportCatalog = (props) => {
     filters_params, 
     exportCatalog, 
     breadcrumbs, 
+    currentPage, 
     categories, 
     page_info, 
-    products = [], 
     currency,
     profile, 
   } = props.context;
@@ -25,7 +25,7 @@ const ExportCatalog = (props) => {
     exportCatalog = { exportCatalog }
     breadcrumbs = { breadcrumbs }
     categories = { categories }
-    //   products = { products }
+    currentPage = { currentPage }
     currency = { currency }
     content = { content }
     title = { title }

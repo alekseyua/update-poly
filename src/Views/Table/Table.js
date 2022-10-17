@@ -5,7 +5,6 @@ import Block from '../SpinnerWrapper';
 import style from './styles/table.module.scss';
 
 const Table = ({ classNameTable, tableHeaderData, tableBodyData = [], statusLoad = null}) => {
-  console.log({tableBodyData})
 
   return (
     <table className={style[classNameTable]}> 
@@ -41,7 +40,6 @@ const Table = ({ classNameTable, tableHeaderData, tableBodyData = [], statusLoad
         {
           !!tableBodyData.length?
             tableBodyData.map((trElData, i) => {
-              console.log({trElData})
               return (
                 <tr key={v4()}>
                   {

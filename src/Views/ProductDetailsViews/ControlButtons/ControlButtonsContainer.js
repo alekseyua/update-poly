@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import style from './style/controlbuttons.module.scss';
 import { useStoreon } from 'storeon/react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * 
@@ -30,6 +31,7 @@ const ControlButtonsContainer = ({
     const { dispatch } = useStoreon();
     const [ countInBtn, setCountInBtn ] = useState(in_cart_count);
     const [ stateInStockeBtn, setStateInStockeBtn ] = useState(false);
+    const navigate = useNavigate();
     const [ changeColorBtn, setChangeColorBtn ] = useState({
         red: false,
         green: false
@@ -108,10 +110,17 @@ const ControlButtonsContainer = ({
   
     //******************************************************************************************************* */
     const addToCartProduct = (count, modalView, productId) => {
+      const redirectTo = path => {
+        const timerTimeout = setTimeout(()=>{
+          navigate(path);
+          return () => clearTimeout(timerTimeout);          
+        },100)
+      }
       const params = {
         productId,
         count,
-        modalView
+        modalView,
+        redirectTo,
       }
       dispatch('addToCart', params);      
     };

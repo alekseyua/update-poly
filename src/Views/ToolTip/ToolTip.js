@@ -4,11 +4,9 @@ import classNames from 'classnames';
 import style from './styles/tooltip.module.scss';
 
 /**
- * @param {
- *  нужна реализация;
- *  1) при наведении
- *  2) при клике
- *  3) ато показ до фокуса
+ * @param { *  
+ * @1) local = {'top-center'} || 
+ * 
  * }
  *  @returns 
  */

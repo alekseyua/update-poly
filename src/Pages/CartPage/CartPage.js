@@ -3,18 +3,25 @@ import CartPageLayoutContainer from './CartPageLayout/CartPageLayoutContainer';
 
 const CartPage = ({...props}) => {
     console.log('cart page = ',props.context)
-    const { breadcrumbs, 
+    const { 
+        numberCurrentOrderForAddProduct = null,
         listCurrentOrder,
+        youAlredyWatch,
         dataProducts,
+        breadcrumbs,
+        recommended,
         page_info, 
         dataCart, 
         currency, 
         profile, 
     } = props.context;
+
     const opt_minimum_price = null;
     const textConditionPayPart_1 = page_info?.components[0]?.children[0]?.content;
     const textConditionPayPart_2 = page_info?.components[0]?.children[1]?.content;
+    
     const {
+        valueButtonNextToOrder,
         agreeWitheRegulations,     
         enableAllSelect,
         total_discount, 
@@ -29,10 +36,13 @@ const CartPage = ({...props}) => {
 
     return (
         <CartPageLayoutContainer
+            numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
             textConditionPayPart_1 = { textConditionPayPart_1 }
             textConditionPayPart_2 = { textConditionPayPart_2 }
+            valueButtonNextToOrder = { valueButtonNextToOrder }
             agreeWitheRegulations = { agreeWitheRegulations }
-            recomendetProducts = { dataProducts?.results }
+
+            recomendetProducts = { dataProducts?.results || recommended || youAlredyWatch?.results }
             opt_minimum_price = { opt_minimum_price }
             listCurrentOrder = { listCurrentOrder }
             enableAllSelect = { enableAllSelect }

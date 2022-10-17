@@ -23,10 +23,15 @@ export const catalog = store => {
                 filters_params: {
                     ...context.init_state.filters_params,
                     ...obj.valueCheckBoxFilters,
+                    
                     is_in_stock: obj.valueCheckBoxFilters.is_in_stock,
                     is_new: obj.valueCheckBoxFilters.is_new,
                     is_bestseller: obj.valueCheckBoxFilters.is_bestseller,
                     is_closeout: obj.valueCheckBoxFilters.is_closeout,
+                    
+                    is_polish: obj.valueCheckBoxFilters.is_polish,
+                    is_import: obj.valueCheckBoxFilters.is_import,
+
                     categories: [...obj.valueCheckBoxFilters.categories],
                     brands: [...obj.valueCheckBoxFilters.brands],
                     colors: [...obj.valueCheckBoxFilters.colors],
@@ -41,26 +46,109 @@ export const catalog = store => {
         return
     })
 
-    store.on('getCatalog', async ({ context, page }, obj, { dispatch }) => {
+    store.on('getCatalog', async ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
         try {
-            
+            const { youAlredyWatch, filters_params } = context.init_state;
             let params = {};
-            console.log({ objInport1: obj}, {page})
+            let statusPolish = true;
+            let statusImport = true;
+
+            let statusNotRange = false;
+            let statusCollection = false;
+
             if (obj){
-    
-                delete obj['is_import']
-                delete obj['is_polish']
-                console.log({ objInport2: obj})
-                params = { page: obj?.page? obj.page : 1,
+            console.log({filter: obj})
+                if(obj['is_import'] && !obj['is_polish']){
+                    delete obj['is_polish']
+                    statusPolish = false;
+                }
+                if(obj['is_polish'] && !obj['is_import']){
+                    delete obj['is_import']
+                    statusImport = false;
+                }
+                if(obj?.is_import && obj?.is_polish){
+                    delete obj['is_polish']
+                    delete obj['is_import']
+                    statusPolish = true;
+                    statusImport = true;
+                }
+                if(!obj?.is_import && !obj?.is_polish && obj?.is_polish !== undefined && obj?.is_import !== undefined){
+                    obj['is_import'] = true
+                    obj['is_polish'] = true
+                    statusPolish = false;
+                    statusImport = false;
+                }
+                
+                if(obj['is_not_range'] && !obj['is_in_collection']){
+                    delete obj['is_in_collection']
+                    statusNotRange = true;
+                }
+                if(obj['is_in_collection'] && !obj['is_not_range']){
+                    delete obj['is_not_range']
+                    statusCollection = true;
+                }
+                if(obj?.is_in_collection && obj?.is_not_range){
+                    obj['is_not_range'] = true
+                    obj['is_in_collection'] = true
+                    
+                    statusNotRange = true;
+                    statusCollection = true;
+                }
+                if(!obj?.is_in_collection && !obj?.is_not_range && obj?.is_in_collection !== undefined && obj?.is_not_range !== undefined){
+                    delete obj['is_in_collection']
+                    delete obj['is_not_range']
+                    statusNotRange = false;
+                    statusCollection = false;
+                }
+                // delete obj['is_not_range']
+                // delete obj['is_in_collection']
+                
+                params = {                     
+                    page: obj?.page? obj.page : 1,
                     page_size: obj?.page_size? obj.page_size : 30,
-                    ...obj,
-                    // is_polish: obj?.is_polish ? true: false ,
-                    // is_import: obj?.is_import ? true: false
+                    ...obj,                    
                 }
             }
-            
+
+            // if (obj?.page > 1){
+            //     console.log({page11111: obj})
+            //     if(filters_params['is_import'] && !filters_params['is_polish']){
+            //         delete filters_params['is_polish']
+            //     }
+            //     if(filters_params['is_polish'] && !filters_params['is_import']){
+            //         delete filters_params['is_import']
+            //     }
+            //     if(filters_params?.is_import && filters_params?.is_polish){
+            //         delete filters_params['is_polish']
+            //         delete filters_params['is_import']
+            //     }
+            //     if(!filters_params?.is_import && !filters_params?.is_polish && filters_params?.is_polish !== undefined && filters_params?.is_import !== undefined){
+            //         filters_params['is_import'] = true
+            //         filters_params['is_polish'] = true
+            //     }
+                
+            //     if(filters_params['is_not_range'] && !filters_params['is_in_collection']){
+            //         delete filters_params['is_in_collection']
+            //     }
+            //     if(filters_params['is_in_collection'] && !filters_params['is_not_range']){
+            //         delete filters_params['is_not_range']
+            //     }
+            //     if(filters_params?.is_in_collection && filters_params?.is_not_range){
+            //         filters_params['is_not_range'] = true
+            //         filters_params['is_in_collection'] = true
+            //     }
+            //     if(!filters_params?.is_in_collection && !filters_params?.is_not_range && filters_params?.is_in_collection !== undefined && filters_params?.is_not_range !== undefined){
+            //         delete filters_params['is_in_collection']
+            //         delete filters_params['is_not_range']
+            //     }
+            //     params = {                     
+            //         ...filters_params,
+            //         page: obj?.page? obj.page : 1,
+            //         page_size: obj?.page_size? obj.page_size : 30,
+            //     }
+            // }
             obj?.page > 1 ? dispatch('setPage', { page: obj.page }) : dispatch('setPage', { page: 1 });
-            console.log({ objPolish: obj?.is_polish }, {page})
+            
             const products = await apiContent.getCatalogData(params);
 
             const newContext = {
@@ -72,18 +160,28 @@ export const catalog = store => {
                         is_new: obj?.is_new ? obj.is_new : false,
                         is_bestseller: obj?.is_bestseller ? obj.is_bestseller : false,
                         is_closeout: obj?.is_closeout ? obj.is_closeout : false,
-                        is_in_collection: obj?.is_in_collection ? obj.is_in_collection : false,
                         is_in_stock: obj?.is_in_stock ? obj.is_in_stock : false,
-                        is_not_range: obj?.is_not_range ? obj.is_not_range : false,
-                        is_polish: true,
-                        is_import: true,
+
+                        is_in_collection: statusCollection,
+                        is_not_range: statusNotRange,
+                        is_polish: statusPolish,
+                        is_import: statusImport,
 
                         categories: !!obj?.categories?.length ? obj.categories : []
                     },
                     dataProducts: products,
+                    
                 }
             }
-            return dispatch('context', newContext)
+            dispatch('context', newContext)
+            if( !!!youAlredyWatch.results.length ){
+                const timerGetAlreadyWatch = setTimeout(()=>{
+                    dispatch('getYouAlreadyWatch');
+                    return () => clearTimeout(timerGetAlreadyWatch);
+                },4000)
+            }
+
+            return true
 
         } catch (err) {
             console.log('ERROR getCatalog STORE', err)
@@ -116,16 +214,68 @@ export const catalog = store => {
     
     store.on('getExportCatalog', async ({ context }, obj, { dispatch }) => {
         try {
-            console.log({ objInport: obj?.is_import })
-            console.log({ objPolish: obj?.is_polish })
+             
+            let params = {};
+            let statusPolish = true;
+            let statusImport = true;
 
-            let params = obj ? {
-                    page: 1,
-                    page_size: 30,
+            let statusNotRange = false;
+            let statusCollection = false;
+
+            if (obj){
+            console.log({obj})
+                if(obj['is_import'] && !obj['is_polish']){
+                    delete obj['is_polish']
+                    statusPolish = false;
+                }
+                if(obj['is_polish'] && !obj['is_import']){
+                    delete obj['is_import']
+                    statusImport = false;
+                }
+                if(obj?.is_import && obj?.is_polish){
+                    delete obj['is_polish']
+                    delete obj['is_import']
+                    statusPolish = true;
+                    statusImport = true;
+                }
+                if(!obj?.is_import && !obj?.is_polish && obj?.is_polish !== undefined && obj?.is_import !== undefined){
+                    obj['is_import'] = true
+                    obj['is_polish'] = true
+                    statusPolish = false;
+                    statusImport = false;
+                }
+                
+                if(obj['is_not_range'] && !obj['is_in_collection']){
+                    delete obj['is_in_collection']
+                    statusNotRange = true;
+                }
+                if(obj['is_in_collection'] && !obj['is_not_range']){
+                    delete obj['is_not_range']
+                    statusCollection = true;
+                }
+                if(obj?.is_in_collection && obj?.is_not_range){
+                    obj['is_not_range'] = true
+                    obj['is_in_collection'] = true
+                    
+                    statusNotRange = true;
+                    statusCollection = true;
+                }
+                if(!obj?.is_in_collection && !obj?.is_not_range && obj?.is_in_collection !== undefined && obj?.is_not_range !== undefined){
+                    delete obj['is_in_collection']
+                    delete obj['is_not_range']
+                    statusNotRange = false;
+                    statusCollection = false;
+                }
+                // delete obj['is_not_range']
+                // delete obj['is_in_collection']
+                
+                params = { page: obj?.page? obj.page : 1,
+                    page_size: obj?.page_size? obj.page_size : 30,
                     ...obj,
-                    is_polish: obj?.is_polish ? false : true,
-                    is_import: obj?.is_import ? false : true
-                } : {}
+                }
+            }
+            
+            obj?.page > 1 ? dispatch('setPage', { page: obj.page }) : dispatch('setPage', { page: 1 });
 
             const products = await apiContent.getPhotosListForExportCatalog(params);
 
@@ -138,12 +288,11 @@ export const catalog = store => {
                         is_new: obj?.is_new ? obj.is_new : false,
                         is_bestseller: obj?.is_bestseller ? obj.is_bestseller : false,
                         is_closeout: obj?.is_closeout ? obj.is_closeout : false,
-                        is_in_collection: obj?.is_in_collection ? obj.is_in_collection : false,
                         is_in_stock: obj?.is_in_stock ? obj.is_in_stock : false,
-                        is_not_range: obj?.is_not_range ? obj.is_not_range : false,
-                        is_polish: obj?.is_import ? false : true,
-                        is_import: obj?.is_polish ? false : true,
-
+                        is_in_collection: statusCollection,
+                        is_not_range: statusNotRange,
+                        is_polish: statusPolish,
+                        is_import: statusImport,
                         categories: !!obj?.categories?.length ? obj.categories : []
                     },
                     exportCatalog: products,
@@ -159,12 +308,12 @@ export const catalog = store => {
     store.on('showMoreCatalog', async ({ context, page, valueCheckBoxFilters }, obj, { dispatch }) => {
         try{
 
-            // const page = context.init_state.
+            const { filters_params } = context.init_state
             console.log({pageShow: page})
             delete valueCheckBoxFilters['is_import']
             delete valueCheckBoxFilters['is_polish']
             const params = { 
-                ...valueCheckBoxFilters,
+                ...filters_params,
                 page: page + 1,
                 page_size: 30
             }
@@ -188,4 +337,37 @@ export const catalog = store => {
             console.log('ERROR GET DATA CARALOG FOR BUTTON MORE', err)
         }
     })
+
+    store.on('showMoreExportCatalog', async ({ context, page, valueCheckBoxFilters }, obj, { dispatch }) => {
+        try{
+
+            // const page = context.init_state.
+            delete valueCheckBoxFilters['is_import']
+            delete valueCheckBoxFilters['is_polish']
+            const params = { 
+                ...valueCheckBoxFilters,
+                page: page + 1,
+                page_size: 30
+            }
+
+            const products = await apiContent.getPhotosListForExportCatalog(params);
+            dispatch('setPage', { page: page + 1 })
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,                    
+                    exportCatalog: {
+                        ...context.init_state.exportCatalog,
+                        results: [...context.init_state.exportCatalog.results, ...products.results]
+                    },
+                }
+            }
+            return dispatch('context', newContext)
+
+            
+        }catch(err){
+            console.log('ERROR GET DATA CARALOG FOR BUTTON MORE', err)
+        }
+    })
+    
 }

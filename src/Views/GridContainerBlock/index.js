@@ -13,10 +13,16 @@ import GridPageLK from './GridPageLK/GridPageLK';
 import GridPageLeftLK from './GridPageLeftLK/GridPageLeftLK';
 import GridPageRightLK from './GridPageRightLK/GridPageRightLK';
 // форма обратной связи feedback
-import BlockFeedback from './BlockFeedback/BlockFeedback.js';
+import BlockFeedback from './BlockFeedback/BlockFeedback';
+// форма пополнить баланс
+import BlockPayment from './BlockPayment/BlockPayment';
+// контейнер для сообщений в попапах
+import BlockMessage from './BlockMessage/BlockMessage'
 
 
 export default {
+    BlockMessage,
+    BlockPayment,
     BlockFeedback,
     GridPageLK,
     GridPageLeftLK,

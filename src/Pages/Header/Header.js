@@ -2,7 +2,10 @@ import React from 'react';
 import HeaderTop from './HeaderTop/HeaderTop';
 import HeaderBottom from './HeaderBottom/HeaderBottom'
 
-const Header = (props) => {
+const Header = ({
+    currency,
+    ...props
+}) => {
 
     return (
         <>
@@ -10,7 +13,7 @@ const Header = (props) => {
                 logo={props.logo}
                 logoLinkGoto={props.logoLinkGoto}
                 header_menu={props.header_menu}
-                currencies={props.currencies}
+                currency={currency}
                 setCurrencyCurrencies={props.setCurrencyCurrencies}
             />
             <HeaderBottom 
@@ -20,6 +23,7 @@ const Header = (props) => {
                cabinet_menu={props.cabinet_menu}
                profile={props.profile}
                site_configuration={props.site_configuration}
+               currency = { currency}
             />
         </>
     )

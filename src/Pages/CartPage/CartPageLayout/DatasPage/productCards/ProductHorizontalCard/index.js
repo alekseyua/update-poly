@@ -65,6 +65,7 @@ const ProductHorizontalCard = ({
     [style['product-card__wrapper--delete']]: deleteItem
   })
 
+  console.log({url})
   return (
     <div
       className={styleDeleteItem}
@@ -92,7 +93,7 @@ const ProductHorizontalCard = ({
           />
         </div>
 
-        <Link to={ `/${url}` }>
+        <Link to={ `/${url.split('/').pop()}` }>
           <img src={image} className={style['product-card__image-thumb']} />
         </Link>
         <div className={style['product-card__base-info']}>
@@ -177,9 +178,8 @@ const ProductHorizontalCard = ({
             </Button>
           </div>
           <input 
-            autoFocus
+            onFocus={ e => e.currentTarget.select() }
             type = {'number'}
-            onFocus={e => e.currentTarget.select()}
             className={style['product-card__count-input']}
             value = {valueInputNumber}
             onChange={(e) =>{

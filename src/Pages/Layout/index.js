@@ -59,6 +59,7 @@ const Layout = (props) => {
         closeModal={modalState.closeModal? modalState.closeModal : closeModalState} 
         onClickCancel = { modalState.onClickCancel}
         iconImage={modalState.iconImage}
+        style={modalState.style}
       >
       <Helmet>
         <title>{title}</title>
@@ -71,7 +72,7 @@ const Layout = (props) => {
             logo={dataPage.init_state.site_configuration.logo_1} 
             logoLinkGoto={logoLinkGoto} 
             header_menu={dataPage.init_state.header_menu}
-            currencies={dataPage.init_state.currencies}
+            currency = {dataPage.init_state.currency}
             main_menu={dataPage.init_state.main_menu}
             cabinet_menu={dataPage.init_state.cabinet_menu}
             profile={dataPage.init_state.profile}

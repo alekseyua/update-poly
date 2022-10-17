@@ -15,6 +15,7 @@ import BlockSpinner from '../../../Views/SpinnerWrapper';
 import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
 import EnabledFilters from './CatalogFilters/EnabledFilters';
 import Pagination from '../../../Views/Pagination';
+import Offset from "../../../Views/Offset";
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -35,6 +36,9 @@ const AsyncProductCard = AsyncComponent(() => {
   return import('../../../Views/ProductCard');
 });
 
+const AsyncYouHaveAlreadyWatched = AsyncComponent(() => {
+  return import('../../../Views/YouHaveAlreadyWatched/YouHaveAlreadyWatchedContainer');
+});
 
 const CatalogPageLayout = ({
   breadcrumbs,
@@ -42,12 +46,14 @@ const CatalogPageLayout = ({
   showFilters,
   isShowBtnSubmit,
   offsetTopBtnSubmit,
-
+  youAlredyWatch,
+  
   content,
   dataProducts,
   valueProducts,
   valueCheckBoxFilters,
   filterParams,
+  currentPage,
   options,
   currency,
   role,
@@ -324,7 +330,7 @@ const CatalogPageLayout = ({
 
 
                        {
-                          !!dataProducts?.results.length  !== dataProducts?.count ? (
+                          dataProducts?.results.length  < dataProducts?.count ? (
                             <Button full onClick={showMore} variant={'show_more'}>
                               <Text text={'show.more'} />
                             </Button>
@@ -333,8 +339,9 @@ const CatalogPageLayout = ({
 
                       <Pagination
                         location = {'left'}
-                        allCount ={ dataProducts?.count }
                         count = { 30 }
+                        allCount ={ dataProducts?.count }
+                        currentPage = { currentPage ?? 1 }
                         handlerChangePaginations = { handlerChangePaginations }
                       />
                     </>
@@ -346,8 +353,11 @@ const CatalogPageLayout = ({
           </CatalogViews.Row>
         </React.Fragment>
       </Block.Container>
-      {/* <AsyncYouHaveAlreadyWatched />
-      <Offset offset={'catalog'} /> */}
+      <AsyncYouHaveAlreadyWatched 
+        youAlredyWatch = { youAlredyWatch }
+        currency = { currency }
+      />
+      <Offset offset={'catalog'} />
     </React.Fragment>
   )
 }

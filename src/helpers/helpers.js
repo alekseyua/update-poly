@@ -165,10 +165,6 @@ export const getCoordinat = (testBlock) => {
     }, false);
 }
 
-export const getActiveColor = (color) => {
-    return !Array.isArray(color)? color : color.filter(el=> el.selected)[0].id
-} 
+export const getActiveColor = color => !Array.isArray(color)? color : color.filter( el => el.selected )[0].id;
 
-export const getActiveSize = (size) => {
-    return !Array.isArray(size)? size : size.filter(el=> el.selected)[0].id
-} 
+export const getActiveSize = size => !Array.isArray(size)? size : size.filter( el => el.selected )[0].id;

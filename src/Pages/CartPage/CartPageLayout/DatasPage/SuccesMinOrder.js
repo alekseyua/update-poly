@@ -21,7 +21,7 @@ const SuccesMinOrder = ({
         [style['cart-page__wrapper-order--success']]: success,
       })}
     >
-      <Icon className={style['cart-page__wrapper-order-icon']} src={success ? statusSend : statusCancel} />
+      <Icon className={style['cart-page__wrapper-order-icon']} src={success ? statusSend : statusCancel} width={20} height = {20} />
       <span className={style['cart-page__wrapper-order-messenge']}>{messenge}</span>
     </div>
   );

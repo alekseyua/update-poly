@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import OrderingPageLayout from './OrderingPageLayout';
 import style from '../../CartPage/CartPageLayout/DatasPage/styles/cartpage.module.scss'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 
+
 const OrderingPageLayoutContainer = ({
+    numberCurrentOrderForAddProduct,
     shriveledCartContent,
     delivery_condition,
     delivery_methods,
@@ -20,6 +22,7 @@ const OrderingPageLayoutContainer = ({
 }) => {
     const { dispatch } = useStoreon();
     const [styleCar, setStyleCar] = useState('orderCar disable');
+    const navigate = useNavigate();
 
     const labelLink = () => {
         return (
@@ -45,13 +48,20 @@ const OrderingPageLayoutContainer = ({
     const handlerSubmitOrder = (values, currency) =>{
         const paramsPayment = {
             ...values,
-            currency: currency
+            currency: currency,
+            redirectTo: (to) => {
+                const timerTimeout = setTimeout(()=>{
+                    navigate(to);
+                    return () => clearTimeout(timerTimeout);          
+                },500)
+            }
         }
         dispatch('payment', paramsPayment)
     }
 
     return (
         <OrderingPageLayout
+            numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
             shriveledCartContent = { shriveledCartContent }
             delivery_condition = { delivery_condition }
             delivery_methods = { delivery_methods }

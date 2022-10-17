@@ -1,9 +1,9 @@
 @import '../../../styles/variables.scss';
 
-.modal-provider{
+.modal-provider {
 
     //.modal-provider__close{}
-    &__close{
+    &__close {
         position: sticky;
         top: 10px;
         left: 95%;
@@ -14,7 +14,11 @@
         border-radius: 50%;
         min-width: 20px;
         min-height: 20px;
-        &::after,&::before{
+        @include mobile{
+            left: 90%;
+        }
+        &::after,
+        &::before {
             content: '';
             width: 1px;
             height: 100%;
@@ -22,47 +26,57 @@
             display: block;
             background-color: $dg;
         }
-        &::after{
+
+        &::after {
             transform: translate(9px, -18px) rotate(45deg);
         }
-        &::before{
+
+        &::before {
             transform: translate(8px, 0px) rotate(-45deg);
         }
-        &:hover{
+
+        &:hover {
             cursor: pointer;
-            border: 1px solid $dg2;
-            &::after{
-                background-color: $dg2;
+            border: 1px solid $a2;
+
+            &::after {
+                background-color: $a2;
             }
-            &::before{
-                background-color: $dg2;
-            }   
+
+            &::before {
+                background-color: $a2;
+            }
         }
     }
+
     //.modal-provider__icon{}
-    &__icon{
+    &__icon {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        & > div {
+
+        &>div {
             height: 60px;
             width: 70px;
-        } 
-    }    
+        }
+    }
+
     //.modal-provider__container
-    &__container{
+    &__container {
         position: relative;
         // width: 100vw;
         // height: 100vh;
-        width: auto;   
+        width: auto;
         transition: all 2s ease-in-out;
+
         //.modal-provider__container--show{}
-        &--show{
+        &--show {
             height: 100vh;
             width: 100%;
             position: fixed;
-            &::after{
+
+            &::after {
                 content: "";
                 width: 100%;
                 height: 100vh;
@@ -73,19 +87,22 @@
                 left: 0;
                 top: 0;
             }
-        }        
+        }
     }
+
     //.modal-provider__body{}
-    &__body{
+    &__body {
         opacity: 0;
-        visibility: hidden; 
+        visibility: hidden;
         position: absolute;
         transition: opacity 3s;
-        &> .modal-provider__spinner{
+
+        &>.modal-provider__spinner {
             display: none;
         }
+
         //.modal-provider__body--show{}
-        &--show{
+        &--show {
             // overflow-y: auto;
             overflow: hidden;
             opacity: 1;
@@ -93,7 +110,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             background-color: #fff;
             z-index: 10001;
             padding: 10px;
@@ -102,21 +119,29 @@
             // width: 80vw;
             // display: flex;
             // flex-direction: column;
-            
+
             // height: 100%;
             border-radius: 7px;
             transition: opacity 3s, visibility 3s;
             display: grid;
-            grid-template-columns: minmax(320px,80vw);
+            grid-template-columns: minmax(320px, 80vw);
             min-height: 250px;
             max-height: 80vh;
-            &> .modal-provider__spinner{
+
+            @include mobile {
+                width: 97%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            &>.modal-provider__spinner {
                 display: block;
             }
         }
     }
+
     //.modal-provider__title{}
-    &__title{
+    &__title {
         width: 100%;
         margin-top: 15px;
         margin-bottom: 15px;
@@ -125,9 +150,14 @@
         align-items: center;
         justify-content: center;
         font-size: 30px;
+        text-align: center;
+        @include mobile{
+            width: calc(100% - 30px);
+        }
     }
+
     //.modal-provider__content{}
-    &__content{
+    &__content {
         width: 100%;
         padding: 10px;
         font-size: $fontSize;
@@ -135,10 +165,15 @@
         flex: 1 1;
         position: relative;
         overflow-y: overlay;
+        margin-bottom: 25px;
         @include scrollbar;
+        @include mobile{
+            width: calc(100% - 30px);
+        }
     }
+
     //.modal-provider__spinner{}
-    &__spinner{
+    &__spinner {
         // position: absolute;
         position: relative;
         left: 33%;
@@ -148,43 +183,80 @@
         animation-name: move-cart;
         animation-duration: 10s;
         animation-iteration-count: infinite;
-      }
-
+    }
 
     //.modal-provider__action-container{}
-    &__action-container{
+    &__action-container {
         flex: 0 0;
         width: 100%;
         display: flex;
         min-width: 320px;
         justify-content: space-evenly;
         margin-top: 40px;
-        @include mobile{
+
+        @include mobile {
             flex-direction: column;
             align-items: center;
+            width: calc(100% - 30px);
         }
     }
 }
 
-.modal-quick-view-product{
-    height: 100%;
-}
+.modal {
 
-.modal-feedback{
-    padding: 0;
-    height: 100%;
-}
+    //.modal-quick-view-product{}
+    &-quick-view-product {
+        height: 100%;
+    }
 
-.modal-file-views{
-    padding: 0;
-    height: 100%;
-    width: 80vw;
+    //.modal-feedback{}
+    &-feedback {
+        padding: 0;
+        height: 100%;
+    }
+
+    //.modal-file-views{}
+    &-file-views {
+        padding: 0;
+        height: 100%;
+        width: 80vw;
+    }
+
+    //.modal-add-to-cart{}
+    &-add-to-cart {
+        // height: 100%;
+        padding: 0;
+
+        &:nth-child(3) {
+            padding: 0;
+        }
+    }
+
+    //.modal-choose-number-order{}
+    &-choose-number-order {
+        padding: 0;
+        overflow: inherit;
+
+        &>div.modal-provider__content {
+            overflow: initial !important;
+        }
+    }
+
+    //.modal-payment{}
+    &-payment {
+        padding: 0;
+        height: 100%;
+        &>div.modal-provider__content{
+            width: calc(100% - 3px);
+        }
+    }
 }
 
 @keyframes move-cart {
     0% {
         left: -120px;
     }
+
     100% {
         left: 450px;
     }

@@ -126,11 +126,13 @@ img {
 
 .hidden{
   opacity: 0;
-  width: 87px;
-  height: 25px;
+  min-width: 100%;
+  min-height: 100%;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -120%;
+  top: 0px;
+  pointer-events: all;
+  
   &:hover{
     cursor: pointer;
   }

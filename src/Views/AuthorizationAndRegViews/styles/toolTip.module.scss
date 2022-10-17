@@ -53,5 +53,6 @@
   visibility: hidden;
   opacity: 0;
   transition: .6s all cubic-bezier(.9,.03,.69,.22);
+  pointer-events: none;
 }
 

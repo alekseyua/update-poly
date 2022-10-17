@@ -11,6 +11,7 @@ import style from './headerbuttonsbottonlk.module.scss';
 
 const HeaderButtonsBottomLK = ({
     profile,
+    currency,
     ...props
 }) => {
     // console.log({props})
@@ -82,7 +83,17 @@ const HeaderButtonsBottomLK = ({
     // !?закрываем строку поиска при клике вне поля с поиском
     useEffect(()=>{
         const clickOutsideArea = (e) => {(
+                 console.log({e}, {a: searchBgRef.current}, {b: e.target.getAttribute('name')}),
+            //search__close
             setSearchInputShow(true),
+            (      e.target.getAttribute('name') === 'search__close' 
+                || e.target.getAttribute('name') === 'product-price'
+                || e.target.getAttribute('name') === 'product-price3'
+                || e.target.getAttribute('name') === 'product-price2'
+                || e.target.getAttribute('name') === 'product-price1'
+                || e.target.getAttribute('name') === 'product-price'  )?
+                     setSearchInputShow(false) 
+                     : null,
             searchBgRef.current.contains(e.target) || e.target.getAttribute('name') === 'input-search' 
             ) || (
                 setSearchInputShow(false),
@@ -129,8 +140,8 @@ const HeaderButtonsBottomLK = ({
                         !!textSearch?
                             <SearchPageViews.SearchResultsDropdown
                                 search={search}
-                                surrenssies={props.currenssies}
-                                urlShowAll={`страница-поиска?${search}&${props.role}`} // нужно правильно сложить строку
+                                currency = {currency}
+                                urlShowAll={`/search?q=${textSearch}`} // нужно правильно сложить строку
                                 urlNothingSearch={''}
                             />
                             : null

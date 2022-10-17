@@ -6,7 +6,7 @@ import Button from '../Button';
 import Icon from '../Icon/Icon';
 import Title from '../Title';
 
-import style from './styles/modalProviderView.module.scss';
+import styleModal from './styles/modalProviderView.module.scss';
 
 /**
  *  @param {
@@ -29,6 +29,7 @@ const ModalProviderView = ({
     iconImage = null,
     closeModal,
     addClass,
+    style,
     ...props}) => {
     const [ showPopup, setShowPopup ] = useState({
         container : 'modal-provider__container',
@@ -52,30 +53,28 @@ const ModalProviderView = ({
 
     },[ show ])
 
-    console.log('onClickCancel', onClickCancel)
-    console.log('action', action)
+    // console.log('onClickCancel', onClickCancel)
+    // console.log('style = ', styleModal)
 
     return(<div 
-            className={style[showPopup.container]}
+            className={styleModal[showPopup.container]}
         >
             <div
                 className={classNames({
-                    [style[showPopup.popup]]:true,
-                    [style[addClass]]: !!addClass
+                    [styleModal[showPopup.popup]]:true,
+                    [styleModal[addClass]]: !!addClass
                 })
                 }
-                // style={{
-                    //     width: 
-                    // }}
-                    >
+                style={style}
+            >
                 <div 
-                    className={style['modal-provider__close']}
+                    className={styleModal['modal-provider__close']}
                     onClick={closeModal}
                 ></div>
                 {
                     iconImage? 
-                        <div className={style['modal-provider__icon']} >
-                            <Icon src={iconImage} className={style['modal-provider__success-error']} height={20} width={20}/> 
+                        <div className={styleModal['modal-provider__icon']} >
+                            <Icon src={iconImage} className={styleModal['modal-provider__success-error']} height={20} width={20}/> 
                         </div>                        
                         : null
                 }
@@ -84,17 +83,17 @@ const ModalProviderView = ({
                 {
                     content?
                     <>
-                        <div className={style['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div>
-                        <div className={style['modal-provider__content']}>
+                        <div className={styleModal['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div>
+                        <div className={styleModal['modal-provider__content']}>
                                 {content}
                         </div>
                     </>
-                        : <Icon src={spinnerCart} className={style['modal-provider__spinner']} height={20} width={20}/>
+                        : <Icon src={spinnerCart} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
                 }
                
                 {
                     action?
-                        <div className={style['modal-provider__action-container']}>
+                        <div className={styleModal['modal-provider__action-container']}>
                             <Button 
                                 onClick={onClick}
                                 variant={'black_btn_full_width-modal'}

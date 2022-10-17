@@ -1,29 +1,48 @@
 import api from "../../api/api";
 import { ROLE } from "../../const";
 import { getActiveColor, getActiveSize } from "../../helpers/helpers";
+import Text from "../../helpers/Text";
+import { errorAlertIcon } from "../../images";
 
 export const cart = store => {
     const apiCart = api.cartApi
-    store.on('@init', ()=>({
-        cart_content: {
 
+    store.on('@init', () => ({ numberProductPastInCart: null }))
+    store.on('saveNumberProductAddToCart', ({ numberProductPastInCart }, obj, { dispatch }) => ({ numberProductPastInCart: obj.productId }))
+
+    store.on('@init', () => ({ numberCurrentOrderForAddProduct: null }));
+    store.on('setNumberOrderForAddProducts', ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+            // console.log({obj})
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataCart: {
+                        ...context.init_state.dataCart,
+                        valueButtonNextToOrder: obj.numberOrder === null ? Text({ text: 'go.to.registration' }) : 'Перейти к добавлению'
+                    },                  
+                    numberCurrentOrderForAddProduct: obj.numberOrder
+                },
+            }
+            dispatch('context', newContext)
+            return { numberCurrentOrderForAddProduct: obj.numberOrder }
+        } catch (err) {
+            console.log('ERROR', err)
         }
-    }))
-    store.on('getDataCart', async ({ context }, obj, { dispatch }) => {
+    })
+
+    store.on('getDataCart', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
-            if (context.init_state.profile.role === ROLE.UNREGISTRED ){
-                console.log('пользователь не зарегин нужен попап')
-                return
-            }
+           
+            const res = await apiCart.getCartData();
+
             let tempElement = true;
             let amountTrueItem = 0;
-
-            const res = await apiCart.getCartData();
             const valueEnableAllSelectFromServer = res.cartitem_set.reduce((prev, cur, index, arr) => {
                 const allCount = arr.length;
                 if (tempElement === cur.selected) amountTrueItem++
-                // console.log({amountTrueItem})
                 if (allCount === amountTrueItem) return true;
                 return false
             }, 0)
@@ -33,19 +52,21 @@ export const cart = store => {
                 "init_state": {
                     ...context.init_state,
                     dataCart: {
+                        ...context.init_state.dataCart,
+                        cartitem_set: res.cartitem_set,
+                        in_stock: res.in_stock,
                         ...res,
                         enableAllSelect: valueEnableAllSelectFromServer,
                         agreeWitheRegulations: false,
+                    },
+                    profile:{
+                        ...context.init_state.profile,
+                        cart: res.in_cart
                     }
                 },
-            }
-            console.log('STORE CONTEXT IN CART = ', 
-            {newContext}
-            
-            )
-            dispatch('context', newContext)
+            };
 
-            // console.log('result get data cart = ', res)
+            dispatch('context', newContext)
 
         } catch (err) {
             console.log('ERROR IN GET DATA CART STORE', err)
@@ -62,7 +83,7 @@ export const cart = store => {
 
             const params = [...obj];
             //?! необходимо реализовать выбирать добавлять и т.д. для опта
-            console.log({params})
+            console.log({ params })
             const res = await apiCart.updateCartData(params);
             const valueEnableAllSelectFromServer = res.cartitem_set.reduce((prev, cur, index, arr) => {
                 const allCount = arr.length;
@@ -77,7 +98,7 @@ export const cart = store => {
                 "init_state": {
                     ...context.init_state,
                     dataCart: {
-                        ...context.init_state.newDataCart,
+                        ...context.init_state.dataCart,
                         ...res,
                         cart_ids: res.cart_ids,
                         cartitem_set: res.cartitem_set,
@@ -134,10 +155,17 @@ export const cart = store => {
                             enableAllSelect: valueEnableAllSelectFromServer,
                             agreeWitheRegulations: false
                         },
+                        profile:{
+                            ...context.init_state.profile,
+                            cart: context.init_state.profile.cart - 1
+                        }
                     },
                 }
                 dispatch('context', newContext)
-                dispatch('getDataCart')
+                const timerSetTimeout = setTimeout(() => {
+                    dispatch('getDataCart')
+                    return clearTimeout(timerSetTimeout)
+                }, 1000)
             }
 
             if (res === 400) {
@@ -156,7 +184,6 @@ export const cart = store => {
         const { cartitem_set, enableAllSelect } = dataCart;
         let newCartItemSet = []
         let arrayForServerAllSelectItems = [];
-
         newCartItemSet = cartitem_set.map(el => ({ ...el, selected: !enableAllSelect }))
 
         arrayForServerAllSelectItems = newCartItemSet.map(el => ({
@@ -196,6 +223,7 @@ export const cart = store => {
             }
 
             const res = await apiCart.multipleDeleteFromCart({ items: params })
+
             const newDataCart = {
                 ...dataCart,
                 cartitem_set: dataCart.cartitem_set.map(el => !el.selected ? el : null).filter(el => el !== null)
@@ -222,10 +250,17 @@ export const cart = store => {
                             enableAllSelect: valueEnableAllSelectFromServer,
                             agreeWitheRegulations: false
                         },
+                        profile:{
+                            ...context.init_state.profile,
+                            cart: context.init_state.profile.cart - amountTrueItem
+                        }
                     },
                 }
                 dispatch('context', newContext)
-                dispatch('getDataCart')
+                const timerSetTimeout = setTimeout(() => {
+                    dispatch('getDataCart')
+                    return clearTimeout(timerSetTimeout)
+                }, 1000)
             }
 
             if (res === 400) {
@@ -256,12 +291,13 @@ export const cart = store => {
         dispatch('context', newContext)
     })
 
-    store.on('addToCart', async ({ context }, obj, { dispatch }) => {
+    store.on('addToCart', async ({ context, numberProductPastInCart }, obj, { dispatch }) => {
         // console.log({obj}, context.init_state)
         try {
             const { profile, productDetails } = context.init_state;
             const { role } = profile;
             const { colors, sizes } = productDetails;
+
             if (role !== ROLE.UNREGISTRED) {
                 let params = {
                     product: obj.productId,
@@ -269,40 +305,45 @@ export const cart = store => {
                     size: getActiveSize(sizes),
                     qty: productDetails?.in_cart_count + obj.count ?? 1,
                 };
-                
+
                 role === ROLE.WHOLESALE ? params = Object.assign({}, params, { add_product: true }) : null;
-                const res = await apiCart.addToCart(params);
+                const res = await apiCart.addToCart( params );
+                dispatch('saveNumberProductAddToCart', { productId: obj.productId })
                 const newContext = {
                     ...context,
                     "init_state": {
                         ...context.init_state,
                         profile: {
                             ...context.init_state.profile,
-                            cart: context.init_state.profile.cart + (obj.count ?? 1)
+                            cart: context.init_state.profile.cart + ( obj.count ?? 1 )
                         }
                     },
                 }
-                dispatch('context', newContext)
 
-                
-                if(obj.modalView){
+                    dispatch('context', newContext);
+
+                if ( obj.modalView ) {
                     dispatch('quickViewProduct', {
                         id: params.product,
-                      color: params.color,
-                      size: params.size
+                        color: params.color,
+                        size: params.size
                     })
-                }else{
-                    dispatch('getProductDetails',{
+                } else {
+                    dispatch('getProductDetails', {
                         productId: obj.productId,
                         color: colors,
                         size: sizes
                     })
                 }
 
-                const timerSetTimeout = setTimeout(()=>{
-                    dispatch('modalRedirectToCart')
-                    return clearTimeout(timerSetTimeout)
-                },1500)
+                if ( numberProductPastInCart !== obj.productId ) {
+                    const timerSetTimeout = setTimeout(() => {
+                        dispatch('modalRedirectToCart', {
+                            redirectTo: obj.redirectTo
+                        })
+                        return clearTimeout(timerSetTimeout)
+                    }, 1500)
+                }
 
             } else {
                 //?! необходимо сделать попап для что не зарегин и переход на авторизацию
@@ -313,10 +354,6 @@ export const cart = store => {
         }
 
 
-    })
-
-    store.on('', async ({ context }, obj, { dispatch }) => {
-        console.log('', { obj })
     })
 
 }

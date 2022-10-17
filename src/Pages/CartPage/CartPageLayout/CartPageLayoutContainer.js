@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
+import { ROLE } from '../../../const';
 import CartPageLayout from './CartPageLayout';
 
 const CartPageLayoutContainer = ({
+    numberCurrentOrderForAddProduct,
+    valueButtonNextToOrder,
     textConditionPayPart_1,
     textConditionPayPart_2,
     agreeWitheRegulations,
@@ -23,7 +27,18 @@ const CartPageLayoutContainer = ({
     role,
 }) => {
     const { dispatch } = useStoreon();
-
+    const navigate = useNavigate();
+    // if ( role === ROLE.UNREGISTRED){
+    //     dispatch('getDataCart',{
+    //         path: '/catalog',
+    //         redirectTo: (to) => {
+    //             const timerTimeout = setTimeout(()=>{
+    //               navigate(to);
+    //               return () => clearTimeout(timerTimeout);          
+    //             },100)
+    //           }
+    //     })
+    // }
     const deleteProductFromCart=(id)=>{
         const params = {
             id: id
@@ -41,7 +56,7 @@ const CartPageLayoutContainer = ({
         dispatch('updateInProductCard', params)
     }
 
-    const decCounterProduct=(id, qty, selected)=>{        
+    const decCounterProduct = (id, qty, selected) => {        
         if ( qty === 1 ) return;
         const params = [{
             id: id,
@@ -51,7 +66,7 @@ const CartPageLayoutContainer = ({
         dispatch('updateInProductCard', params)
     }
 
-    const incCounterProduct = (id, qty, selected)=>{
+    const incCounterProduct = (id, qty, selected) => {
         const params = [{
             id: id,
             qty: qty + 1,
@@ -65,6 +80,7 @@ const CartPageLayoutContainer = ({
    
     const openModalListAddCurrencyOrdering = () => {
         console.log('open list odering for shoose add products')
+        dispatch('modalOpenListForAddProduct')
     }
 
     const handleAgreeWitheRegulations = value => {
@@ -73,8 +89,10 @@ const CartPageLayoutContainer = ({
 
     return (
         <CartPageLayout
+        numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
         textConditionPayPart_1 = { textConditionPayPart_1 }
         textConditionPayPart_2 = { textConditionPayPart_2 }
+        valueButtonNextToOrder = { valueButtonNextToOrder }
         agreeWitheRegulations = { agreeWitheRegulations }
         recomendetProducts = { recomendetProducts }
         opt_minimum_price = { opt_minimum_price }

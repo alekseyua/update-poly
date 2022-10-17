@@ -388,7 +388,17 @@ export const payModalScheme = (errorsMessenge) => {
       .nullable()
       .matches(symbolReject, errorsMessenge.symbol)
       .required(errorsMessenge.requiredField),
-    cost: Yup.string().nullable().required(errorsMessenge.requiredField),
+    cost: Yup.mixed()
+      .test({
+         message: errorsMessenge.requiredNotCountMony,
+         test: (value, context )=> { 
+                  if ( value === 0 ){            
+                    return context.createError()
+                  }
+                  return Yup.string()
+          }
+    })
+    .required(errorsMessenge.requiredField),
     comment: Yup.string()
       .nullable()
       // .matches(symbolReject, errorsMessenge.symbol)
@@ -446,12 +456,14 @@ export const feedbackSheme = () => {
     files: Yup.mixed()
          .test({
           message: 'На данный момент система не поддерживает pdf формат',
-           test: (file, context) => {
-            const isValid = ['pdf'].includes(file?.name.split('.').pop());
-             if (isValid) context?.createError();
-             return !isValid;
+          test: (file, context) => {
+            console.log({file}, {context})
+            if (file === null) return true//Yup.string()
+            const isValid = ['pdf'].includes(file[0].name.split('.').pop());
+            if (isValid) context?.createError();
+            return !isValid;
           }
-          })
+          })//.required('Обязательное поле!')
 });
 };
 

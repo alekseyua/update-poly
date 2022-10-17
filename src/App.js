@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import routes from './routes/routes';
 import Layout from './Pages/Layout';
 import { useStoreon } from 'storeon/react';
@@ -12,6 +12,8 @@ const App = (props) => {
   const { context, goToPage, dispatch } = useStoreon('context', 'goToPage');
 
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [ currencyCurrencies, setCurrencyCurrencies ] = useState(null)
 
   useEffect(()=>{
@@ -21,7 +23,15 @@ const App = (props) => {
     if (!!location.search){
       path = `${location.pathname}${location.search}`;
     }
-    dispatch('getContextPage', path)
+    dispatch('getContextPage', {
+      url: path,
+      redirectTo: (path) => {
+        const timerTimeout = setTimeout(()=>{
+            navigate(path);
+            return () => clearTimeout(timerTimeout);
+        },2000)
+      }
+    })
   },[location.pathname, location.search, currencyCurrencies])
 
 
@@ -47,11 +57,7 @@ const App = (props) => {
         } 
 
       </Route>
-      {/* {
-        true?
-          <Route path="/cart" render={() => <Redirect to="/catalog" />} />
-          : null
-      } */}
+
     </Routes>
   )
 };

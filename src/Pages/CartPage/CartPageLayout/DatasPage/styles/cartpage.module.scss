@@ -323,7 +323,7 @@
         //.product-card__wrapper--delete{}
         &--delete{
             animation-name: delete-items;
-            animation-duration: .9s;
+            animation-duration: 1.9s;
             animation-direction: normal;
         }
     }
@@ -604,7 +604,15 @@
     20% {
         transform: translate(0%, 0);
     }
-    100%{
+    60%{
         transform: translate(-100%, 0);
+    }
+    80%{
+        transform: translate(-140%, 0);
+    }
+    100%{
+        transform: translate(-160%, 0);
+        opacity: 0;
+        visibility: hidden;
     }
 }

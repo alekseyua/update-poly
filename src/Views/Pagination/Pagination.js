@@ -8,12 +8,14 @@ import style from './pagination.module.scss';
  *  @count - max количество которое показывается или приходит по запросу
  *  @location - ореинтация на странице 'left', 'right', 'center'
  *  @handlerChangePaginations - функция запроса куда бегаем за данными
+ *  @currentPage - номер текущей траницы
  * } = props
  * @returns 
  */
 const Pagination = ({
     handlerChangePaginations,
     searchCount = 0,
+    currentPage = 1,
     allCount = 0,
     count = 0,
     ...props
@@ -21,14 +23,14 @@ const Pagination = ({
     // console.log('props =', props)
     const [activeStyle, setActiveStyle] = useState('pagination__item-active');
     const [dinamicLocation, setDinamicLocation] = useState('center');
-    const [elItems, setElItems] = useState(1)
+    const [elItems, setElItems] = useState(currentPage)
     const { } = props;
     let pages = Math.ceil((!!searchCount ? searchCount : allCount) / count);
     const listNumber = new Array(pages).fill('').map((_, i) => i + 1);
 
 
     useEffect(() => {
-        setElItems(1);
+        setElItems(currentPage);
         switch (props.location) {
             case 'left':
                 setDinamicLocation('start');
@@ -39,7 +41,7 @@ const Pagination = ({
             default:
                 setDinamicLocation('center')
         }
-    }, [])
+    }, [currentPage])
 
     useEffect(() => {
         // console.log('searchCount', searchCount)

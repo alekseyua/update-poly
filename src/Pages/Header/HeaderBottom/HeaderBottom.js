@@ -6,11 +6,14 @@ import HeaderButtonsBottomLK from './HeaderButtonsBottomLK/HeaderButtonsBottomLK
 import style from './headerbottom.module.scss';
 
 const HeaderBottom = ({
+    cabinet_menu,
+    currency,
+    profile,
     ...props
 }) => {
 //  console.log('headerBottom props',props )
- const { profile } = props;
-    return (
+
+return (
         <div
             className={classNames({
                 [style['bottom-header']]: true,
@@ -35,8 +38,9 @@ const HeaderBottom = ({
 
                 <HeaderButtonsBottomLK 
                     site_configuration={props.site_configuration}
-                    cabinet_menu={props.cabinet_menu}
-                    profile={profile}
+                    cabinet_menu = { cabinet_menu }
+                    currency = { currency }
+                    profile = { profile }
                 />
 
             </div>

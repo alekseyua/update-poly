@@ -24,6 +24,8 @@ import BlockSpinner from '../../../Views/SpinnerWrapper';
 
 
 const CartPageLayout = ({
+    numberCurrentOrderForAddProduct,
+    valueButtonNextToOrder,
     textConditionPayPart_1,
     textConditionPayPart_2,
     agreeWitheRegulations,
@@ -57,7 +59,7 @@ const CartPageLayout = ({
     decCounterProduct,
     incCounterProduct,
 }) => {
-    // console.log('recomendetProducts', recomendetProducts)
+    console.log('numberCurrentOrderForAddProduct', numberCurrentOrderForAddProduct)
 
 
 
@@ -134,7 +136,7 @@ const CartPageLayout = ({
                             : null
                     }
                     {
-                        (!!!cartitem_set.length && !!!in_stock.length) ?? profileInCart > 0  ?
+                        (!!!cartitem_set.length && !!!in_stock.length && profileInCart > 0 ) ?
                             <BlockSpinner.SpinnerWrapper>
                                 <BlockSpinner.SpinnerCenter>
                                     <BlockSpinner.Spinner sizeWidth='30' sizeHeight='30' />
@@ -296,15 +298,15 @@ const CartPageLayout = ({
                         </BlockRightSide>
 
                         { //?! кнопка добавлениея ксуществующему заказу
-                            !!listCurrentOrder.length ? (
+                            !!listCurrentOrder.count && profileInCart !== 0 ? (
                                 // front_admin ?
                                 <Button
                                     onClick={openModalListAddCurrencyOrdering}
                                     className={style['cart-page__add-products-in-order']}
                                 >
                                     {
-                                        checkLocalStorage('numOrder')?
-                                            `заказ № ${getLocalStorage('numOrder')}`
+                                        Number(numberCurrentOrderForAddProduct)?
+                                            `заказ № ${numberCurrentOrderForAddProduct}`
                                             : 'дополнить заказ'
                                     }
                                 </Button>
@@ -318,10 +320,10 @@ const CartPageLayout = ({
                         <LinkToFirmalization
                             enabled={agreeWitheRegulations && is_performed}
                             to={'/order'}
-                            onClick={handleGoToOrder}
-                            
+                            onClick={handleGoToOrder}                            
                         >
-                            <Text text={'go.to.registration'} />
+                            { valueButtonNextToOrder }
+                            {/* <Text text={'go.to.registration'} /> */}
                             {/* {valueButton} */}
                         </LinkToFirmalization>
 

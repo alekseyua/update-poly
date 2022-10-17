@@ -26,10 +26,13 @@
         padding: 0;
         width: 100px;
         height: 120px;
+        object-fit: contain;
     }
     //.add-to-cart__description-content{}
     &__description-content{
         padding: 0;
+        display: grid;
+        margin-left: 5px;
     }
     //.add-to-cart__price-container{}
     &__price-container{

@@ -5,14 +5,19 @@ import classNames from 'classnames';
 
 import style from './searchresultsdropdown.module.scss';
 
-const SearchResultsDropdown = (props) => {
-//const {currenssies, urlShowAll, urlNothingSearch} = props
+const SearchResultsDropdown = ({
+    search,
+    currency,
+    urlShowAll,
+    urlNothingSearch,
+    ...props
+}) => {
 
     return (
         <div className={style['search-result__dropdown']}>
             <ul className={style['search-result__list']}>
                 {
-                    props.search.map((el, i) => {
+                    search.map((el, i) => {
                         return (
                             <li className={style['search-result__items']}
                                 key={`search_id-${el.id}`}
@@ -23,13 +28,14 @@ const SearchResultsDropdown = (props) => {
                                     prices={el.prices}
                                     images={el.images}
                                     url={el.url}
-                                    currenssies={props.currenssies}
+                                    currency={currency}
                                 />
                             </li>
                         )
                     })
                 }
-                {props.search.length > 0 ? (
+                { 
+                search.length > 0 ? (
                         <div
                             className={classNames({
                                 [style['search-result__items']]: true,
@@ -37,7 +43,7 @@ const SearchResultsDropdown = (props) => {
                             })}
                         >
                             <Link
-                                to={props.urlShowAll}
+                                to={urlShowAll}
                             >
                                 Показать всё
                             </Link>
@@ -50,7 +56,7 @@ const SearchResultsDropdown = (props) => {
                                 [style['search-result__items-all']]: true,
                             })}
                             >
-                                <Link to={props.urlNothingSearch}>
+                                <Link to={urlNothingSearch}>
                                     Ничего не найдено
                                 </Link>
                             </div>

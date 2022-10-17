@@ -1,5 +1,7 @@
 import React from 'react';
 import YouHaveAlreadyWatchedViews from '../../../Views/YouHaveAlreadyWatchedViews';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
 import ProductCard from '../../ProductCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
@@ -13,6 +15,7 @@ const RecomendetProduct = ({ recommended = [], currency }) => {
   return (
     <YouHaveAlreadyWatchedViews.Wrapper title={'Рекомендуемое'}>
       <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
         navigation={recommended.length > 6}
         noSwiping
         spaceBetween={10}

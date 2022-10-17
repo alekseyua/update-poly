@@ -4,7 +4,7 @@ import OrdersPageLayoutContainer from './OrdersPageLayout/OrdersPageLayoutContai
 const OrdersPage = ({
     context
 }) => {
-    console.log({ OrdersPage: context })
+    // console.log({ OrdersPage: context })
 
     const {        
         cabinet_site_menu,

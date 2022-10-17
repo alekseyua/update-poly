@@ -69,7 +69,7 @@ const Authorization = (props) => {
         const timerTimeout = setTimeout(()=>{
           navigate(to);
           return () => clearTimeout(timerTimeout);          
-        },3000)
+        },1500)
       }
     }
     dispatch('setModalState', {

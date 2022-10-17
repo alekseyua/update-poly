@@ -201,10 +201,21 @@
   font-style: normal;
   font-weight: bold;
   font-size: 32px;
-  // font-family: Noto Sans;
   @extend %font;
-  // padding-top: 10px;
 }
+
+.cart-order{
+  @include h(2);
+  text-transform: uppercase;
+  color: $p;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  @extend %font-title;
+  text-align: center;
+  margin-top: 20px;
+}
+
 .news-details-page__title {
   @extend %font-title;
   font-style: normal;

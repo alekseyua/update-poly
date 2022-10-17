@@ -1,14 +1,14 @@
 import style from './productPrice.module.scss';
 
-const ProductPriceLayout = ({ price, oldPrice, currenssies }) => {
+const ProductPriceLayout = ({ price, oldPrice, currency }) => {
   return (
     <p className={style['product-price']}>
       <span className={style['product-price__price']}>
-        {price} {currenssies}
+        {price} {currency}
       </span>
       {oldPrice ? (
         <del className={style['product-price__prev-price']}>
-          {oldPrice} {currenssies}
+          {oldPrice} {currency}
         </del>
       ) : null}
     </p>

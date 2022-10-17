@@ -722,9 +722,15 @@
         },           
         "dataCart": {
             "cartitem_set":[],
-            "in_stock": []
+            "in_stock": [],
+            "valueButtonNextToOrder": "перейти к оформлению"
         },
-        "listCurrentOrder": [],
+        "listCurrentOrder": {
+            "count": 0,
+            "results": [],
+            "textButtonAddInOrder": "дополнить заказ"
+        },
+        "numberCurrentOrderForAddProduct": null,
         "youAlredyWatch": {
             
             "results": []
@@ -792,10 +798,16 @@
             }
         ],
         "announce": null,
-        "activeButton": 
-            {
-                "feedbackBtn": true
-            }
+        "activeButton":{
+                            "feedbackBtn": true
+                        },
+        "multy_choise_filters":{
+                                    "by_brand": [],
+                                    "by_categories": [],
+                                    "by_color": [],
+                                    "by_size": [],
+                                    "by_type": []
+                               }
     }
 
 }

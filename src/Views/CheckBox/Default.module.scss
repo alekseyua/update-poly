@@ -31,7 +31,8 @@
       width: 20px; // width: 25px для круглого
       height: 20px; // height: 25px для круглого
       transform-origin: center;
-      border: 2px solid $dg2;
+      border: 2px solid $back;
+      border-radius: 5px;
       // border-radius: 50%; // делает круглый 
       vertical-align: -6px;
       margin-right: 10px;
@@ -115,7 +116,7 @@
       span {
         background-color: #fff;
         transform: scale(1.25); // enlarge the box
-        border: 2px solid $dg2;
+        border: 2px solid $back;
 
         &:after {
           width: 10px;

@@ -15,6 +15,7 @@ import BlockSpinner from '../../../Views/SpinnerWrapper';
 import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
 import EnabledFilters from './CatalogFilters/EnabledFilters'
 import CardExportCatalog from "./CatalogFilters/CardExportCatalog";
+import Pagination from "../../../Views/Pagination";
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -62,6 +63,9 @@ const ExportCatalogLayout = ({
   checkIsShowCategorysAndProducType,
 
   onSelectedPhoto,
+  currentPage,
+  handlerChangePaginations,
+  showMore,
 }) => {
 
 
@@ -307,24 +311,34 @@ const ExportCatalogLayout = ({
                                   />
                                 );
                                 })
-                              : null
+                              : <BlockSpinner.SpinnerWrapper>
+                                <BlockSpinner.SpinnerCenter>
+                                  <BlockSpinner.Spinner sizeWidth="40" sizeHeight="40" />
+                                </BlockSpinner.SpinnerCenter>
+                              </BlockSpinner.SpinnerWrapper>
                             }
                           </CatalogViews.WrapperExportCard> 
 
-                      {/* {
-                          isNext ? (
-                            <Button full onClick={showMore} variant={'show_more'}>
-                              <Text text={'show.more'} />
-                            </Button>
-                          ) : null
-                          } */}
+                          {
+                            !!exportCatalog?.results.length?
+                              !!exportCatalog?.results.length  !== exportCatalog?.count ? (
+                                <Button full onClick={showMore} variant={'show_more'}>
+                                  <Text text={'show.more'} />
+                                </Button>
+                              ) : null
+                            : null
+                          }
 
-                      {/* <Pagination
-                            addClass={'left'}
-                            activePage={activePage}
-                            count={count}
-                            params={filterParams}
-                          /> */}
+                      {
+                      !!exportCatalog?.results.length?
+                        <Pagination
+                          location = {'center'}
+                          count = { 30 }
+                          allCount ={ exportCatalog?.count }
+                          currentPage = { currentPage ?? 1 }
+                          handlerChangePaginations = { handlerChangePaginations }
+                        /> : null
+                      }
                     </>
                     {/* )} */}
                   </CatalogViews.Catalog>

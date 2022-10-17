@@ -145,10 +145,12 @@ export const initValueCheckBoxFilters = {
   is_new: false,
   is_bestseller: false,
   is_closeout: false,
+
   is_import: true,
   is_polish: true,
   is_in_collection: false,
   is_not_range: false,
+  
   ordering: '',
   categories: [],
   brands: [],

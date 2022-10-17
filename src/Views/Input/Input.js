@@ -16,7 +16,7 @@ const Input = ({
   autofocus, 
   type = 'text', 
   placeholder, 
-  onChange, 
+  onChange,
   name, 
   autocomplete = 'off',
   helpText,
@@ -48,13 +48,6 @@ const Input = ({
     }
   };
 
-  useEffect(() => {
-    autofocus ?
-      inputRef.current.focus()
-      : inputRef.current.blur();
-  }, [autofocus])
-
-
   return (
     <>
       <label
@@ -71,6 +64,7 @@ const Input = ({
           autoComplete={autocomplete}
           type={type}
           autoFocus={autofocus}
+          onFocus={ autofocus? e => e.currentTarget.select() : null }
           className={style['input__input']}
           value={value}
           placeholder={placeholder}

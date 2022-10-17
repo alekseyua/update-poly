@@ -17,7 +17,7 @@ const CardWoasale = ({
   condition, 
   items, 
   isVisibleLine }) => {
-
+console.log('items', {items})
   return (
     <div className={style['wrapper-woosale']}>
       {/* <Link>
@@ -45,17 +45,21 @@ const CardWoasale = ({
           size,
           title,
           total_price,
+          product,
           url,
         } = el;
+
         return (
           <div className={style['order-card__wrapper']} key={id}>
             <div className={style['order-card__inner']}>
               <div className={style['order-card__imgage']}>
                 <div className={style['order-card__imgage-inner']}>
-                  <Link to={url}>
+                  <Link to={url.split('/').pop()}>
                     <div
                       className={style['order-card__img']}
-                      style={!!image? {backgroundImage: `url(${image})` } : { backgroundImage: `url(${categoryCard1})` }}
+                      style={!!product?.image? {backgroundImage: `url(${product?.image})` } 
+                              : !!image? {backgroundImage: `url(${image})` } 
+                                : { backgroundImage: `url(${categoryCard1})` }}
                     ></div>
                   </Link>
                 </div>
@@ -63,9 +67,9 @@ const CardWoasale = ({
 
               <div className={style['order-card__content-card']}>
                 <Link to={url}>
-                  <div className={style['order-card__content-card-title']}>{title}</div>
+                  <div className={style['order-card__content-card-title']}>{product?.title}</div>
                 </Link>
-                <div className={style['order-card__content-card-brand']}>{brand}</div>
+                <div className={style['order-card__content-card-brand']}>{product?.brand}</div>
 
                 <div className={style['order-card__content-card-info']}>
                   <div className={style['order-card__content-card-info-inner']}>
@@ -112,15 +116,19 @@ const CardWoasale = ({
                         <Text text="price" />
                         :&nbsp;
                       </span>
-                      <span>
-                        <span className={style['order-card__content-card-price--color']}>{price.toFixed(2)}</span>&nbsp;
-                        {currency}
-                      </span>
-                      {old_price ? (
-                        <span className={style['order-card__content-card-price--old']}>
-                          {old_price} {currency}
+                      <div
+                        className={style['order-card__content-card-price-inner']}
+                      >
+                        <span>
+                          <span className={style['order-card__content-card-price--color']}>{price.toFixed(2)}</span>&nbsp;
+                          {currency}
                         </span>
-                      ) : null}
+                        {old_price ? (
+                          <span className={style['order-card__content-card-price--old']}>
+                            {old_price} {currency}
+                          </span>
+                        ) : null}
+                      </div>
                     </div>
                     <div className={style['order-card__content-card-price']}>
                       <span>

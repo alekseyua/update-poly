@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImageUpload from '../../../ImageUpload';
 import Text from '../../../../helpers/Text';
-import Button from '../../../Button';
 
 import style from '../styles/addreview.module.scss';
 

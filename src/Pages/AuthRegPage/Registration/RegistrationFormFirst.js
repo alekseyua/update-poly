@@ -46,7 +46,7 @@ const RegistrationFormFirst = ({
           return (
             <Form id={'form-second-data'} onSubmit={handleSubmit}>
               <Input
-                autofocus={true}
+                autofocus
                 value={values.lastname}
                 variant={'largeCustomLabel'}
                 className={'input-mt_20'}

@@ -9,6 +9,7 @@ const OrderCar = ({
 	enabled,
 	styleCar,
 	setStyleCar,
+	numberCurrentOrderForAddProduct,
 
 	statusFildValue,
 	handlerSubmitOrder,
@@ -21,22 +22,24 @@ const OrderCar = ({
 			},7000)
 		}
 
-console.log('!values?.payment_methods', values?.payment_methods)
     return(
 		<ToolTip
 			content = {
-				!!!values?.payment_methods? 
-					`У Вас не выбран метод оплаты` 
-					: !!!values?.variant? 
-						`У Вас не выбран способ доставки` 
-						: !!!values?.selectedAdress?
-							`У Вас не выбран адрес доставки` 
-							: !!!values?.agree_personal_data?
-								`Отсутствует согласие на оформление заказа и с провами возрата`
-								: `Мы готовы оформить заказ`
+				!!numberCurrentOrderForAddProduct?
+					`Добавить товары в заказ № ${numberCurrentOrderForAddProduct}`
+					:!!!values?.payment_methods? 
+						`У Вас не выбран метод оплаты` 
+						: !!!values?.variant? 
+							`У Вас не выбран способ доставки` 
+							: !!!values?.selectedAdress?
+								`У Вас не выбран адрес доставки` 
+								: !!!values?.agree_personal_data?
+									`Отсутствует согласие на оформление заказа и с провами возрата`
+									: `Мы готовы оформить заказ`
 
 			}
 			placement={'top'}
+			local = {'top-center'}
 			trigger={!(styleCar === 'orderCar')?'hover': ''}
 		>
 			<div className = {'oder-main'}>
@@ -46,7 +49,7 @@ console.log('!values?.payment_methods', values?.payment_methods)
 					onClick = { lifehack }
 				>	
 					{
-						!!statusFildValue? 
+						!!numberCurrentOrderForAddProduct? 
 							(
 								<strong className = { 'default' } >{'Добавить товар в заказ'}</strong>
 							) : (

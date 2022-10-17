@@ -7,6 +7,7 @@ const OrderingPage = ({
     console.log({ OrderingPage: props.context })
     const { context } = props;
     const {
+        numberCurrentOrderForAddProduct,
         role_configuration,
         delivery_methods,
         payment_methods,
@@ -16,7 +17,7 @@ const OrderingPage = ({
         dataCart,
         currency,
         profile,
-        order,
+        order,  
     } = context;
 
     const {        
@@ -37,13 +38,14 @@ const OrderingPage = ({
     } = role_configuration;
 
     const shriveledCartContent = {
-        cart_items: dataCart.cartitem_set,
-        in_stock: dataCart.in_stock,
+        cart_items: dataCart.cartitem_set.filter( el => el.selected),
+        in_stock: dataCart.in_stock.filter( el => el.selected),
         selected: dataCart.selected,
     }
 
     return (
         <OrderingPageLayoutContainer
+            numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
             shriveledCartContent = { shriveledCartContent }
             delivery_condition = { delivery_condition }
             delivery_methods = { delivery_methods }

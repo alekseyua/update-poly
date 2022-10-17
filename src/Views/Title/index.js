@@ -20,7 +20,6 @@ const Title = ({
    *  @
    * }
    */
-  console.log({variant}, {type})
 
   const classes = classNames({
     [style[variant]]: !!variant,

@@ -12,7 +12,8 @@ const SearchInput = ({inputValue, searchInputShow, handlerChangeValue, handleCli
                 name={'input-search'}
                 className={style['input-search']}
                 placeholder={'Поиск'}
-                autofocus={searchInputShow}
+                // autofocus={searchInputShow}
+                autofocus
                 onChange={handlerChangeValue}
                 //  autocomplete={'off'}
                 //  variant={'large'}
