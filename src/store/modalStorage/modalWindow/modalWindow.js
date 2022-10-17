@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import * as React from "react";
 import api from "../../../api/api";
 import { ROLE } from "../../../const";
-import { feedbackSheme, payModalScheme } from "../../../helpers/schemesFormic";
+import { changeAddAddressSchema, feedbackSheme, payModalScheme } from "../../../helpers/schemesFormic";
 import Button from "../../../Views/Button";
 import Error from "../../../Views/Error";
 import ErrorField from "../../../Views/ErrorField";
@@ -21,6 +21,8 @@ import SubTitle from "../../../Views/InformationViews/HowTo/SubTitle";
 import InfoBalanse from "../../../Views/InfoBalance/InfoBalanse";
 import AddUploadFiles from "../../../Views/AddFiles";
 import { errorAlertIcon } from "../../../images";
+import PhoneField from "../../../Views/PhoneField";
+import TextUnderTitle from "../../../Views/TextUnderTitle";
 
 const contentApi = api.contentApi;
 const orderApi = api.orderApi;
@@ -68,7 +70,6 @@ export const feedback = async (onSubmit, dispatch, fullName, email) => {
                     name={'problem_area'}
                     value={values.problem_area}
                     onClick={e => {
-                      console.log({e})
                       setFieldValue('problem_area', e.target.getAttribute('value'))
                     }}
                     label={'Тематика обращения'}
@@ -454,4 +455,326 @@ export const textErrorMessage = ( error ) => {
         </BlockGrid.BlockMessage>
     </BlockGrid.Container>
   )
+}
+
+export const addAddressForPost = async ( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState ) => {
+  try{
+  const resCountry = await orderApi.getCountry();
+  const countryOptions = resCountry.map((el) => {
+        return {
+          value: el.id,
+          title: el.title,
+        };
+      })
+
+  console.log({countryOptions})
+
+  const defaultParamsInitData = {
+    city: '',
+    country: '',
+    first_name: '',
+    flat: '',
+    id: null,
+    last_name: '',
+    middle_name: '',
+    phone: '',
+    post_code: '',
+    profile: null,
+    street: '',
+    house: '',
+  };
+
+  const errorsMessenge = {
+    shortLastName: Text({ text: 'short.last.name' }),
+    longLastName: Text({ text: 'longLastName' }),
+    requiredField: Text({ text: 'requiredField' }),
+    longFirstname: Text({ text: 'long.first.name' }),
+    longPatronymic: Text({ text: 'long.patronymic' }),
+    phone: Text({ text: 'invalid.phone' }),
+    postcode: Text({ text: 'invalid.postcode' }),
+    maxLengthField: Text({ text: 'max.length.field' }),
+  };
+  const createAddress = async (data, setFieldError) => {
+    try{
+
+      const resCreateAddress = await orderApi.postOrderAddressDeliviry(data, profileId)
+      console.log({resCreateAddress})  
+    // .then((res) => {
+      //     console.log('res:', res)
+    //     closeModal();
+    //     setIsSaved(true);
+    //     setInititalValues(defaultParamsInitData);
+    //     updateAddressRenderData();
+    //   })
+    }catch(err){
+        console.log(err)
+        if(!!err?.data){
+          const {data} = err;
+          for (let key in data){
+            console.log('key:', key)
+            const element = data[key];
+            setFieldError('count', element);
+          }
+        }
+      }
+  };
+  const updateAddress = async (data) => {
+    try{
+
+      const resUpdateAddress = await orderApi.putByIdOrderAddressDeliviry(initialData.id, data)
+      // .then((res) => {
+      //   setIsSaved(true);
+      //   setInititalValues(defaultParamsInitData);
+      //   updateAddressRenderData();
+      //   closeModal();
+      // })
+      console.log({resUpdateAddress})
+    }catch(err){
+      console.error(`ERROR updateAddress`,err)
+    }
+  };
+  const onSubmit = (data, {setFieldError}) => {
+    console.log('setFieldError:', setFieldError)
+    if (typeModal === 'create') {
+      return createAddress(data,setFieldError);
+    } else if (typeModal === 'change') {
+      return updateAddress(data);
+    }
+  };
+
+  const openModalFeedback = () => {
+    dispatch('feedback')
+  }
+
+
+  return (
+    <Formik
+    enableReinitialize
+    validationSchema={changeAddAddressSchema(errorsMessenge)}
+    initialValues={defaultParamsInitData}
+    onSubmit={onSubmit}
+  >
+    {({ handleSubmit, handleChange, values, errors, setFieldValue, handleBlur, touched }) => {
+      console.log('errors:', errors)
+      return (
+        <Form onSubmit={handleSubmit}>
+           <BlockGrid.Container>
+              <TextUnderTitle>
+                  Если Вашей страны нет в списке, просьба создать запрос на добавление страны через 
+                  <span
+                    onClick = { openModalFeedback }
+                  > окно
+                  </span>
+                  обратной связи
+              </TextUnderTitle>
+            <BlockGrid.BlockAddAddressContainer>
+              <BlockGrid.BlockAddAddressLeftSide>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.lastname}
+                    name={'lastname'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.lastname && touched.lastname ? 'error' : ''}
+                    helpText={
+                      errors.lastname && touched.lastname ? (
+                        <ErrorField message={errors.lastname} />
+                      ) : null
+                    }
+                    label={Text({ text: 'lastname' })}
+                    placeholder={Text({ text: 'enterLastName' })}
+                    data-cy={'modal_add_address_lastname'}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.firstname}
+                    name={'firstname'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.firstname && touched.firstname ? 'error' : ''}
+                    helpText={ errors.firstname && touched.firstname ? <ErrorField message={errors.firstname} /> : null }
+                    label={Text({ text: 'firstname' })}
+                    placeholder={Text({ text: 'enterFirstName' })}
+                    data-cy={'modal_add_address_firstname'}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.patronymic}
+                    name={'patronymic'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.patronymic && touched.patronymic ? 'error' : ''}
+                    helpText = { errors.patronymic && touched.patronymic ?  <ErrorField message={errors.patronymic} /> : null }
+                    label={Text({ text: 'patronymic' })}
+                    placeholder={Text({ text: 'enterPatronymic' })}
+                    data-cy={'modal_add_address_patronymic'}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <PhoneField
+                    variant={'varian-input'}
+                    value={values.phone} 
+                    name={'phone'}
+                    onBlur={handleBlur}
+                    placeholder={Text({ text: 'enterPhone' })}
+                    autocomplete={'off'}
+                    label={Text({ text: 'mobPhone' })}
+                    onChange={(e) => {
+                      setFieldValue('phone', e.detail.formattedValue);
+                    }}
+                    className={errors.phone && touched.phone ? 'error' : ''}
+                    helpText = { errors.phone && touched.phone? <ErrorField message={errors.phone} /> : null }
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+              </BlockGrid.BlockAddAddressLeftSide>
+
+              <BlockGrid.BlockAddAddressRightSide>
+                <BlockGrid.BlockAddAddressCell>
+                  <Select
+                    className = { 'select-default' }
+                    value = { values.country }
+                    onBlur={handleBlur}
+                    variant = { 'largeCustomLabel' }
+                    name = { 'country' }
+                    placeholder = { Text({ text: 'enter.country' }) }
+                    label = { Text({ text: 'country' }) }
+                    onClick={e => {
+                      setFieldValue('country', e.target.getAttribute('value'))
+                    }}
+                    options={countryOptions}
+                  >
+                    {errors.country && touched.country ? (
+                      <ErrorField slot={'help-text'} message={errors.country} />
+                    ) : null}
+                  </Select>
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.postcode}
+                    name={'postcode'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.postcode && touched.postcode ? 'error' : ''}
+                    helpText={
+                      errors.postcode && touched.postcode ? (
+                        <ErrorField message={errors.postcode} />
+                      ) : null
+                    }
+                    label={Text({ text: 'postcode' })}
+                    placeholder={Text({ text: 'enter.postcode' })}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.city}
+                    name={'city'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.city && touched.city ? 'error' : ''}
+                    helpText={errors.city && touched.city ? <ErrorField message={errors.city} /> : null}
+                    label={Text({ text: 'city' })}
+                    placeholder={Text({ text: 'enter.city' })}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                <BlockGrid.BlockAddAddressCell>
+                  <Input
+                    value={values.street}
+                    name={'street'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={errors.street && touched.street ? 'error' : ''}
+                    helpText={
+                      errors.street && touched.street ? (
+                        <ErrorField message={errors.street} />
+                      ) : null
+                    }
+                    label={Text({ text: 'street' })}
+                    placeholder={Text({ text: 'enter.street' })}
+                  />
+                </BlockGrid.BlockAddAddressCell>
+
+                {/* <BlockGrid.FormRow> */}
+                  {/* <BlockGrid.FormColl> */}
+                    <BlockGrid.BlockAddAddressCell>
+                      <Input
+                        value={values.houseNumber}
+                        name={'houseNumber'}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={errors.houseNumber && touched.houseNumber ? 'error' : ''}
+                        helpText={errors.houseNumber && touched.houseNumber ? ( <ErrorField message={errors.houseNumber} />) : null}
+                        label={Text({ text: 'house.number' })}
+                        placeholder={Text({ text: 'enter.house.number' })}
+                        data-cy={'modal_add_address_house_number'}
+                      />
+                    </BlockGrid.BlockAddAddressCell>
+                  {/* </BlockGrid.FormColl> */}
+
+                  {/* <BlockGrid.FormColl> */}
+                    <BlockGrid.BlockAddAddressCell>
+                      <Input
+                        value={values.apartamentNumber}
+                        name={'apartamentNumber'}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                          errors.apartamentNumber && touched.apartamentNumber ? 'error' : ''
+                        }
+                        helpText={
+                          errors.apartamentNumber && touched.apartamentNumber ? (
+                            <ErrorField message={errors.apartamentNumber} />
+                          ) : null
+                        }
+                        label={Text({ text: 'apartament.number' })}
+                        placeholder={Text({ text: 'enter.apartaments.number' })}
+                        data-cy={'modal_add_address_apartament_number'}
+                      />
+                    </BlockGrid.BlockAddAddressCell>
+                  {/* </BlockGrid.FormColl> */}
+
+                {/* </BlockGrid.FormRow> */}
+
+              </BlockGrid.BlockAddAddressRightSide>
+
+              <BlockGrid.BlockAddAddressContainerButton>
+                
+                <Button
+                  className = {''}
+                  variant = { ''  }
+                >
+                  отменить
+                </Button>
+                
+                <Button
+                  className = {''}
+                  variant = { ''  }
+                >
+                  продолжить
+                </Button>
+
+              </BlockGrid.BlockAddAddressContainerButton>
+            </BlockGrid.BlockAddAddressContainer>
+
+            
+            <ErrorField message = { errors.count } />
+          </BlockGrid.Container>
+        </Form>
+      );
+    }}
+  </Formik>
+  )
+}catch(err){
+  console.log('ERROR function add Address', res)
+}
+
 }

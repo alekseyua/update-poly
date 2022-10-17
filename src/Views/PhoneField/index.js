@@ -5,11 +5,16 @@ import style from './styles/index.module.scss';
 const PhoneField = ({ variant, labelVariant, label, children, helpText = null, ...props }) => {
   return (
     <label className={style[labelVariant]}>
-      {label}
-      <Input className={style[variant]} {...props}>
+      {/* {label} */}
+      <Input 
+        label = { label }
+        className={style[variant]} 
+        {...props}
+      
+      >
         {children}
       </Input>
-      {helpText}
+      {/* {helpText} */}
     </label>
   );
 };

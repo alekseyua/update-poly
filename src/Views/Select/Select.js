@@ -89,10 +89,12 @@ const Select = ({
     <div
       className={style['select__container']}
       >
+        <label
+          className={style['select__label']}
+        >{label}</label>
       <div
         name={'select'}
         className={customClassName}
-        label={label}
         onClick={handlerChangeList}
       >
         <span>

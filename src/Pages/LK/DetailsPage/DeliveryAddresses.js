@@ -6,6 +6,7 @@ import { searchIcon } from '../../../images';
 import PersonalPageViews from '../../../Views/PersonalPageViews';
 import Input from '../../../Views/Input';
 import Icon from '../../../Views/Icon';
+import { useStoreon } from 'storeon/react';
 
 const initialState = { 
   addresses: [],
@@ -18,6 +19,7 @@ const DeliveryAddresses = ({
   profileId,
   addressDilivery,
 }) => {
+  const { dispatch } = useStoreon();
   const resultsAdress = addressDilivery?.results ?? [];
   const [modalStates, setModalStates] = useState({ show: false, content: null, initialData: {} });
   const [typeModal, setTypeModal] = useState('');
@@ -38,7 +40,7 @@ const DeliveryAddresses = ({
   };
 
   const createAddress = (data) => {
-
+    dispatch('modalAddAddress')
   };
 
   const searchAddressRenderData = (data) => {

@@ -3,6 +3,8 @@
 
 .export-card{
     max-height: 168px;
+    min-height: 168px;
+    height: 100%;
     width: 100%;
     position: relative;
     //.export-card__image{}

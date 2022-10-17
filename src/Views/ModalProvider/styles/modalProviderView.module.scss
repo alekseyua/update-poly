@@ -250,6 +250,10 @@
             width: calc(100% - 3px);
         }
     }
+    //.modal-add-address{}
+    &-add-address{
+        padding: 0;
+    }
 }
 
 @keyframes move-cart {

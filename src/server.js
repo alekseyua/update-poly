@@ -39,7 +39,7 @@ const jsScriptTagsFromAssets = (assets, entrypoint, ...extra) => {
 export const renderApp = async (req, res, next) => {
   try {
     // console.log('process.env.RAZZLE_PUBLIC_DIR =' , process.env.RAZZLE_PUBLIC_DIR)
-    console.log('__dirname' , req.path)
+    // console.log('__dirname' , req.path)
     global.document = document;
     global.document.cookie = req.headers.cookie;
     global.localStorage = { getItem: () => '' };

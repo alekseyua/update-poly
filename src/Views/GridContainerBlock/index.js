@@ -17,19 +17,36 @@ import BlockFeedback from './BlockFeedback/BlockFeedback';
 // форма пополнить баланс
 import BlockPayment from './BlockPayment/BlockPayment';
 // контейнер для сообщений в попапах
-import BlockMessage from './BlockMessage/BlockMessage'
+import BlockMessage from './BlockMessage/BlockMessage';
+// форма для добавления адресса доставки
+import BlockAddAddressContainer from './BlockAddAddress/BlockAddAddressContainer';
+import BlockAddAddressLeftSide from './BlockAddAddress/BlockAddAddressLeftSide';
+import BlockAddAddressRightSide from './BlockAddAddress/BlockAddAddressRightSide';
+import BlockAddAddressCell from './BlockAddAddress/BlockAddAddressCell';
+import BlockAddAddressContainerButton from './BlockAddAddress/BlockAddAddressContainerButton';
+
+ 
 
 
 export default {
+    BlockAddAddressContainerButton,
+    BlockAddAddressRightSide,
+    BlockAddAddressContainer,
+    BlockAddAddressLeftSide,
+    BlockAddAddressCell,
+
     BlockMessage,
     BlockPayment,
     BlockFeedback,
+
     GridPageLK,
     GridPageLeftLK,
     GridPageRightLK,
+
     CollPageContainer,
     CollPageLeft,
     CollPageRight,
+
     Container,
     Grid,
     WrapperBlock,

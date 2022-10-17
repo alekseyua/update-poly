@@ -2,12 +2,7 @@
 .varian {
   &-input {
     margin-bottom: 10px;
-    &::part(base) {
-    }
-    &::part(dropdown) {
-      display: none;
-    }
-    &::part(input) {
+      // display: none;
       padding-left: 10px;
       border-color: var(--gx-color-darkgray);
       border-width: 2px;
@@ -15,14 +10,10 @@
       height: 56px;
       width: 100%;
       box-sizing: border-box;
-    }
   }
   &-input_small {
     margin-bottom: 10px;
-    &::part(dropdown) {
-      display: none;
-    }
-    &::part(input) {
+      // display: none;
       padding-left: 10px;
       border-color: var(--gx-color-darkgray);
       border-width: 2px;
@@ -30,7 +21,6 @@
       height: 44px;
       width: 100%;
       box-sizing: border-box;
-    }
   }
 }
 

@@ -83,8 +83,6 @@ const HeaderButtonsBottomLK = ({
     // !?закрываем строку поиска при клике вне поля с поиском
     useEffect(()=>{
         const clickOutsideArea = (e) => {(
-                 console.log({e}, {a: searchBgRef.current}, {b: e.target.getAttribute('name')}),
-            //search__close
             setSearchInputShow(true),
             (      e.target.getAttribute('name') === 'search__close' 
                 || e.target.getAttribute('name') === 'product-price'

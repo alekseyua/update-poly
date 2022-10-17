@@ -61,6 +61,35 @@
     font-size: 20px;
     text-align: center;
   }
+  &-add-address {
+    //.block__add-address-conteiner{}
+    &__conteiner {
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+    //.block-add-address__left-side{}
+    &__left-side{
+      padding: 0;
+    }
+    //.block-add-address__cell{}
+    &__cell{
+      padding: 0;
+    }
+    //.block-add-address__container-button{}
+    &__container-button{
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      min-height: 100px;
+    }
+  }
 
 }
 

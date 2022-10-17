@@ -11,8 +11,16 @@
     padding: 3px;
     position: relative;
     width: 100%;
+    flex-direction: column;
   }
 
+  //.select__label{}
+  &__label{
+    font-size: calc($fontSize - 6px);
+    color: $p;
+    @extend %font;
+    margin: 0 0 3px 10px;
+  }
   //.select__body{}
   &__body {
     display: flex;

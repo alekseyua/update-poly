@@ -110,46 +110,9 @@ export const catalog = store => {
                 }
             }
 
-            // if (obj?.page > 1){
-            //     console.log({page11111: obj})
-            //     if(filters_params['is_import'] && !filters_params['is_polish']){
-            //         delete filters_params['is_polish']
-            //     }
-            //     if(filters_params['is_polish'] && !filters_params['is_import']){
-            //         delete filters_params['is_import']
-            //     }
-            //     if(filters_params?.is_import && filters_params?.is_polish){
-            //         delete filters_params['is_polish']
-            //         delete filters_params['is_import']
-            //     }
-            //     if(!filters_params?.is_import && !filters_params?.is_polish && filters_params?.is_polish !== undefined && filters_params?.is_import !== undefined){
-            //         filters_params['is_import'] = true
-            //         filters_params['is_polish'] = true
-            //     }
-                
-            //     if(filters_params['is_not_range'] && !filters_params['is_in_collection']){
-            //         delete filters_params['is_in_collection']
-            //     }
-            //     if(filters_params['is_in_collection'] && !filters_params['is_not_range']){
-            //         delete filters_params['is_not_range']
-            //     }
-            //     if(filters_params?.is_in_collection && filters_params?.is_not_range){
-            //         filters_params['is_not_range'] = true
-            //         filters_params['is_in_collection'] = true
-            //     }
-            //     if(!filters_params?.is_in_collection && !filters_params?.is_not_range && filters_params?.is_in_collection !== undefined && filters_params?.is_not_range !== undefined){
-            //         delete filters_params['is_in_collection']
-            //         delete filters_params['is_not_range']
-            //     }
-            //     params = {                     
-            //         ...filters_params,
-            //         page: obj?.page? obj.page : 1,
-            //         page_size: obj?.page_size? obj.page_size : 30,
-            //     }
-            // }
             obj?.page > 1 ? dispatch('setPage', { page: obj.page }) : dispatch('setPage', { page: 1 });
-            
             const products = await apiContent.getCatalogData(params);
+            
 
             const newContext = {
                 ...context,
@@ -169,8 +132,7 @@ export const catalog = store => {
 
                         categories: !!obj?.categories?.length ? obj.categories : []
                     },
-                    dataProducts: products,
-                    
+                    dataProducts: products,                    
                 }
             }
             dispatch('context', newContext)
@@ -184,7 +146,9 @@ export const catalog = store => {
             return true
 
         } catch (err) {
+            obj?.page > 1 ? dispatch('setPage', { page: obj.page - 1 }) : null
             console.log('ERROR getCatalog STORE', err)
+
         }
     })
 
