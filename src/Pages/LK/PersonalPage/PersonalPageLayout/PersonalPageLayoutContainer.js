@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStoreon } from 'storeon/react';
 import PersonalPageLayout from './PersonalPageLayout';
 
 const PersonalPageLayoutContainer = ({
@@ -24,6 +25,16 @@ const PersonalPageLayoutContainer = ({
             site_link, 
             vk_link,
 }) => {
+    const { dispatch } = useStoreon()
+    const updateDataUser = () => {
+  
+    }
+  
+    const changePhone = () => {
+        dispatch('changePhone'); 
+    }
+  
+    const changePassword = () => {}
 
     return (
         <>
@@ -49,6 +60,10 @@ const PersonalPageLayoutContainer = ({
             insta_link = { insta_link }
             first_name = { first_name }
             middle_name = { middle_name }
+
+            changePhone = { changePhone }
+            updateDataUser = { updateDataUser }
+            changePassword = { changePassword }
         />
         </>
     )

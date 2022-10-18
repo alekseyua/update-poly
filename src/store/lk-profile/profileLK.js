@@ -43,8 +43,7 @@ export const profileLK = store => {
       } catch (err) {
           console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', err);
       }
-  })
-
+    })
 
     store.on('deleteAddresDelivery', async ({  context }, obj, { dispatch }) => {
 
@@ -69,9 +68,7 @@ export const profileLK = store => {
       }
 
       dispatch('context', newContext)
-    } )
-
-    
+    })    
     
     store.on('searchAddress', async ({  context }, obj, { dispatch }) => {
       try{
@@ -118,7 +115,7 @@ export const profileLK = store => {
       console.log('ERROR get data search', err)
     }
     
-    } )
+    })
 
     store.on('moreAddress', async ({ context }, obj, { dispatch }) => {
       try {
@@ -154,5 +151,6 @@ export const profileLK = store => {
       } catch (err) {
           console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', err);
       }
-  })
+    })
+
 }

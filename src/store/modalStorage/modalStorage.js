@@ -1,6 +1,6 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
@@ -8,7 +8,7 @@ import { errorAlertIcon, successAlertIcon } from '../../images';
 
 
 const contentApi = api.contentApi;
-
+const apiUser = api.userApi;
 /**
  * @param {
  *  show: boolean 
@@ -342,6 +342,33 @@ export const modalStorage = store => {
                 onClick: () => closeModalState()
             })
         }
+    })
+
+    store.on('changePhone', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const { id } = context.init_state.profile.user;
+        const userId = id;
+        const changePhoneNewPhone = async (data) => {
+            const res = await apiUser.updatePhone(data.userId, {
+                phone: data.phone,
+            })
+            console.log({res})
+            closeModalState()
+        }
+            
+        dispatch('setModalState',{
+            show: true,
+            title: 'Смена номера телефона',
+            // content: await changePhoneFunc(changePhoneNewPhone, userId),
+            content: 'Данный ресурс находиться в разработке, для изменения номера воспользуйтесь "Формой обратной связи"',
+            action: {
+                title: ['Обратная связь', 'Отмена']
+            },
+            addClass: 'modal-change-phone',
+            onClick: () => dispatch('feedback'),
+            onClickCancel: closeModalState
+        })
+
+
     })
     
 }

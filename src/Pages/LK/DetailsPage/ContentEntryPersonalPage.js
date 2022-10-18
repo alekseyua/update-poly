@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
+import Phone from 'react-phone-number-input'
 import PersonalPageViews from '../../../Views/PersonalPageViews';
 import { changeUserDataSchema } from '../../../helpers/schemesFormic';
 import Input from '../../../Views/Input';
@@ -11,6 +12,8 @@ import ErrorField from '../../../Views/ErrorField';
 import { ROLE } from '../../../const';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import { igIcon, vkIcon } from '../../../images';
+import Labels from '../../../Views/ProductDetailsViews/Labels/Labels';
+import SubTitle from '../../../Views/InformationViews/HowTo/SubTitle';
 
 const ContentEntryPersonalPage = ({
   email, 
@@ -23,7 +26,13 @@ const ContentEntryPersonalPage = ({
   vk_link,
 
   role,
+
+  changePhone,
+  updateDataUser,
+  changePassword,
 }) => {
+    
+  const isSaved = false
 
      const isConcatReqFildsFromRole = false
   
@@ -54,6 +63,8 @@ const ContentEntryPersonalPage = ({
        vk: vk_link? vk_link : '',
        instagram: insta_link? insta_link : '',
        otherSocialLink: site_link? site_link : '',
+       changePhone: changePhone,
+       changePassword: changePassword
      };  
  
      const checkRoleForAddFields = ({
@@ -64,19 +75,6 @@ const ContentEntryPersonalPage = ({
       if (role === ROLE.DROPSHIPPER || ROLE.RETAIL === role) result = false;
       return result;
     }
-    
-     const onSubmit = () => {
-  
-     }
-  
-     const changePhone = () => {}
-  
-     const changePassword = () => {}
-  
-     const isSaved = false
-  
-
-
 
   if(role === ROLE.UNREGISTRED){
     return (
@@ -95,7 +93,7 @@ const ContentEntryPersonalPage = ({
            <Formik
             validationSchema={changeUserDataSchema(errorsMessenge, checkRoleForAddFields(role))}
             initialValues={initialValues}
-            onSubmit={onSubmit}
+            onSubmit={updateDataUser}
           >
              {({ handleSubmit, handleChange, values, errors, setValues }) => {
                return (
@@ -149,24 +147,42 @@ const ContentEntryPersonalPage = ({
                        </PersonalPageViews.FormColl>
 
                        <PersonalPageViews.FormColl>
-                         <PersonalPageViews.FormGroup>
-                           <Input
-                             disabled
+                         <p>
+                          Номер телефона
+                         </p>
+                         <PersonalPageViews.FormGroup phone>
+                           {/* <Input
                              readonly
                              name = { 'phone' }
                              value = { values.phone }
                              label = { 'Номер телефона' }
                              placeholder = { '+7 (   )  ' }
-                             onChange={handleChange}
-                           >
+                             onChange = { handleChange }
+                           > */}
+                           <Phone
+                              disabled
+
+                              placeholder="Введите номер телефона"
+                              value = { values.phone }
+                              onChange = { phone => {
+                                console.log({phone})
+                                setValues({
+                                ...values,
+                                'phone': phone} ) }}
+                              defaultCountry = {'RU'}
+                              smartCaret = { true }
+                              limitMaxLength = { true }
+                              className = { 'form-input-number-phone-lk'}                        
+                            />
                              <Button
-                               onClick={changePhone}
-                               variant={'cabinet-linkblue'}
-                               slot={'suffix'}
+                               onClick = { () => values.changePhone( values.phone ) }
+                               type = { 'button' }
+                               variant = { 'cabinet-linkblue' }
+                               slot = { 'suffix' }
                              >
                                Сменить номер
                              </Button>
-                           </Input>
+                           {/* </Phone> */}
                          </PersonalPageViews.FormGroup>
 
                          <PersonalPageViews.FormGroup>
@@ -249,56 +265,6 @@ const ContentEntryPersonalPage = ({
                              ></Input>
                            </PersonalPageViews.FormGroup>
                          </PersonalPageViews.FormColl>
-
-                         {/* <PersonalPageViews.FormColl>
-                           <PersonalPageViews.FormGroup>
-                             <Input
-                               value={values.vk}
-                               name={'vk'}
-                               autocomplete={'off'}
-                               onChange={handleChange}
-                               className={errors.vk ? 'error' : ''}
-                               helpText={errors.vk ? <ErrorField message={errors.vk} /> : null}
-                               label={'VK *'}
-                               placeholder={'Ссылка на профиль '}
-                             >
-                               <Icon src={vkIcon} alt="" slot={'suffix'} height={20} width={20} />
-                             </Input>
-                           </PersonalPageViews.FormGroup>
-                           <PersonalPageViews.FormGroup>
-                             <Input
-                               value={values.instagram}
-                               name={'instagram'}
-                               autocomplete={'off'}
-                               onChange={handleChange}
-                               className={errors.instagram ? 'error' : ''}
-                               helpText={
-                                 errors.instagram ? <ErrorField message={errors.instagram} /> : null
-                               }
-                               label={'Instagram *'}
-                               placeholder={'Ссылка на профиль '}
-                             >
-                               <Icon src={igIcon} alt="" slot={'suffix'} height={20} width={20} />
-                             </Input>
-                           </PersonalPageViews.FormGroup>
-                           <PersonalPageViews.FormGroup>
-                             <Input
-                               value={values.otherSocialLink}
-                               name={'otherSocialLink'}
-                               autocomplete={'off'}
-                               onChange={handleChange}
-                               className={errors.otherSocialLink ? 'error' : ''}
-                               helpText={
-                                 errors.otherSocialLink ? (
-                                   <ErrorField message={errors.otherSocialLink} />
-                                 ) : null
-                               }
-                               label={'Другая соц. сеть *'}
-                               placeholder={'Ссылка на профиль '}
-                             >
-                             </Input>
-                           </PersonalPageViews.FormGroup>
-                         </PersonalPageViews.FormColl> */}
                        </PersonalPageViews.FormRow>
                      ) : null
                      
@@ -345,11 +311,7 @@ const ContentEntryPersonalPage = ({
                                   autocomplete={'off'}
                                   onChange={handleChange}
                                   className={errors.otherSocialLink ? 'error' : ''}
-                                  helpText={
-                                    errors.otherSocialLink ? (
-                                      <ErrorField message={errors.otherSocialLink} />
-                                    ) : null
-                                  }
+                                  helpText={  errors.otherSocialLink ?  <ErrorField message={errors.otherSocialLink} />  : null }
                                   label={'Другая соц. сеть *'}
                                   placeholder={'Ссылка на профиль '}
                                 >
@@ -362,11 +324,11 @@ const ContentEntryPersonalPage = ({
                      }
                      
                      {/* END bottom Row */}
-                     <PersonalPageViews.FormBottom onClickChangePassword={changePassword}>
+                     <PersonalPageViews.FormBottom onClickChangePassword = { values.changePassword } >
                        <Button 
                         type={'submit'} 
                         variant = {'cabinet_default'} 
-                      >
+                       >
                          <Text text={'save'} />
                          {!isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
                        </Button>

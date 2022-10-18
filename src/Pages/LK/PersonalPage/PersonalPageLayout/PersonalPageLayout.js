@@ -29,7 +29,10 @@ const PersonalPageLayout = ({
     insta_link, 
     site_link, 
     vk_link,
-
+    
+    changePhone,
+    updateDataUser,
+    changePassword,
 }) => {
 
     console.log('is_has_shop', !!!is_has_shop)
@@ -62,7 +65,11 @@ const PersonalPageLayout = ({
                             site_link = { site_link }
                             insta_link = { insta_link }
                             first_name = { first_name }
-                            middle_name = { middle_name }          
+                            middle_name = { middle_name }        
+                            
+                            changePhone = { changePhone }
+                            updateDataUser = { updateDataUser }
+                            changePassword = { changePassword }
                         />
                         <DeliveryAddresses
                             addressDilivery = { addressDilivery }

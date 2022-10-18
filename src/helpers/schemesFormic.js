@@ -273,11 +273,6 @@ export const changeAddAddressSchema = (errorsMessenge) => {
   });
 }
 export const changePhoneSchema = (errorsMessenge, isShowFildKey) => {
-  if (isShowFildKey) {
-    return Yup.object().shape({
-      key: Yup.string().nullable().required(errorsMessenge.requiredField),
-    });
-  }
   return Yup.object().shape({
     phone: Yup.string()
       .nullable()
