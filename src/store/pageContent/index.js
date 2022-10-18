@@ -14,7 +14,6 @@ export const pageContent = store => {
     store.on('@init', () => ({ context: initData }));
 
     store.on('context', ({ context, countWishList, page }, data) => {
-         console.log({page})
     const currency = getCookie(COOKIE_KEYS.CURRENCIES)
 
         return { context: { 
@@ -633,29 +632,20 @@ export const pageContent = store => {
                 const paramsAddress = {
                     page: 1
                 }
-                
-                const initialValues = {
-                    // lastname: user.last_name,
-                    // firstname: user.first_name,
-                    // patronymic: user.middle_name,
-                    // phone: user.phone,
-                    // email: user.email,
-                    // receiveNewsletters: profile.receive_newsletter,
-                    // inn: organization?.inn,
-                    // companyName: organization?.organization,
-                    // addresSite: links.site_link,
-                    // vk: links.vk_link,
-                    // instagram: links.insta_link,
-                    // otherSocialLink: links.other_link,
-                  };
-
-
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
+                        order: {
+                            ...context.init_state.order,
+                            addressDilivery: {
+                                ...context.init_state.order.addressDilivery,
+                                textSearch: '',
+                                currentPage: 1,
+                            },
+                        },
                         numberCurrentOrderForAddProduct: null,
                         
                     },

@@ -736,7 +736,11 @@
             "results": []
         },
         "order":{
-            "addressDilivery": {},
+            "addressDilivery": {
+                "count": 0,
+                "results": [],
+                "textSearch": ""
+            },
             "orders": {
                 "count": 0,
                 "results": [],

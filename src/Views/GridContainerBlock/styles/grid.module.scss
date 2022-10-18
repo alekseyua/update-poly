@@ -62,13 +62,13 @@
     text-align: center;
   }
   &-add-address {
-    //.block__add-address-conteiner{}
+    //.block-add-address__conteiner{}
     &__conteiner {
       padding: 0;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-
+      margin-bottom: 15px;
       @include mobile {
         grid-template-columns: 1fr;
       }
@@ -99,7 +99,7 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      min-height: 100px;
+      min-height: 58px;
       @include mobile {
         flex-direction: column;
         padding: 10px;
@@ -118,6 +118,19 @@
       }
 
 
+    }
+    //.block-add-address__additional-info{}
+    &__additional-info{
+      padding: 0;
+      &>span{
+        margin: 0 0 0 5px;
+        color: $a2;
+        &:hover{
+          color: $a;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
     }
   }
 

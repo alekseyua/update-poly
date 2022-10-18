@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PersonalPageLayoutContainer from './PersonalPageLayout/PersonalPageLayoutContainer';
 
 
@@ -16,8 +16,18 @@ const PersonalPage = ({
     } = context;
 
     const { user = {}, role, balance, organization, links } = profile;
+    const email = user?.email;
+    const first_name = user?.first_name;
+    const last_name = user?.last_name;
+    const middle_name = user?.middle_name;
+    const phone = user?.phone;
+    const insta_link = links?.insta_link;
+    const site_link = links?.site_link;
+    const vk_link = links?.vk_link;
     const { addressDilivery } = order;
     const { username } = user;
+
+
 
     return (
         <>
@@ -35,9 +45,15 @@ const PersonalPage = ({
            links = { links } 
            shop = { shop }
            role = { role }
-           user = { user }
-           
 
+           email = { email }
+           phone = { phone }
+           vk_link = { vk_link }
+           last_name = { last_name }
+           site_link = { site_link }
+           insta_link = { insta_link }
+           first_name = { first_name }
+           middle_name = { middle_name }
         />
         </>
     )

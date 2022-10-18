@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Text from '../../../helpers/Text';
-import qs from 'query-string';
 import { searchIcon } from '../../../images';
 
 import PersonalPageViews from '../../../Views/PersonalPageViews';
 import Input from '../../../Views/Input';
 import Icon from '../../../Views/Icon';
 import { useStoreon } from 'storeon/react';
+import Pagination from '../../../Views/Pagination';
+import Button from '../../../Views/Button';
 
 const initialState = { 
   addresses: [],
@@ -21,9 +22,6 @@ const DeliveryAddresses = ({
 }) => {
   const { dispatch } = useStoreon();
   const resultsAdress = addressDilivery?.results ?? [];
-  const [modalStates, setModalStates] = useState({ show: false, content: null, initialData: {} });
-  const [typeModal, setTypeModal] = useState('');
-  const [search, setSearch] = useState('');
   const [state, setState] = useState(initialState);
 
   console.log({resultsAdress})
@@ -49,21 +47,29 @@ const DeliveryAddresses = ({
   };
 
   const handleChangeSearchInput = (data) => {
-   console.log({q: data})
-    
+    console.log({q: data})
+    dispatch('searchAddress', {q: data.target.value})
   };
 
+  const handlerChangePaginations = (page) => {
+    dispatch('getAdresses', {
+      page: page
+    })
+  }
 
-  const initialFilters = { page: 1, page_size: 5, ...qs.parse(search) };
+  const showMore = () => {
+    console.log(addressDilivery?.results.length, addressDilivery?.count)
+    dispatch('moreAddress')
+  }
 
-  return (
+ return (
     <PersonalPageViews.WrapperForm>
       <div  dataintro="step10">
         <PersonalPageViews.HeaderFormDefaultTitle title={Text({ text: 'address.delivery' })} />
         <PersonalPageViews.FormBlockContent>
           <PersonalPageViews.FormGroup>
             <Input
-              value={search}
+              value={addressDilivery.textSearch}
               name={'searchAddress'}
               autocomplete={'off'}
               onChange={handleChangeSearchInput}
@@ -101,7 +107,21 @@ const DeliveryAddresses = ({
             } 
           </PersonalPageViews.AdresesWrapper>
         
-            {/* <Pagination allCount={state.count} searchCount={state.search.length} count={30} location={'center'} handlerChange={updateAddressRenderData} /> */}
+         {
+           addressDilivery?.results.length < addressDilivery?.count && addressDilivery?.currentPage * 30 < addressDilivery?.count? (
+             <Button full onClick = { showMore } variant = { 'show_more' }>
+               <Text text = { 'show.more' } />
+             </Button>
+           ) : null
+         }
+
+         <Pagination
+           location = { 'center' }
+           count = { 30 }
+           allCount = { addressDilivery?.count }
+           currentPage={ addressDilivery?.currentPage ?? 1}
+           handlerChangePaginations = { handlerChangePaginations }
+         />
 
         </PersonalPageViews.FormBlockContent>
       </div>

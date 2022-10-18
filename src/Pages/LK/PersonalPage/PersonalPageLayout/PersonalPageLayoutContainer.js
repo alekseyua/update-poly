@@ -13,9 +13,16 @@ const PersonalPageLayoutContainer = ({
             profile,
             balance,
             shop,
-            role,
-            links,
-            user,
+            role,     
+
+            email, 
+            first_name, 
+            last_name, 
+            middle_name, 
+            phone,
+            insta_link, 
+            site_link, 
+            vk_link,
 }) => {
 
     return (
@@ -24,17 +31,24 @@ const PersonalPageLayoutContainer = ({
             cabinet_site_menu = { cabinet_site_menu }
             addressDilivery = { addressDilivery }
             cabinet_menu = { cabinet_menu }
+            organization={organization}
             breadcrumbs = { breadcrumbs }
             create_shop = { create_shop }
             is_has_shop = { is_has_shop }
-            profile = { profile }
             username = { username }
+            profile = { profile }
             balance = { balance }
             shop = { shop }
             role = { role }
-            user={user}
-            organization={organization}
-            links={links} 
+
+            email = { email }
+            phone = { phone }
+            vk_link = { vk_link }
+            last_name = { last_name }
+            site_link = { site_link }
+            insta_link = { insta_link }
+            first_name = { first_name }
+            middle_name = { middle_name }
         />
         </>
     )

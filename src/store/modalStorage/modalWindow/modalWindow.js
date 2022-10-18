@@ -544,7 +544,7 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
           for (let key in data){
             console.log('key:', key)
             const element = data[key];
-            setFieldError('count', element);
+            setFieldError( key, element);
           }
         }
       }
@@ -607,6 +607,7 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
   }
 
 
+
   return (
     <Formik
     validationSchema = { changeAddAddressSchema(errorsMessenge) }
@@ -614,18 +615,30 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
     onSubmit = { onSubmit }
   >
     {({ handleSubmit, handleChange, values, errors, setFieldValue, handleBlur, touched }) => {
-
+      console.log({values},{errors},
+        !!values.city , !!values.country , !!values.first_name , !!values.last_name , !!values.phone , !!values.post_code , !!values.street , !!values.house
+        )
+      let enadledNext = true
+      if (!!values.city && !!values.country && !!values.first_name && !!values.last_name  && !!values.phone && !!values.post_code && !!values.street && !!values.house){
+        enadledNext = false
+      }else{
+        enadledNext = true
+      }
+      // handleChange = (e) => {
+      //   console.log({e})
+      // }
       return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit = { handleSubmit }>
            <BlockGrid.Container>
               <TextUnderTitle>
+                <BlockGrid.BlockAddAddressAdditionalInfo>
                   Если Вашей страны нет в списке, просьба создать запрос на добавление страны через 
                   <span
                     onClick = { openModalFeedback }
-                    className={''}
                   > 
                     окно обратной связи
                   </span>
+                </BlockGrid.BlockAddAddressAdditionalInfo>
               </TextUnderTitle>
             <BlockGrid.BlockAddAddressContainer>
               <BlockGrid.BlockAddAddressLeftSide>
@@ -635,13 +648,7 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
                     value={values.last_name}
                     name={'last_name'}
                     autofocus
-                    onChange={
-                      e => {
-                        console.log({e: e.target.value})
-                        setFieldValue('last_name', e.target.value)
-                        // handleChange(e)
-                      }
-                    }
+                    onChange = { handleChange }
                     onBlur={handleBlur}
                     className={errors.last_name && touched.last_name ? 'error' : ''}
                     helpText={
@@ -664,7 +671,7 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
                     onBlur={handleBlur}
                     className={errors.first_name && touched.first_name ? 'error' : ''}
                     helpText={ errors.first_name && touched.first_name ? <ErrorField message={errors.first_name} /> : null }
-                    label={Text({ text: 'first_name' })}
+                    label={Text({ text: 'firstname' })}
                     placeholder={Text({ text: 'enterFirstName' })}
                     data-cy={'modal_add_address_firstname'}
                   />
@@ -809,18 +816,21 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
               </BlockGrid.BlockAddAddressRightSide>
 
             </BlockGrid.BlockAddAddressContainer>
+                {
+                  errors.message_button? (
+                      <Error message = { errors.message_button } />
+                  ) : null
+                }
               <BlockGrid.BlockAddAddressContainerButton>
-                
                 <Button
-                  className = {''}
                   variant = { 'catalog-link-transparent__modal'  }
-                  onClick = {()=>closeModalState()}
+                  onClick = { () => closeModalState() }
                 >
                   отменить
                 </Button>
                 
                 <Button
-                  className = {''}
+                  disabled = { enadledNext }
                   variant = { 'catalog-link-uppercase'  }
                 >
                   продолжить
@@ -828,8 +838,6 @@ export const addAddressForPost = async ( currency, first_name, last_name, middle
 
               </BlockGrid.BlockAddAddressContainerButton>
 
-            
-            <ErrorField message = { errors.count } />
           </BlockGrid.Container>
         </Form>
       );

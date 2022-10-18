@@ -166,6 +166,7 @@
   //.cabinet-addresses{}
   &-addresses {
     @include row(10);
+    margin-top: 10px;
   }
   //.cabinet-address{}
   &-address {

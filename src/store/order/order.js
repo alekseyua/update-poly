@@ -9,66 +9,31 @@ export const order = store => {
     const orderApi = api.orderApi;
     const apiCart = api.cartApi
 
-    store.on('getAdresses', async ({ context }, obj, { dispatch }) => {
-        try {
+    // store.on('searchAddressDilivery', ({ context }, obj, { dispatch }) => {
+    //     try {
+    //         const paramsSearch = {
+    //             q: obj.q
+    //         }
 
-            const params = {
-                page: obj?.page ?? 1
-            }
+    //         const res = orderApi.getOrderAddressSearch(paramsSearch)
 
-            const res = await orderApi.getOrderAddressDeliviry(params);
+    //         const newContext = {
+    //             ...context,
+    //             "init_state": {
+    //                 ...context.init_state,
+    //                 order: {
+    //                     ...context.init_state.order,
+    //                     addressDilivery: res
+    //                 }
+    //             }
+    //         }
 
-            const newContext = {
-                ...context,
-                "init_state": {
-                    ...context.init_state,
-                    order: {
-                        ...context.init_state.order,
-                        addressDilivery: res
-                    }
-                }
-            }
+    //         dispatch('context', newContext)
 
-            dispatch('context', newContext);
-            if (obj?.country){
-                const timerTimeout = setTimeout(() => {
-                    const paramsGetCountryDelivery = {
-                        country: obj?.country
-                    }
-                    dispatch('getCountryDeliviry', paramsGetCountryDelivery);
-                    return () => clearTimeout(timerTimeout);
-                }, 400)
-            }
-        } catch (err) {
-            console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', err);
-        }
-    })
-
-    store.on('searchAddressDilivery', ({ context }, obj, { dispatch }) => {
-        try {
-            const paramsSearch = {
-                q: obj.q
-            }
-
-            const res = orderApi.getOrderAddressSearch(paramsSearch)
-
-            const newContext = {
-                ...context,
-                "init_state": {
-                    ...context.init_state,
-                    order: {
-                        ...context.init_state.order,
-                        addressDilivery: res
-                    }
-                }
-            }
-
-            dispatch('context', newContext)
-
-        } catch (err) {
-            console.log('ERROR SEARCH ADDRESS DILIVERY = ', res);
-        }
-    })
+    //     } catch (err) {
+    //         console.log('ERROR SEARCH ADDRESS DILIVERY = ', res);
+    //     }
+    // })
 
     store.on('getCountryDeliviry', async ({ context }, obj, { dispatch }) => {
         try {

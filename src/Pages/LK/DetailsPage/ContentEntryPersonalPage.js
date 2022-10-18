@@ -12,62 +12,71 @@ import { ROLE } from '../../../const';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import { igIcon, vkIcon } from '../../../images';
 
-
-const checkRoleForAddFields = (role) => {
-  let result = true;
-  if (role === ROLE.DROPSHIPPER || ROLE.RETAIL === role) result = false;
-  return result;
-};
-
-
-
-   const isConcatReqFildsFromRole = false
-
-   const errorsMessenge = {
-     shortLastName: Text({ text: 'short.last.name' }),
-     longLastName: Text({ text: 'longLastName' }),
-     requiredField: Text({ text: 'requiredField' }),
-     longFirstname: Text({ text: 'long.first.name' }),
-     longPatronymic: Text({ text: 'long.patronymic' }),
-     email: Text({ text: 'notValidEmail' }),
-     phone: Text({ text: 'invalid.phone' }),
-     shortCompanyName: Text({ text: 'shortCompanyName' }),
-     inn: Text({ text: 'invalid.inn' }),
-     shortInn: Text({ text: 'shortInn' }),
-     longInn: Text({ text: 'longInn' }),
-   };
-
-   const initialValues = {
-     lastname: '',
-     firstname: '',
-     patronymic: '',
-     phone: '',
-     email: '',
-     receiveNewsletters: '',
-     inn: '',
-     companyName: '',
-     addresSite: '',
-     vk: '',
-     instagram: '',
-     otherSocialLink: '',
-   };
-
-   const onSubmit = () => {
-
-   }
-
-   const changePhone = () => {}
-
-   const changePassword = () => {}
-
-   const isSaved = false
-
-
 const ContentEntryPersonalPage = ({
-  profile,
+  email, 
+  first_name, 
+  last_name, 
+  middle_name, 
+  phone,
+  insta_link, 
+  site_link, 
+  vk_link,
 
   role,
 }) => {
+
+     const isConcatReqFildsFromRole = false
+  
+     const errorsMessenge = {
+       shortLastName: Text({ text: 'short.last.name' }),
+       longLastName: Text({ text: 'longLastName' }),
+       requiredField: Text({ text: 'requiredField' }),
+       longFirstname: Text({ text: 'long.first.name' }),
+       longPatronymic: Text({ text: 'long.patronymic' }),
+       email: Text({ text: 'notValidEmail' }),
+       phone: Text({ text: 'invalid.phone' }),
+       shortCompanyName: Text({ text: 'shortCompanyName' }),
+       inn: Text({ text: 'invalid.inn' }),
+       shortInn: Text({ text: 'shortInn' }),
+       longInn: Text({ text: 'longInn' }),
+     };
+  
+     const initialValues = {
+       lastname: last_name,
+       firstname: first_name,
+       patronymic:   middle_name, 
+       phone: phone,
+       email: email,
+       receiveNewsletters: '',
+       inn: '',
+       companyName: '',
+       addresSite: '',
+       vk: vk_link? vk_link : '',
+       instagram: insta_link? insta_link : '',
+       otherSocialLink: site_link? site_link : '',
+     };  
+ 
+     const checkRoleForAddFields = ({
+
+      role,
+    }) => {
+      let result = true;
+      if (role === ROLE.DROPSHIPPER || ROLE.RETAIL === role) result = false;
+      return result;
+    }
+    
+     const onSubmit = () => {
+  
+     }
+  
+     const changePhone = () => {}
+  
+     const changePassword = () => {}
+  
+     const isSaved = false
+  
+
+
 
   if(role === ROLE.UNREGISTRED){
     return (
@@ -132,9 +141,7 @@ const ContentEntryPersonalPage = ({
                              autocomplete={'off'}
                              onChange={handleChange}
                              className={errors.patronymic ? 'input__error' : ''}
-                             helpText={
-                               errors.patronymic ? <ErrorField message={errors.patronymic} /> : null
-                             }
+                             helpText={ errors.patronymic ? <ErrorField message={errors.patronymic} /> : null }
                              label={Text({ text: 'patronymic' })}
                              placeholder={'Укажите отчество'}
                            ></Input>
@@ -144,12 +151,13 @@ const ContentEntryPersonalPage = ({
                        <PersonalPageViews.FormColl>
                          <PersonalPageViews.FormGroup>
                            <Input
-                             value={values.phone}
-                             name={'phone'}
                              disabled
                              readonly
-                             label={'Номер телефона'}
-                             placeholder={'+7 (   )  '}
+                             name = { 'phone' }
+                             value = { values.phone }
+                             label = { 'Номер телефона' }
+                             placeholder = { '+7 (   )  ' }
+                             onChange={handleChange}
                            >
                              <Button
                                onClick={changePhone}
@@ -242,7 +250,7 @@ const ContentEntryPersonalPage = ({
                            </PersonalPageViews.FormGroup>
                          </PersonalPageViews.FormColl>
 
-                         <PersonalPageViews.FormColl>
+                         {/* <PersonalPageViews.FormColl>
                            <PersonalPageViews.FormGroup>
                              <Input
                                value={values.vk}
@@ -288,10 +296,9 @@ const ContentEntryPersonalPage = ({
                                label={'Другая соц. сеть *'}
                                placeholder={'Ссылка на профиль '}
                              >
-                               {/* <Icon src={fbIcon} alt="" slot={'suffix'} /> */}
                              </Input>
                            </PersonalPageViews.FormGroup>
-                         </PersonalPageViews.FormColl>
+                         </PersonalPageViews.FormColl> */}
                        </PersonalPageViews.FormRow>
                      ) : null
                      
@@ -356,7 +363,10 @@ const ContentEntryPersonalPage = ({
                      
                      {/* END bottom Row */}
                      <PersonalPageViews.FormBottom onClickChangePassword={changePassword}>
-                       <Button type={'submit'} variant={'cabinet_default'}>
+                       <Button 
+                        type={'submit'} 
+                        variant = {'cabinet_default'} 
+                      >
                          <Text text={'save'} />
                          {!isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
                        </Button>

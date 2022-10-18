@@ -18,10 +18,18 @@ const PersonalPageLayout = ({
     username,
     balance,
     profile,
-    links,
     shop,
-    user,
     role,
+
+    email, 
+    first_name, 
+    last_name, 
+    middle_name, 
+    phone,
+    insta_link, 
+    site_link, 
+    vk_link,
+
 }) => {
 
     console.log('is_has_shop', !!!is_has_shop)
@@ -46,8 +54,15 @@ const PersonalPageLayout = ({
 
                         <BlockGrid.GridPageRightLK>
                         <ContentEntryPersonalPage
-                            profile={profile}  
-                            role = { role }           
+                            role = { role }
+                            email = { email }
+                            phone = { phone }
+                            vk_link = { vk_link }
+                            last_name = { last_name }
+                            site_link = { site_link }
+                            insta_link = { insta_link }
+                            first_name = { first_name }
+                            middle_name = { middle_name }          
                         />
                         <DeliveryAddresses
                             addressDilivery = { addressDilivery }
@@ -56,9 +71,9 @@ const PersonalPageLayout = ({
                         {
                             !!!is_has_shop ? (
                                 <CreateStore
-                                    className={'mobile'}
-                                    role={role}
-                                    create_shop={'/sozdanie-internet-magazina'} //create_shop
+                                    role = { role } 
+                                    className = { 'mobile' }
+                                    create_shop = { '/sozdanie-internet-magazina' } //create_shop
                                 />
                             ) : null
                         } 

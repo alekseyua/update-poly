@@ -265,6 +265,10 @@ export const modalStorage = store => {
          * @typeModal - 'create' or 'change'
          */
         try{
+            dispatch('setModalState', {
+                title: 'Адрес доставки',
+                show: true,
+            })
             const typeModal = obj?.typeModal;
             const profileId = context.init_state.profile?.id;
             const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;
@@ -303,6 +307,10 @@ export const modalStorage = store => {
          * @typeModal - 'create' or 'change'
          */
         try{
+            dispatch('setModalState', {
+                title: 'Адрес доставки',
+                show: true,
+            })
             const typeModal = 'change';
             const profileId = context.init_state.profile?.id;
             const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;

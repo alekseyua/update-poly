@@ -251,12 +251,23 @@ export const changeAddAddressSchema = (errorsMessenge) => {
       .max(20, errorsMessenge.maxLengthField)
       .required(errorsMessenge.requiredField),
     flat: Yup.string().nullable().max(20, errorsMessenge.maxLengthField),
-    disableNext: Yup.mixed()
+    message_button: Yup.mixed()
       .test({
         message: 'На данный момент Вы не заполнили все Обязательные поля',
-        test: (el, f, context) => {
-          console.log({el}, {f}, { context })
-          
+        test: (el, context) => {
+         if( context.parent.city !== undefined ||
+          context.parent.country !== undefined ||
+          context.parent.first_name !== undefined ||
+          context.parent.flat !== undefined ||
+          context.parent.house !== undefined ||
+          context.parent.last_name !== undefined ||
+          context.parent.middle_name !== undefined ||
+          context.parent.phone !== undefined ||
+          context.parent. post_code !== undefined ||          
+          context.parent.street !== undefined ){
+            return true
+          }
+          return false
         }
       })
   });

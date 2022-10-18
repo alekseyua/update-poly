@@ -330,7 +330,7 @@ const CatalogPageLayout = ({
 
 
                        {
-                          dataProducts?.results.length  < dataProducts?.count ? (
+                          dataProducts?.results.length  < dataProducts?.count && currentPage * 30 < dataProducts?.count? (
                             <Button full onClick={showMore} variant={'show_more'}>
                               <Text text={'show.more'} />
                             </Button>
