@@ -99,7 +99,7 @@ const TypeProductFilters = ({
               label={el.title}
               data-cy={`categoriesCheckBox-${el.id}`}
             ></CheckBox>
-            <CatalogViews.CountItemsCheckBox>{el.count ?? 0}</CatalogViews.CountItemsCheckBox>
+            <CatalogViews.CountItemsCheckBox>{el.count ?? ''}</CatalogViews.CountItemsCheckBox>
           </CatalogViews.LayoutCheckBoxItem>
         );
       })}

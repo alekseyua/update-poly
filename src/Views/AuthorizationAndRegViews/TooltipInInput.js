@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './styles/toolTip.module.scss';
+import style from './styles/tooltip.module.scss';
 import classNames from 'classnames';
 const TooltipInInput = ({ content, children, trigger, local, ...props }) => {
 

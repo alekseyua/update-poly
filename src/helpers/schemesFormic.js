@@ -214,25 +214,26 @@ export const changeUserDataSchema = (errorsMessenge, isConcatReqFildsFromRole) =
 
 export const changeAddAddressSchema = (errorsMessenge) => {
   return Yup.object().shape({
-    lastname: Yup.string()
+    last_name: Yup.string()
       .nullable()
       .max(20, errorsMessenge.maxLengthField)
       .required(errorsMessenge.requiredField),
-    firstname: Yup.string()
+    first_name: Yup.string()
       .nullable()
       .max(20, errorsMessenge.maxLengthField)
       .required(errorsMessenge.requiredField),
-    patronymic: Yup.string()
+    middle_name: Yup.string()
       .nullable()
       .max(20, errorsMessenge.maxLengthField),
       // .required(errorsMessenge.requiredField),
     phone: Yup.string() 
       .nullable()
-      .max(20, errorsMessenge.maxLengthField),
-      // .matches(phoneRegExp, errorsMessenge.phone)
-      // .required(errorsMessenge.requiredField),
+      .min(5,errorsMessenge.minLengthField)
+      .max(20, errorsMessenge.maxLengthField)
+      .matches(phoneRegExp, errorsMessenge.phone)
+      .required(errorsMessenge.requiredField),
     country: Yup.string().nullable().required(errorsMessenge.requiredField),
-    postcode: Yup.string()
+    post_code: Yup.string()
       .nullable()
       .matches(postcodeRegExp, errorsMessenge.postcode)
       .max(20, errorsMessenge.maxLengthField)
@@ -245,13 +246,21 @@ export const changeAddAddressSchema = (errorsMessenge) => {
       .nullable()
       // .max(40, errorsMessenge.maxLengthField)
       .required(errorsMessenge.requiredField),
-    houseNumber: Yup.string()
+    house: Yup.string()
       .nullable()
       .max(20, errorsMessenge.maxLengthField)
       .required(errorsMessenge.requiredField),
-    apartamentNumber: Yup.string().nullable().max(20, errorsMessenge.maxLengthField),
+    flat: Yup.string().nullable().max(20, errorsMessenge.maxLengthField),
+    disableNext: Yup.mixed()
+      .test({
+        message: 'На данный момент Вы не заполнили все Обязательные поля',
+        test: (el, f, context) => {
+          console.log({el}, {f}, { context })
+          
+        }
+      })
   });
-};
+}
 export const changePhoneSchema = (errorsMessenge, isShowFildKey) => {
   if (isShowFildKey) {
     return Yup.object().shape({

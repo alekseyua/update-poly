@@ -261,15 +261,20 @@ export const modalStorage = store => {
     })
 
     store.on('modalAddAddress', async ({ context, closeModalState }, obj, { dispatch }) => {
+        /**
+         * @typeModal - 'create' or 'change'
+         */
         try{
-
+            const typeModal = obj?.typeModal;
+            const profileId = context.init_state.profile?.id;
             const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;
+
             const { currency } = context.init_state;
             
             dispatch('setModalState',{
                 show: true,
                 title: 'Адрес доставки',
-                content: await addAddressForPost( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState ),
+                content: await addAddressForPost( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context ),
                 addClass: 'modal-add-address'
             })
         }catch(err){
@@ -292,5 +297,44 @@ export const modalStorage = store => {
             })
         }
     })
+
+    store.on('modalChangeAddress', async ({ context, closeModalState }, obj, { dispatch }) => {
+        /**
+         * @typeModal - 'create' or 'change'
+         */
+        try{
+            const typeModal = 'change';
+            const profileId = context.init_state.profile?.id;
+            const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;
+            const { idAddress } = obj;
+            const { currency } = context.init_state;
+            
+            dispatch('setModalState',{
+                show: true,
+                title: 'Адрес доставки',
+                content: await addAddressForPost( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context, idAddress ),
+                addClass: 'modal-add-address'
+            })
+        }catch(err){
+            console.log('ERROR popup add address', err)
+            let error = ['Ошибка на сервере, попробуйте позже!']
+                    
+            if (err?.data){
+                const errors = err.data;
+                        error.push(`${errors[0]}`)
+            }
+
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    
 }
 

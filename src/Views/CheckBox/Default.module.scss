@@ -9,6 +9,9 @@
     width: 100%;
     display: flex;
     align-items: center;
+    @include mobile {
+      margin-bottom: 10px;
+    }
   }
 
   //.checkbox__label{}

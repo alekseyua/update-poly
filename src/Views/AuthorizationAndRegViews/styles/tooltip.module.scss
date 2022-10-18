@@ -1,0 +1,76 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/fonts/index.scss';
+
+.toolTip {
+
+    //.toolTip__wrapper{}
+    &__wrapper {
+        position: relative;
+
+        //.toolTip__wrapper-trigger{}
+        &-trigger {
+            background-color: transparent;
+            top: 17px;
+            position: absolute;
+            left: 24px;
+            width: 20px;
+            height: 20px;
+            z-index: 2;
+
+            &:hover {
+                cursor: pointer;
+                .tooltip {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    //.toolTip__container{}
+    &__container {
+        position: relative;
+        &:hover {
+            .toolTip__tooltip{
+                // position: relative;
+                opacity: 1;
+                visibility: visible;
+            }
+
+        }
+    }
+
+    //.toolTip__tooltip{}
+    &__tooltip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: absolute;
+        bottom: 0;
+        margin-top: 29px;
+        right: 5px;
+        width: 30px;
+        height: auto;
+        background-color: var(--gx-color-white);
+        font-size: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.11);
+        border: 2px solid var(--gx-color-gray);
+        padding: 10px 7px;
+        min-width: 160px;
+        // transform: translate(-234px, -66px);
+        font-size: 12px;
+        @extend %font;
+        visibility: hidden;
+        opacity: 0;
+        transition: .6s all cubic-bezier(.9, .03, .69, .22);
+        @include mobile {
+            transform: translate(-24px, -66px);
+        }
+    }
+}
+
+.top-center{
+    left: 50%;
+    transform: translate(0%, -42px);
+}

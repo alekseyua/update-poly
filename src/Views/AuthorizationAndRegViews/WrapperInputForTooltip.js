@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TooltipInInput from './TooltipInInput'
-import style from './styles/toolTip.module.scss';
+import style from './styles/tooltip.module.scss';
 import classNames from 'classnames';
 
 const WrapperInputForTooltip = ({ children, local='top', content = "", trigger = "click" }) => {

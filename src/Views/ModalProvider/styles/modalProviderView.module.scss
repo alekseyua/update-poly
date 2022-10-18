@@ -152,7 +152,7 @@
         font-size: 30px;
         text-align: center;
         @include mobile{
-            width: calc(100% - 30px);
+            // width: calc(100% - 30px);
         }
     }
 
@@ -168,7 +168,7 @@
         margin-bottom: 25px;
         @include scrollbar;
         @include mobile{
-            width: calc(100% - 30px);
+            // width: calc(100% - 30px);
         }
     }
 
@@ -253,6 +253,10 @@
     //.modal-add-address{}
     &-add-address{
         padding: 0;
+        width: 75vw;
+        @include mobile{
+            width: 100vw;
+        }
     }
 }
 

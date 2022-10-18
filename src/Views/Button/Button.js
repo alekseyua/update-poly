@@ -60,6 +60,7 @@ const Button = ({
   onClickIcon,
   classNameIcon,
   datanoClick,
+  value,
   ...props
 }) => {
 
@@ -132,6 +133,7 @@ const Button = ({
           !href ?
             <button
               id = { id }
+              value = { value }
               className={customClassName}
               datanoclick={datanoClick}
               disabled={disabled}
@@ -142,6 +144,7 @@ const Button = ({
             </button>
             : <Link
               id = { id }
+              value = { value }
               to='#'
               className={customClassName}
               disabled={disabled}
@@ -153,6 +156,7 @@ const Button = ({
           !href ?
             <button
               id = { id }
+              value = { value }
               onClick={onClick}
               className={customClassName}
               datanoclick={datanoClick}
@@ -163,6 +167,7 @@ const Button = ({
             </button>
             : <Link
               id = { id }
+              value = { value }
               to={`${href}`}
               target={target}
               datanoclick={datanoClick}

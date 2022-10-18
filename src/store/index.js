@@ -19,8 +19,10 @@ import { cart } from './cart/cart';
 import { order } from './order/order';
 import { notifications } from './notifications/notifications';
 import { balance } from './balance/balance';
+import { profileLK } from './lk-profile/profileLK';
 
 export const store = createStoreon([
+    profileLK,
     balance,
     notifications,
     order,

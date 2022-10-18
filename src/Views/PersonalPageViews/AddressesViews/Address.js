@@ -32,7 +32,8 @@ const Address = (props) => {
         <div className={style['cabinet-address__phone']}>{phone}</div>
         <div className={style['cabinet-address__actions']}>
           <Button
-            onClick={() => changeAddress(props)}
+            id = { id }
+            onClick={(e) => changeAddress(+e.target.id)}
             variant={'cabinet-change__address'}
             className={style['cabinet-address__link--blue']}
             data-cy={'change_address_button'}
@@ -40,7 +41,8 @@ const Address = (props) => {
             <Text text={'change'} />
           </Button>
           <Button
-            onClick={() => deleteAddress(id)}
+            value = {id}
+            onClick={(e) => deleteAddress(+e.target.value)}
             variant={'cabinet-delete__address'}
             className={style['cabinet-address__link--blue']}
             data-cy={'delete_address_button'}

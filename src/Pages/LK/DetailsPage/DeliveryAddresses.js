@@ -26,28 +26,30 @@ const DeliveryAddresses = ({
   const [search, setSearch] = useState('');
   const [state, setState] = useState(initialState);
 
+  console.log({resultsAdress})
   const updateAddressRenderData = (page=1) => {
    
   };
 
 
-  const changeAddress = (data) => {
-  
+  const changeAddress = (id) => {
+    dispatch('modalChangeAddress', {idAddress: +id})
   };
 
   const deleteAddress = (id) => {
-   
+   dispatch('deleteAddresDelivery', { idAddress: +id })
   };
 
-  const createAddress = (data) => {
+  const createAddress = () => {
     dispatch('modalAddAddress')
   };
 
   const searchAddressRenderData = (data) => {
-   
+   console.log({q1: data})
   };
 
   const handleChangeSearchInput = (data) => {
+   console.log({q: data})
     
   };
 

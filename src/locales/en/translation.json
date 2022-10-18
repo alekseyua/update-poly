@@ -325,6 +325,7 @@
   "otpravleno": "We have send code on number",
   "noSMS": "No see SMS?",
   "max.length.field": "Maximum field length 40 characters",
+  "max.length.field20": "Maximum field length 20 characters",
   "long.comments": "Too long comment",
   "short.comments": "Too short comment",
   "short.domain": "Too short domain name",

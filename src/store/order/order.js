@@ -13,14 +13,10 @@ export const order = store => {
         try {
 
             const params = {
-                page: obj.page
+                page: obj?.page ?? 1
             }
 
             const res = await orderApi.getOrderAddressDeliviry(params);
-
-            console.log('results get address for dilivery = ',
-                { res }
-            )
 
             const newContext = {
                 ...context,
@@ -34,17 +30,17 @@ export const order = store => {
             }
 
             dispatch('context', newContext);
-
-            const timerTimeout = setTimeout(() => {
-                const paramsGetCountryDelivery = {
-                    country: obj.country
-                }
-                dispatch('getCountryDeliviry', paramsGetCountryDelivery);
-                return () => clearTimeout(timerTimeout);
-            }, 400)
-
+            if (obj?.country){
+                const timerTimeout = setTimeout(() => {
+                    const paramsGetCountryDelivery = {
+                        country: obj?.country
+                    }
+                    dispatch('getCountryDeliviry', paramsGetCountryDelivery);
+                    return () => clearTimeout(timerTimeout);
+                }, 400)
+            }
         } catch (err) {
-            console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', res);
+            console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', err);
         }
     })
 
