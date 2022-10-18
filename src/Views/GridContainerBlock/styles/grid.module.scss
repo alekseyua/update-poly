@@ -80,6 +80,18 @@
     //.block-add-address__cell{}
     &__cell{
       padding: 0;
+      //.block-add-address__cell--container{}
+      &--container{
+        padding: 0;
+        display: flex;justify-content: space-between;
+        &>div{
+          flex: 0 1 45%;
+          &>div>input::placeholder{
+            font-size: 14px;
+          }
+        }
+        
+      }
     }
     //.block-add-address__container-button{}
     &__container-button{
@@ -88,6 +100,24 @@
       align-items: center;
       justify-content: space-evenly;
       min-height: 100px;
+      @include mobile {
+        flex-direction: column;
+        padding: 10px;
+        &>button{
+          margin: 0;
+          min-width: 280px;
+          max-width: 280px;
+          &:not(:last-child){
+            margin-bottom: 10px;
+          }
+        }
+      }
+      &>button{
+        margin: 0;
+        max-width: 300px;        
+      }
+
+
     }
   }
 
