@@ -1,11 +1,12 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
 import { errorAlertIcon, successAlertIcon } from '../../images';
 import Text from '../../helpers/Text';
+import SubTitle from '../../Views/InformationViews/HowTo/SubTitle';
 
 
 const contentApi = api.contentApi;
@@ -251,8 +252,13 @@ export const modalStorage = store => {
         }
     })
 
-    store.on('modalCheckPayment', async ({ context, closeModalState }, obj, { dispatch }) => {
-        const { order_id, balance, total_price, first_name, last_name, middle_name, redirectTo } = obj;
+    store.on('modalCheckPayment', async ({ context, closeModalState }, obj , { dispatch }) => {
+        const { first_name, last_name, middle_name } = context.init_state.profile.user;
+        
+        const balance = obj?.balance;
+        const total_price = obj?.total_price;
+        const order_id = obj?.order_id;
+        const redirectTo = obj?.redirectTo;
         const { currency } = context.init_state;
 
         dispatch('setModalState', {
@@ -477,6 +483,21 @@ export const modalStorage = store => {
         })
     })
         
+    store.on('modalGetMyCach', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const { first_name, last_name, middle_name } = context.init_state.profile.user;
+        const redirectTo = obj?.redirectTo;
+        try{
+            console.log({first_name})
+            dispatch('setModalState',{
+                show: true,
+                title: <SubTitle>Данные для возврата денежных средств:</SubTitle>,
+                content: await getMyCash(first_name, last_name, middle_name, dispatch, redirectTo, closeModalState),
+                addClass: 'modal-get-my-cash'
+            })
 
+        }catch(err){
+            console.log('ERROR getMyCach FROM BALANCE', err)
+        }
+    })
 }
 

@@ -48,15 +48,7 @@ const InformationRewievsLayoutComtainer = ({ title, breadcrumbs, reviews, insta_
   };
 
   const openModalAddReview = () => {
-    //?! необходимо реализовать добавление отзыва
-    dispatch('setModalState',{
-      show: true,
-      content: (
-        <>start add reviews</>
-      )
-
-    })
-    console.log('open modal add review')
+    dispatch('addReview')
   };
 
   const handlerSelectFilter = (e) => {

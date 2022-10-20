@@ -3,7 +3,7 @@ import * as React from "react";
 import Phone from 'react-phone-number-input'
 import api from "../../../api/api";
 import { ROLE } from "../../../const";
-import { changeAddAddressSchema, changePhoneSchema, feedbackSheme, payModalScheme } from "../../../helpers/schemesFormic";
+import { changeAddAddressSchema, changePhoneSchema, feedbackSheme, GetMyCacheModalContentShema, payModalScheme } from "../../../helpers/schemesFormic";
 import Button from "../../../Views/Button";
 import Error from "../../../Views/Error";
 import ErrorField from "../../../Views/ErrorField";
@@ -21,7 +21,7 @@ import Text from "../../../helpers/Text";
 import SubTitle from "../../../Views/InformationViews/HowTo/SubTitle";
 import InfoBalanse from "../../../Views/InfoBalance/InfoBalanse";
 import AddUploadFiles from "../../../Views/AddFiles";
-import { errorAlertIcon } from "../../../images";
+import { errorAlertIcon, successAlertIcon } from "../../../images";
 import PhoneField from "../../../Views/PhoneField";
 import TextUnderTitle from "../../../Views/TextUnderTitle";
 // import 'react-phone-number-input/rrui.scss'
@@ -282,11 +282,17 @@ export const listCurrentOrders = (listOrders, changeStatusOrder, currency) => {
 
 export const payment = async (order_id, balance, total_price, currency, first_name, last_name, middle_name, dispatch, redirectTo, closeModalState) => {
   const initialValues = {
-    fio: `${first_name} ${last_name} ${middle_name}`,
+    fio: (middle_name && first_name && last_name)? 
+          `${first_name} ${last_name} ${middle_name}` 
+              : (first_name && last_name)? 
+              `${first_name} ${last_name}`
+                : first_name?
+                  `${first_name}`
+                  : '',
     cost: 0,
     comment: '',
     receipt: null,
-    order_id: order_id,
+    order_id: order_id? order_id : null,
   };
   const errorsMessenge = {
     symbol: 'Поле не должно содержать спец. символы',
@@ -313,8 +319,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
         } else {
           fdPayments.set('receipt', data?.receipt[0]);
           const resCreatePayment = await orderApi.createPayments(fdPayments)
-          console.log('result check', resCreatePayment)
-          redirectTo('/orders')
+          if( order_id ) return;
+          redirectTo? redirectTo('/orders') : null;
         }
       } catch (err) {
 
@@ -344,13 +350,11 @@ export const payment = async (order_id, balance, total_price, currency, first_na
 
     return (
       <Formik
-        validationSchema={payModalScheme(errorsMessenge)}
-        initialValues={initialValues}
-        onSubmit={sendCheckToServer}
+        validationSchema = { payModalScheme(errorsMessenge) }
+        initialValues = { initialValues }
+        onSubmit = { sendCheckToServer }
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
-          console.log('errors', { errors })
-          console.log('values', { values }, { total_price }, { balance })
 
           return (
             <Form onSubmit={handleSubmit}>
@@ -1021,4 +1025,200 @@ export const contentMessage = () => {
         </BlockGrid.Container>
     </React.Fragment>
   )
+}
+
+export const getMyCash = async ( first_name, last_name, middle_name, dispatch, redirectTo, closeModalState ) => {
+
+  const initialValues = {
+    fio: (middle_name && first_name && last_name)? 
+          `${first_name} ${last_name} ${middle_name}` 
+              : (first_name && last_name)? 
+              `${first_name} ${last_name}`
+                : first_name?
+                  `${first_name}`
+                  : '',
+    cost: 0,
+    beneficiaryBankAccountNumber: '',
+    beneficiaryBankBIC: '',
+    receipt: null,
+  };
+
+  const errorsMessenge = {
+    symbol: 'Поле не должно содержать спец. символы',
+    requiredField: Text({ text: 'requiredField' }),
+    requiredNotCountMony: 'Необходимо указать сумму платежа',
+    shortComments: Text({ text: 'short.comments' }),
+    longComments: Text({ text: 'long.comments' }),
+    receipt: "файл не добавлен"
+  };
+
+  try {
+
+    const requisites = await orderApi.getRandomRequizites();
+    const sendRequestGetMyCash = async (data, { setFieldError }) => {
+      try {
+
+        const fdPayments = new FormData();
+        fdPayments.set('cost', data.cost);
+        fdPayments.set('name', data.fio);
+        fdPayments.set('number', data.beneficiaryBankAccountNumber);
+        fdPayments.set('bank', data.beneficiaryBankBIC);
+
+        if (data.receipt === null) {
+          setFieldError('receipt', 'Вы не приложили квитанцию об оплате')
+        } else {
+          fdPayments.set('receipt', data?.receipt[0]);
+
+          const resCreatePayment = await orderApi.returnManyQuery(fdPayments)
+          
+          dispatch('setModalState', {
+            show: true,
+            content: 'Ваше заявление принято в работу!!!',
+            iconImage: successAlertIcon,
+            action: {
+              title: ['Продолжить', null]
+            },
+            onClick: () => closeModalState()
+          })          
+        }
+      } catch (err) {
+
+        const data = err?.data;
+        console.log('ERROR IN CREATE request', err)
+        if (!!data) {
+          for (const key in data) {
+            const element = Array.isArray(data[key]) ? data[key][0] : data[key];
+            if (initialValues.hasOwnProperty(key)) {
+              setFieldError(key, element)
+            }
+          }
+        } else {
+          //?! добавить попап с ошибкой
+          dispatch('setModalState', {
+            show: true,
+            content: 'Произошла ошибка попробуйте позже!!!',
+            iconImage: errorAlertIcon,
+            action: {
+              title: ['Продолжить', null]
+            },
+            onClick: () => closeModalState()
+          })
+        }
+      }
+    }
+
+
+    return (
+      <Formik
+        validationSchema={GetMyCacheModalContentShema(errorsMessenge)}
+        initialValues={initialValues}
+        onSubmit={sendRequestGetMyCash}
+      >
+        {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
+          console.log('errors', { errors })
+          console.log('values', { values })
+
+          return (
+            <Form onSubmit={handleSubmit}>
+              <BlockGrid.Container>                
+                <WarningBlock
+                  textWarning={<div>Оформление возврата возможно только при наличии скан-копии заявления на возврат,
+                    прикрепленного в форматах .jpg (jpeg), .png, bmp, .zip, .rar, .pdf. Для отправки нескольких
+                    файлов, приложите архив (zip, rar) в этой форме.</div>}
+                >                  
+                </WarningBlock>
+                <BlockGrid.BlockPayment>
+                  {/* 
+                      //?! Сумма
+                  */}
+                  <Input
+                    value={values.cost}
+                    type={'number'}
+                    variant={'largeCustomLabel'}
+                    className={'input-mt_20'}
+                    name={'cost'}
+                    autofocus
+                    autocomplete={'off'}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    helpText={errors.cost && touched.cost ? <ErrorField message={errors.cost} /> : null}
+                    label={'Сумма*'}
+                  />
+                  {/* 
+                      //?! ФИО владельца счёта*
+                  */}
+                  <Input
+                    value={values.fio}
+                    variant={'largeCustomLabel'}
+                    className={'input-mt_20'}
+                    name={'fio'}
+                    autocomplete={'off'}
+                    onChange={handleChange}
+                    autofocus
+                    onBlur={handleBlur}
+                    helpText={errors.fio && touched.fio ? <ErrorField message={errors.fio} /> : null}
+                    label={'ФИО владельца счёта*'}
+                  />
+                  {/* 
+                      //?! № счёта в банке получателе*
+                  */}
+                  <Input
+                    value={values.beneficiaryBankAccountNumber}
+                    variant={'largeCustomLabel'}
+                    className={'input-mt_20'}
+                    name={'beneficiaryBankAccountNumber'}
+                    autocomplete={'off'}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    helpText={
+                      errors.beneficiaryBankAccountNumber && touched.beneficiaryBankAccountNumber ? <ErrorField message={errors.beneficiaryBankAccountNumber} /> : null
+                    }
+                    label={'№ счёта в банке получателе*'}
+                  />
+                  {/* 
+                      //?! БИК банка получателя*
+                  */}
+                  <Input
+                    value={values.beneficiaryBankBIC}
+                    variant={'largeCustomLabel'}
+                    className={'input-mt_20'}
+                    name={'beneficiaryBankBIC'}
+                    autocomplete={'off'}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    helpText={
+                      errors.beneficiaryBankBIC && touched.beneficiaryBankBIC ? <ErrorField message={errors.beneficiaryBankBIC} /> : null
+                    }
+                    label={'БИК банка получателя*'}
+                  />
+
+                  <AddUploadFiles
+                    label={'Прикрепить скан-копию заявления:'}
+                    accept={'.png, .jpg, .jpeg, .bmp, .zip, .rar, .pdf'} //.jpg (jpeg), .png, bmp, .zip, .rar, .pdf.
+                    onBlur={handleBlur}
+                    multiple={null}
+                    name={'receipt'}
+                    setFieldValue={setFieldValue}
+                  />
+                  {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
+
+                  <Button
+                    type={'submit'}
+                    full
+                    variant={'black_btn_full_width'}
+                  >
+                    оформить возврат
+
+                  </Button>
+                </BlockGrid.BlockPayment>
+
+              </BlockGrid.Container>
+            </Form>
+          );
+        }}
+      </Formik>
+    )
+  } catch (err) {
+    console.log('ERROR IN CREATE PAYMENT', err)
+  }
 }

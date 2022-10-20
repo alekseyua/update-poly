@@ -151,3 +151,9 @@ div#pdfviewer> div > div.viewer-layout-toolbar > div > div.viewer-toolbar-right 
 div#pdfviewer> div > div.viewer-layout-main {
   overflow: auto;
 }
+
+.requisites{
+  & > p {
+    pointer-events: none;
+  }
+}

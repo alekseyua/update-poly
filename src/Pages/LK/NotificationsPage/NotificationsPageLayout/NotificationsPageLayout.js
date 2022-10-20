@@ -6,6 +6,7 @@ import Notifications from '../../DetailsPage/Notifications';
 
 
 const NotificationsPageLayout = ({
+    notificationsPrifile,
     breadcrumbs,
     shop,
     create_shop,
@@ -46,6 +47,7 @@ const NotificationsPageLayout = ({
 
                         <BlockGrid.GridPageRightLK>
                             <Notifications
+                                notificationsPrifile = { notificationsPrifile }
                                 notifications = { notifications }
                                 heandlerReedNotic={heandlerReedNotic} 
                                 heandlerDelNotic={heandlerDelNotic} 

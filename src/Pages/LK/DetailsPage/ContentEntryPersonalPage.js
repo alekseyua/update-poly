@@ -164,15 +164,20 @@ const ContentEntryPersonalPage = ({
                               limitMaxLength = { true }
                               className = { 'form-input-number-phone-lk'}       
                               onChange = { () => {}}                 
-                            />
-                             <Button
-                               onClick = { () => values.changePhone( values.phone ) }
-                               type = { 'button' }
-                               variant = { 'cabinet-linkblue' }
-                               slot = { 'suffix' }
+                           />
+                           <PersonalPageViews.FormBottom
+                              onClickChangePassword = {() => values.changePhone(values.phone)}
+                           
+                           >
+                             {/* <Button
+                               onClick={() => values.changePhone(values.phone)}
+                               type={'button'}
+                               variant={'cabinet-linkblue'}
+                               slot={'suffix'}
                              >
                                Сменить номер
-                             </Button>
+                             </Button> */}
+                           </PersonalPageViews.FormBottom>   
                          </PersonalPageViews.FormGroup>
 
                          <PersonalPageViews.FormGroup>

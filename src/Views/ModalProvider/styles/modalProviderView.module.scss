@@ -259,6 +259,16 @@
             width: 100vw;
         }
     }
+    //.modal-get-my-cash{}
+    &-get-my-cash{
+        height: 100%;
+        @include mobile-min {
+            min-width: 500px;
+        }
+        &>div.modal-provider__content>form.form {
+            height: 60vh;
+        }
+    }
 }
 
 @keyframes move-cart {

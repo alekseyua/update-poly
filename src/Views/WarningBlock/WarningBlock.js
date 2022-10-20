@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import style from './styles/index.module.scss';
 import Icon from '../Icon';
 
-const WarningBlock = ({ textWarning}) => {
+const WarningBlock = ({ textWarning, children}) => {
 
   const [spolerActive, setSpolerActive] = useState(false)
   const heandleClickSpoler = () => {
@@ -29,6 +29,7 @@ const WarningBlock = ({ textWarning}) => {
         { opacity: textWarning? 1 : 0 }
       }
     >
+      { children }
       <div className={style["warning-block__arrow-8"]}></div>
       <Icon className={style['warning-block__wrapper-icon']} src={statusCancel} alt={'cansel'} width={20} height={20} />
       <span 

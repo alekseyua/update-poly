@@ -3,17 +3,19 @@ import { useStoreon } from 'storeon/react';
 import NotificationsPageLayout from './NotificationsPageLayout';
 
 const NotificationsPageLayoutContainer = ({
+    notificationsPrifile,
+    cabinet_site_menu,
+    notifications,
+    cabinet_menu,
     breadcrumbs,
-    shop,
     create_shop,
     is_has_shop,
-    cabinet_menu,
-    cabinet_site_menu,
-    balance,
     username,
+    balance,
+    shop,
     role,
+
     stateActiveCheckNotice,
-    notifications,
 }) => {
     const { dispatch } = useStoreon();
 
@@ -51,6 +53,7 @@ const NotificationsPageLayoutContainer = ({
 
     return (
         <NotificationsPageLayout
+            notificationsPrifile = { notificationsPrifile }
             notifications = { notifications }
             breadcrumbs = { breadcrumbs }
             shop={shop}

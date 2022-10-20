@@ -111,10 +111,12 @@ const HistoryPayments = ({
   
   const handleRequisites = (e) => {
     const indexElement = e.target.getAttribute('data-index');
+    console.log({indexElement}, {e :  e.target})
     setNumIndex(+indexElement)
   }
   useEffect(() => {
-    const onClick = e =>  e.target.className === ('requisites') || setNumIndex(null)
+    const onClick = e => { 
+      e.target.className === ('requisites') || setNumIndex(null)}
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click',onClick)
   }, [])
@@ -179,7 +181,12 @@ const HistoryPayments = ({
         tr.push({
           attr: { 'data-label': 'Чек' },
           content: el.receipt ? (
-            <Button variant={'linkBtn'} type={'link'} href={el.receipt} iconLeft={btnDown}>
+            <Button 
+            variant={'linkBtn'} 
+            type={'link'} 
+            href={`//${el.receipt.split('https://')[1]}`} 
+            target = {'_blank'} 
+            iconLeft={btnDown}>
               <Text text={'download'} />
             </Button>
           ) : (

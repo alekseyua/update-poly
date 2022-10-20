@@ -168,18 +168,18 @@
 	border: 1px solid #c3c3c3;
 	padding: 0 5px;
     justify-content: space-between;
-	&>button{
+	&>:last-child{
 		position: relative;
-		@include adaptive-value('left', 0, -230, px,2);
-		@include tablet-lgl{
-			left: 0;
-		}
-		@include tablet-mmdl {
-			@include adaptive-value('left', 0, -80, px,2);
-		}
-		@include tablet-md {
-			left: 0;
-		}
+		@include adaptive-value('left', 0, -250, px,2);
+		// @include tablet-lgl{
+		// 	left: 0;
+		// }
+		// @include tablet-mmdl {
+		// 	@include adaptive-value('left', 0, -80, px,2);
+		// }
+		// @include tablet-md {
+		// 	@include adaptive-value('left', 200, -70, px,2);
+		// }
 	}
 }
 

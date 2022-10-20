@@ -156,7 +156,6 @@
     }
     //.cabinet-form__end{}
     &__end {
-      padding-top: 20px;
       @include flex(sc);
       @include mobile-lgm {
         flex-direction: column;

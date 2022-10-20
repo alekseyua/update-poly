@@ -17,10 +17,12 @@ const NotificationsPage = ({
     } = context;
     
     const { user = {}, role, balance } = profile;
+    const notificationsPrifile = profile?.notifications
     const { username } = user;
     const stateActiveCheckNotice = false
     return (
         <NotificationsPageLayoutContainer
+            notificationsPrifile = { notificationsPrifile }
             notifications = { notifications }
             breadcrumbs = { breadcrumbs }
             shop={shop}

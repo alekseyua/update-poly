@@ -59,56 +59,17 @@ export const balance = store => {
     })
     
 
-    store.on('topUpYouBalance', ({ context }, obj, { dispatch }) => {
+    store.on('', ({ context }, obj, { dispatch }) => {
 
         try{
-            console.log('add balance')
             dispatch('setModalState',{
                 show: true,
-                content: 'add balance'
+                content: 'text'
             })
-
-             // e.preventDefault()
-    // orderApi
-    //   .getRandomRequizites()
-    //   .then((res) => {
-    //     console.log('getRandomRequizites res:', res)
-
-    //     setModalStates({
-    //       content: <PayModalContent 
-    //                   closeModal={closeModal} 
-    //                   requisites={res} 
-    //                   order_id={false}
-    //                 />,
-    //       show: true,
-    //       addClass: 'modal-payments',
-    //     });
-    //   })
-    //   .catch(err=>{
-    //     let errMessage = {
-    //       path: null,
-    //       success: null,
-    //       fail : 'Возникла проблема с отправкой данных, попробуйте немного позже',
-    //     };
-    //     dispatch('warrning/set',errMessage);
-    //   });
 
         }catch(err){
             console.log('ERROR TOP UP BALANCE', err)
         }
     });
     
-    store.on('getMyCach', ({ context }, obj, { dispatch }) => {
-
-        try{
-            dispatch('setModalState',{
-                show: true,
-                content: 'getMyCach from balance'
-            })
-
-        }catch(err){
-            console.log('ERROR getMyCach FROM BALANCE', err)
-        }
-    })
-
 }

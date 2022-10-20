@@ -1,6 +1,8 @@
 import api from "../../api/api";
 import Text from "../../helpers/Text";
 import Grid from '../../Views/GridContainerBlock';
+import { addReviewsFunc } from './addReviews';
+
 import { initReviews, initialFetchFiltersReviews } from '../../helpers/initialValues/initialValues';
 
 export const reviews = store => {
@@ -196,7 +198,7 @@ export const reviews = store => {
 
         dispatch('setModalState',{
             show: true,
-            content: 'add review'
+            content: addReviewsFunc()
         })
     })
 

@@ -23,7 +23,7 @@ const Balance = ({
           </PersonalPageViews.SmallTextGray>
           <PersonalPageViews.BalanceItemsWrapper>
             {
-              balance ?
+              balance || balance === 0 ?
                 <>
                   <PersonalPageViews.BalanceItem
                     greenText

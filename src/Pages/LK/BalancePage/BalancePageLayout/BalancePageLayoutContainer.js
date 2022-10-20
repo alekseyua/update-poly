@@ -20,11 +20,11 @@ const BalancePageLayoutContainer = ({
     const { dispatch } = useStoreon();
 
     const openModalTopUpYouBalance = () => {
-        dispatch('topUpYouBalance')
+        dispatch('modalCheckPayment')
     }
 
     const openModalGetMyCache = () => {
-        dispatch('getMyCach')
+        dispatch('modalGetMyCach')
     }
 
     const changePaginationsPayments = (page) => {

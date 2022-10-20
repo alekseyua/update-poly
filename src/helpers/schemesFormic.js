@@ -370,7 +370,7 @@ export const GetMyCacheModalContentShema = (errorsMessenge) =>{
             .nullable()
             .matches(symbolReject, errorsMessenge.symbol)
             .required(errorsMessenge.requiredField),
-    amount: Yup.string().nullable().required(errorsMessenge.requiredField),
+    cost: Yup.string().nullable().required(errorsMessenge.requiredField),
     beneficiaryBankAccountNumber: Yup.string().nullable().required(errorsMessenge.requiredField),
     beneficiaryBankBIC: Yup.string().nullable().required(errorsMessenge.requiredField),
     // comment: Yup.string()

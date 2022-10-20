@@ -125,7 +125,7 @@ const Button = ({
     ...classes
   });
 
-  // console.log('cu.dtom class name ', part)
+   console.log('cu.dtom class name href', href)
   return (
     <>
       {disabled ?
@@ -170,9 +170,9 @@ const Button = ({
               value = { value }
               to={`${href}`}
               target={target}
-              datanoclick={datanoClick}
-              onClick={onClick}
-              className={customClassName}
+              datanoclick = { datanoClick }
+              onClick = { onClick }
+              className = { customClassName }
               rel="noopener noreferrer"
             >
               {iconLeft ? <Icon slot="icon-right" className={style[classNameIcon]}  onClick={onClickIcon} src={iconLeft} width={25} height={25}  /> : null}
