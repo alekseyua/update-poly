@@ -7,6 +7,7 @@
     height: 100%;
     width: 100%;
     position: relative;
+    max-width: 120px;
     //.export-card__image{}
     &__image{
         padding: 0;
@@ -30,4 +31,21 @@
                 margin: 0;
             }
         }
+}
+
+.export {
+    //.export__select-wrapper
+    &__select-wrapper{
+        padding: 0;
+        display: flex;
+    }
+    //.export__select-btn{}
+    &__select-btn{
+        padding: 0;
+        min-width: 200px;
+    }
+    //.export__select-btn-icon{}
+    &__select-btn-icon{
+        padding: 0;
+    }
 }
