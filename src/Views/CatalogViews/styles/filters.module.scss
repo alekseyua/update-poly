@@ -32,8 +32,15 @@
     z-index: 444;
     min-width: 250px;
     max-width: 320px;
+    
     &:nth-last-child(2){
-      padding-bottom: 100px;
+      padding-bottom: 100px;      
+    }
+    &:last-child{
+      display: none;
+      @include mobile {
+        display: flex;
+      }
     }
     //.catfilter-block__heading{}
     &__heading {

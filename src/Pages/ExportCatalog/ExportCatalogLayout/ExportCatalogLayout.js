@@ -16,6 +16,8 @@ import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
 import EnabledFilters from './CatalogFilters/EnabledFilters'
 import CardExportCatalog from "./CatalogFilters/CardExportCatalog";
 import Pagination from "../../../Views/Pagination";
+import Offset from "../../../Views/Offset";
+import SelectedAndDownload from "./CatalogFilters/SelectedAndDownload";
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -61,10 +63,12 @@ const ExportCatalogLayout = ({
   resetAllFilters,
   resetContextFilter,
   checkIsShowCategorysAndProducType,
-
+  
   onSelectedPhoto,
   currentPage,
   handlerChangePaginations,
+  downloadSelectPhoto,
+  selectedAllPhoto,
   showMore,
 }) => {
 
@@ -85,6 +89,7 @@ const ExportCatalogLayout = ({
 
           <CatalogViews.Row>
             <React.Fragment>
+              
               <CatalogViews.Filters>
                 <Button
                   full
@@ -124,14 +129,14 @@ const ExportCatalogLayout = ({
                             onClick={() => handleSubmit(values)}
                           />
 
-                          <CheckBoxFiltersContainer
+                          {/* <CheckBoxFiltersContainer
                             valueCheckBoxFilters={valueCheckBoxFilters}
                             loadData={loadData}
                             role={role}
-                          />
+                          /> */}
 
+                            <Offset offset = { 20 } />
                           {
-
                             checkIsShowCategorysAndProducType() ? (
                               <AsyncTypeProductFilters
                                 categories={valueProducts.categories}
@@ -206,24 +211,15 @@ const ExportCatalogLayout = ({
                           : <div dangerouslySetInnerHTML={{ __html: content }}></div>
                       }
                     />
-                    <CatalogViews.SortSelect
-                      valueOptionsSort={filterParams.ordering}
-                      selectedSortFilters={(selected) => {
-                        return loadData({ ordering: selected });
-                      }}
-                      options={options}
-                    />
-                    {/* {status === 'loading' ? ( */}
-                    {/* { 
-                     !!exportCatalog?.result.length ? (
-                       <BlockSpinner.SpinnerWrapper>
-                         <BlockSpinner.Spinner size="200" />
-                       </BlockSpinner.SpinnerWrapper>
-                     ) : (*/}
+                    <Offset offset = {20} />
+                    <CatalogViews.CountItemsCheckBox>
+                        { exportCatalog?.count } фото
+                    </CatalogViews.CountItemsCheckBox>
+                      
                     <>
                       <CatalogViews.Tags>
 
-                        <EnabledFiltersOptions
+                        {/* <EnabledFiltersOptions
                           enabledFilterData={filterParams}
                           defaultFilterData={options}
                           translateKey={'options'}
@@ -261,7 +257,8 @@ const ExportCatalogLayout = ({
                           translateItem={'sell.out'}
                           translateKey={'catalog'}
                           keyFilter={'is_closeout'}
-                        />
+                        /> */}
+
                         <EnabledFilters
                           enabledFilterData={filterParams}
                           defaultFilterData={valueProducts}
@@ -269,6 +266,7 @@ const ExportCatalogLayout = ({
                           resetContextFilter={resetContextFilter}
                           keyFilter={'categories'}
                         />
+
                         <EnabledFilters
                           enabledFilterData={filterParams}
                           defaultFilterData={valueProducts}
@@ -294,7 +292,17 @@ const ExportCatalogLayout = ({
                           isFilters(filterParams, resetAllFilters)
                         }
                       </CatalogViews.Tags>
-
+                      
+                      {/* //?!select all 
+                      */}
+                      <SelectedAndDownload
+                        downloadSelectPhoto = { downloadSelectPhoto }
+                        selectedAllPhoto = { selectedAllPhoto }
+                        selected_all = { exportCatalog?.selected_all? exportCatalog?.selected_all : false }
+                        enabledBtn = { exportCatalog?.enabledBtn? exportCatalog?.enabledBtn : false }
+                      />
+                      {/* //?! catalog photo 
+                      */}
                       {                        
                         !!exportCatalog?.results.length && showFilters ? <CatalogViews.EmptyCatalog /> : null
                       }
@@ -320,12 +328,10 @@ const ExportCatalogLayout = ({
                           </CatalogViews.WrapperExportCard> 
 
                           {
-                            !!exportCatalog?.results.length?
-                              !!exportCatalog?.results.length  !== exportCatalog?.count ? (
+                            exportCatalog?.results.length < exportCatalog?.count && currentPage * 30 < exportCatalog?.count?
                                 <Button full onClick={showMore} variant={'show_more'}>
                                   <Text text={'show.more'} />
                                 </Button>
-                              ) : null
                             : null
                           }
 

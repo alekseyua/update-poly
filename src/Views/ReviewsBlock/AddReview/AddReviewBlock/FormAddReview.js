@@ -8,6 +8,7 @@ import { Captcha } from '../Captha';
 import style from '../styles/addreview.module.scss';
 import Text from '../../../../helpers/Text';
 import { reviewInitialState } from '../../../../helpers/initialValues/initialValues';
+import AddUploadFiles from '../../../AddFiles';
 
 const ModalAddReview = ({
   sendReview,
@@ -23,13 +24,13 @@ const ModalAddReview = ({
       initialValues={reviewInitialState}
       onSubmit={sendReview}
     >
-      {({ handleSubmit, values, setFieldValue, handleChange }) => {
+      {({ handleSubmit, values, setFieldValue, handleBlur, handleChange }) => {
 
        const canselationCallback = (e) => {
           let arr = [];
           !!values?.uploadFiles?(
             arr = Array.from(values?.uploadFiles),
-            setFieldValue('uploadFiles', [])//arr.length = 0)
+            setFieldValue('uploadFiles', [])
           ): null;
           setFieldValue('content', '');
           setFieldValue('stars', 0);
@@ -47,11 +48,22 @@ const ModalAddReview = ({
                 name={'content'}
               ></textarea>
 
-              <ReviewsElementBlock.FormAddReviewUploadImage
+              {/* <ReviewsElementBlock.FormAddReviewUploadImage
                 values={values}
                 setFieldValue={setFieldValue}
+              /> */}
+              <AddUploadFiles
+                name={'uploadFiles'}
+                type={'file'}
+                className={'wrapperBtnFile'}
+                label={'Прикрепить изображение:'}
+                accept={'.png, .jpg, .jpeg, .mp4'}
+                onBlur={handleBlur}
+                multiple={null}
+                setFieldValue={setFieldValue}
               />
-              
+
+
               <ReviewsElementBlock.FormAddReviewRating
                 values={values}
                 setFieldValue={setFieldValue}

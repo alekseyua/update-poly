@@ -38,7 +38,7 @@ const FormAddReviewUploadImage = ({ values, setFieldValue }) => {
                 }
               </ul>
               <div 
-                {...getRootProps()} 
+                // {...getRootProps()} 
                 className={style['productreviews__form-addprod-image']}
               >
                 <div className={style['productreviews__form-addprod-image-wrap']}>

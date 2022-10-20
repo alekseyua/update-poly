@@ -19,9 +19,11 @@ const MyReviews = ({
               <MyReviewsViews.HistoryHead />
                 {
                     getMyReviewList?.results?
-                        getMyReviewList.results.map((el, i) => {
+                        getMyReviewList.results.sort((a,b)=> b.id - a.id).map((el, i) => {
                             return  <MyReviewsViews.Card 
-                                        key={i} 
+                                        key = { `card-review-${el.id}` }
+
+                                        // i = { i } 
                                         {...el} 
                                     />;
                         })

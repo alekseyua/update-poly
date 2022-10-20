@@ -128,30 +128,65 @@ export const reviews = store => {
     })
 
     store.on('sendReview', async ({ context }, obj, { dispatch }) => {
-        
+            const { id } = context.init_state.profile;
             console.log({obj})
         const params = {
             iAgreeDataProcessing: obj.iAgreeDataProcessing,
             files: obj.uploadFiles,
             content: obj.content,
             product: obj.product,
-            profile: obj.profile,
             stars: obj.stars,
+            profile: id,
+            files: obj.files
         };
         const sendreview = await apiContent.postReviews(params)
 
         //?! три пути :
         //?! 1) добавить в контекст и показывать сразу
-        const updateContext = {
-            ...context,
-            init_state: {
-                ...context.init_state,
-                reviews: {
-                    ...context.init_state.reviews,
-                    product_reviews: [...context.init_state.reviews.product_reviews, sendreview],
-                },
-                reviews_count: context.init_state.reviews_count + 1
+        let updateContext = {};
+
+        if ( obj.product === undefined ){
+            updateContext = {
+                ...context,
+                init_state: {
+                    ...context.init_state,
+                    reviews: {
+                        ...context.init_state.reviews,
+                        getMyReviewList: {
+                            ...context.init_state.reviews.getMyReviewList,
+                            count: context.init_state.reviews.getMyReviewList.count + 1,
+                            results: [ ...context.init_state.reviews.getMyReviewList.results, {
+                                    id: sendreview.id,
+                                    review_type: {
+                                        type: 'Отзыв о сервисе',
+                                        product: null
+                                    },
+                                    review_photos: sendreview.review_photos,
+                                    review_videos: sendreview.review_videos,
+                                    created_at: sendreview.created_at,
+                                    likes_count: sendreview.likes_count,
+                                    status: 'На модерации',
+                                    content: sendreview.content,
+                                    stars: sendreview.stars,                                
+                            }]
+                        },
+                        service_reviews: [sendreview, ...context.init_state.reviews.service_reviews ],
+                    },
+                }
             }
+        }else{
+            updateContext = {
+                ...context,
+                init_state: {
+                    ...context.init_state,
+                    reviews: {
+                        ...context.init_state.reviews,
+                        product_reviews: [...context.init_state.reviews.product_reviews, sendreview],
+                    },
+                    reviews_count: context.init_state.reviews_count + 1
+                }
+            }
+            
         }
         console.log('result send reviews = ', {sendreview}, {updateContext} )
         return dispatch('context', updateContext)

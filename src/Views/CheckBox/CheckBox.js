@@ -25,7 +25,7 @@ const getVariantStyleCheckbox = (variant = variantEnum.default) => {
 /**
  * 
  * @param {
- * работает только на onChange
+ *  @!!!!   работает только на -----onChange----- !!!!!!!!
  * classNameLabel - класс для label
  * className - класс для CheckBox
  * 

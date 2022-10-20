@@ -16,6 +16,7 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 250px minmax(0,1fr);
+    grid-gap: 10px;
     // @include row(15);
     // justify-content: flex-end;
     margin-top: 10px;
@@ -276,11 +277,20 @@
       display: grid;
       grid-template-columns: repeat(8, 1fr);
       grid-gap: 10px;
-      max-height: 1075px;
+      max-height: 1490px;
       overflow-y: auto;
+      @include scrollbar;
+      @include tablet-lgl {
+        grid-template-columns: repeat(7, 1fr);
+      }
       @include tablet-lg {
         grid-template-columns: repeat(5, 1fr);
       }
+      
+      @include tablet-mmd {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
       @include tablet-md {
         grid-template-columns: repeat(4, 1fr);
       }

@@ -30,7 +30,7 @@ const ExportCatalogLayoutContainer = ({
   const [filterParams, setFilterParams] = useState({ ...initValueCheckBoxFilters })
 
   const loadData = (data) => {
-    dispatch('changeParamsFilters', {
+    dispatch('changeParamsFiltersPhoto', {
       valueCheckBoxFilters: { ...filterParams, ...data }
     })
   }
@@ -58,7 +58,7 @@ const ExportCatalogLayoutContainer = ({
 
   const resetAllFilters = (e) => {
     e.preventDefault();
-    dispatch('changeParamsFilters', {
+    dispatch('changeParamsFiltersPhoto', {
       valueCheckBoxFilters: { ...initValueCheckBoxFilters }
     })
 
@@ -71,7 +71,7 @@ const ExportCatalogLayoutContainer = ({
     // console.log('filterParams->key] = ', key, ' value : ', value)
     if( typeof filterParams[key] === 'object' ) value = filterParams[key].filter(el=>el !== id)
 
-    dispatch('changeParamsFilters', {
+    dispatch('changeParamsFiltersPhoto', {
       valueCheckBoxFilters: { ...filterParams, [key]: value }
     })
   }
@@ -90,7 +90,18 @@ const ExportCatalogLayoutContainer = ({
     const params = {
       id: id
     }
-    dispatch('selectPhoto', params)
+    dispatch('selectPhoto', params);    
+  }
+  
+  const downloadSelectPhoto = () => {
+    dispatch('downloadSelectPhoto');
+  }
+
+  const selectedAllPhoto = (selected) => {
+    const params = {
+      selected: selected
+    }
+    dispatch('selectedAllPhoto', params);
   }
 
   const isFilters = (filtersValues, resetAllFilters) => {
@@ -175,12 +186,13 @@ const ExportCatalogLayoutContainer = ({
   
   const handlerChangePaginations = (page) => {
     const params = {
+      ...filterParams,
       page: page
     }
     dispatch('getExportCatalog', params)
   }
   
-  const showMore = () => dispatch('showMoreExportCatalog')
+  const showMore = () => dispatch('showMoreExportCatalog', {...filterParams})
 
   return (
     <>
@@ -202,17 +214,19 @@ const ExportCatalogLayoutContainer = ({
       options = { optionsFiltersCatalog }
       role = { role }
       
+      checkIsShowCategorysAndProducType={checkIsShowCategorysAndProducType}
+      valueCheckBoxFilters={filterParams}
+      resetContextFilter={resetContextFilter}
+      resetAllFilters={resetAllFilters}
+      openBtnSubmit={openBtnSubmit}
+      currentPage = { currentPage }
       isFilters={isFilters}
       loadData={loadData}
-      openBtnSubmit={openBtnSubmit}
-      resetContextFilter={resetContextFilter}
-      valueCheckBoxFilters={filterParams}
-      resetAllFilters={resetAllFilters}
-      checkIsShowCategorysAndProducType={checkIsShowCategorysAndProducType}
       
-      onSelectedPhoto = { onSelectedPhoto }
-      currentPage = { currentPage }
       handlerChangePaginations = { handlerChangePaginations }
+      downloadSelectPhoto = { downloadSelectPhoto }
+      selectedAllPhoto = { selectedAllPhoto }
+      onSelectedPhoto = { onSelectedPhoto }
       showMore = { showMore }
       />
       </>

@@ -1,6 +1,8 @@
 import api from "../../api/api";
 
 import { initValueCheckBoxFilters } from "../../helpers/initialValues/initialValues";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const catalog = store => {
     const apiContent = api.contentApi;
@@ -43,6 +45,43 @@ export const catalog = store => {
         // console.log('newContext', newContext)
         dispatch('context', newContext)
         dispatch('getCatalog', obj.valueCheckBoxFilters)
+        return
+    })
+
+    store.on('changeParamsFiltersPhoto', ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
+        console.log('obj in STORE filters = ', obj)
+        // let updateValueCheckBoxFilter = {}
+        // !!context.init_state?.filters_params?.valueCheckBoxFilters? 
+        //     updateValueCheckBoxFilter = {...context.init_state.filters_params.valueCheckBoxFilters, ...obj.valueCheckBoxFilters} 
+        //     : updateValueCheckBoxFilter = {...obj.valueCheckBoxFilters};
+
+        const newContext = {
+            ...context,
+            "init_state": {
+                ...context.init_state,
+                filters_params: {
+                    ...context.init_state.filters_params,
+                    ...obj.valueCheckBoxFilters,
+                    
+                    is_in_stock: obj.valueCheckBoxFilters.is_in_stock,
+                    is_new: obj.valueCheckBoxFilters.is_new,
+                    is_bestseller: obj.valueCheckBoxFilters.is_bestseller,
+                    is_closeout: obj.valueCheckBoxFilters.is_closeout,
+                    
+                    is_polish: obj.valueCheckBoxFilters.is_polish,
+                    is_import: obj.valueCheckBoxFilters.is_import,
+
+                    categories: [...obj.valueCheckBoxFilters.categories],
+                    brands: [...obj.valueCheckBoxFilters.brands],
+                    colors: [...obj.valueCheckBoxFilters.colors],
+                    sizes: [...obj.valueCheckBoxFilters.sizes],
+                    type: [...obj.valueCheckBoxFilters.type]
+                }
+            },
+        }
+        // console.log('newContext', newContext)
+        dispatch('context', newContext)
+        dispatch('getExportCatalog',{ ... obj.valueCheckBoxFilters})
         return
     })
 
@@ -178,6 +217,7 @@ export const catalog = store => {
     
     store.on('getExportCatalog', async ({ context }, obj, { dispatch }) => {
         try {
+            console.log({obj})
              
             let params = {};
             let statusPolish = true;
@@ -187,7 +227,6 @@ export const catalog = store => {
             let statusCollection = false;
 
             if (obj){
-            console.log({obj})
                 if(obj['is_import'] && !obj['is_polish']){
                     delete obj['is_polish']
                     statusPolish = false;
@@ -306,10 +345,10 @@ export const catalog = store => {
         try{
 
             // const page = context.init_state.
-            delete valueCheckBoxFilters['is_import']
-            delete valueCheckBoxFilters['is_polish']
+            delete obj['is_import']
+            delete obj['is_polish']
             const params = { 
-                ...valueCheckBoxFilters,
+                ...obj,
                 page: page + 1,
                 page_size: 30
             }
@@ -334,4 +373,97 @@ export const catalog = store => {
         }
     })
     
+    store.on('selectPhoto', ({ context }, obj, { dispatch }) => {
+        const { exportCatalog } = context.init_state;
+
+        const newExportCatalogResults = exportCatalog.results.map( el => el.id === obj.id? {...el, selected: !el.selected } : el);
+        const newContext = {
+            ...context,
+            "init_state": {
+                ...context.init_state,                    
+                exportCatalog: {
+                    ...context.init_state.exportCatalog,
+                    results: newExportCatalogResults,
+                    selected_all: false,
+                    enabledBtn: newExportCatalogResults.filter( el => el.selected ).length > 0? false : true,
+                },
+            }
+        }
+        return dispatch('context', newContext)
+    })
+    
+    store.on('selectedAllPhoto', ({ context }, obj, { dispatch }) => {
+        const { exportCatalog } = context.init_state;
+
+        const newExportCatalogResults = exportCatalog.results.map( el => ({...el, selected: !obj.selected }));
+        const newContext = {
+            ...context,
+            "init_state": {
+                ...context.init_state,                    
+                exportCatalog: {
+                    ...context.init_state.exportCatalog,
+                    results: newExportCatalogResults,
+                    selected_all: !obj.selected,
+                    enabledBtn: newExportCatalogResults.filter( el => el.selected ).length > 0? false : true,
+                },
+            }
+        }
+        return dispatch('context', newContext)
+    })
+
+    store.on('downloadSelectPhoto', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try{
+
+            const { exportCatalog } = context.init_state;
+        
+            const photos = exportCatalog.results.filter( el => el.selected );
+            const params = {
+                photos,
+            }
+            
+            const res = await apiContent.getArchivePhotosFromExportCatalog(params)
+            console.log({res}, {params})
+
+            window.location.href = res.url;
+
+        const newExportCatalogResults = exportCatalog.results.map( el => ({...el, selected: false }) );
+        const newContext = {
+            ...context,
+            "init_state": {
+                ...context.init_state,                    
+                exportCatalog: {
+                    ...context.init_state.exportCatalog,
+                    results: newExportCatalogResults,
+                    selected_all: false,
+                },
+            }
+        }
+        return dispatch('context', newContext)
+
+
+
+        }catch(err){
+            console.log('ERROR download photo', err)
+
+            let error = ['Ошибка на сервере, попробуйте позже!']
+  
+            if (err?.data) {
+                const errors = err.data;
+                for(let key in errors){
+                  error.push(`${errors[key]}`)
+                }
+            }
+  
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+
 }

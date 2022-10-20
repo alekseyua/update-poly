@@ -1,11 +1,11 @@
 import * as React from "react"
-import ModalAddReview from "../../Views/MyOrderViews/ModalAddReview"
+import AddReviewContainer from "../../Views/ReviewsBlock/AddReview/AddReviewContainer";
 
 
 export const addReviewsFunc = () => {
-
+    console.log('start reviews');
     return (
-        <ModalAddReview
+        <AddReviewContainer
         
         />
     )

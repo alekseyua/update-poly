@@ -27,6 +27,7 @@ const EnabledFilters = ({
     }
 
     const getInBoolean = (arrayDataShow) => {
+      console.log({arrayDataShow})
       if (arrayDataShow){ 
         setFiltersElementShow([{
           title: Text({text: translateItem}),
@@ -40,6 +41,8 @@ const EnabledFilters = ({
     typeof enabledFilterData[keyFilter] === 'object' ? getInArray(enabledFilterData[keyFilter]) : null;
     typeof enabledFilterData[keyFilter] === 'boolean' ? getInBoolean(enabledFilterData[keyFilter]) : null;
 
+    typeof enabledFilterData[keyFilter] === 'boolean' && keyFilter === 'is_polish' ? getInBoolean(!enabledFilterData[keyFilter]) :  null;
+    typeof enabledFilterData[keyFilter] === 'boolean' && keyFilter === 'is_import' ? getInBoolean(!enabledFilterData[keyFilter]) :  null;
   },[enabledFilterData])
 
   return (
@@ -52,7 +55,7 @@ const EnabledFilters = ({
               <React.Fragment key={el.id}>
                 <CatalogViews.Tag
                 onClick={() =>resetContextFilter(keyFilter, el.id)}
-                title={el.title}
+                title={el.title? el.title : ''}
                 filterType={type}
               />
               </React.Fragment>

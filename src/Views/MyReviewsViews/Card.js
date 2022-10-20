@@ -31,7 +31,6 @@ const Card = ({
   };
   return (
     <div 
-      key={`card-review-${id}`}
       className={style['cabinet-history__card']}    
     >
       <details className={style['cabinet-history__card-more']}>
@@ -118,6 +117,7 @@ const Card = ({
             {review_photos.map((el, i) => {
               return (
                 <img
+                  key = { `image-review--${el.review}`}
                   className={style['cabinet-history__card-image']}
                   src={el.image_thumb}
                   width="50px"

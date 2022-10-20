@@ -269,6 +269,36 @@ const CatalogPageLayout = ({
                           resetContextFilter={resetContextFilter}
                           keyFilter={'categories'}
                         />
+
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          translateKey={'is_polish'}
+                          resetContextFilter={resetContextFilter}
+                          keyFilter={'is_import'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          translateKey={'is_import'}
+                          resetContextFilter={resetContextFilter}
+                          keyFilter={'is_polish'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          translateKey={'assembled'}
+                          resetContextFilter={resetContextFilter}
+                          keyFilter={'is_in_collection'}
+                        />
+                        <EnabledFilters
+                          enabledFilterData={filterParams}
+                          defaultFilterData={valueProducts}
+                          translateKey={'not.in.rows'}
+                          resetContextFilter={resetContextFilter}
+                          keyFilter={'is_not_range'}
+                        />
+                        
                         <EnabledFilters
                           enabledFilterData={filterParams}
                           defaultFilterData={valueProducts}

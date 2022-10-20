@@ -82,7 +82,7 @@ const CheckBoxFilters = ({
 
           <div className={style['catfilter-block__heading']}>{Text({ text: 'manufacture' })}</div>
 
-          {/* //?! производитель импррт 
+          {/* //?! производитель импорт 
           */}
           <div className={style['catfilter-item']}>
             <CheckBox
@@ -92,7 +92,7 @@ const CheckBoxFilters = ({
               value={'is_import'}
               onChange={handleChangeFilters}
               variant="light"
-              label={"Польша"}
+              label={Text({ text: 'is_import' })}
               data-cy={`sellOutCheckBox`}
             ></CheckBox>
           </div>
@@ -106,7 +106,7 @@ const CheckBoxFilters = ({
             value={'is_polish'}
             onChange={handleChangeFilters}
             variant="light"
-            label={"Импорт"}
+            label={Text({ text: 'is_polish' })}
             data-cy={`sellOutCheckBox`}
           ></CheckBox>
         </div>
