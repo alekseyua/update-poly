@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 import PersonalPageLayout from './PersonalPageLayout';
 
 const PersonalPageLayoutContainer = ({
+            receive_newsletter,        
             cabinet_site_menu,
             addressDilivery,
             organization,
@@ -26,19 +28,47 @@ const PersonalPageLayoutContainer = ({
             vk_link,
 }) => {
     const { dispatch } = useStoreon()
-    const updateDataUser = () => {
-  
+    const navigator = useNavigate();
+
+    const updateDataUser = (data, { setFieldValue, setFieldError }) => {
+        dispatch('updateUserData', {
+            ...data,
+            setFieldValue,
+            setFieldError
+        });        
     }
   
     const changePhone = () => {
-        dispatch('changePhone'); 
+        dispatch('modalChangePhone'); 
     }
   
-    const changePassword = () => {}
+    const changePassword = () => {
+        dispatch('openModalRestorePassword')
+    }
+
+    const deleteAccaunt = () => {
+        dispatch('modalDeleteAccaunt', {
+            redirectTo: (path) => {
+                const timerSetTimeout = setTimeout(()=>{
+                        navigator(path)
+                    return () => clearTimeout(timerSetTimeout);
+                },500)
+            }
+        })
+    }
+
+    const changeReiciveNewLatters = (e, values, setValues ) => {
+        dispatch('modalQuestionAreYouSure',{
+            e: e,
+            values: values,
+            setValues: setValues
+        })            
+    }
 
     return (
         <>
         <PersonalPageLayout
+            receive_newsletter = { receive_newsletter }
             cabinet_site_menu = { cabinet_site_menu }
             addressDilivery = { addressDilivery }
             cabinet_menu = { cabinet_menu }
@@ -64,6 +94,8 @@ const PersonalPageLayoutContainer = ({
             changePhone = { changePhone }
             updateDataUser = { updateDataUser }
             changePassword = { changePassword }
+            deleteAccaunt = { deleteAccaunt }
+            changeReiciveNewLatters = { changeReiciveNewLatters }
         />
         </>
     )

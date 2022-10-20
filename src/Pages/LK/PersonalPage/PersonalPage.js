@@ -15,7 +15,7 @@ const PersonalPage = ({
         shop,
     } = context;
 
-    const { user = {}, role, balance, organization, links } = profile;
+    const { user = {}, role, balance, organization, links, receive_newsletter } = profile;
     const email = user?.email;
     const first_name = user?.first_name;
     const last_name = user?.last_name;
@@ -32,6 +32,7 @@ const PersonalPage = ({
     return (
         <>
         <PersonalPageLayoutContainer
+           receive_newsletter = { receive_newsletter }
            cabinet_site_menu = { cabinet_site_menu }
            addressDilivery = { addressDilivery }
            is_has_shop = { shop?.is_has_shop }

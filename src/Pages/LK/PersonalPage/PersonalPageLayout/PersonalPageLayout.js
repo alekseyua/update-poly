@@ -8,6 +8,7 @@ import CreateStore from '../../../../Views/PersonalPageViews/CreateStore';
 
 
 const PersonalPageLayout = ({
+    receive_newsletter,
     cabinet_site_menu,
     addressDilivery,
     organization,
@@ -33,6 +34,8 @@ const PersonalPageLayout = ({
     changePhone,
     updateDataUser,
     changePassword,
+    deleteAccaunt,
+    changeReiciveNewLatters,
 }) => {
 
     console.log('is_has_shop', !!!is_has_shop)
@@ -65,11 +68,15 @@ const PersonalPageLayout = ({
                             site_link = { site_link }
                             insta_link = { insta_link }
                             first_name = { first_name }
-                            middle_name = { middle_name }        
+                            middle_name = { middle_name }
+                            organization = { organization }  
+                            receive_newsletter = { receive_newsletter }  
                             
                             changePhone = { changePhone }
                             updateDataUser = { updateDataUser }
                             changePassword = { changePassword }
+                            deleteAccaunt = { deleteAccaunt }
+                            changeReiciveNewLatters = { changeReiciveNewLatters }
                         />
                         <DeliveryAddresses
                             addressDilivery = { addressDilivery }

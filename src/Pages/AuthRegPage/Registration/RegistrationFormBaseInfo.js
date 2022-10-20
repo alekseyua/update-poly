@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
+import Phone from 'react-phone-number-input'
 import { ROLE } from '../../../const';
 import Input from '../../../Views/Input';
 import ErrorField from '../../../Views/ErrorField';
@@ -12,7 +13,9 @@ import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
 import Text from '../../../helpers/Text';
 import Icon from '../../../Views/Icon/Icon';
 import Form from '../../../Views/Form';
+
 import BlockSpinner from '../../../Views/SpinnerWrapper';
+import PersonalPageViews from '../../../Views/PersonalPageViews';
 
 const RegistrationFormBaseInfo = ({
   onSaveFormData,
@@ -86,7 +89,7 @@ const RegistrationFormBaseInfo = ({
               />
 
               {/* //! phone */}
-              <Input
+              {/* <Input
                 type={'phone'}
                 className={'input-mt_20'}
                 variant={'largeCustomLabel'}
@@ -101,7 +104,22 @@ const RegistrationFormBaseInfo = ({
                 }}
                 helpText={errors.phone && touched.phone? <ErrorField message={errors.phone} /> : null}
                 data-cy={'registration_phone'}
-              />
+              /> */}
+              <PersonalPageViews.FormGroup phoneAuth>
+
+               <Phone
+                placeholder="Введите номер телефона"
+                value = { values.phone }
+                onChange = { phone => {
+                  setFieldValue('phone', phone) 
+                }}
+                defaultCountry = {'RU'}
+                smartCaret = { true }
+                limitMaxLength = { true }
+                className = { 'form-input-number-phone-lk'}                        
+                />
+                {errors.phone && touched.phone? <ErrorField message={errors.phone} /> : null}
+              </PersonalPageViews.FormGroup>
               
               {/* //! password */}
               <AuthorizationAndRegViews.WrapperInputForTooltip

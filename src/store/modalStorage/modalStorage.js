@@ -1,10 +1,11 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
 import { errorAlertIcon, successAlertIcon } from '../../images';
+import Text from '../../helpers/Text';
 
 
 const contentApi = api.contentApi;
@@ -34,13 +35,15 @@ const apiUser = api.userApi;
 
 export const modalStorage = store => {
 
-    store.on('@init', ()=>({ modalState: initModalState }));
-    store.on('@init', ()=>({ closeModalState : ()=>{
-        store.dispatch('setModalState', initCloseModalState)
-    }}))
-    store.on('setModalState', ({ modalState }, obj)=>{
-        return{
-            modalState : {
+    store.on('@init', () => ({ modalState: initModalState }));
+    store.on('@init', () => ({
+        closeModalState: () => {
+            store.dispatch('setModalState', initCloseModalState)
+        }
+    }))
+    store.on('setModalState', ({ modalState }, obj) => {
+        return {
+            modalState: {
                 show: obj.show,
                 action: obj.action,
                 addClass: obj.addClass,
@@ -58,50 +61,50 @@ export const modalStorage = store => {
 
     store.on('feedback', async ({ context, closeModalState }, obj, { dispatch }) => {
 
-        try{
+        try {
 
             const { first_name, last_name, middle_name, email } = context.init_state.profile.user;
-            const fullName = (first_name || last_name || middle_name)? `${first_name} ${last_name} ${middle_name}` : '';
-            dispatch('setModalState',{
+            const fullName = (first_name || last_name || middle_name) ? `${first_name} ${last_name} ${middle_name}` : '';
+            dispatch('setModalState', {
                 show: true,
             })
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    activeButton: {
+                        feedbackBtn: false
+                    }
+                }
+            }
+            const timerSetTimeout = setTimeout(() => {
                 const newContext = {
                     ...context,
                     "init_state": {
-                        ...context.init_state,                
+                        ...context.init_state,
                         activeButton: {
-                            feedbackBtn: false
+                            feedbackBtn: true
                         }
                     }
                 }
-                const timerSetTimeout = setTimeout(()=>{
-                    const newContext = {
-                        ...context,
-                        "init_state": {
-                            ...context.init_state,                
-                            activeButton: {
-                                feedbackBtn: true
-                            }
-                        }
-                    }
-                    dispatch('context', newContext)
-                    return ()=>clearTimeout(timerSetTimeout)
-                },10000)
-                
                 dispatch('context', newContext)
+                return () => clearTimeout(timerSetTimeout)
+            }, 10000)
 
-            const onSubmit = async (data) =>{
-                try{
+            dispatch('context', newContext)
+
+            const onSubmit = async (data) => {
+                try {
                     const fd = new FormData();
-                    
+
                     fd.set('problem_area', data.problem_area);
                     fd.set('name', data.name);
                     fd.set('email', data.email);
                     fd.set('message', data.message);
                     fd.set('files', data.files);
-                    
+
                     const res = await contentApi.postFeedback(fd)
-                        console.log({res})
+                    console.log({ res })
                     const text = 'Ваше обращение зарегистрировано и передано ответственному сотруднику. Благодарим Вас за сотрудничество!';
                     dispatch('setModalState', {
                         show: true,
@@ -113,14 +116,14 @@ export const modalStorage = store => {
                         onClick: () => closeModalState()
                     })
 
-                }catch(err){
-                    console.log('ERROR feedback request',{err})
+                } catch (err) {
+                    console.log('ERROR feedback request', { err })
                     let error = ['Ошибка на сервере, попробуйте позже!']
-                    
-                    if (err?.data){
+
+                    if (err?.data) {
                         const errors = err.data;
-                        for (let key in errors){
-                            if(data.hasOwnProperty(key)){
+                        for (let key in errors) {
+                            if (data.hasOwnProperty(key)) {
                                 error.push(`${errors[key]}`)
                             }
                         }
@@ -137,17 +140,17 @@ export const modalStorage = store => {
                     })
                 }
             }
-            
-            dispatch('setModalState',{
+
+            dispatch('setModalState', {
                 show: true,
                 title: 'Форма обратной связи',
                 content: await feedback(onSubmit, dispatch, fullName, email),
                 addClass: 'modal-feedback'
             })
-        
-        }catch(err){
+
+        } catch (err) {
             console.log('ERROR feedback', err)
-                       
+
         }
     })
 
@@ -162,52 +165,52 @@ export const modalStorage = store => {
                     {props.annotationLayer.children}
                 </>
             );
-        }; 
-    
+        };
+
         dispatch('setModalState', {
-          show: true,
-          title: title,
-          addClass: 'modal-file-views',
-          content: (
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                        <div id="pdfviewer" style={{overflow:'auto'}}>
-                          <Viewer 
+            show: true,
+            title: title,
+            addClass: 'modal-file-views',
+            content: (
+                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                    <div id="pdfviewer" style={{ overflow: 'auto' }}>
+                        <Viewer
                             fileUrl={`${file}`}
-                            defaultScale = {'PageWidth'}
+                            defaultScale={'PageWidth'}
                             renderPage={renderPage}
                             theme={{
-                              theme: 'dark',
+                                theme: 'dark',
                             }}
                             httpHeaders={{
-                              Authorization: `Token ${getCookie('ft_token')}`,
+                                Authorization: `Token ${getCookie('ft_token')}`,
                             }}
                             withCredentials={true}
-                          />
-                        </div>
-                    </Worker>
-    
+                        />
+                    </div>
+                </Worker>
+
 
             )
         })
     })
 
-    store.on('modalRedirectToCart', ({ context, closeModalState }, obj, { dispatch }) =>{
+    store.on('modalRedirectToCart', ({ context, closeModalState }, obj, { dispatch }) => {
         const { currency } = context.init_state;
         const { minimum_rc, product_sku, product_rc, media, title, sizes, colors } = context.init_state.productDetails;
         const { role } = context.init_state.profile;
-        const size = sizes.filter( el => el.id === getActiveSize(sizes))[0].title;
-        const color = colors.filter( el => el.id === getActiveColor(colors))[0].title;
+        const size = sizes.filter(el => el.id === getActiveSize(sizes))[0].title;
+        const color = colors.filter(el => el.id === getActiveColor(colors))[0].title;
         const { price, old_price } = context.init_state.productDetails.prices;
         const product_rcAmount = minimum_rc * price;
         const colorActive = getActiveColor(colors);
-        const productSkuImage = product_sku.filter( el => el.color === colorActive )[0].image
-        const image = productSkuImage? productSkuImage : media[0].image;
+        const productSkuImage = product_sku.filter(el => el.color === colorActive)[0].image
+        const image = productSkuImage ? productSkuImage : media[0].image;
 
         dispatch('setModalState', {
             show: true,
             title: title,
             addClass: 'modal-add-to-cart',
-            content: addToCart( product_rcAmount, product_rc, old_price, currency, color, price, image, title, size, role ),           
+            content: addToCart(product_rcAmount, product_rc, old_price, currency, color, price, image, title, size, role),
             action: {
                 title: ['продолжить покупки', 'перейти в карзину']
             },
@@ -217,22 +220,22 @@ export const modalStorage = store => {
     });
 
     store.on('modalOpenListForAddProduct', async ({ context, closeModalState, numberCurrentOrderForAddProduct }, obj, { dispatch }) => {
-        try{
+        try {
             const { currency } = context.init_state;
             const listOrders = context.init_state.listCurrentOrder.results;
 
             const changeStatusOrder = (value) => {
-                dispatch('setNumberOrderForAddProducts', {numberOrder: value} )
+                dispatch('setNumberOrderForAddProducts', { numberOrder: value })
                 closeModalState()
             };
-          
-            const cancelOrders = () =>{
-                dispatch('setNumberOrderForAddProducts', {numberOrder: null} )          
+
+            const cancelOrders = () => {
+                dispatch('setNumberOrderForAddProducts', { numberOrder: null })
                 closeModalState()
             }
 
 
-            dispatch('setModalState',{
+            dispatch('setModalState', {
                 show: true,
                 title: 'Добавить товары к существующему заказу',
                 content: listCurrentOrders(listOrders, changeStatusOrder, currency),
@@ -243,7 +246,7 @@ export const modalStorage = store => {
                 addClass: 'modal-choose-number-order',
             })
 
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET LIST ORDERS', err)
         }
     })
@@ -252,7 +255,7 @@ export const modalStorage = store => {
         const { order_id, balance, total_price, first_name, last_name, middle_name, redirectTo } = obj;
         const { currency } = context.init_state;
 
-        dispatch('setModalState',{
+        dispatch('setModalState', {
             show: true,
             title: 'Пополнение баланса для оплаты',
             content: await payment(order_id, balance, total_price, currency, first_name, last_name, middle_name, dispatch, redirectTo, closeModalState),
@@ -264,7 +267,7 @@ export const modalStorage = store => {
         /**
          * @typeModal - 'create' or 'change'
          */
-        try{
+        try {
             dispatch('setModalState', {
                 title: 'Адрес доставки',
                 show: true,
@@ -274,20 +277,20 @@ export const modalStorage = store => {
             const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;
 
             const { currency } = context.init_state;
-            
-            dispatch('setModalState',{
+
+            dispatch('setModalState', {
                 show: true,
                 title: 'Адрес доставки',
-                content: await addAddressForPost( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context ),
+                content: await addAddressForPost(currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context),
                 addClass: 'modal-add-address'
             })
-        }catch(err){
+        } catch (err) {
             console.log('ERROR popup add address', err)
             let error = ['Ошибка на сервере, попробуйте позже!']
-                    
-            if (err?.data){
+
+            if (err?.data) {
                 const errors = err.data;
-                        error.push(`${errors[0]}`)
+                error.push(`${errors[0]}`)
             }
 
             dispatch('setModalState', {
@@ -306,7 +309,7 @@ export const modalStorage = store => {
         /**
          * @typeModal - 'create' or 'change'
          */
-        try{
+        try {
             dispatch('setModalState', {
                 title: 'Адрес доставки',
                 show: true,
@@ -316,20 +319,20 @@ export const modalStorage = store => {
             const { first_name, last_name, middle_name, email, phone } = context.init_state.profile.user;
             const { idAddress } = obj;
             const { currency } = context.init_state;
-            
-            dispatch('setModalState',{
+
+            dispatch('setModalState', {
                 show: true,
                 title: 'Адрес доставки',
-                content: await addAddressForPost( currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context, idAddress ),
+                content: await addAddressForPost(currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context, idAddress),
                 addClass: 'modal-add-address'
             })
-        }catch(err){
+        } catch (err) {
             console.log('ERROR popup add address', err)
             let error = ['Ошибка на сервере, попробуйте позже!']
-                    
-            if (err?.data){
+
+            if (err?.data) {
                 const errors = err.data;
-                        error.push(`${errors[0]}`)
+                error.push(`${errors[0]}`)
             }
 
             dispatch('setModalState', {
@@ -344,18 +347,18 @@ export const modalStorage = store => {
         }
     })
 
-    store.on('changePhone', async ({ context, closeModalState }, obj, { dispatch }) => {
+    store.on('modalChangePhone', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { id } = context.init_state.profile.user;
         const userId = id;
         const changePhoneNewPhone = async (data) => {
             const res = await apiUser.updatePhone(data.userId, {
                 phone: data.phone,
             })
-            console.log({res})
+            console.log({ res })
             closeModalState()
         }
-            
-        dispatch('setModalState',{
+
+        dispatch('setModalState', {
             show: true,
             title: 'Смена номера телефона',
             // content: await changePhoneFunc(changePhoneNewPhone, userId),
@@ -370,6 +373,110 @@ export const modalStorage = store => {
 
 
     })
-    
+
+    store.on('modalDeleteAccaunt', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+
+            const { id } = context.init_state.profile.user;
+            const userId = id;
+            const deleteAccountFunc = async (data) => {
+                const params = {
+                    comment: data.reasonDeletion
+                }
+                const res = await apiUser.deleteUser(data.userId, params)
+                if (res.status === 200) {
+                    console.log({ res })
+                    obj.redirectTo('/registration');
+                } else {
+                    let error = ['Ошибка на сервере, попробуйте позже!']
+
+                    dispatch('setModalState', {
+                        show: true,
+                        content: textErrorMessage(error),
+                        iconImage: errorAlertIcon,
+                        action: {
+                            title: ['продолжить', null]
+                        },
+                        onClick: () => closeModalState()
+                    })
+                }
+
+            }
+
+            dispatch('setModalState', {
+                show: true,
+                title: 'Удаление аккаунта',
+                content: await accountDelete(deleteAccountFunc, closeModalState, userId),
+                addClass: 'modal-change-phone',
+            })
+
+        } catch (err) {
+            console.log('ERROR popup add address', err)
+            let error = ['Ошибка на сервере, попробуйте позже!']
+
+            if (err?.data) {
+                const errors = err.data;
+                error.push(`${errors[0]}`)
+            }
+
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+
+    store.on('modalChangePassword', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const { id } = context.init_state.profile.user;
+        const userId = id;
+        const changePasswordNewPassword = async (data) => {
+         
+            closeModalState()
+        }
+
+        dispatch('setModalState', {
+            show: true,
+            title: 'Смена номера телефона',
+            // content: await changePhoneFunc(changePhoneNewPhone, userId),
+            content: 'Данный ресурс находиться в разработке, для изменения пароля воспользуйтесь "Формой обратной связи"',
+            action: {
+                title: ['Обратная связь', 'Отмена']
+            },
+            addClass: 'modal-change-phone',
+            onClick: () => dispatch('feedback'),
+            onClickCancel: closeModalState
+        })
+    })
+
+    store.on('modalQuestionAreYouSure', ({ context, closeModalState }, obj, { dispatch }) => {
+        const { e, values, setValues } = obj;
+        const handeChange = () => {
+            
+            setValues({
+                ...values,
+                'receive_newsletter':  !e.checked 
+            });
+            closeModalState();
+        }
+        if (!values.receive_newsletter) return handeChange();
+        
+        dispatch('setModalState', {
+            show: true,
+            content: contentMessage(),
+            action: {
+                title: ['Я ПОНИМАЮ', 'Отмена']
+            },
+            addClass: 'modal-change-phone',
+            onClick: () => handeChange(),
+            onClickCancel: closeModalState
+        })
+    })
+        
+
 }
 

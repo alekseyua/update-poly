@@ -24,18 +24,18 @@ const ContentEntryPersonalPage = ({
   insta_link, 
   site_link, 
   vk_link,
+  organization,
+  receive_newsletter,
 
   role,
 
   changePhone,
   updateDataUser,
   changePassword,
+  deleteAccaunt,
+  changeReiciveNewLatters,
 }) => {
-    
-  const isSaved = false
 
-     const isConcatReqFildsFromRole = false
-  
      const errorsMessenge = {
        shortLastName: Text({ text: 'short.last.name' }),
        longLastName: Text({ text: 'longLastName' }),
@@ -51,30 +51,29 @@ const ContentEntryPersonalPage = ({
      };
   
      const initialValues = {
-       lastname: last_name,
-       firstname: first_name,
-       patronymic:   middle_name, 
-       phone: phone,
-       email: email,
-       receiveNewsletters: '',
-       inn: '',
-       companyName: '',
+       last_name: last_name? last_name : '',
+       first_name: first_name? first_name : '',
+       middle_name: middle_name? middle_name : '', 
+       phone: phone? phone : '',
+       email: email? email : '',
+       receive_newsletter: receive_newsletter !== undefined? receive_newsletter : false,
+       inn: organization?.inn? organization?.inn : '',
+       companyName: organization?.organization? organization.organization : '',
        addresSite: '',
        vk: vk_link? vk_link : '',
        instagram: insta_link? insta_link : '',
        otherSocialLink: site_link? site_link : '',
        changePhone: changePhone,
-       changePassword: changePassword
+       changePassword: changePassword,
+       changeReiciveNewLatters: changeReiciveNewLatters,
+       isSaved: true,
      };  
  
-     const checkRoleForAddFields = ({
-
-      role,
-    }) => {
-      let result = true;
-      if (role === ROLE.DROPSHIPPER || ROLE.RETAIL === role) result = false;
-      return result;
-    }
+     const checkRoleForAddFields = ({role}) => {
+        let result = true;
+        if (role === ROLE.DROPSHIPPER || ROLE.RETAIL === role) result = false;
+        return result;
+      }
 
   if(role === ROLE.UNREGISTRED){
     return (
@@ -85,19 +84,24 @@ const ContentEntryPersonalPage = ({
       </BlockSpinner.SpinnerWrapper>
     )
   }else{
+
+
       return (
     <React.Fragment>
 
        <PersonalPageViews.WrapperForm>
-         <PersonalPageViews.HeaderForm/>
+         <PersonalPageViews.HeaderForm
+          deleteAccaunt = { deleteAccaunt }
+         />
            <Formik
             validationSchema={changeUserDataSchema(errorsMessenge, checkRoleForAddFields(role))}
             initialValues={initialValues}
             onSubmit={updateDataUser}
           >
-             {({ handleSubmit, handleChange, values, errors, setValues }) => {
+             {({ handleSubmit, handleChange, values, errors, setValues, setFieldValue }) => {
+
                return (
-                 <Form noValidate onChange={handleSubmit}>
+                 <Form onSubmit={ (e) => handleSubmit(e, setValues) }>
                    <PersonalPageViews.FormBlockContent>
                      {/* top Row */}
                      <PersonalPageViews.FormRow>
@@ -105,13 +109,13 @@ const ContentEntryPersonalPage = ({
                        <PersonalPageViews.FormColl>
                          <PersonalPageViews.FormGroup>
                            <Input
-                             value={values.lastname}
-                             name={'lastname'}
+                             value={values.last_name}
+                             name={'last_name'}
                              autocomplete={'off'}
                              onChange={handleChange}
-                             className={ errors.lastname ? 'input__error' : '' }
+                             className={ errors.last_name ? 'input__error' : '' }
                              helpText={
-                               errors.lastname ? <ErrorField message={errors.lastname} /> : null
+                               errors.last_name ? <ErrorField message={errors.last_name} /> : null
                              }
                              label={Text({ text: 'lastname' })}
                              placeholder={'Укажите фамилию'}
@@ -120,13 +124,13 @@ const ContentEntryPersonalPage = ({
 
                          <PersonalPageViews.FormGroup>
                            <Input
-                             value={values.firstname}
-                             name={'firstname'}
+                             value={values.first_name}
+                             name={'first_name'}
                              autocomplete={'off'}
                              onChange={handleChange}
-                             className={errors.firstname ? 'input__error' : ''}
+                             className={errors.first_name ? 'input__error' : ''}
                              helpText={
-                               errors.firstname ? <ErrorField message={errors.firstname} /> : null
+                               errors.first_name ? <ErrorField message={errors.first_name} /> : null
                              }
                              label={Text({ text: 'firstname' })}
                              placeholder={'Укажите имя'}
@@ -134,12 +138,12 @@ const ContentEntryPersonalPage = ({
                          </PersonalPageViews.FormGroup>
                          <PersonalPageViews.FormGroup>
                            <Input
-                             value={values.patronymic}
-                             name={'patronymic'}
+                             value={values.middle_name}
+                             name={'middle_name'}
                              autocomplete={'off'}
                              onChange={handleChange}
-                             className={errors.patronymic ? 'input__error' : ''}
-                             helpText={ errors.patronymic ? <ErrorField message={errors.patronymic} /> : null }
+                             className={errors.middle_name ? 'input__error' : ''}
+                             helpText={ errors.middle_name ? <ErrorField message={errors.middle_name} /> : null }
                              label={Text({ text: 'patronymic' })}
                              placeholder={'Укажите отчество'}
                            ></Input>
@@ -151,28 +155,15 @@ const ContentEntryPersonalPage = ({
                           Номер телефона
                          </p>
                          <PersonalPageViews.FormGroup phone>
-                           {/* <Input
-                             readonly
-                             name = { 'phone' }
-                             value = { values.phone }
-                             label = { 'Номер телефона' }
-                             placeholder = { '+7 (   )  ' }
-                             onChange = { handleChange }
-                           > */}
                            <Phone
                               disabled
-
                               placeholder="Введите номер телефона"
                               value = { values.phone }
-                              onChange = { phone => {
-                                console.log({phone})
-                                setValues({
-                                ...values,
-                                'phone': phone} ) }}
                               defaultCountry = {'RU'}
                               smartCaret = { true }
                               limitMaxLength = { true }
-                              className = { 'form-input-number-phone-lk'}                        
+                              className = { 'form-input-number-phone-lk'}       
+                              onChange = { () => {}}                 
                             />
                              <Button
                                onClick = { () => values.changePhone( values.phone ) }
@@ -182,7 +173,6 @@ const ContentEntryPersonalPage = ({
                              >
                                Сменить номер
                              </Button>
-                           {/* </Phone> */}
                          </PersonalPageViews.FormGroup>
 
                          <PersonalPageViews.FormGroup>
@@ -199,13 +189,9 @@ const ContentEntryPersonalPage = ({
 
                            <PersonalPageViews.FormAlignRight>
                              <CheckBox
-                               checked={values.receiveNewsletters}
-                               name={'receiveNewsletters'}    
-                               onChange={(e) => {
-                                 setValues({
-                                   ...values,
-                                   'receiveNewsletters':  e.checked });
-                               }}
+                               checked={values.receive_newsletter}
+                               name={'receive_newsletter'}    
+                               onChange = { (e) => values.changeReiciveNewLatters(e, values, setValues) }
                                label={Text({ text: 'receiveNewsletters' })}
                              ></CheckBox>
 
@@ -252,6 +238,7 @@ const ContentEntryPersonalPage = ({
                            </PersonalPageViews.FormGroup>
                            <PersonalPageViews.FormGroup>
                              <Input
+                               disabled
                                value={values.addresSite}
                                name={'addresSite'}
                                autocomplete={'off'}
@@ -330,7 +317,7 @@ const ContentEntryPersonalPage = ({
                         variant = {'cabinet_default'} 
                        >
                          <Text text={'save'} />
-                         {!isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
+                         {!values.isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
                        </Button>
                      </PersonalPageViews.FormBottom>
                    </PersonalPageViews.FormBlockContent>

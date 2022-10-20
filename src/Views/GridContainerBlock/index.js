@@ -23,9 +23,9 @@ import BlockAddAddressContainer from './BlockAddAddress/BlockAddAddressContainer
 import BlockAddAddressLeftSide from './BlockAddAddress/BlockAddAddressLeftSide';
 import BlockAddAddressRightSide from './BlockAddAddress/BlockAddAddressRightSide';
 import BlockAddAddressCell from './BlockAddAddress/BlockAddAddressCell';
-import BlockAddAddressContainerButton from './BlockAddAddress/BlockAddAddressContainerButton';
 import BlockAddAddressAdditionalInfo from './BlockAddAddress/BlockAddAddressAdditionalInfo';
 
+import BlockAddAddressContainerButton from './BlockAddAddress/BlockAddAddressContainerButton';
  
 
 

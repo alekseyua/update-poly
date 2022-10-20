@@ -112,8 +112,11 @@
       }
       //.cabinet-form-block__content{}
       &__content {
+        position: relative;
         padding: 20px 20px 30px;
-  
+        @include mobile-lgm {
+          padding: 0;
+        }
         small {
           color: $dg2;
         }
@@ -134,20 +137,28 @@
     }
     //.cabinet-form__row{}
     &__row {
-      @include row(10);
+      // @include row(10);
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-column-gap: 10px;
+      @include tablet-md {
+        display: block;
+      }
     }
     //.cabinet-form__col{}
     &__col {
-      @include col(6, 10);
-      @include mobile {
-        @include col(12, 10);
-      }
+      // @include col(6, 10);
+      // @include mobile {
+      //   @include col(12, 10);
+      // }
+      // width: 100%;
+      margin: 10px;
     }
     //.cabinet-form__end{}
     &__end {
       padding-top: 20px;
       @include flex(sc);
-      @include mobile {
+      @include mobile-lgm {
         flex-direction: column;
       }
       //.cabinet-form__end--right{}
@@ -498,23 +509,18 @@
 
 
 .tooltip {
-  --max-width: 400px;
-
-  &::part(base) {
     z-index: 99999;
-    // background-color: var(--gx-color-white);
-    --gx-tooltip-color: var(--gx-color-primary);
-    --gx-tooltip-background-color: var(--gx-color-white);
     font-size: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.11);
     border: 2px solid var(--gx-color-gray);
     padding: 10px 7px;
     min-width: 160px;
     height: auto;
+    position: relative;
     text-align: center;
-    word-wrap: break-word;
+    white-space: pre-line;
     overflow: hidden;
-  }
+    
 }
 
 .newbottom {

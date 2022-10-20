@@ -1,9 +1,12 @@
 import api from "../../api/api";
+import { putUserDataSerializer } from "../../helpers/serializers";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const profileLK = store => {
 
     const orderApi = api.orderApi;
-  
+    const userApi = api.userApi;
 
     store.on('getAdresses', async ({ context }, obj, { dispatch }) => {
       try {
@@ -153,4 +156,94 @@ export const profileLK = store => {
       }
     })
 
+    store.on('updateUserData', async ({ context, closeModalState }, obj, { dispatch }) => {
+      const { setFieldValue, setFieldError } = obj;
+      try {
+        setFieldValue('isSaved', false)
+        const userId = context.init_state.profile.user.id;
+        const params = {
+          lastname: obj.last_name,
+          firstname: obj.first_name,
+          patronymic: obj.middle_name, 
+          email: obj.email,
+          receive_newsletter: obj.receive_newsletter,
+          inn: obj.inn,
+          companyName: obj.companyName,
+          addresSite: obj.addresSite,
+          vk: obj.vk,
+          instagram: obj.instagram,
+          otherSocialLink: obj.otherSocialLink,          
+        }; 
+        console.log( {params} )
+
+
+        const res = await userApi.putUser(userId, putUserDataSerializer(params));
+        console.log( {res}, {a: res.data.data})
+
+
+          const newContext = {
+              ...context,
+              "init_state": {
+                  ...context.init_state,
+                  profile: {
+                      ...context.init_state.profile,
+                      organization: {
+                        inn: res.data.data.inn, 
+                        organization: res.data.data.organization,
+                      },
+                      links: {
+                        vk_link: res.data.data.vk_link, 
+                        insta_link: res.data.data.insta_link, 
+                        site_link: res.data.data.site_link
+                      },
+                      user: {
+                        username: res.data.data.username,
+                        email: res.data.data.email,
+                        first_name: res.data.data.first_name,
+                        middle_name: res.data.data.middle_name,
+                        last_name: res.data.data.last_name,
+                      },
+
+                  }
+              }
+          }
+
+          dispatch('context', newContext);
+       
+              const timerTimeout = setTimeout(() => {
+                setFieldValue('isSaved', true)
+                  return () => clearTimeout(timerTimeout);
+              }, 1700)
+       
+      } catch (err) {
+          console.log('ERROR GET DATA FROM REQUEST updateUserData = ', err);
+          setFieldValue('isSaved', true)
+          let error = ['Ошибка на сервере, попробуйте позже!']
+
+          if (err?.data) {
+              const errors = err.data;
+              for(let key in errors){
+                error.push(`${errors[key]}`)
+                const element = errors[key][0];
+                const timerTimeout = setTimeout(() => {
+                  setFieldError(key,element);
+                    return () => clearTimeout(timerTimeout);
+                }, 1000)
+              }
+          }
+
+          dispatch('setModalState', {
+              show: true,
+              content: textErrorMessage(error),
+              iconImage: errorAlertIcon,
+              action: {
+                  title: ['продолжить', null]
+              },
+              onClick: () => closeModalState()
+          })
+
+
+      }
+    })
+    
 }

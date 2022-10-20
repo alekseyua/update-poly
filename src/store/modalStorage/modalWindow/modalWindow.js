@@ -866,9 +866,9 @@ export const changePhoneFunc = async (changePhoneNewPhone, userId) => {
   return (
     <React.Fragment>
       <Formik
-        initialValues = { initialValuesChangePhone }
-        validationSchema = { changePhoneSchema(errorsMessenge) }
-        onSubmit = { changePhoneNewPhone }
+        initialValues={initialValuesChangePhone}
+        validationSchema={changePhoneSchema(errorsMessenge)}
+        onSubmit={changePhoneNewPhone}
       >
         {
           ({ handleSubmit, handleChange, values, errors, setValues }) => {
@@ -879,24 +879,26 @@ export const changePhoneFunc = async (changePhoneNewPhone, userId) => {
                   <BlockGrid.BlockCenter>
                     <Phone
                       placeholder="Введите номер телефона"
-                      value = { values.phone }
-                      onChange = { phone => {
-                          setValues({
-                        ...values,
-                        'phone': phone} ) }}
-                        defaultCountry = {'RU'}
-                        smartCaret = { true }
-                        limitMaxLength = { true }
-                        className = { 'form-input-number-phone'}                        
+                      value={values.phone}
+                      onChange={phone => {
+                        setValues({
+                          ...values,
+                          'phone': phone
+                        })
+                      }}
+                      defaultCountry={'RU'}
+                      smartCaret={true}
+                      limitMaxLength={true}
+                      className={'form-input-number-phone'}
                     />
-                    { errors.phone ? <ErrorField message={errors.phone} /> : null }
+                    {errors.phone ? <ErrorField message={errors.phone} /> : null}
                   </BlockGrid.BlockCenter>
-                  <Offset offset = { 30 } />
-                   <BlockGrid.BlockCenter>
+                  <Offset offset={30} />
+                  <BlockGrid.BlockCenter>
                     <Button
-                      type = { 'submit'}
-                      variant = {'black_btn_full_width-modal'}
-                      slot = {'suffix'}
+                      type={'submit'}
+                      variant={'black_btn_full_width-modal'}
+                      slot={'suffix'}
                     >
                       Сменить номер
                     </Button>
@@ -908,6 +910,115 @@ export const changePhoneFunc = async (changePhoneNewPhone, userId) => {
         }
 
       </Formik>
+    </React.Fragment>
+  )
+}
+
+export const accountDelete = async (deleteAccountFunc, closeModalState, userId) => {
+  const initialValuesDeleteAccaunt = {
+    reasonDeletion: '',
+    enadledNext: true,
+    checkDelete: '',
+    userId: userId,
+  }
+  return (
+      <BlockGrid.Container>
+        <Formik
+          initialValues={initialValuesDeleteAccaunt}
+          onSubmit = { deleteAccountFunc }
+        >
+          {({ handleSubmit, errors, values, handleChange, setFieldValue }) => {
+
+
+
+            return(
+              <Form
+                onSubmit={ (e) => handleSubmit(e, setFieldValue )}
+              >
+
+                <BlockGrid.BlockCenter>
+                  <BlockGrid.Coll>
+                  <Title type={'h3'} >
+                    Обратите внимание: данные удалятся безвозвратно!
+                  </Title>
+                  <Title type={'h3'}>
+                    Вместе с аккаунтом мы удалим из системы вашу личную информацию, историю заказов и покупок.
+                  </Title>
+                  <Input
+                    value={values.reasonDeletion}
+                    name={'reasonDeletion'}
+                    variant={'largeCustomLabel'}
+                    onChange={handleChange}
+                    label={Text({ text: 'reason.for.deletion' })}
+                    placeholder={Text({ text: 'enter.text' })}
+                  />
+                  <Input
+                    value={values.checkDelete}
+                    name={'checkDelete'}
+                    variant={'largeCustomLabel'}
+                    onChange={ e => {
+                      const value = e.target.value;
+                      if (value === 'delete') {
+                        setFieldValue('enadledNext', false)
+                      }
+                      console.log({value})
+                      handleChange(e)
+                    }}
+                    label={'Для удаления аккаунта введите текст delete'}
+                    placeholder={Text({ text: 'enter.text' })}
+                  />
+
+                  {
+                    errors.message_button ? (
+                      <Error message={errors.message_button} />
+                    ) : null
+                  }
+                  <Offset offset = { '40' } />
+                  <BlockGrid.BlockAddAddressContainerButton>
+                    <Button
+                      variant={'catalog-link-transparent__modal'}
+                      onClick={() => closeModalState()}
+                    >
+                      отменить
+                    </Button>
+
+                    <Button
+                      disabled={values.enadledNext}
+                      variant={'catalog-link-uppercase'}
+                    >
+                      {Text({ text: 'delete' })}
+                    </Button>
+
+                  </BlockGrid.BlockAddAddressContainerButton>
+
+                  </BlockGrid.Coll>
+                </BlockGrid.BlockCenter>
+              </Form>
+            )
+          }}
+
+        </Formik>
+      </BlockGrid.Container>
+  )
+}
+
+export const contentMessage = () => {
+
+  return (
+    <React.Fragment>
+        <BlockGrid.Container>
+          <BlockGrid.BlockCenter>
+            <BlockGrid.Row>
+              <Title type = { 'h4' } >
+                  Вы отписались от рассылки
+              </Title>
+              <Offset offset = {20} />           
+              <Title type = { 'h5' } >
+                  Вы отказались получать рассылки и теперь Вам не будут приходить уведомления
+              </Title>
+              </BlockGrid.Row>
+          </BlockGrid.BlockCenter>
+        </BlockGrid.Container>
     </React.Fragment>
   )
 }

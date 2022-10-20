@@ -76,7 +76,7 @@ export const putUserDataSerializer = (data) => {
     insta_link: data.instagram,
     other_link: data.otherSocialLink,
     site_link: data.addresSite,
-    receive_newsletter: data.receiveNewsletters,
+    receive_newsletter: data.receive_newsletter,
   };
 };
 

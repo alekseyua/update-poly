@@ -165,21 +165,21 @@ export const signUpSocialMediaNotRequiredFormSchema = (errorsMessenge) => {
 
 export const changeUserDataSchema = (errorsMessenge, isConcatReqFildsFromRole) => {
   let shapeObject = {
-    lastname: Yup.string()
+    last_name: Yup.string()
       .trim()
       .nullable()
       .max(20, errorsMessenge.longLastName)
       .required(errorsMessenge.requiredField),
-    firstname: Yup.string()
+    first_name: Yup.string()
       .trim()
       .nullable()
       .max(20, errorsMessenge.longFirstname)
       .required(errorsMessenge.requiredField),
-    patronymic: Yup.string()
+    middle_name: Yup.string()
       .trim()
       .nullable()
-      .max(20, errorsMessenge.longPatronymic)
-      .required(errorsMessenge.requiredField),
+      .max(20, errorsMessenge.longPatronymic),
+      // .required(errorsMessenge.requiredField),
     email: Yup.string()
       .nullable()
       .email(errorsMessenge.email)
@@ -188,10 +188,10 @@ export const changeUserDataSchema = (errorsMessenge, isConcatReqFildsFromRole) =
       .nullable()
       .matches(phoneRegExp, errorsMessenge.phone)
       .required(errorsMessenge.requiredField),
-    receiveNewsletters: Yup.boolean(),
-    vk: Yup.string().nullable(),
-    instagram: Yup.string().nullable(),
-    facebook: Yup.string().nullable(),
+    // receiveNewsletters: Yup.boolean(),
+    // vk: Yup.string().nullable(),
+    // instagram: Yup.string().nullable(),
+    // facebook: Yup.string().nullable(),
   };
   //при некоторых ролях эти поля есть а при некоторых нету
   if (isConcatReqFildsFromRole) {
@@ -200,13 +200,13 @@ export const changeUserDataSchema = (errorsMessenge, isConcatReqFildsFromRole) =
     shapeObject.companyName = Yup.string()
       .nullable()
       .min(3, errorsMessenge.shortCompanyName)
-      .required(errorsMessenge.requiredField);
+      // .required(errorsMessenge.requiredField);
     shapeObject.inn = Yup.string()
       .nullable()
       .matches(innRegExp, errorsMessenge.inn)
       .min(10, errorsMessenge.shortInn)
       .max(12, errorsMessenge.longInn)
-      .required(errorsMessenge.requiredField);
+      // .required(errorsMessenge.requiredField);
   }
 
   return Yup.object().shape(shapeObject);
