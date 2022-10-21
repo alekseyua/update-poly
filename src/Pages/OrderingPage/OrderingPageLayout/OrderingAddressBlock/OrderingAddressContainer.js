@@ -12,25 +12,11 @@ const OrderingAddressContainer = ({
 }) => {
 
   const { dispatch } = useStoreon();
-  const [ adresses, setadresses ] = useState([]);
   const [ stateMarquee, setStateMarquee ] = useState(true)
-  const [ allCount, setAllCount ] = useState(0);
-  const [ searchCount, setSearchCount ] = useState([]);
-
-  
 
   const decorOpenModalAddAddress = () => {
-    console.log('show popup for add address ')
-//     const content = (
-//       <ModalAddAddress
-//         updateAddressRenderData={updateAddressRenderData}
-//         typeModal={'create'}
-//         profileId={profileId}
-//         closeModal={closeModal}
-//         initialData={{}}
-//       />
-//     );
-//     return openModalAddAddress(content);
+    dispatch('modalAddAddress')
+
   };
 
   const searchAddressRenderData = (data) => {
@@ -55,7 +41,6 @@ const OrderingAddressContainer = ({
   }
 
   const updateAddressRenderData = (page) => {
-    console.log({page})
     const paramsPage = {
       page: page
     }
@@ -74,6 +59,7 @@ return (
 
       searchAddressRenderData = { searchAddressRenderData }
       updateAddressRenderData = { updateAddressRenderData }
+      decorOpenModalAddAddress = { decorOpenModalAddAddress }
     />
   )
 };

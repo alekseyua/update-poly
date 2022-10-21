@@ -440,6 +440,19 @@
         word-break: break-word;
         padding: 20px 5px;
       }
+      //.ordering__address-card-icon-select{}
+      &-icon-select{
+        animation-name: good-select;
+        animation-duration: 1s;
+
+
+      }
+      //.ordering__address-card-empty-select{}
+      &-empty-select{
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+      }
       //.ordering__address-card-client{}
       &-client {
         margin: 0;
@@ -1071,4 +1084,41 @@
 	50% {
 		margin-top: -20px;
 	}
+}
+
+
+@keyframes good-select {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.2);
+  }
+  20% {
+    transform: scale(1.4);
+  }
+  30% {
+    transform: scale(1.6);
+  }
+  40% {
+    transform: scale(1.8);
+  }
+  50% {
+    transform: scale(2);
+  }
+  60% {
+    transform: scale(1.8);
+  }
+  70% {
+    transform: scale(1.6);
+  }
+  80% {
+    transform: scale(1.4);
+  }
+  90% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

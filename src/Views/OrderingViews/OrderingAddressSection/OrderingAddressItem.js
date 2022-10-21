@@ -52,11 +52,13 @@ const OrderingAddressItem = ({
             <Icon
               slot="icon-left"
               src={statusSend}
-              className="cabinet_orders_details__base_info__icon"
+              className = {style['ordering__address-card-icon-select']}
               height={20} 
               width={20}
             />
-            :null
+            :<div
+              className = { style['ordering__address-card-empty-select']}
+            ></div>
         }
         <p className={style['ordering__address-card-address']}>
           {country}, {post_code}, {city}, {street}, {house}, {flat}
