@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import Text from '../../helpers/Text';
-import { spinnerCart, spin } from '../../images';
+import { spinnerCart, spin, spinnerShopping, spinnerCart2 } from '../../images';
 import Button from '../Button';
 import Icon from '../Icon/Icon';
 import Title from '../Title';
@@ -14,7 +14,8 @@ import styleModal from './styles/modalProviderView.module.scss';
  *       @action -  title["button1", "button2"] - может включать в себя до 2-х кнопок с действиями
  *       @title - информационное имя попапа
  *       @iconImage - иконка в попапе
- *       @onClickCancel -кнопка закрытия ()=>{}
+ *       @onClickCancel - кнопка закрытия ()=>{}
+ *       @closeModal  - кнопка закрытия крестик ()=>{} 
  *  } 
  *  @return
  */
@@ -62,6 +63,7 @@ const ModalProviderView = ({
             <div
                 className={classNames({
                     [styleModal[showPopup.popup]]:true,
+                    [styleModal['modal-provider__spinner-loader']]: !!!content,
                     [styleModal[addClass]]: !!addClass
                 })
                 }
@@ -88,7 +90,7 @@ const ModalProviderView = ({
                                 {content}
                         </div>
                     </>
-                        : <Icon src={spinnerCart} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
+                        : <Icon src={spinnerCart2} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
                 }
                
                 {

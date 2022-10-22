@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+//.create-order__title-container{}
+.create-order__title-container{
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+    @include mobile-lgm {
+        flex-direction: column;
+    }
+}

@@ -269,10 +269,10 @@ export const order = store => {
                     : obj?.status? params = { ...params, status: obj?.status }
                         : null
 
-            //const res = await orderApi.getOrders(params);
-
-            // const tableBodyData = res.results;
-            const tableBodyData = fakeorder.results;
+            const res = await orderApi.getOrders(params);
+            const tableBodyData = res.results;
+            
+            //const tableBodyData = fakeorder.results;
             
             const dataCreate = fakeorder.results.map(el => el.created_at).sort((a, b) => a > b ? 1 : -1);
             

@@ -12,6 +12,7 @@ const ReviewsPersonalPageLayout = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    currency,
     username,
     balance,
     shop,
@@ -26,28 +27,29 @@ const ReviewsPersonalPageLayout = ({
         <React.Fragment>
             <BlockGrid.Container>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    <BlockGrid.GridPageLK>
-                        
-                        <BlockGrid.GridPageLeftLK>
-                            <SidebarPersonalPage
-                                shop={shop}
-                                create_shop={create_shop}
-                                is_has_shop={is_has_shop}
-                                cabinet_menu={cabinet_menu}
-                                cabinet_site_menu={cabinet_site_menu}
-                                balance={balance}
-                                username={username}
-                                role={role}
-                            />
-                        </BlockGrid.GridPageLeftLK>
-                        <BlockGrid.GridPageRightLK>
-                            <MyReviews
-                                getMyReviewList  = { getMyReviewList }
-                                openModalAddReview = { openModalAddReview }
-                                changePaginationsMyReviews = { changePaginationsMyReviews }
-                            />
-                        </BlockGrid.GridPageRightLK>
-                    </BlockGrid.GridPageLK>
+                <BlockGrid.GridPageLK>
+
+                    <BlockGrid.GridPageLeftLK>
+                        <SidebarPersonalPage
+                            cabinet_site_menu={cabinet_site_menu}
+                            cabinet_menu={cabinet_menu}
+                            create_shop={create_shop}
+                            is_has_shop={is_has_shop}
+                            currency={currency}
+                            username={username}
+                            balance={balance}
+                            shop={shop}
+                            role={role}
+                        />
+                    </BlockGrid.GridPageLeftLK>
+                    <BlockGrid.GridPageRightLK>
+                        <MyReviews
+                            getMyReviewList={getMyReviewList}
+                            openModalAddReview={openModalAddReview}
+                            changePaginationsMyReviews={changePaginationsMyReviews}
+                        />
+                    </BlockGrid.GridPageRightLK>
+                </BlockGrid.GridPageLK>
             </BlockGrid.Container>
         </React.Fragment>
     )

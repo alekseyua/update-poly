@@ -135,3 +135,17 @@
   width: 100%;
   object-fit: contain; //fill; //cover
 }
+
+.swipper{
+
+  //.swipper__prev-container--vertical{}
+  &__prev-container--vertical{
+    padding: 0;
+  }
+  //.swipper__prev-slide--vertical{}
+  &__prev-slide--vertical{
+    padding: 0;
+    min-height: 150px;
+    min-width: 75px;
+  }
+}

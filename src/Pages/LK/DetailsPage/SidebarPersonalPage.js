@@ -21,6 +21,7 @@ import PersonalPageViews from '../../../Views/PersonalPageViews';
       <PersonalPageViews.UserRoutingPanel 
         cabinet_menu = { cabinet_menu }
         username = { username }
+        currency = { currency }
         balance = { balance }
         role = { role }
       />

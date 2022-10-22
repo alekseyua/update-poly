@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import MyOrderViews from '../../../Views/MyOrderViews';
 import BaseInfoOrder from './BaseInfoOrder';
+import Pagination from '../../../Views/Pagination';
+import Button from '../../../Views/Button';
+import Table from '../../../Views/Table';
+import Text from '../../../helpers/Text';
+
 import AddReview from '../../components/AddReview';
 import { infoWhite } from '../../images';
-import Text from '../../../helpers/Text';
-import Table from '../../../Views/Table';
-import Pagination from '../../Views/Pagination';
-import { Link } from 'react-router-dom';
 import ModalContentViews from '../../Views/ModalContentViews';
+
 import { useStoreon } from 'storeon/react';
 import classNames from 'classnames';
 import styleModal from '../../Views/ModalCreator/modalCreator.module.scss';
 import GoBackToCartModalContent from '../GoBackToCartModalContent';
-import Button from '../../../Views/Button';
 
 const ItemsInOrder = ({
   dateFilterData,
@@ -21,19 +23,17 @@ const ItemsInOrder = ({
   statuses, 
   profile,
   orders,
+
+  getDataOrdersFilters,
+  btnAddOrderItems,
+  sendToArchive,
+  btnDelOrder,
+
+  handlerChangePaginations,
+  currentPage,
+
  }) => {
-  console.log('tableBodyData', tableBodyData)
-
-  const [ dataUpdateCheck, setDataUpdateCheck ] =  useState(false);
-  const { updatecurrency, dispatch }                      = useStoreon('updatecurrency');
-  const [ stateClickDel, setStateClickDel ] = useState(false);
-  const [ modalStates, setmodalStates]                          = useState({
-    show: false,
-    content: null,
-    cusstomClassNameModalResize: null,
-  });
-
-  
+  console.log('tableBodyData', {tableBodyData}, {currency})
 
 const tableHeaderData = [
   [
@@ -149,45 +149,45 @@ const createTdForTable = (data = [], currency) => {
   return results;
 };
 
-
-const getDataOrdersFilters = data => {
-  dispatch('getOrders', data)
-}
-
-
-// *****************************************************************************************
-
-const btnAddOrderItems = (el) => {  
-  const params = {
-    id: el.id
-  }
-  dispatch('addNumOrder', params)
-//   window.localStorage.setItem('numOrder', el.id)
-//  const result = await api.orderApi.listOrderItem()
-//   history.push('catalog');
-}
-
-  // *****************************************************************************************
-
-const btnDelOrder = (data) => {
-  const params = {
-    id: data.id
-  }
-  dispatch('cancelOrder', params)
-  }
- //------------------------------------------------------------------------------------------------
- 
- const sendToArchive = (data) => {
-  const params = {
-    id: data.id
-  }
-  dispatch('sendToArchive', params)
-}
-
-
   const hideReviewBlock = () => {
     tableBodyData.shift();
   };
+
+  return (
+
+    <React.Fragment>
+      <BaseInfoOrder
+        dateFilterData = { dateFilterData }
+        statuses={statuses}
+        // // activePage={activePage}
+        // // loadData={loadData}
+        orders = { orders }
+        count={ orders?.count }
+        getDataOrdersFilters = { getDataOrdersFilters }
+      />
+      <MyOrderViews.WrapperTable>
+        <Table
+          statusLoad={'loading'}
+          classNameTable="cabinet-table"
+          tableHeaderData={tableHeaderData}
+          tableBodyData={createTdForTable(tableBodyData, currency)}
+        />
+        {
+          !!tableBodyData?.length?
+            <Pagination
+              location = {'center'}
+              count = { 30 }
+              allCount ={ tableBodyData?.count }
+              currentPage = { currentPage ?? 1 }
+              handlerChangePaginations = { handlerChangePaginations }
+            /> : null
+        }
+      </MyOrderViews.WrapperTable>
+    </React.Fragment>
+  );
+};
+
+export default React.memo(ItemsInOrder);
 
   // const openModalFinalyAddReview = (data) => {
   //   return setModalStates({
@@ -232,93 +232,3 @@ const btnDelOrder = (data) => {
   //   // setDefaultTableBlock();
   // }, []);
 
-
-  return (
-
-    <>
-      <BaseInfoOrder
-        dateFilterData = { dateFilterData }
-        statuses={statuses}
-        // // activePage={activePage}
-        // // loadData={loadData}
-        orders = { orders }
-        count={ orders?.count }
-
-        getDataOrdersFilters = { getDataOrdersFilters }
-      />
-      <MyOrderViews.WrapperTable>
-        <Table
-          statusLoad={'loading'}
-          classNameTable="cabinet-table"
-          tableHeaderData={tableHeaderData}
-          tableBodyData={createTdForTable(tableBodyData, currency)}
-        />
-        {/* <Pagination activePage={activePage} count={count} params={filterParams} /> */}
-      </MyOrderViews.WrapperTable>
-    </>
-//     <FetcherList isScrollTop={true} initFilter={initialFilters} api={apiOrder.getOrders} >
-//       {(data) => {
-//         const {
-//           count,
-//           results = [],
-//           activePage,
-//           loadData,
-//           showMore,
-//           status,
-//           filterParams,
-//           deleteElement,
-//           updateElement,
-//           deleteElementByKey,
-//           updateElementByKey,
-//           isNext,
-//           isPrev,
-//         } = data;
-// //reload
-
-// // *****************************************************
-//         const executeUpdate = () => {
-//           setDataUpdateCheck(false);
-//           data.reload();
-//         }
-//         dataUpdateCheck?executeUpdate():null;
-//         // *****************************************************
-
-//         return (
-//           <>
-//             <GxModal
-//               onGx-after-hide={closeModal}
-//               open={modalStates.show}
-//               className={classNames({
-//                 [styleModal['modal_creator']]: true,
-//                 [styleModal[modalStates.cusstomClassNameModalResize]]:
-//                 modalStates.cusstomClassNameModalResize,
-//               })}
-//               >
-//               <ModalContentViews.CloseBtn closeModal={closeModal} />
-//               {modalStates.content}
-//             </GxModal>
-
-//             <BaseInfoOrder
-//               statuses={statuses}
-//               activePage={activePage}
-//               loadData={loadData}
-//               filterParams={filterParams}
-//               count={count}
-//             />
-//             <MyOrderViews.WrapperTable>
-//               <Table
-//                 statusLoad={status}
-//                 classNameTable="cabinet-table"
-//                 tableHeaderData={tableHeaderData}
-//                 tableBodyData={tableData}
-//               />
-//               <Pagination activePage={activePage} count={count} params={filterParams} />
-//             </MyOrderViews.WrapperTable>
-//           </>
-//         );
-//       }}
-//     </FetcherList>
-  );
-};
-
-export default React.memo(ItemsInOrder);

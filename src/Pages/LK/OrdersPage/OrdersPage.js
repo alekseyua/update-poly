@@ -11,6 +11,7 @@ const OrdersPage = ({
         cabinet_menu,
         breadcrumbs,
         statuses,
+        currency,
         profile,
         order,
         shop,
@@ -33,6 +34,7 @@ const OrdersPage = ({
             is_has_shop = { shop?.is_has_shop }
             profileId = { id }
             username = { username }
+            currency = { currency }
             statuses = { statuses }
             profile = { profile }
             balance = { balance }

@@ -9,6 +9,7 @@ const ReviewsPersonalPageLayoutContainer = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    currency,
     username,
     balance,
     shop,
@@ -22,25 +23,26 @@ const ReviewsPersonalPageLayoutContainer = ({
         }
         dispatch('getMyReviewList', params)
     }
-    const openModalAddReview = () => { 
+    const openModalAddReview = () => {
         dispatch('addReview')
-     }
+    }
 
     return (
         <ReviewsPersonalPageLayout
-        cabinet_site_menu = { cabinet_site_menu}
-        getMyReviewList = { getMyReviewList }
-        cabinet_menu = { cabinet_menu }
-        create_shop = { create_shop }
-        is_has_shop = { is_has_shop }
-        breadcrumbs = { breadcrumbs }
-        username = { username }
-        balance = { balance }
-        shop = { shop }
-        role = { role }
+            cabinet_site_menu={cabinet_site_menu}
+            getMyReviewList={getMyReviewList}
+            cabinet_menu={cabinet_menu}
+            create_shop={create_shop}
+            is_has_shop={is_has_shop}
+            breadcrumbs={breadcrumbs}
+            currency={currency}
+            username={username}
+            balance={balance}
+            shop={shop}
+            role={role}
 
-        openModalAddReview = { openModalAddReview }
-        changePaginationsMyReviews = { changePaginationsMyReviews }
+            openModalAddReview={openModalAddReview}
+            changePaginationsMyReviews={changePaginationsMyReviews}
         />
     )
 }

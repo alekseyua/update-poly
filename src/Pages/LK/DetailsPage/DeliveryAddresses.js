@@ -69,7 +69,7 @@ const DeliveryAddresses = ({
         <PersonalPageViews.FormBlockContent>
           <PersonalPageViews.FormGroup>
             <Input
-              value={addressDilivery.textSearch}
+              value={addressDilivery?.textSearch? addressDilivery?.textSearch : ''}
               name={'searchAddress'}
               autocomplete={'off'}
               onChange={handleChangeSearchInput}

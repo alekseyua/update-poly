@@ -21,6 +21,7 @@
 
   //.ordering__button{}
   &__button {
+    // display: inline-block;
     height: 58px;
     width: 280px;
     border-radius: 2px;
@@ -28,7 +29,6 @@
     margin-right: 4px;
     margin-bottom: 4px;
     background-color: $g;
-    display: inline-block;
     position: relative;
     text-decoration: none;
     overflow: hidden;
@@ -38,6 +38,17 @@
     color: $a2;
     text-transform: uppercase;
     font-weight: 700;
+    //.ordering__button-card-icon-select{}
+    &-card-icon-select{
+      animation-name: good-select;
+      animation-duration: 1s;
+    }
+    //.ordering__button-card-empty-select{}
+    &-card-empty-select{
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+    }
     &:hover {
       background-color: $a2;
       color: $w;

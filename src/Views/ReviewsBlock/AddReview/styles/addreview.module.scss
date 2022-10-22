@@ -28,8 +28,17 @@
     //.productreviews__form-submit-wrappar{}
     &__form-submit-wrappar {
         @include flex('sc');
+        &>:first-child{
+            align-self: flex-start;
+            margin-top: 10px;
+            font-size: 12px;
+            &>label{
+                font-size: 12px;
+                margin-right: 25px;
+            }
+        }
 
-        @include tablet-md {
+        @include tablet-mmd {
             flex-direction: column;
             & > div{
                 margin-bottom: 15px;
@@ -40,18 +49,20 @@
     //.productreviews__form-submit-btnwrap{}
     &__form-submit-btnwrap {
         width: min-content;
-
-        @include tablet-md {
-            margin-left: 20px;
-            justify-content: space-between;
+        
+        @include tablet-mmd {
+            margin: 0px;
+            justify-content: space-evenly;
             display: flex;
             min-width: 270px;
-            flex-direction: column;
+            flex-direction: row;
+            width: 100%;
         }
     }
 
     //.productreviews__form-submit-btndark{}
     &__form-submit-btndark {
+        margin: 5px;
         width: 100%;
         overflow: hidden;
         text-transform: uppercase;
@@ -73,6 +84,7 @@
 
     //.productreviews__form-submit-btn{}
     &__form-submit-btn {
+        margin: 5px;
         text-transform: uppercase;
         background-color: transparent;
         color: var(--gx-color-primary);
@@ -83,7 +95,7 @@
         width: 142px;
         letter-spacing: 1.4px;
         min-height: 46px;
-        max-height: 48px;
+        max-height: 46px;
         display: flex;
         align-items: center;
         justify-content: space-evenly;

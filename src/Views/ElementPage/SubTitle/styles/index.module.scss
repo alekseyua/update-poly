@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+//.create-order__subtitle{}
+.create-order__subtitle{
+    padding: 0;
+    color: $dg;
+    @extend %font-title;
+    @include adaptive-value('font-size', 24, 12, px, 2);
+    // font-size: 24px;
+    margin-left: 10px;
+}

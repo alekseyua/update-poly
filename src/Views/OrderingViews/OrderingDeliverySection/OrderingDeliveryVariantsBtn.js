@@ -4,9 +4,9 @@ import {statusSend} from '../../../images';
 import Button from '../../Button';
 import Icon from '../../Icon';
 import { v4 } from 'uuid'
+import ToolTip from '../../ToolTip';
 
 import style from '../styles/index.module.scss';
-import ToolTip from '../../ToolTip';
 
 const OrderingDeliveryVariantsBtn = ({ 
   deliveryVariant = [], 
@@ -42,11 +42,13 @@ const OrderingDeliveryVariantsBtn = ({
                   <Icon
                     slot="icon-left"
                     src={statusSend}
-                    className="cabinet_orders_details__base_info__icon"
+                    className={style['ordering__button-card-icon-select']}
                     height={20} 
                     width={20}
                   />
-                  :null
+                  :<div
+                  className = { style['ordering__button-card-empty-select']}
+                ></div>
               }
             </Button>
           </ToolTip>

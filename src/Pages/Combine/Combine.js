@@ -27,6 +27,7 @@ import BalancePage from '../LK/BalancePage/BalancePage';
 import ReviewsPersonalPage from '../LK/ReviewsPersonalPage/ReviewsPersonalPage';
 import WishPage from '../WishPage/WishPage';
 import ExportCatalog from '../ExportCatalog/ExportCatalog';
+import OrderDetailsPersonalPage from '../LK/OrderDetailsPersonalPage/OrderDetailsPersonalPage';
 
 
 const Combine = ({...props}) => {
@@ -53,12 +54,13 @@ const Combine = ({...props}) => {
         9: CartPage, //?корзина http://localhost:3000/cart
         11: OrderingPage, //? страница Оформление заказа
         29: OrdersPage, //? страница с моими заказами (там же архив и активные)
-        34: PersonalPage, //? личный кабинет
         35: NotificationsPage, //? кабинет уведомления
-        36: BalancePage, //? кабинет баланс
-        31: ReviewsPersonalPage, //? страница с деталкой заказа
         13: WishPage, //? старница со списком желаемого
         37: ExportCatalog,
+        34: PersonalPage, //? личный кабинет
+        36: BalancePage, //? кабинет баланс
+        31: ReviewsPersonalPage, //? страница с деталкой заказа
+        30: OrderDetailsPersonalPage, //? деталка заказа
 
         
     }

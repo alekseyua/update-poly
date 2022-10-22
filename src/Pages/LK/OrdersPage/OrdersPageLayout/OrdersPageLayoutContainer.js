@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStoreon } from 'storeon/react';
 import OrdersPageLayout from './OrdersPageLayout';
 
 const OrdersPageLayoutContainer = ({
@@ -11,6 +12,7 @@ const OrdersPageLayoutContainer = ({
             is_has_shop,
             profileId,
             username,
+            currency,
             statuses,
             profile,
             balance,
@@ -18,6 +20,32 @@ const OrdersPageLayoutContainer = ({
             shop,
             role,
 }) => {
+    const { dispatch } = useStoreon();
+
+    const getDataOrdersFilters = data => {
+        dispatch('getOrders', data)
+    }
+
+    const btnAddOrderItems = (el) => {  
+        const params = {
+          id: el.id
+        }
+        dispatch('addNumOrder', params)
+    }
+
+    const btnDelOrder = (data) => {
+        const params = {
+            id: data.id
+        }
+        dispatch('cancelOrder', params)
+    }
+
+    const sendToArchive = (data) => {
+        const params = {
+          id: data.id
+        }
+        dispatch('sendToArchive', params)
+      }
 
     return (
         <OrdersPageLayout
@@ -31,11 +59,17 @@ const OrdersPageLayoutContainer = ({
             profileId = { profileId }
             profile = { profile }
             username = { username }
+            currency = { currency }
             statuses = { statuses }
             balance = { balance }
             orders = { orders }
             shop = { shop }
             role = { role }
+            
+            getDataOrdersFilters = { getDataOrdersFilters }
+            btnAddOrderItems = { btnAddOrderItems }
+            sendToArchive = { sendToArchive }
+            btnDelOrder = { btnDelOrder }
         />
     )
 }

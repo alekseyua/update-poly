@@ -1,7 +1,7 @@
 import api from '../../api/api';
 import initData from '../../../public/content-page.json';
 import { initValueCheckBoxFilters } from '../../helpers/initialValues/initialValues';
-import { getCookie } from '../../helpers/helpers';
+import { getActiveColor, getCookie } from '../../helpers/helpers';
 import { COOKIE_KEYS, ROLE } from '../../const';
 import Text from '../../helpers/Text';
 import { errorAlertIcon } from '../../images';
@@ -10,6 +10,7 @@ import { errorAlertIcon } from '../../images';
 export const pageContent = store => {
     const orderApi = api.orderApi;
     const apiCart = api.cartApi
+    const apiContent = api.contentApi;
 
     store.on('@init', () => ({ context: initData }));
 
@@ -40,7 +41,7 @@ export const pageContent = store => {
             console.log('******url store******', {url}, {a: redirectTo} )
             const res = await api.getPage({ url })
             dispatch('setModalState', {
-                show: false,
+                // show: false,
             })
             // console.log('res new from url =', res.init_state)
             // console.log('res old from context = ', context)
@@ -526,6 +527,15 @@ export const pageContent = store => {
             }
 
             if (url.includes('/product-')) {               
+                const productId = res.init_state.page_info.id;
+                const resProducts = await apiContent.getProduct(productId)
+                const activeColor = getActiveColor(resProducts.colors)
+                let newMedia = [];
+                resProducts.product_sku.filter( el => el.color === activeColor? newMedia.push({
+                    image: el.image,
+                    image_thumb: el.image_thumb,
+                    type: 'image',
+                }) : null );
 
                 const newContext = {
                     ...context,
@@ -534,23 +544,9 @@ export const pageContent = store => {
                         ...context.init_state,
                         ...res.init_state,
                         productDetails: {
-                            in_cart_count: null,
-                            in_stock_count: null,
-                            is_bestseller: false,
-                            is_closeout: false,
-                            is_in_stock: false,
-                            id: res.init_state.page_info.id,
-                            product_rc: '',
-                            minimum_rc: null,
-                            is_new: false,
-                            prices: {},
-                            colors: [],
-                            sizes: [],
-                            media: [],
-                            brand: '',
-                            title: res.init_state.page_info.title,
-                            collections: [],
-                            is_collection: false,
+                            ...context.init_state.productDetails,
+                            ...resProducts,                           
+                            media: [newMedia[0], ...resProducts.media],
                         },
                         youAlredyWatch: {
                             results: []
@@ -561,13 +557,13 @@ export const pageContent = store => {
                 
                 dispatch('context', newContext)
                 
-                const timerTimeoutAddress = setTimeout(()=>{
-                    const params = {
-                        productId: res.init_state.page_info.id
-                    }                    
-                    dispatch('getProductDetails', params)
-                    return () => clearTimeout(timerTimeoutAddress);
-                },2500)
+                // const timerTimeoutAddress = setTimeout(()=>{
+                //     const params = {
+                //         productId: res.init_state.page_info.id
+                //     }                    
+                //     dispatch('getProductDetails', params)
+                //     return () => clearTimeout(timerTimeoutAddress);
+                // },2500)
                 
                 return 
             }
@@ -642,6 +638,8 @@ export const pageContent = store => {
                             ...context.init_state.order,
                             addressDilivery: {
                                 ...context.init_state.order.addressDilivery,
+                                count: 0,
+                                results: [],
                                 textSearch: '',
                                 currentPage: 1,
                             },
@@ -667,7 +665,11 @@ export const pageContent = store => {
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
-                        ...res.init_state,                        
+                        ...res.init_state,
+                        order: {
+                            ...res.init_state.order,
+                            fullNumberOrder: url.split('/').pop(),
+                        },
                         numberCurrentOrderForAddProduct: null,
                     },
                 }
@@ -702,29 +704,31 @@ export const pageContent = store => {
 
             }             
 
-            if (url === '/balance') {                
+            if (url === '/balance') {   
+                const resBalance = await api.getUserBalance({"currency": currency});
+                console.log({resBalance})
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
-                        ...res.init_state,                        
+                        ...res.init_state,
+                        profile:{
+                            ...context.init_state.profile,
+                            balance: resBalance.balance,
+                            opt_minimum_price: resBalance.opt_minimum_price,
+                            passive_balance: resBalance.passive_balance
+                        },                        
                         numberCurrentOrderForAddProduct: null,
                     },
                 }
-                console.log('newContext = ', res.init_state)
                 
                 dispatch('context', newContext)
-
-                const timerTimeoutBalance = setTimeout(()=>{
-                        dispatch('getBalace');
-                    return ()=>clearTimeout(timerTimeoutBalance);
-                },400)
 
                 const timerTimeoutPayments = setTimeout(()=>{
                         dispatch('getPayments');
                     return ()=>clearTimeout(timerTimeoutPayments);
-                },800)
+                },1200)
 
             } 
 

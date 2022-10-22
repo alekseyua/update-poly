@@ -10,6 +10,7 @@ import style from './styles/userRouting.module.scss';
 const UserRoutingPanel = ({
   cabinet_menu = [],
   username = '',
+  currency, 
   balance,
   role,
 }) => {
@@ -66,7 +67,7 @@ const UserRoutingPanel = ({
           </div>
           <div className={style['cabinet-sidebar__balance-value']}>
             {balance}&nbsp;
-            {getCookie(COOKIE_KEYS.CURRENCIES)}
+            {currency}
           </div>
         </div>
         <div className={style['cabinet-sidebar__balance-btns']}>

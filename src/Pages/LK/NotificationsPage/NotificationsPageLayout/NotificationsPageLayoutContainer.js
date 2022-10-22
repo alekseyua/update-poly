@@ -10,6 +10,7 @@ const NotificationsPageLayoutContainer = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    currency,
     username,
     balance,
     shop,
@@ -54,16 +55,17 @@ const NotificationsPageLayoutContainer = ({
     return (
         <NotificationsPageLayout
             notificationsPrifile = { notificationsPrifile }
+            cabinet_site_menu = { cabinet_site_menu }
             notifications = { notifications }
-            breadcrumbs = { breadcrumbs }
-            shop={shop}
-            create_shop={create_shop}
-            is_has_shop={is_has_shop}
-            cabinet_menu={cabinet_menu}
-            cabinet_site_menu={cabinet_site_menu}
-            balance={balance}
-            username={username}
-            role={role}
+            cabinet_menu = { cabinet_menu }
+            breadcrumbs = { breadcrumbs }            
+            create_shop = { create_shop }
+            is_has_shop = { is_has_shop }
+            currency = { currency }
+            username = { username }
+            balance = { balance }
+            shop = { shop }
+            role = { role }
 
             heandlerReedNotic={heandlerReedNotic} 
             heandlerDelNotic={heandlerDelNotic} 

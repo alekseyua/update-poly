@@ -16,7 +16,7 @@ export const profileLK = store => {
           }
 
           const res = await orderApi.getOrderAddressDeliviry(params);
-
+          console.log({res})
           const newContext = {
               ...context,
               "init_state": {
@@ -24,7 +24,9 @@ export const profileLK = store => {
                   order: {
                       ...context.init_state.order,
                       addressDilivery: {
-                          ...res,
+                        ...context.init_state.order.addressDilivery,
+                          count: res.count,
+                          results: res.results,
                           textSearch: '',
                           currentPage: obj?.page ?? 1
                       },

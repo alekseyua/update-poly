@@ -1,6 +1,6 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
@@ -255,11 +255,13 @@ export const modalStorage = store => {
     store.on('modalCheckPayment', async ({ context, closeModalState }, obj , { dispatch }) => {
         const { first_name, last_name, middle_name } = context.init_state.profile.user;
         
-        const balance = obj?.balance;
-        const total_price = obj?.total_price;
-        const order_id = obj?.order_id;
-        const redirectTo = obj?.redirectTo;
         const { currency } = context.init_state;
+        const { balance } = context.init_state.profile;
+
+        const order_id = obj?.order_id;
+        const total_price = obj?.total_price;
+        
+        const redirectTo = obj?.redirectTo;
 
         dispatch('setModalState', {
             show: true,
@@ -498,6 +500,21 @@ export const modalStorage = store => {
         }catch(err){
             console.log('ERROR getMyCach FROM BALANCE', err)
         }
+    })
+
+    store.on('modalShowInfoOrder', ({ context, closeModalState }, obj, { dispatch }) => {
+        const { status } = obj;
+        const { role } = context.init_state.profile;
+        const numberOrder = context.init_state.order.fullNumberOrder;
+        dispatch('setModalState', {
+            show: true,
+            content: contentInfoOrder(status, role, numberOrder),
+            action: {
+                title: ['продолжить', null]
+            },
+            addClass: 'modal-default',
+            onClick: () => closeModalState(),
+        })
     })
 }
 

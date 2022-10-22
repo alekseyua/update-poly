@@ -1,0 +1,33 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+    //.cabinet-orders-details__track-container{}
+    &__track-container{
+        background-color: rgba(243, 239, 243, 0.5);
+    border: 2px solid $g;
+    border-radius: 4px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    @include flex(cc);
+    flex-direction: column;
+    }
+    //.cabinet-orders-details__track-number{}
+    &__track-number{
+        font-size: 22px;
+        font-weight: bold;
+        margin-left: 10px;
+        word-break: break-word;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    //.cabinet-orders-details__track-info{}
+    &__track-info{
+        padding: 10px 20px;
+    }
+    //.cabinet-orders-details__track-text--link{}
+    &__track-text--link{
+        text-decoration: underline;
+    }
+}

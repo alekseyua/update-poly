@@ -5,15 +5,20 @@ import SidebarPersonalPage from '../../DetailsPage/SidebarPersonalPage';
 import ActiveAndArchivedOrders from '../../DetailsPage/ActiveAndArchivedOrders';
 
 const OrdersPageLayout = ({
+    getDataOrdersFilters,
     cabinet_site_menu,
+    btnAddOrderItems,
     dateFilterData,
     tableBodyData,
+    sendToArchive,
     cabinet_menu,
+    btnDelOrder,
     breadcrumbs,
     create_shop,
     is_has_shop,
     profileId,
     username,
+    currency,
     statuses,
     profile,
     balance,
@@ -36,9 +41,10 @@ const OrdersPageLayout = ({
                             is_has_shop={is_has_shop}
                             cabinet_menu={cabinet_menu}
                             cabinet_site_menu={cabinet_site_menu}
-                            balance={balance}
-                            username={username}
-                            role={role}
+                            currency = { currency }
+                            username = { username }
+                            balance = { balance }
+                            role = { role }
                         />
                         </BlockGrid.GridPageLeftLK>
 
@@ -49,6 +55,12 @@ const OrdersPageLayout = ({
                             statuses = {statuses}
                             profile = {profile}
                             orders = { orders }
+                            currency = { currency }
+
+                            getDataOrdersFilters = { getDataOrdersFilters }
+                            btnAddOrderItems = { btnAddOrderItems }
+                            sendToArchive = { sendToArchive }
+                            btnDelOrder = { btnDelOrder }
                         />
                         </BlockGrid.GridPageRightLK>
                     </BlockGrid.GridPageLK>

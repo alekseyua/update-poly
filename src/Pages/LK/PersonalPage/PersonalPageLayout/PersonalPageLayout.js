@@ -17,6 +17,7 @@ const PersonalPageLayout = ({
     create_shop,
     is_has_shop,
     username,
+    currency,
     balance,
     profile,
     shop,
@@ -47,14 +48,15 @@ const PersonalPageLayout = ({
                         
                         <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
-                            shop={shop}
-                            create_shop={create_shop}
-                            is_has_shop={is_has_shop}
-                            cabinet_menu={cabinet_menu}
-                            cabinet_site_menu={cabinet_site_menu}
-                            balance={balance}
-                            username={username}
-                            role={role}
+                            cabinet_site_menu = { cabinet_site_menu }
+                            cabinet_menu = { cabinet_menu }
+                            create_shop = { create_shop }
+                            is_has_shop = { is_has_shop }
+                            currency = { currency }
+                            username = { username }
+                            balance = { balance } 
+                            shop = { shop }
+                            role = { role }
                         />
                         </BlockGrid.GridPageLeftLK>
 

@@ -12,7 +12,8 @@ import style from './layout.module.scss';
 
 
 const Layout = (props) => {
-  // console.log('start go to props == ', props)
+  console.log('start go to props == ', props)
+
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
@@ -40,9 +41,7 @@ const Layout = (props) => {
       // onClick : ()=>dispatch('setModalState',{
       //             show: true,
       //             content: 'hhhhhhhhh'
-      //           })
-      
-
+      //           })     
     })
 
   },[])

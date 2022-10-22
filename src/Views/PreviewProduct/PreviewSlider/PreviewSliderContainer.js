@@ -4,9 +4,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Player, BigPlayButton, Video, ControlBar } from 'video-react';
 import SwiperCore, { Navigation, Pagination, Controller, Thumbs } from 'swiper';
 import { v4 } from 'uuid';
-import style from '../../SliderViews/styles/index.module.scss';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
+
+
+import style from '../../SliderViews/styles/index.module.scss';
+
 SwiperCore.use([Navigation, Pagination, Controller, Thumbs]);
 
 const FancyButton = React.forwardRef(({ className, ...props }, ref) => (
@@ -68,11 +71,14 @@ const PreviewSliderContainer = ({
           // longSwipesRatio={0.1}
           // previewslider={'true'}
           // size={100}
-          // className={'swipper_container-vertical'}
+          className = { style['swipper__prev-container--vertical']}
         >
           {
             !imageOrVideoSet.length && defaultImage ? (
-              <SwiperSlide key={v4()}>
+              <SwiperSlide 
+                key={v4()}
+                className = { style['swipper__prev-slide--vertical']}
+              >
                 <SliderViews.Slide image={defaultImage}></SliderViews.Slide>
               </SwiperSlide>
             ) : null
@@ -81,7 +87,11 @@ const PreviewSliderContainer = ({
             imageOrVideoSet.map((el, i) => {
               // console.log('element', el)
               if (el.type === 'video') {
-                <SwiperSlide key={v4()}>
+                <SwiperSlide 
+                  key={v4()}
+                  className = { style['swipper__prev-slide--vertical']}
+
+                >
                   <Video
                     autoPlay
                     className="news-details-page__slider_item"
@@ -94,7 +104,10 @@ const PreviewSliderContainer = ({
                 </SwiperSlide>
               } else {
                 return (
-                  <SwiperSlide key={v4()}>
+                  <SwiperSlide 
+                    className = { style['swipper__prev-slide--vertical']}
+                    key={v4()}
+                  >
                     <SliderViews.Slide
                       image={!!el.image ? el.image : defaultImage}
                     ></SliderViews.Slide>

@@ -12,6 +12,7 @@ const NotificationsPage = ({
         notifications,
         cabinet_menu,
         breadcrumbs,
+        currency,
         profile,
         shop,
     } = context;
@@ -23,16 +24,17 @@ const NotificationsPage = ({
     return (
         <NotificationsPageLayoutContainer
             notificationsPrifile = { notificationsPrifile }
-            notifications = { notifications }
+            cabinet_site_menu = { cabinet_site_menu }
+            notifications = { notifications }           
+            cabinet_menu = { cabinet_menu }
             breadcrumbs = { breadcrumbs }
-            shop={shop}
             create_shop = { shop?.shop_link }
             is_has_shop = { shop?.is_has_shop }
-            cabinet_menu={cabinet_menu}
-            cabinet_site_menu={cabinet_site_menu}
-            balance={balance}
-            username={username}
-            role={role}
+            currency = { currency }
+            username = { username }
+            balance = { balance }
+            shop = { shop }
+            role = { role }
 
             stateActiveCheckNotice = { stateActiveCheckNotice }
         />

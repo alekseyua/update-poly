@@ -15,6 +15,7 @@ const NotificationsPageLayout = ({
     cabinet_site_menu,
     balance,
     username,
+    currency,
     role,
 
     notifications,
@@ -35,13 +36,14 @@ const NotificationsPageLayout = ({
                         <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
                             shop={shop}
-                            create_shop={create_shop}
-                            is_has_shop={is_has_shop}
-                            cabinet_menu={cabinet_menu}
-                            cabinet_site_menu={cabinet_site_menu}
-                            balance={balance}
-                            username={username}
-                            role={role}
+                            cabinet_site_menu = { cabinet_site_menu }
+                            cabinet_menu = { cabinet_menu }
+                            create_shop = { create_shop }
+                            is_has_shop = { is_has_shop }
+                            currency = { currency }
+                            username = { username }
+                            balance = { balance }
+                            role = { role }
                         />
                         </BlockGrid.GridPageLeftLK>
 

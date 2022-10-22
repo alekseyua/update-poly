@@ -216,9 +216,9 @@ const CatalogPageLayout = ({
                     {/* {status === 'loading' ? ( */}
                     { 
                      !!dataProducts?.result?.length ? (
-                       <BlockSpinner.SpinnerWrapper>
-                         <BlockSpinner.Spinner size="30" />
-                       </BlockSpinner.SpinnerWrapper>
+                      <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                          <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
+                        </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
                      ) : (
                     <>
                       <CatalogViews.Tags>
@@ -326,39 +326,43 @@ const CatalogPageLayout = ({
                       {
                         !!!dataProducts?.results.length && showFilters ? <CatalogViews.EmptyCatalog /> : null
                       }
-
+                      {
+                        !!dataProducts?.results.length?
                       <CatalogViews.WrapperCard>
                             {
-                              !!dataProducts?.results.length?
-                              dataProducts.results.map((el) => {
-                              return (
-                                <AsyncProductCard
-                                  role = { role }
-                                  key = { `${el.title}-${el.id}` }
-                                  title = { el.title }
-                                  id = { el.id }
-                                  url = { el.url }
-                                  brand = { el.brand }
-                                  prices = { el.prices }
-                                  stock = { el.stock }
-                                  colors = { el.colors }
-                                  sizes = { el.sizes }
-                                  images = { el.images }
-                                  isSales = { el.isSales }
-                                  isNew = { el.isNew }
-                                  isHit = { el.isHit }                                  
-                                  is_liked = { el.is_liked }
-                                  product_rc = { el.product_rc }
-                                  article = { el.article }
-                                  currency = { currency }
-                                />
-                                );
-                              })
-                              : null
+                                dataProducts?.results?.map((el) => {
+                                return (
+                                  <AsyncProductCard
+                                    role = { role }
+                                    key = { `${el.title}-${el.id}` }
+                                    title = { el.title }
+                                    id = { el.id }
+                                    url = { el.url }
+                                    brand = { el.brand }
+                                    prices = { el.prices }
+                                    stock = { el.stock }
+                                    colors = { el.colors }
+                                    sizes = { el.sizes }
+                                    images = { el.images }
+                                    isSales = { el.isSales }
+                                    isNew = { el.isNew }
+                                    isHit = { el.isHit }                                  
+                                    is_liked = { el.is_liked }
+                                    product_rc = { el.product_rc }
+                                    article = { el.article }
+                                    currency = { currency }
+                                  />
+                                  );
+                                })
                             }
                           </CatalogViews.WrapperCard> 
-
-
+                        
+                        
+                        
+                        :  <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                          <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
+                        </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+}
                        {
                           dataProducts?.results.length  < dataProducts?.count && currentPage * 30 < dataProducts?.count? (
                             <Button full onClick={showMore} variant={'show_more'}>

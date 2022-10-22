@@ -282,17 +282,17 @@ export const listCurrentOrders = (listOrders, changeStatusOrder, currency) => {
 
 export const payment = async (order_id, balance, total_price, currency, first_name, last_name, middle_name, dispatch, redirectTo, closeModalState) => {
   const initialValues = {
-    fio: (middle_name && first_name && last_name)? 
-          `${first_name} ${last_name} ${middle_name}` 
-              : (first_name && last_name)? 
-              `${first_name} ${last_name}`
-                : first_name?
-                  `${first_name}`
-                  : '',
+    fio: (middle_name && first_name && last_name) ?
+      `${first_name} ${last_name} ${middle_name}`
+      : (first_name && last_name) ?
+        `${first_name} ${last_name}`
+        : first_name ?
+          `${first_name}`
+          : '',
     cost: 0,
     comment: '',
     receipt: null,
-    order_id: order_id? order_id : null,
+    order_id: order_id ? order_id : null,
   };
   const errorsMessenge = {
     symbol: 'Поле не должно содержать спец. символы',
@@ -319,8 +319,9 @@ export const payment = async (order_id, balance, total_price, currency, first_na
         } else {
           fdPayments.set('receipt', data?.receipt[0]);
           const resCreatePayment = await orderApi.createPayments(fdPayments)
-          if( order_id ) return;
-          redirectTo? redirectTo('/orders') : null;
+          debugger
+          if (!order_id) return closeModalState();
+          redirectTo ? redirectTo('/orders') : null;
         }
       } catch (err) {
 
@@ -342,7 +343,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
             action: {
               title: ['Продолжить', null]
             },
-            onClick: () => closeModalState()
+            onClick: () => redirectTo('/balance'), //closeModalState()
+            closeModal: () => redirectTo('/balance')
           })
         }
       }
@@ -350,9 +352,9 @@ export const payment = async (order_id, balance, total_price, currency, first_na
 
     return (
       <Formik
-        validationSchema = { payModalScheme(errorsMessenge) }
-        initialValues = { initialValues }
-        onSubmit = { sendCheckToServer }
+        validationSchema={payModalScheme(errorsMessenge)}
+        initialValues={initialValues}
+        onSubmit={sendCheckToServer}
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
 
@@ -926,22 +928,22 @@ export const accountDelete = async (deleteAccountFunc, closeModalState, userId) 
     userId: userId,
   }
   return (
-      <BlockGrid.Container>
-        <Formik
-          initialValues={initialValuesDeleteAccaunt}
-          onSubmit = { deleteAccountFunc }
-        >
-          {({ handleSubmit, errors, values, handleChange, setFieldValue }) => {
+    <BlockGrid.Container>
+      <Formik
+        initialValues={initialValuesDeleteAccaunt}
+        onSubmit={deleteAccountFunc}
+      >
+        {({ handleSubmit, errors, values, handleChange, setFieldValue }) => {
 
 
 
-            return(
-              <Form
-                onSubmit={ (e) => handleSubmit(e, setFieldValue )}
-              >
+          return (
+            <Form
+              onSubmit={(e) => handleSubmit(e, setFieldValue)}
+            >
 
-                <BlockGrid.BlockCenter>
-                  <BlockGrid.Coll>
+              <BlockGrid.BlockCenter>
+                <BlockGrid.Coll>
                   <Title type={'h3'} >
                     Обратите внимание: данные удалятся безвозвратно!
                   </Title>
@@ -960,12 +962,12 @@ export const accountDelete = async (deleteAccountFunc, closeModalState, userId) 
                     value={values.checkDelete}
                     name={'checkDelete'}
                     variant={'largeCustomLabel'}
-                    onChange={ e => {
+                    onChange={e => {
                       const value = e.target.value;
                       if (value === 'delete') {
                         setFieldValue('enadledNext', false)
                       }
-                      console.log({value})
+                      console.log({ value })
                       handleChange(e)
                     }}
                     label={'Для удаления аккаунта введите текст delete'}
@@ -977,7 +979,7 @@ export const accountDelete = async (deleteAccountFunc, closeModalState, userId) 
                       <Error message={errors.message_button} />
                     ) : null
                   }
-                  <Offset offset = { '40' } />
+                  <Offset offset={'40'} />
                   <BlockGrid.BlockAddAddressContainerButton>
                     <Button
                       variant={'catalog-link-transparent__modal'}
@@ -995,14 +997,14 @@ export const accountDelete = async (deleteAccountFunc, closeModalState, userId) 
 
                   </BlockGrid.BlockAddAddressContainerButton>
 
-                  </BlockGrid.Coll>
-                </BlockGrid.BlockCenter>
-              </Form>
-            )
-          }}
+                </BlockGrid.Coll>
+              </BlockGrid.BlockCenter>
+            </Form>
+          )
+        }}
 
-        </Formik>
-      </BlockGrid.Container>
+      </Formik>
+    </BlockGrid.Container>
   )
 }
 
@@ -1010,33 +1012,33 @@ export const contentMessage = () => {
 
   return (
     <React.Fragment>
-        <BlockGrid.Container>
-          <BlockGrid.BlockCenter>
-            <BlockGrid.Row>
-              <Title type = { 'h4' } >
-                  Вы отписались от рассылки
-              </Title>
-              <Offset offset = {20} />           
-              <Title type = { 'h5' } >
-                  Вы отказались получать рассылки и теперь Вам не будут приходить уведомления
-              </Title>
-              </BlockGrid.Row>
-          </BlockGrid.BlockCenter>
-        </BlockGrid.Container>
+      <BlockGrid.Container>
+        <BlockGrid.BlockCenter>
+          <BlockGrid.Row>
+            <Title type={'h4'} >
+              Вы отписались от рассылки
+            </Title>
+            <Offset offset={20} />
+            <Title type={'h5'} >
+              Вы отказались получать рассылки и теперь Вам не будут приходить уведомления
+            </Title>
+          </BlockGrid.Row>
+        </BlockGrid.BlockCenter>
+      </BlockGrid.Container>
     </React.Fragment>
   )
 }
 
-export const getMyCash = async ( first_name, last_name, middle_name, dispatch, redirectTo, closeModalState ) => {
+export const getMyCash = async (first_name, last_name, middle_name, dispatch, redirectTo, closeModalState) => {
 
   const initialValues = {
-    fio: (middle_name && first_name && last_name)? 
-          `${first_name} ${last_name} ${middle_name}` 
-              : (first_name && last_name)? 
-              `${first_name} ${last_name}`
-                : first_name?
-                  `${first_name}`
-                  : '',
+    fio: (middle_name && first_name && last_name) ?
+      `${first_name} ${last_name} ${middle_name}`
+      : (first_name && last_name) ?
+        `${first_name} ${last_name}`
+        : first_name ?
+          `${first_name}`
+          : '',
     cost: 0,
     beneficiaryBankAccountNumber: '',
     beneficiaryBankBIC: '',
@@ -1070,7 +1072,7 @@ export const getMyCash = async ( first_name, last_name, middle_name, dispatch, r
           fdPayments.set('receipt', data?.receipt[0]);
 
           const resCreatePayment = await orderApi.returnManyQuery(fdPayments)
-          
+
           dispatch('setModalState', {
             show: true,
             content: 'Ваше заявление принято в работу!!!',
@@ -1079,7 +1081,7 @@ export const getMyCash = async ( first_name, last_name, middle_name, dispatch, r
               title: ['Продолжить', null]
             },
             onClick: () => closeModalState()
-          })          
+          })
         }
       } catch (err) {
 
@@ -1120,12 +1122,12 @@ export const getMyCash = async ( first_name, last_name, middle_name, dispatch, r
 
           return (
             <Form onSubmit={handleSubmit}>
-              <BlockGrid.Container>                
+              <BlockGrid.Container>
                 <WarningBlock
                   textWarning={<div>Оформление возврата возможно только при наличии скан-копии заявления на возврат,
                     прикрепленного в форматах .jpg (jpeg), .png, bmp, .zip, .rar, .pdf. Для отправки нескольких
                     файлов, приложите архив (zip, rar) в этой форме.</div>}
-                >                  
+                >
                 </WarningBlock>
                 <BlockGrid.BlockPayment>
                   {/* 
@@ -1221,4 +1223,39 @@ export const getMyCash = async ( first_name, last_name, middle_name, dispatch, r
   } catch (err) {
     console.log('ERROR IN CREATE PAYMENT', err)
   }
+}
+
+export const contentInfoOrder = (status, role, numberOrder) => {
+  return (
+      <p
+        style={
+          {
+            fontSize: '18px',
+            padding: '10px 25px',
+
+          }
+        }
+      >
+        {
+          status === 'payment_waiting' ?
+            `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
+            : status === 'in_process' ?
+              <>Ваш заказ №{numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. {role === ROLE.RETAIL ? '' : ' Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта'} </>
+              : status === 'packaging' ?
+                `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
+                : status === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
+                  `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
+                  : status === 'delivery_paid' ?
+                    `Ваш заказ №${numberOrder} готов к отправке.`
+                    : status === 'sended' ?
+                      `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
+                      : status === 'canceled' ?
+                        `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
+                        : status === 'return' ?
+                          `По Заказу №${numberOrder} оформлен возврат`
+                          : role === ROLE.WHOLESALE ? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
+        }
+      </p>
+
+  )
 }

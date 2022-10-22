@@ -6,12 +6,32 @@
   width: 100%;
   border-collapse: 0;
   border-spacing: 0;
-  tr {
+  tbody>tr {
     border-bottom: 5px solid transparent;
     &:hover {
       background-color: var(--gx-color-gray2);
-      & a {
+      a {
         text-decoration: underline;
+      }
+    }
+    td>a{
+      color: $a2;
+      &:hover{
+        color: $a;
+        cursor: pointer;
+        transform: scale(1.4);
+      }
+    }
+    td>button{
+      color: $a;
+      border: 1px solid $a;
+      padding: 7px;
+      border-radius: 2px;
+      &:hover{
+        color: $a2;
+        cursor: pointer;
+        transform: scale(1.1);
+        border: 1px solid $a2;
       }
     }
   }

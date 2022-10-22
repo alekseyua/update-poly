@@ -10,6 +10,7 @@ const PersonalPage = ({
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
+        currency,
         profile,
         order,
         shop,
@@ -41,6 +42,7 @@ const PersonalPage = ({
            organization = { organization }
            breadcrumbs = { breadcrumbs }
            username = { username }
+           currency = { currency }
            balance = { balance }
            profile = { profile }
            links = { links } 

@@ -12,6 +12,7 @@ const PersonalPageLayoutContainer = ({
             breadcrumbs,
             create_shop,
             is_has_shop,
+            currency,
             username,
             profile,
             balance,
@@ -77,6 +78,7 @@ const PersonalPageLayoutContainer = ({
             create_shop = { create_shop }
             is_has_shop = { is_has_shop }
             username = { username }
+            currency = { currency }
             profile = { profile }
             balance = { balance }
             shop = { shop }

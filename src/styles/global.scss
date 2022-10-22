@@ -157,3 +157,25 @@ div#pdfviewer> div > div.viewer-layout-main {
     pointer-events: none;
   }
 }
+
+.inner-areon{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  animation: pulse-mobile 1.5s infinite;
+  transition: background-color .3s, color .3s, box-shadow .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+@keyframes pulse-mobile{
+  0%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, .6)}
+  70%{
+    box-shadow: 0 0 0 25px transparentize(#e29a9a, 1)}
+  100%{
+    box-shadow: 0 0 0 0 transparentize(#e29a9a, 1)}
+}

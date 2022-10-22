@@ -11,11 +11,6 @@ export const balance = store => {
             
             const res = await api.getUserBalance({"currency": currency})
             
-            // console.log('BALANCE = ',
-            // { context },
-            // { currency },
-            // { res },
-            // )
             const newContext = {
                 ...context,
                 "init_state": {
@@ -30,7 +25,8 @@ export const balance = store => {
             }
             dispatch('context', newContext);
         }catch(err){
-            console.log('ERROR GET BALANCE', err)
+            console.log('ERROR GET BALANCE', err);
+            
         }
     })
 

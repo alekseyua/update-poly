@@ -20,6 +20,12 @@
     transform: translateY(-50%);
     position: relative;
   }
+  //.spinner__wrapper-center-margen{}
+  &__wrapper-center-margen{
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+  }
 
 }
 

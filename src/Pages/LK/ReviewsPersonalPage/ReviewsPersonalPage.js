@@ -11,6 +11,7 @@ const ReviewsPersonalPage = ({
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
+        currency,
         profile,
         reviews,
         shop,
@@ -29,6 +30,7 @@ const ReviewsPersonalPage = ({
             is_has_shop = { shop?.is_has_shop }
             create_shop = { shop?.shop_link }
             breadcrumbs = { breadcrumbs }
+            currency = { currency }
             username = { username }
             balance = { balance }
             reviews = { reviews }

@@ -308,13 +308,13 @@ export const catalog = store => {
         }
     })
 
-    store.on('showMoreCatalog', async ({ context, page, valueCheckBoxFilters }, obj, { dispatch }) => {
+    store.on('showMoreCatalog', async ({ context, page }, obj, { dispatch }) => {
         try{
 
             const { filters_params } = context.init_state
-            console.log({pageShow: page})
-            delete valueCheckBoxFilters['is_import']
-            delete valueCheckBoxFilters['is_polish']
+            console.log({pageShow: page}, {filters_params})
+            delete filters_params['is_import']
+            delete filters_params['is_polish']
             const params = { 
                 ...filters_params,
                 page: page + 1,

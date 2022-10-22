@@ -186,8 +186,13 @@ import link from './link/link.svg';
 //spinner
 import spin from './spinner/spin.gif';
 import spinnerCart from './spinner/spinnerCart.gif';
+import spinnerCart2 from './spinner/spinner2.gif';
+import spinnerShopping from './spinner/shopping-cart-gif-8.gif';
+
 
 export {
+  spinnerCart2,
+  spinnerShopping,
   spinnerCart,
   spin,
   pic1,

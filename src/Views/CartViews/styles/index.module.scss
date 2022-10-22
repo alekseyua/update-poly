@@ -1,12 +1,12 @@
 @import '../../../styles/fonts/index.scss';
 @import '../../../styles/variables.scss';
 
-
-.text {
+.order-text {
   // font-family: Noto Sans;
   @extend %font;
   font-style: normal;
-  &-title {
+  //.order-text--title{}
+  &--title {
     font-weight: bold;
     font-size: 22px;
     line-height: 150.12%;
@@ -21,21 +21,24 @@
       flex-wrap: nowrap;
       justify-content: center;
     }
-
-  }
-  &-default {
+    
+  }  
+  //.order-text--default{}
+  &--default {
     font-size: 14px;
     line-height: 140%;
     color: var(--gx-color-primary2);
   }
-  &-default_currency {
+  //.order-text--default-currency{}
+  &--default-currency {
     font-size: 16px;
     line-height: 140%;
     color: var(--gx-color-primary2);
     text-align: right;
     text-transform: uppercase;
   }
-  &-red {
+  //.order-text--red{}
+  &--red {
     font-size: 16px;
     line-height: 140%;
     text-align: right;
@@ -85,12 +88,12 @@
   //.cart-views__wrapper{}
   &__wrapper{
     padding: 0;
-//.cart-views__wrapper-card{}
+  //.cart-views__wrapper-card{}
     &-card {
       display: flex;
       flex-direction: column;
     }
-//.cart-views__wrapper-right-side{}
+  //.cart-views__wrapper-right-side{}
     &-right-side{
       margin-left: 5px;
       position: sticky;
@@ -261,4 +264,44 @@
 }
 
 
+}
+
+.right-side {
+  //.right-side__wrapper{}
+  &__wrapper {
+    margin-left: 5px;
+    position: sticky;
+    top: 160px;
+    transition: 0.3s;
+    min-width: 310px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: space-between;
+    align-items: stretch;
+    max-width: 350px;
+    @include tablet-md {
+      margin-left: 0;
+      padding: 20px;
+    }
+    @include mobile {
+      width: 100%;
+    }
+  }
+  //.right-side__block{}
+  &__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0 !important;
+    flex-wrap: nowrap;
+  }
+}
+
+//.line{}
+.line{
+  height: 2px;
+  background-color: var(--gx-color-primary);
+  margin: 10px 0px;
 }

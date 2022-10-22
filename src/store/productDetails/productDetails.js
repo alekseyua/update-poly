@@ -15,6 +15,14 @@ export const ProductDetails = store => {
                 // pack ??????
             }
             const res = await apiContent.getProduct(productId, params)
+
+            let newMedia = [];
+            res.product_sku.filter( el => el.color === params.color? newMedia.push({
+                image: el.image,
+                image_thumb: el.image_thumb,
+                type: 'image',
+            }) : null );
+                    console.log({newMedia})
             const updateContext = {
                 ...context,
                 init_state: {
@@ -22,20 +30,38 @@ export const ProductDetails = store => {
                     productDetails: {
                         ...context.init_state.productDetails,
                         ...res,
+                        in_stock_count: res.in_stock_count,
+                        in_cart_count: res.in_cart_count,
+                        is_bestseller: res.is_bestseller,
+                        is_collection: res.is_collection,
+                        collections: res.collections,
+                        is_closeout: res.is_closeout,
+                        is_in_stock: res.is_in_stock,
+                        product_rc: res.product_rc,
+                        minimum_rc: res.minimum_rc,
+                        is_new: res.is_new,
+                        prices: res.prices,
+                        colors: res.colors,
+                        sizes: res.sizes,
+                        media: [newMedia[0], ...res.media],
+                        brand: res.brand,
+                        title: res.title,
+                        id: res.id,
+                    
                     }
                 }
             }
-            console.log({ updateContext_store: updateContext }, {res})
+            console.log({ updateContext_store: updateContext }, {res}, {newMedia}, {context})
             
-            const timerGetReviews = setTimeout(()=>{
-                dispatch('getReviewsProducts', params)
-                return () => clearTimeout(timerGetReviews);
-            },500)
+            // const timerGetReviews = setTimeout(()=>{
+            //     dispatch('getReviewsProducts', params)
+            //     return () => clearTimeout(timerGetReviews);
+            // },500)
             
-            const timerGetAlreadyWatch = setTimeout(()=>{
-                dispatch('getYouAlreadyWatch');
-                return () => clearTimeout(timerGetAlreadyWatch);
-            },4000)
+            // const timerGetAlreadyWatch = setTimeout(()=>{
+            //     dispatch('getYouAlreadyWatch');
+            //     return () => clearTimeout(timerGetAlreadyWatch);
+            // },4000)
             
             dispatch('context', updateContext)
         }catch(err){

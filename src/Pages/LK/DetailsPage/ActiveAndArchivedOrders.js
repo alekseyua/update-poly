@@ -3,11 +3,16 @@ import ItemsInOrder from './ItemsInOrder';
 import OrderDetailsContent from './OrderDetailsContent';
 
 const ActiveAndArchivedOrders = ({ 
+    getDataOrdersFilters,
     dateFilterData,
     tableBodyData,
-    statuses, 
+    statuses,
+    currency,  
     profile,
     orders,
+    btnAddOrderItems,
+    sendToArchive,
+    btnDelOrder,
 
 }) => {
  
@@ -17,8 +22,14 @@ const ActiveAndArchivedOrders = ({
         dateFilterData = { dateFilterData }
         tableBodyData = { tableBodyData }
         statuses = { statuses }
+        currency = { currency }
         profile = { profile }
         orders = { orders }
+
+        getDataOrdersFilters = { getDataOrdersFilters }
+        btnAddOrderItems = { btnAddOrderItems }
+        sendToArchive = { sendToArchive }
+        btnDelOrder = { btnDelOrder }
       />
     </OrderDetailsContent>
   );
