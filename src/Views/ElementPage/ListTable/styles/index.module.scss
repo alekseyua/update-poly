@@ -1,0 +1,31 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+    //.cabinet-orders-details__list-head{}
+    &__list-head{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+    //.cabinet-orders-details__list-title{}
+    &__list-title{
+        @include h(4);
+        &-mb {
+            @include h(4);
+            margin-bottom: 30px;
+        }
+    }
+    //.cabinet-orders-details__list-link{}
+    &__list-link{
+        margin-top: 20px;
+        color: $b;
+    }
+    //.cabinet-orders-details__link--blue{}
+    &__link--blue{
+        padding: 0;
+    }
+
+}

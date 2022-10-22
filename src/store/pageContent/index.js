@@ -660,6 +660,9 @@ export const pageContent = store => {
             }  
 
             if (url.includes('/orders/2')) {
+                const numberId = url.split('/').pop().split('-').pop()
+                const dataOrderItems = await orderApi.getOrderItems({ order_id: numberId });
+                console.log({dataOrderItems})
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -669,6 +672,7 @@ export const pageContent = store => {
                         order: {
                             ...res.init_state.order,
                             fullNumberOrder: url.split('/').pop(),
+                            dataOrderItems: dataOrderItems,
                         },
                         numberCurrentOrderForAddProduct: null,
                     },

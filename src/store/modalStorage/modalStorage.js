@@ -11,6 +11,8 @@ import SubTitle from '../../Views/InformationViews/HowTo/SubTitle';
 
 const contentApi = api.contentApi;
 const apiUser = api.userApi;
+const orderApi = api.orderApi;
+
 /**
  * @param {
  *  show: boolean 
@@ -156,6 +158,8 @@ export const modalStorage = store => {
     })
 
     store.on('pdf-viewer', ({ context }, obj, { dispatch }) => {
+        const addClass = obj?.addClass;
+        const addId = obj?.addId;
         const file = obj.link;
         const title = obj.title;
         const renderPage = (props) => {
@@ -171,10 +175,10 @@ export const modalStorage = store => {
         dispatch('setModalState', {
             show: true,
             title: title,
-            addClass: 'modal-file-views',
+            addClass: addClass? addClass : 'modal-file-views',
             content: (
                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                    <div id="pdfviewer" style={{ overflow: 'auto' }}>
+                    <div id= { addId? addId : "pdfviewer"} style={{ overflow: 'auto' }}>
                         <Viewer
                             fileUrl={`${file}`}
                             defaultScale={'PageWidth'}
@@ -252,15 +256,15 @@ export const modalStorage = store => {
         }
     })
 
-    store.on('modalCheckPayment', async ({ context, closeModalState }, obj , { dispatch }) => {
+    store.on('modalCheckPayment', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { first_name, last_name, middle_name } = context.init_state.profile.user;
-        
+
         const { currency } = context.init_state;
         const { balance } = context.init_state.profile;
 
         const order_id = obj?.order_id;
         const total_price = obj?.total_price;
-        
+
         const redirectTo = obj?.redirectTo;
 
         dispatch('setModalState', {
@@ -443,7 +447,7 @@ export const modalStorage = store => {
         const { id } = context.init_state.profile.user;
         const userId = id;
         const changePasswordNewPassword = async (data) => {
-         
+
             closeModalState()
         }
 
@@ -464,15 +468,15 @@ export const modalStorage = store => {
     store.on('modalQuestionAreYouSure', ({ context, closeModalState }, obj, { dispatch }) => {
         const { e, values, setValues } = obj;
         const handeChange = () => {
-            
+
             setValues({
                 ...values,
-                'receive_newsletter':  !e.checked 
+                'receive_newsletter': !e.checked
             });
             closeModalState();
         }
         if (!values.receive_newsletter) return handeChange();
-        
+
         dispatch('setModalState', {
             show: true,
             content: contentMessage(),
@@ -484,20 +488,20 @@ export const modalStorage = store => {
             onClickCancel: closeModalState
         })
     })
-        
+
     store.on('modalGetMyCach', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { first_name, last_name, middle_name } = context.init_state.profile.user;
         const redirectTo = obj?.redirectTo;
-        try{
-            console.log({first_name})
-            dispatch('setModalState',{
+        try {
+            console.log({ first_name })
+            dispatch('setModalState', {
                 show: true,
                 title: <SubTitle>Данные для возврата денежных средств:</SubTitle>,
                 content: await getMyCash(first_name, last_name, middle_name, dispatch, redirectTo, closeModalState),
                 addClass: 'modal-get-my-cash'
             })
 
-        }catch(err){
+        } catch (err) {
             console.log('ERROR getMyCach FROM BALANCE', err)
         }
     })
@@ -516,5 +520,31 @@ export const modalStorage = store => {
             onClick: () => closeModalState(),
         })
     })
+
+    store.on('getSpecification', async ({ context, closeModalState }, obj, { dispatch }) => {
+        dispatch('setModalState', {
+            show: true,
+        })
+        const numberOrder = context.init_state.order.fullNumberOrder;
+
+        const params = {
+            "order_id": numberOrder.split('-').pop()
+        }
+
+        const specific = await orderApi.postOrderSpecification(params)
+
+        dispatch('setModalState', {
+            show: false,
+        })
+        dispatch('pdf-viewer', {
+            link: specific.specification,
+            title: 'Спецификация',
+            addClass: 'modal-specification',
+            addId: 'pdfviewer-specif'
+        })
+    })
+
+    
+
 }
 

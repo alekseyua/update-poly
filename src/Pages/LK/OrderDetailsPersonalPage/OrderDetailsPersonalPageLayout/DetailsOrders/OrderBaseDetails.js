@@ -103,8 +103,6 @@ const OrderBaseDetails = ({
           <div className={style['cabinet-orders-details__paystatus-button']}>
             <div className='inner-areon'>
               <button
-                circle
-                size="sm"
                 variant="info"
                 className={style['cabinet-orders-details__tooltipicon']}
                 onClick={ () => heandlerClickInfo(status.id) }

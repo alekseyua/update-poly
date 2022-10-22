@@ -1,0 +1,14 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+    //.cabinet-orders-details__list-wrapper{}
+    &__list-wrapper{
+        @include row(15);
+        @include mobile {
+            flex-direction: column-reverse;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}

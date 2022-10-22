@@ -30,10 +30,12 @@ const OrderDetailsPersonalPage = ({
         track_number,
         delivery_cost, 
         specification,
+        dataOrderItems, 
         payment_method,
         delivery_method, 
         fullNumberOrder,
-        delivery_address, 
+        delivery_address,
+        deleteElementOrder,
     } = order;
 
     const idOrder = id;
@@ -65,6 +67,7 @@ const OrderDetailsPersonalPage = ({
         updated_at = { updated_at }
         order_cost = { order_cost }
         created_at = { created_at }
+        dataOrderItems = { dataOrderItems }
         delivery_cost = { delivery_cost }
         delivery_method = { delivery_method }
         fullNumberOrder = { fullNumberOrder }
@@ -72,6 +75,7 @@ const OrderDetailsPersonalPage = ({
         payment_method = { payment_method }
         specification = { specification }
         track_number = { track_number }
+        deleteElementOrder = { deleteElementOrder }
         />
     )
 }

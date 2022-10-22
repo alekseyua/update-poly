@@ -1,0 +1,90 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+    //.cabinet-orders-details__chat-message{}
+    &__chat-message{
+      border-radius: 10px;
+      padding: 10px;
+      width: 95%;
+      margin-bottom: 10px;
+    }
+    //.cabinet-orders-details__chat-message-user{}
+    &__chat-message-user{
+        align-self: flex-end;
+        background-color: #e5ddf2;
+    }
+    //.cabinet-orders-details__chat-message-wrapper{}
+    &__chat-message-wrapper{
+        @include flex(sc);
+        margin-bottom: 5px;
+    }
+    //.cabinet-orders-details__chat-message-name{}
+    &__chat-message-name{
+        color: $a2;
+        font-weight: bold;
+        line-height: 140%;
+    }
+    //.cabinet-orders-details__chat-message-date{}
+    &__chat-message-date{
+        opacity: 0.5;
+    }
+    //.cabinet-orders-details__chat-message-text{}
+    &__chat-message-text{
+        padding: 0;
+    }
+    //.cabinet-orders-details__chat-message-image-wrapper{}
+    &__chat-message-image-wrapper{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: stretch;
+        margin-top: 15px;
+    }
+    //.cabinet-orders-details__chat-message-preview-image{}
+    &__chat-message-preview-image{
+        width: 75px;
+        height: 96px;
+        margin-right: 10px;
+        padding: 3px;
+        background: var(--gx-color-gray);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        justify-content: center;
+    }
+    //.cabinet-orders-details__chat-message-image{}
+    &__chat-message-image{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: var(--gx-color-gray);        
+        object-fit: cover;
+    }
+    //.cabinet-orders-details__chat-message-preview-viedo{}
+    &__chat-message-preview-viedo{
+        width: 75px;
+        height: 96px;
+        margin-right: 10px;
+        position: relative;
+        padding: 3px;
+        background: var(--gx-color-gray);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        justify-content: center;
+        &::before {
+          content: '';
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          margin-left: 5px;
+          z-index: 2;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-image: url('../../../../images/icon/videoPlayIcon.svg');
+        }
+    }
+
+}

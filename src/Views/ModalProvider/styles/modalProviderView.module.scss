@@ -228,6 +228,8 @@
         padding: 0;
         height: 100%;
         overflow: auto;
+        max-width: 550px;
+
     }
 
     //.modal-file-views{}
@@ -238,6 +240,10 @@
         @include mobile {
             width: 100%;
         }
+    }
+    //.modal-specification{}
+    &-specification{
+        padding: 0;
     }
 
     //.modal-add-to-cart{}
@@ -264,6 +270,7 @@
     &-payment {
         padding: 0;
         height: 100%;
+        max-width: 550px;
         &>div.modal-provider__content{
             width: calc(100% - 3px);
         }

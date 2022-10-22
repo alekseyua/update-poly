@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStoreon } from 'storeon/react';
 import OrderDetailsPersonalPageLayout from './OrderDetailsPersonalPageLayout';
 
@@ -31,6 +31,8 @@ const OrderDetailsPersonalPageLayoutContainer = ({
     payment_method,
     specification,
     track_number,
+    dataOrderItems,
+    activeButtonSpecification,
 }) => {
 
     const { dispatch } = useStoreon();
@@ -44,8 +46,15 @@ const OrderDetailsPersonalPageLayoutContainer = ({
       };
 
       const heandlerClickInfo = (status) => {
-
         dispatch('modalShowInfoOrder', {...status})        
+      }
+
+      const handlerSpecification = () => {
+        dispatch('getSpecification')
+      }
+
+      const deleteElementOrder = () => {
+        console.log( 'delete element')
       }
 
     return (
@@ -78,9 +87,13 @@ const OrderDetailsPersonalPageLayoutContainer = ({
         payment_method = { payment_method }
         specification = { specification }
         track_number = { track_number }
+        dataOrderItems = { dataOrderItems }
 
         openModalPay = { openModalPay }
         heandlerClickInfo = { heandlerClickInfo }
+        handlerSpecification = { handlerSpecification }
+        activeButtonSpecification = { activeButtonSpecification }
+        deleteElementOrder = { deleteElementOrder }
         />
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import style from './styles/index.module.scss';
 
 const SubTitle = ({ children, variant = '' }) => {
-  return <h3 className={style[variant]}>{children}</h3>;
+  return <p className={style[variant]}>{children}</p>;
 };
 
 export default React.memo(SubTitle);

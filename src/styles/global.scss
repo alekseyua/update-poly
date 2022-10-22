@@ -152,6 +152,17 @@ div#pdfviewer> div > div.viewer-layout-main {
   overflow: auto;
 }
 
+iv#pdfviewer-specif> div > div.viewer-layout-toolbar > div > div.viewer-toolbar-left,
+div#pdfviewer-specif> div > div.viewer-layout-toolbar > div > div.viewer-toolbar-right {
+ padding: 0;
+}
+
+div#pdfviewer-specif> div > div.viewer-layout-main {
+  // overflow: auto;
+  padding: 0; 
+}
+
+
 .requisites{
   & > p {
     pointer-events: none;

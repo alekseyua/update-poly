@@ -57,7 +57,7 @@ const Input = ({
         className={classNames({
           [style['input__wrapper']]: true,
           [getVariantStyleInput(variant)]: !!variant,
-          [style[className]]: !!className
+          [style[className]]: !!className,
         })}
       >
         <input

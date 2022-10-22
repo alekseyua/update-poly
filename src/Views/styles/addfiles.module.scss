@@ -176,7 +176,10 @@
             cursor: pointer;
             color: $a2;
         }
-
+    }
+    //.files-uploud__form-upload-button-text{}
+    &__form-upload-button-text{
+        border: none;
     }
 
     //.files-uploud__form-textarea{}
@@ -211,4 +214,12 @@
     }
 
     //.
+}
+
+.cabinet-orders-details{
+    padding: 0;
+    &>ul.files-uploud__form-upload-list{
+        position: absolute;
+        transform: translate(-14px, -17px);
+    }
 }

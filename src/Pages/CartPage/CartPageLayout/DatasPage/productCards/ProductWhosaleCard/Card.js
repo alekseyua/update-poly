@@ -117,8 +117,6 @@ const Card = ({
           }}
           className={style['product-card__delete-mobile']}
           gxVariant={'text'}
-          size="sm"
-          circle
         >
           <Icon src={closeRed} className={style['product-card__delete-mobile-icon']} with = { 15 } height = { 15 }/>
         </Button>

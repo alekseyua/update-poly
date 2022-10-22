@@ -8,12 +8,13 @@
     // padding: 0 15px;
     max-height: 100%;
     width: 100%;
-    max-width: 100%;
+    max-width: 120px;
     display: flex;
     justify-content: space-between;
     margin-right: 0px;
     word-wrap: break-word;
     z-index: 0;
+    
 
     @include adaptive-value('min-width', 100, 70, px,2);
     @include tablet-mmd {

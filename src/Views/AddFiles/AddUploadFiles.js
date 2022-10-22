@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageUpload from '../ImageUpload';
 import Text from '../../helpers/Text';
+import classNames from 'classnames';
 
 import style from '../styles/addfiles.module.scss';
 
@@ -10,18 +11,32 @@ import style from '../styles/addfiles.module.scss';
  * @ setFieldValue( name, files);
  * @ label - текст слева при выборе файла
  * @ accept=".png, .jpg, .jpeg, .mp4 ... "
- * @ 
+ * @ textButton = ' какой либо информационный текст для добавления файла или иконка'
  * } param0 
  * @returns 
  */
-const AddUploadFiles = ({ accept, label, setFieldValue, name , multiple = '', onBlur }) => {
+const AddUploadFiles = ({ 
+  accept, 
+  label, 
+  setFieldValue, 
+  name , 
+  multiple = '', 
+  textButton, 
+  onBlur,
+  className,
+}) => {
   const fileInputRef = React.useRef(null);
 
   return (
-    <div className={style['files-uploud__form-upload']}>
+    <div className={classNames({
+      [style['files-uploud__form-upload']]:true,
+      [style[className]]: !!className
+      })
+    }
+    >
       <p className={style['files-uploud__form-upload-desc']}>
         { 
-          label?
+          label || label === ''?
             <React.Fragment>
               {label}
             </React.Fragment>
@@ -62,9 +77,19 @@ const AddUploadFiles = ({ accept, label, setFieldValue, name , multiple = '', on
               >
                 <div className={style['files-uploud__form-addprod-image-wrap']}>
                   <div 
-                    className={style['files-uploud__form-upload-button']}
+                    className={
+                        classNames({
+                          [style['files-uploud__form-upload-button']]: true,
+                          [style['files-uploud__form-upload-button-text']]: !!textButton
+                          
+                        })
+                      }
                   >
-                    <Text text={'attach'} />
+                    {
+                      textButton?
+                        textButton
+                        :<Text text={'attach'} />
+                    }
                     <input
                       ref={fileInputRef}
                       id = { 'image' }

@@ -34,9 +34,13 @@ const OrderDetailsPersonalPageLayout = ({
     payment_method,
     specification,
     track_number,
+    dataOrderItems,
 
     openModalPay,
     heandlerClickInfo,
+    handlerSpecification,
+    activeButtonSpecification,
+    deleteElementOrder,
 }) => {
 
     return (
@@ -79,9 +83,13 @@ const OrderDetailsPersonalPageLayout = ({
                                 payment_method = { payment_method }
                                 specification = { specification }
                                 track_number = { track_number }
+                                dataOrderItems = { dataOrderItems }
 
                                 openModalPay = { openModalPay }
                                 heandlerClickInfo = { heandlerClickInfo }
+                                handlerSpecification = { handlerSpecification }
+                                activeButtonSpecification = { activeButtonSpecification }
+                                deleteElementOrder = { deleteElementOrder }
                             />
 
                         {
