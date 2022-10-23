@@ -5,29 +5,9 @@ import Button from '../../Button';
 
 import style from './styles/headchat.module.scss';
 
-const HeadChat = ({ }) => {
-
-  const heandlerClickInfo = () => {
-    // setModalStates({
-    //   content: (<>
-    //     <ModalContentViews.CloseBtn closeModal={closeModal} />
-    //     <p
-    //       style={
-    //         {
-    //           fontSize: '18px',
-    //           padding: '10px 25px',
-
-    //         }
-    //       }
-    //     >
-    //       Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате
-    //     </p>
-
-    //   </>),
-    //   show: true,
-    //   addClass: 'modal-info-order',
-    // });
-  }
+const HeadChat = ({ 
+  heandlerClickInfo 
+}) => {
 
   return (
     <div className={style['cabinet-orders-details__chat-head']}>
@@ -36,9 +16,9 @@ const HeadChat = ({ }) => {
           <Button
             variant="info"
             className={style['cabinet-orders-details__tooltip-icon']}
-            onClick={heandlerClickInfo}
+            onClick = { () => heandlerClickInfo({status: 'chat'}) }
           >
-            <Icon src={toolTipIcon} with={20} height = {20} />
+            <Icon src={toolTipIcon} width={20} height = {20} />
           </Button>
         </div>
       </div>      

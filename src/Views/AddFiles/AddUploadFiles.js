@@ -12,6 +12,7 @@ import style from '../styles/addfiles.module.scss';
  * @ label - текст слева при выборе файла
  * @ accept=".png, .jpg, .jpeg, .mp4 ... "
  * @ textButton = ' какой либо информационный текст для добавления файла или иконка'
+ * @ clearPreviewFiles = 
  * } param0 
  * @returns 
  */
@@ -25,6 +26,7 @@ const AddUploadFiles = ({
   onBlur,
   className,
   onChange,
+
 }) => {
   const fileInputRef = React.useRef(null);
 
@@ -47,13 +49,14 @@ const AddUploadFiles = ({
         }
       </p>
       <ImageUpload
-        setFieldValue={(e)=>console.log({e})}//?! необходимо допилить сброс изображения
+     //  clearPreviewFiles = { clearPreviewFiles } //?! необходимо допилить сброс изображения
       >
         {({ preview, onSelectFile, selectedFile, onSelectFiles, isDragActive, getRootProps }) => {
+          
           if (!Array.isArray(preview)) {            
             preview = [preview];
           }
-
+          
           return (
             <>
               <ul className={style['files-uploud__form-upload-list']}>

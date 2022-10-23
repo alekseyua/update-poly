@@ -76,6 +76,7 @@
         margin-bottom: 10px;
         &>input{
             margin-bottom: -8px;
+            background-color: transparent;
         &::placeholder {
             color: $dg2;
             font-size: 10px;

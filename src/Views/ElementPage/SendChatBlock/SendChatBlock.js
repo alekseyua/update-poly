@@ -12,6 +12,7 @@ const SendChatBlock = ({
     nameInput,
     nameFile,
     setFieldValue,
+    checkFieldValue,
 }) => {
 
     return (
@@ -20,10 +21,10 @@ const SendChatBlock = ({
                 placeholder={'Оставить комментарий к товару'}
                 className={'cabinet-orders-details__comment-input'}
                 name={ nameInput }
-                value={values.textMessage}
+                value={values.message}
                 onChange={e => {
                     let text = e.target.value;
-                    setFieldValue('textMessage', text)
+                    setFieldValue('message', text)
                     if (!!text) { setFieldValue('activeBtnMessageForProduct', false) } else { setFieldValue('activeBtnMessageForProduct', true) }
                 }
                 }
@@ -36,7 +37,7 @@ const SendChatBlock = ({
                     name = { nameFile }
                     label = {''}
                     accept = { '.png, .jpg, .jpeg, .mp4'}
-                    multiple = { true }
+                    multiple = { false }
                     className = { 'cabinet-orders-details' }
                     setFieldValue = { setFieldValue }
                     onChange = { e => {
@@ -44,6 +45,7 @@ const SendChatBlock = ({
                         if (!!files?.length) { setFieldValue('activeBtnMessageForProduct', false) } else { setFieldValue('activeBtnMessageForProduct', true) }
                     }}
                     textButton = { <Icon src = { paperclip } width={20} height={20} />}
+                    checkFieldValue = { checkFieldValue }
                 />
                 <Button
                     type={'submit'}

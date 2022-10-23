@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Form from '../../Form';
 import ChatFieldUser from '../ChatField/ChatFieldUser';
@@ -8,13 +8,19 @@ import ChatFieldsWrapper from '../ChatField/ChatFieldsWrapper';
 import WrapperChat from '../SectionWrapper/WrapperChat';
 import HeadChat from '../HeadChat/HeadChat';
 
-const Chat = ({ idOrder }) => {
+const Chat = ({
+  idOrder,
+  heandlerClickInfo,
+  sendMessage,
+}) => {
 
   const correspondenceState = []
   const valuesState = {
     message: '',
-    order: null,
+    orderChat: idOrder,
     files: null,
+    activeBtnMessageForProduct: true
+
   }
   const getChatData = () => {
     // orderApi
@@ -25,34 +31,9 @@ const Chat = ({ idOrder }) => {
   };
 
   const sendCommentFromTextField = async (values, { resetForm }) => {
-    // setDisablebtn(true)
-    // const fd = new FormData();
-    // fd.set('order', idOrder);
-    // fd.set('message', values.text_field);
-    // fd.set('files', values.file_list);
-
-    // orderApi
-    //   .postCorrespondence(fd)
-    //   .then((res) => {
-    //     getChatData();
-    //     resetForm({
-    //       text_field: '',
-    //       file_list: [],
-    //     });
-    // })
-    // .catch(err=>{
-    //   setDisablebtn(false)
-    // });
+   
   };
 
-  const handleChange = (key, value) => {
-    // setvaluesState({
-    //   ...valuesState,
-    //   [key]: value,
-    // });
-  };
-
- 
 
   // const openModalImage = (image) => {
   //   setModalStates({
@@ -89,22 +70,25 @@ const Chat = ({ idOrder }) => {
 
 
   // *******************************************************************
- 
 
 
   return (
-    <Formik 
-      enableReinitialize 
-      onSubmit={sendCommentFromTextField} 
-      handleChange={handleChange} 
-      initialValues={valuesState}
-    >
-      {({ handleSubmit, values, handleChange, setFieldValue, setValues }) => {
+    <WrapperChat>
+      <HeadChat
+        heandlerClickInfo = { heandlerClickInfo }
+      />
 
-        return (
-          <Form noValidate onSubmit={handleSubmit}>
-            <WrapperChat>
-              <HeadChat />
+      <Formik
+        enableReinitialize
+        onSubmit={sendMessage}
+        initialValues={valuesState}
+      >
+        {({ handleSubmit, values, handleChange, setFieldValue, setValues }) => {
+
+          return (
+            <Form
+              onSubmit={handleSubmit}
+            >
 
               <ChatFieldsWrapper>
                 {correspondenceState.map((el, i) => {
@@ -130,16 +114,16 @@ const Chat = ({ idOrder }) => {
                 })}
               </ChatFieldsWrapper>
               <SendChatBlock
-                  values = { values }
-                  nameInput = { 'message' }
-                  nameFile = { 'files' }
-                  setFieldValue = { setFieldValue }
-                />
-            </WrapperChat>
-          </Form> 
-        ); 
-      }}
-    </Formik>
+                values={values}
+                nameInput={'message'}
+                nameFile={'files'}
+                setFieldValue={setFieldValue}
+              />
+            </Form>
+          );
+        }}
+      </Formik>
+    </WrapperChat>
   );
 };
 

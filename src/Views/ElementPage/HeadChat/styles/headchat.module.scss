@@ -11,6 +11,7 @@
       color: $w;
       background-color: $a2;
       padding: 20px;
+      align-items: baseline;
    }
    //.cabinet-orders-details__pay-status{}
    &__pay-status{
@@ -35,13 +36,13 @@
     background-color: transparent;
     border-style: none;
     cursor: pointer;    
-    & >icon { //??!!!
-      overflow: hidden; 
-      &:hover {
-        border-radius: 60%;
-        background-color: rgb(197, 55, 145);
-      }
-    }
+    // & >icon { //??!!!
+    //   overflow: hidden; 
+    //   &:hover {
+    //     border-radius: 60%;
+    //     background-color: rgb(197, 55, 145);
+    //   }
+    // }
     
    }
    //.cabinet-orders-details__chat-mobbtn{}

@@ -22,12 +22,12 @@ import { useDropzone } from 'react-dropzone';
  *     })}
  */
 
-const ImageUpload = ({ children, setFieldValue = () => {}, intiPreview }) => {
+const ImageUpload = ({ children, intiPreview }) => {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [preview, setPreview] = useState();
- 
-  useEffect(() => {
+
+ useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
       return;
@@ -89,12 +89,12 @@ const ImageUpload = ({ children, setFieldValue = () => {}, intiPreview }) => {
     }
     return imageSet;
   };
+  
 
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
     const file = acceptedFiles[0];
     setSelectedFile(file);
-    setFieldValue(file);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

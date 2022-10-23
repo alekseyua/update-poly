@@ -200,6 +200,8 @@ const DetailsOrders = ({
                 <RightSideCol>
                     <Chat
                         idOrder = { idOrder }
+                        heandlerClickInfo = { heandlerClickInfo }
+                        sendMessage = { sendMessage }
                     />
                 </RightSideCol>
             </SectionWrapper>

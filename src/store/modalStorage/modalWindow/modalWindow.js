@@ -1226,6 +1226,7 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
 }
 
 export const contentInfoOrder = (status, role, numberOrder) => {
+  console.log({status})
   return (
       <p
         style={
@@ -1252,10 +1253,34 @@ export const contentInfoOrder = (status, role, numberOrder) => {
                       : status === 'canceled' ?
                         `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
                         : status === 'return' ?
-                          `По Заказу №${numberOrder} оформлен возврат`
-                          : role === ROLE.WHOLESALE ? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
+                          `По Заказу №${numberOrder} оформлен возврат`                          
+                          : status === 'chat' ?
+                          `Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате`
+                            : role === ROLE.WHOLESALE ? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
         }
       </p>
 
   )
+}
+
+const heandlerClickInfo = (heandlerClickInfo) => {
+  // setModalStates({
+  //   content: (<>
+  //     <ModalContentViews.CloseBtn closeModal={closeModal} />
+  //     <p
+  //       style={
+  //         {
+  //           fontSize: '18px',
+  //           padding: '10px 25px',
+
+  //         }
+  //       }
+  //     >
+  //       Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате
+  //     </p>
+
+  //   </>),
+  //   show: true,
+  //   addClass: 'modal-info-order',
+  // });
 }

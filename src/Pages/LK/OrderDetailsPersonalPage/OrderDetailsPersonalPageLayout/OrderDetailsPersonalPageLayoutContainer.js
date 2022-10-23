@@ -46,7 +46,8 @@ const OrderDetailsPersonalPageLayoutContainer = ({
       };
 
       const heandlerClickInfo = (status) => {
-        dispatch('modalShowInfoOrder', {...status})        
+        // dispatch('modalShowInfoOrder', {...status})    
+        dispatch('correspondence')    
       }
 
       const handlerSpecification = () => {
@@ -108,11 +109,20 @@ const OrderDetailsPersonalPageLayoutContainer = ({
 
         const sendMessage = (values, { setFieldValue } ) => {
           console.log('send', { values } )
+
           const params = {
             ...values,
-            setFieldValue: setFieldValue
+            idProduct: values?.orderChat? values.orderChat : values.idProduct,
+             setFieldValue: setFieldValue
           }
-          dispatch('sendMessageProduct', params)
+          debugger
+          if (values?.orderChat){
+            dispatch('sendMessageChatProduct', params)
+          }else{
+            dispatch('sendMessageProduct', params)
+          }
+
+
         }
 
     return (
