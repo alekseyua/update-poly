@@ -255,7 +255,7 @@ export const modalStorage = store => {
             console.log('ERROR GET LIST ORDERS', err)
         }
     })
-
+    //?! модалка оплаты
     store.on('modalCheckPayment', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { first_name, last_name, middle_name } = context.init_state.profile.user;
 
@@ -274,7 +274,7 @@ export const modalStorage = store => {
             addClass: 'modal-payment'
         })
     })
-
+    //?! модалка добавления адреса
     store.on('modalAddAddress', async ({ context, closeModalState }, obj, { dispatch }) => {
         /**
          * @typeModal - 'create' or 'change'
@@ -316,7 +316,7 @@ export const modalStorage = store => {
             })
         }
     })
-
+    //?! модалка изменения адреса
     store.on('modalChangeAddress', async ({ context, closeModalState }, obj, { dispatch }) => {
         /**
          * @typeModal - 'create' or 'change'
@@ -358,7 +358,7 @@ export const modalStorage = store => {
             })
         }
     })
-
+    //?! модалка изменения телефона
     store.on('modalChangePhone', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { id } = context.init_state.profile.user;
         const userId = id;
@@ -385,7 +385,7 @@ export const modalStorage = store => {
 
 
     })
-
+    //?! модалка удаление учётных данных
     store.on('modalDeleteAccaunt', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
 
@@ -442,7 +442,7 @@ export const modalStorage = store => {
             })
         }
     })
-
+    //?! модалка изменения пароля
     store.on('modalChangePassword', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { id } = context.init_state.profile.user;
         const userId = id;
@@ -464,7 +464,7 @@ export const modalStorage = store => {
             onClickCancel: closeModalState
         })
     })
-
+    //?! модалка вы уверены удаление учётных данных
     store.on('modalQuestionAreYouSure', ({ context, closeModalState }, obj, { dispatch }) => {
         const { e, values, setValues } = obj;
         const handeChange = () => {
@@ -521,30 +521,8 @@ export const modalStorage = store => {
         })
     })
 
-    store.on('getSpecification', async ({ context, closeModalState }, obj, { dispatch }) => {
-        dispatch('setModalState', {
-            show: true,
-        })
-        const numberOrder = context.init_state.order.fullNumberOrder;
-
-        const params = {
-            "order_id": numberOrder.split('-').pop()
-        }
-
-        const specific = await orderApi.postOrderSpecification(params)
-
-        dispatch('setModalState', {
-            show: false,
-        })
-        dispatch('pdf-viewer', {
-            link: specific.specification,
-            title: 'Спецификация',
-            addClass: 'modal-specification',
-            addId: 'pdfviewer-specif'
-        })
-    })
-
     
+
 
 }
 

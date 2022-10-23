@@ -14,6 +14,8 @@ import LeftSideCol from '../../../Views/ElementPage/LeftSideCol/LeftSideCol';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import Card from '../../../Views/ElementPage/CardOrder/Card';
 import WrapperWhoosaleCard from '../../../Views/ElementPage/CardOrder/WrapperWhoosaleCard';
+import RightSideCol from '../../../Views/ElementPage/RightSideCol/RightSideCol';
+import Chat from '../../../Views/ElementPage/Chat/Chat';
 
 const DetailsOrders = ({
     role,
@@ -41,7 +43,12 @@ const DetailsOrders = ({
     heandlerClickInfo,
     handlerSpecification,
     activeButtonSpecification,
+
     deleteElementOrder,
+    sendCommentFromTextField,
+    clickOpenCommit,
+    openModalImage, 
+    sendMessage,
 
 }) => {
 
@@ -91,7 +98,6 @@ const DetailsOrders = ({
 
                 openModalPay={openModalPay}
                 heandlerClickInfo={heandlerClickInfo}
-
             />
 
             {
@@ -137,10 +143,15 @@ const DetailsOrders = ({
                                         brand={el.brand}
                                         change_agreement={el.change_agreement}
                                         image={el.image}
-                                        deleteElementOrder={deleteElementOrder}
                                         url={el.product_url}
                                         can_cancel={el.can_cancel}
-                                        currency = { currency }
+                                        currency = { currency } 
+                                        
+                                        deleteElementOrder={deleteElementOrder}
+                                        sendCommentFromTextField = { sendCommentFromTextField }
+                                        clickOpenCommit = { clickOpenCommit }
+                                        openModalImage = { openModalImage }
+                                        sendMessage = { sendMessage }
                                     />
                                 );
                             })
@@ -165,12 +176,17 @@ const DetailsOrders = ({
                                                         comment={[]}
                                                         commentImage={item?.comment_image !== '-' ? item?.comment_image : null}
                                                         image={item.image}
-                                                        deleteElementOrder={deleteElementOrder}
                                                         id={item.id}
                                                         url={item.product_url}
                                                         role={role}
                                                         can_cancel={item.can_cancel}
                                                         currency = { currency }
+                                                        
+                                                        deleteElementOrder={deleteElementOrder}
+                                                        sendCommentFromTextField = { sendCommentFromTextField }
+                                                        clickOpenCommit = { clickOpenCommit }
+                                                        openModalImage = { openModalImage }
+                                                        sendMessage = { sendMessage }
                                                     />
                                                 );
                                             })}
@@ -181,6 +197,11 @@ const DetailsOrders = ({
                         )
                     }
                 </LeftSideCol>
+                <RightSideCol>
+                    <Chat
+                        idOrder = { idOrder }
+                    />
+                </RightSideCol>
             </SectionWrapper>
             : <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
                 <BlockSpinner.Spinner sizeHeight='30' sizeWidth='30' />

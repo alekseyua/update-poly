@@ -41,6 +41,11 @@ const OrderDetailsPersonalPageLayout = ({
     handlerSpecification,
     activeButtonSpecification,
     deleteElementOrder,
+    sendCommentFromTextField,
+    clickOpenCommit,
+    openModalImage,
+    sendMessage,
+
 }) => {
 
     return (
@@ -90,6 +95,10 @@ const OrderDetailsPersonalPageLayout = ({
                                 handlerSpecification = { handlerSpecification }
                                 activeButtonSpecification = { activeButtonSpecification }
                                 deleteElementOrder = { deleteElementOrder }
+                                sendCommentFromTextField = { sendCommentFromTextField }
+                                clickOpenCommit = { clickOpenCommit }
+                                openModalImage = { openModalImage }
+                                sendMessage = { sendMessage }
                             />
 
                         {

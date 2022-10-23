@@ -85,7 +85,7 @@ export const catalog = store => {
         return
     })
 
-    store.on('getCatalog', async ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
+    store.on('getCatalog', async ({ context }, obj, { dispatch }) => {
         try {
             const { youAlredyWatch, filters_params } = context.init_state;
             let params = {};

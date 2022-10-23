@@ -17,3 +17,32 @@ Replace Autoprefixer browsers option to Browserslist config.
 
 /home/admin/poly15112021/TEST
 
+//?! block for ERRORS
+try{
+  dispatch('setModalState', {
+    show: true,
+  })
+
+} catch (err) {
+  console.log('ERROR removeItemFromOrder = ', err);
+  let error = ['Ошибка на сервере, попробуйте позже!']
+  if (err?.data) {
+      const errors = err.data;
+      if ( typeof errors !== 'object') {
+          error.push(`${errors}`)
+      }else{
+          error.push(`${errors[0]}`)
+      }
+      console.log({errors}, {err: typeof errors})
+  }
+  dispatch('setModalState', {
+      show: true,
+      content: textErrorMessage(error),
+      iconImage: errorAlertIcon,
+      addClass: 'modal-alert-error',
+      action: {
+          title: ['продолжить', null]
+      },
+      onClick: () => closeModalState()
+  })
+}

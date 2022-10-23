@@ -244,13 +244,15 @@
     //.modal-specification{}
     &-specification{
         padding: 0;
+        @include tablet-lgl {
+            min-width: 80%;
+        }
     }
 
     //.modal-add-to-cart{}
     &-add-to-cart {
         // height: 100%;
         padding: 0;
-
         &:nth-child(3) {
             padding: 0;
         }
@@ -302,6 +304,15 @@
         &>div.modal-provider__content>form.form {
             height: 60vh;
         }
+    }
+    //.modal-alert-error{}
+    &-alert-error{
+        // height: 100%;
+        padding: 0;
+        padding: 0;
+        // height: 100%;
+        overflow: auto;
+        // max-width: 550px;
     }
 }
 

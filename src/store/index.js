@@ -20,8 +20,14 @@ import { order } from './order/order';
 import { notifications } from './notifications/notifications';
 import { balance } from './balance/balance';
 import { profileLK } from './lk-profile/profileLK';
+import { payment } from './payment/payment';
+import { chat } from './chat/chat';
+import { websocket } from './websocket/websocket';
 
 export const store = createStoreon([
+    websocket,
+    chat,
+    payment,
     profileLK,
     balance,
     notifications,

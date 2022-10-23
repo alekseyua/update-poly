@@ -132,7 +132,8 @@
     &__form-upload-item {
         padding: 0;
         margin-right: 5px;
-
+        min-width: 8px;
+        max-width: 10px;
         &:last-child {
             margin: 0;
         }
@@ -180,6 +181,9 @@
     //.files-uploud__form-upload-button-text{}
     &__form-upload-button-text{
         border: none;
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     //.files-uploud__form-textarea{}
@@ -220,6 +224,8 @@
     padding: 0;
     &>ul.files-uploud__form-upload-list{
         position: absolute;
-        transform: translate(-14px, -17px);
+        transform: translate(0px, -17px);
+        flex-wrap: nowrap;
+        right: 0;
     }
 }

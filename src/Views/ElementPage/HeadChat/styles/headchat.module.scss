@@ -1,0 +1,54 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+   //.cabinet-orders-details__chat-head{} 
+   &__chat-head{
+    @include h(3);
+      display: flex;
+      // @include flex(sc);
+      line-height: 120%;
+      color: $w;
+      background-color: $a2;
+      padding: 20px;
+   }
+   //.cabinet-orders-details__pay-status{}
+   &__pay-status{
+    color: $a;
+    @extend %cab-h4;
+    line-height: 140%;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    flex-wrap: wrap;
+   }
+   //.cabinet-orders-details__tooltip-icon{}
+   &__tooltip-icon{
+        // margin-bottom: 20px;
+    // margin-right: 20px;
+    // margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;    
+    & >icon { //??!!!
+      overflow: hidden; 
+      &:hover {
+        border-radius: 60%;
+        background-color: rgb(197, 55, 145);
+      }
+    }
+    
+   }
+   //.cabinet-orders-details__chat-mobbtn{}
+   &__chat-mobbtn{
+    display: none;
+      @include mobile {
+        display: block;
+      }
+   }
+}

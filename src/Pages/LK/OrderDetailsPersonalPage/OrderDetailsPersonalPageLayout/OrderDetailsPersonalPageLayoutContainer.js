@@ -53,9 +53,67 @@ const OrderDetailsPersonalPageLayoutContainer = ({
         dispatch('getSpecification')
       }
 
-      const deleteElementOrder = () => {
-        console.log( 'delete element')
+      const deleteElementOrder = (id) => {
+        const params = {
+          id_goods: id
+        }
+        dispatch('removeItemFromOrder', params)
       }
+
+       
+        const sendCommentFromTextField = (order_id) => {
+         console.log('send message', order_id)
+         
+        };
+
+        const clickOpenCommit = (result = [], order_item_id = 0) => {
+          console.log('click open commit')
+          // if(!!result.length){
+      
+          //   orderApi
+          //     .postCorrespondence_order_item_remake_is_new({
+          //       order_item_id:order_item_id,
+          //       ids:result
+          //     })
+          //     .then((res) => {
+          //       console.log('res',res)   
+          //     setcorrespondenceState(res)
+      
+          //     })
+          //     .catch(err=>{
+          //       console.log('Error',err)
+          //     });
+          // }
+          // setUpDownBtn(c=>!c)
+        }
+
+        const openModalImage = (image, url) => {
+          console.log('click open image')
+
+          // setModalStates({
+          //   content: (
+          //     <ModalContentViews.ModalWrapper>
+          //       <ModalContentViews.CloseBtn closeModal={closeModal} />
+          //       <ModalContentViews.ContentBlock>
+          //         <ModalContentViews.CenterPosition>
+          //           <ModalContentViews.ViewsImage image={image} url={url} />
+          //         </ModalContentViews.CenterPosition>
+          //       </ModalContentViews.ContentBlock>
+          //     </ModalContentViews.ModalWrapper>
+          //   ),
+          //   show: true,
+          //   addClass: 'modal-review',
+          // });
+        };
+
+        const sendMessage = (values, { setFieldValue } ) => {
+          console.log('send', { values } )
+          const params = {
+            ...values,
+            setFieldValue: setFieldValue
+          }
+          dispatch('sendMessageProduct', params)
+        }
 
     return (
         <OrderDetailsPersonalPageLayout
@@ -94,6 +152,10 @@ const OrderDetailsPersonalPageLayoutContainer = ({
         handlerSpecification = { handlerSpecification }
         activeButtonSpecification = { activeButtonSpecification }
         deleteElementOrder = { deleteElementOrder }
+        sendCommentFromTextField = { sendCommentFromTextField }
+        clickOpenCommit = { clickOpenCommit }
+        openModalImage = { openModalImage }
+        sendMessage = { sendMessage }
         />
     )
 }

@@ -24,6 +24,7 @@ const AddUploadFiles = ({
   textButton, 
   onBlur,
   className,
+  onChange,
 }) => {
   const fileInputRef = React.useRef(null);
 
@@ -100,6 +101,7 @@ const AddUploadFiles = ({
                       multiple = { multiple }
                       className = { 'hidden' }
                       onChange = { e => {
+                        onChange(e)
                         const files = e.currentTarget.files;
                         onSelectFiles(files);
                         !!multiple? setFieldValue( name, files) : setFieldValue( name, files)[0];

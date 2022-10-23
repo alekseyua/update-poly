@@ -526,8 +526,9 @@ export const pageContent = store => {
                 return dispatch('getCatalog', params)
             }
 
-            if (url.includes('/product-')) {               
-                const productId = res.init_state.page_info.id;
+            if (url.includes('/product-')) {           
+                console.log('url')    
+                const productId = window.location.pathname.split('-')[1]; //res.init_state.page_info.id;
                 const resProducts = await apiContent.getProduct(productId)
                 const activeColor = getActiveColor(resProducts.colors)
                 let newMedia = [];

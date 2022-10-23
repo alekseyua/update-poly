@@ -2,6 +2,8 @@ import api from "../../api/api";
 import { ROLE } from "../../const";
 import dayjs from "../../helpers/dayjs";
 import { initialFiltersOrders } from "../../helpers/initialValues/initialValues";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 
 export const order = store => {
@@ -9,31 +11,137 @@ export const order = store => {
     const orderApi = api.orderApi;
     const apiCart = api.cartApi
 
-    // store.on('searchAddressDilivery', ({ context }, obj, { dispatch }) => {
-    //     try {
-    //         const paramsSearch = {
-    //             q: obj.q
-    //         }
+    store.on('removeItemFromOrder', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+            dispatch('setModalState', {
+                show: true,
+            })
+            const idOrder = context.init_state.order.id;
+            const params = {
+                order_id: idOrder,
+                id: obj.id_goods,
+            }
 
-    //         const res = orderApi.getOrderAddressSearch(paramsSearch)
+            const res = await orderApi.cancelOrderItem(params)
 
-    //         const newContext = {
-    //             ...context,
-    //             "init_state": {
-    //                 ...context.init_state,
-    //                 order: {
-    //                     ...context.init_state.order,
-    //                     addressDilivery: res
-    //                 }
-    //             }
-    //         }
 
-    //         dispatch('context', newContext)
+            const ordersList = context.init_state.order.dataOrderItems;
+            const newOrderList = ordersList.map(el => el.id === obj.id_goods ? { ...el, status: { id: 'canceled', title: 'отменён' } } : el);
 
-    //     } catch (err) {
-    //         console.log('ERROR SEARCH ADDRESS DILIVERY = ', res);
-    //     }
-    // })
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    order: {
+                        ...context.init_state.order,
+                        dataOrderItems: newOrderList
+                    }
+                }
+            }
+
+            dispatch('context', newContext)
+            if (res.status === "True") {
+                dispatch('setModalState', {
+                    show: false,
+                })
+                dispatch('getDataOrder')
+            }
+        } catch (err) {
+            console.log('ERROR removeItemFromOrder = ', err);
+            let error = ['Ошибка на сервере, попробуйте позже!']
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+
+    store.on('getDataOrder', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+
+            const idOrder = context.init_state.page_info.slug;
+            const params = {
+                url: `/orders/${idOrder}`
+            }
+            const getDataOrder = await api.getPage(params)
+
+            if (getDataOrder.status === 500) {
+                let error = ['Ошибка на сервере, проблемы с заказом попробуйте позже!']
+                if (getDataOrder?.data) {
+                    const errors = getDataOrder.data;
+                    if (typeof errors !== 'object') {
+                        error.push(`${errors}`)
+                    } else {
+                        error.push(`${errors[0]}`)
+                    }
+                }
+                dispatch('setModalState', {
+                    show: true,
+                    content: textErrorMessage(error),
+                    iconImage: errorAlertIcon,
+                    addClass: 'modal-alert-error',
+                    action: {
+                        title: ['продолжить', null]
+                    },
+                    onClick: () => closeModalState()
+                })
+            }
+
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    order: {
+                        ...context.init_state.order,
+                        ...getDataOrder.init_state.order
+                    },
+                    profile: {
+                        ...context.init_state.profile,
+                        balance: getDataOrder.init_state.profile.balance
+                    }
+                }
+            }
+
+            dispatch('context', newContext);
+
+        } catch (err) {
+            console.log('ERROR getDataOrder = ', err);
+            let error = ['Ошибка на сервере, попробуйте позже!']
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
 
     store.on('getCountryDeliviry', async ({ context }, obj, { dispatch }) => {
         try {
@@ -61,79 +169,6 @@ export const order = store => {
         } catch (err) {
             console.log('ERROR GER COUNTRY', err)
         }
-    })
-
-    store.on('payment', async ({ context, numberCurrentOrderForAddProduct }, obj, { dispatch }) => {
-
-        try {
-            const { role, balance, user } = context.init_state.profile
-            const { first_name, last_name, middle_name } = user;
-            const { currency } = context.init_state;
-            const { priceDilivery } = context.init_state.order
-            const { price, discount, total_price } = context.init_state.cart_content
-            let params = {
-                payment_method: obj.payment_methods,
-                delivery_method: obj.variant,
-                delivery_address: obj.selectedAdress,
-                agree_personal_data: obj.agree_personal_data,
-                wait_call: obj.waitForCall,
-                currency: currency,
-                order_cost: price,
-                discount: discount,
-                total_cost: price,
-                add_goods_order_id: +numberCurrentOrderForAddProduct ?? 0, // localStore берём номер заказа куда добавить товар по старому отправляем 0 если нет добавления
-            };
-
-
-           
-            // passport_number: values.serias_and_number_passport,
-            // passport_issued: values.issued_passport,
-            // passport_issue_date: date && date !== 'Invalid Date' ? date : null,            
-            // comment_passport: values.comment,
-            // comment_order: values.comment_order,
-
-
-
-            role === ROLE.RETAIL?
-                params = {
-                    ...params,
-                    delivery_cost: priceDilivery.price,
-                }
-                : null
-            const res = await orderApi.createOrder(params);
-            console.log({res})
-            //?! если добовляем в заказ переходим на страницу orders
-                if(numberCurrentOrderForAddProduct){
-
-                    dispatch('setNumberOrderForAddProducts', {numberOrder: null} );    
-
-                    return obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
-                }
-
-            //?! если баланс меньше суммы заказа показать попап для оплаты суммы и прикладывания чека об оплаты
-                if ( balance < total_price ){
-                    // let res = {id:null}
-                    const order_id = res.id;
-                    const params = {
-                        order_id: order_id, 
-                        balance: balance,
-                        total_price: total_price,
-                        first_name,
-                        last_name,
-                        middle_name,
-                        redirectTo: obj.redirectTo
-                    }
-                    return dispatch('modalCheckPayment', params)
-                }
-            //?! если больше переходим на страницу orders
-                console.log('test after return in if', balance > total_price)
-                obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
-
-
-        } catch (err) {
-            console.log('ERROR CREATE PAYMENT METHOD', err)
-        }
-
     })
 
     store.on('sendToArchive', ({ context }, obj, { dispatch }) => {
@@ -180,9 +215,9 @@ export const order = store => {
         }
 
     })
-    
+
     store.on('getOrders', async ({ context }, obj, { dispatch }) => {
-        try {            
+        try {
             const fakeorder = {
                 count: 2,
                 last: null,
@@ -215,7 +250,7 @@ export const order = store => {
                         payment_method: 1,
                         slug: "202210062213-3800",
                         status: {
-                            status: "payment_waiting", 
+                            status: "payment_waiting",
                             title: "Ожидается оплата"
                         },
                         status: "payment_waiting",
@@ -250,7 +285,7 @@ export const order = store => {
                         payment_method: 1,
                         slug: "202210052040-3779",
                         status: {
-                            status: "payment_waiting", 
+                            status: "payment_waiting",
                             title: "Ожидается оплата"
                         },
                         status: "payment_waiting",
@@ -262,32 +297,32 @@ export const order = store => {
                 ]
             }
             let params = {
-                ...initialFiltersOrders,    
+                ...initialFiltersOrders,
             }
-            obj?.created_at__gte? params = { ...params, created_at__gte: dayjs(api.language, obj?.created_at__gte).format() }
-                : obj?.created_at__lte? params = { ...params, created_at__lte: dayjs(api.language, obj?.created_at__lte).format() }
-                    : obj?.status? params = { ...params, status: obj?.status }
+            obj?.created_at__gte ? params = { ...params, created_at__gte: dayjs(api.language, obj?.created_at__gte).format() }
+                : obj?.created_at__lte ? params = { ...params, created_at__lte: dayjs(api.language, obj?.created_at__lte).format() }
+                    : obj?.status ? params = { ...params, status: obj?.status }
                         : null
 
             const res = await orderApi.getOrders(params);
             const tableBodyData = res.results;
-            
+
             //const tableBodyData = fakeorder.results;
-            
+
             const dataCreate = fakeorder.results.map(el => el.created_at).sort((a, b) => a > b ? 1 : -1);
-            
+
             const data = {
-              created_at__lte: new Date(dataCreate[0]) ?? new Date(String(thisDate.setFullYear(thisDate.getFullYear()))),
-              created_at__gte: new Date(dataCreate[dataCreate.length - 1]) ?? new Date(),
+                created_at__lte: new Date(dataCreate[0]) ?? new Date(String(thisDate.setFullYear(thisDate.getFullYear()))),
+                created_at__gte: new Date(dataCreate[dataCreate.length - 1]) ?? new Date(),
             };
-            
-            console.log('results getOrders= ', 
-                {params},
-                {obj},
+
+            console.log('results getOrders= ',
+                { params },
+                { obj },
             );
-            
-            
-            
+
+
+
 
             const newContext = {
                 ...context,
@@ -296,7 +331,7 @@ export const order = store => {
                     order: {
                         ...context.init_state.order,
                         orders: fakeorder, //res,
-                        tableBodyData: tableBodyData.length? tableBodyData : [],
+                        tableBodyData: tableBodyData.length ? tableBodyData : [],
                         dateFilterData: data
                     }
                 }
@@ -310,31 +345,56 @@ export const order = store => {
     })
 
     store.on('changeAgreement-products', async ({ context }, obj, { dispatch }) => {
-        try{
+        try {
 
             const params = {
                 id: obj.productId,
-            change_agreement: !+obj.changeAgreement,
-            qty: +obj.qty,
-        }
-        const res = await apiCart.updateCartData([params]);
-        console.log({res})
-        const newContext = {
-            ...context,
-            "init_state": {
-                ...context.init_state,
-                dataCart: {
-                    ...context.init_state.dataCart,
-                    cartitem_set: res.cartitem_set,
-                    in_stock: res.in_stock
+                change_agreement: !+obj.changeAgreement,
+                qty: +obj.qty,
+            }
+            const res = await apiCart.updateCartData([params]);
+            console.log({ res })
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataCart: {
+                        ...context.init_state.dataCart,
+                        cartitem_set: res.cartitem_set,
+                        in_stock: res.in_stock
 
-                }
-            },
-        }
+                    }
+                },
+            }
 
-        dispatch('context', newContext)
-        }catch(err){
+            dispatch('context', newContext)
+        } catch (err) {
             console.log('ERROR GET DATA CHANGE AGREEMENT', err)
         }
     })
+
+    store.on('getSpecification', async ({ context, closeModalState }, obj, { dispatch }) => {
+        dispatch('setModalState', {
+            show: true,
+        })
+        const numberOrder = context.init_state.order.fullNumberOrder;
+
+        const params = {
+            "order_id": numberOrder.split('-').pop()
+        }
+
+        const specific = await orderApi.postOrderSpecification(params)
+
+        dispatch('setModalState', {
+            show: false,
+        })
+        dispatch('pdf-viewer', {
+            link: specific.specification,
+            title: 'Спецификация',
+            addClass: 'modal-specification',
+            addId: 'pdfviewer-specif'
+        })
+    })
+
+
 }

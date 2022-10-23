@@ -23,7 +23,7 @@ const OrderingAddressContainer = ({
     let paramsSearch = {
       q: data
     }
-    dispatch('searchAddressDilivery', paramsSearch)
+    dispatch('searchAddress', paramsSearch)
   };
 
   const setChooseAddress = (id, country) => {

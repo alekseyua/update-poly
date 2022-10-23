@@ -14,6 +14,11 @@
         align-self: flex-end;
         background-color: #e5ddf2;
     }
+    //.cabinet-orders-details__chat-message-admin{}
+    &__chat-message-admin{
+        align-self: flex-start;
+        background-color: rgba(147, 52, 104, 0.2);
+    }
     //.cabinet-orders-details__chat-message-wrapper{}
     &__chat-message-wrapper{
         @include flex(sc);
@@ -86,5 +91,15 @@
           background-image: url('../../../../images/icon/videoPlayIcon.svg');
         }
     }
+    //.cabinet-orders-details__chat-field{}
+    &__chat-field{
+        height: 350px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 15px 10px;
+        background-color: $w;
+    }
+
 
 }

@@ -2,8 +2,8 @@
 @import '../../../../styles/fonts/index.scss';
 
 .cabinet-orders-details{
-    //.cabinet-orders-details__list-left{}
-    &__list-left{
+    //.cabinet-orders-details__list-right{}
+    &__list-right{
         @include col(6, 15);
         @include mobile { 
           @include col(12, 0);

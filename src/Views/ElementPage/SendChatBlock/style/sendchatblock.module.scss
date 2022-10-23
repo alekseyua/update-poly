@@ -1,0 +1,23 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+
+.cabinet-orders-details{
+     //.cabinet-orders-details__comment-send{}
+     &__comment-send{
+        height: 36px;
+        background: rgba(243, 239, 243, 0.3);
+        box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.04), inset 2px 0px 4px rgba(0, 0, 0, 0.04);
+        @include flex(sc);
+    }
+    //.cabinet-orders-details__comment-input{}
+    &__comment-input{
+        padding: 0;
+    }
+    //.cabinet-orders-details__comment-buttons{}
+    &__comment-buttons{
+        display: flex;
+        &>button{
+            background-color: transparent !important;
+        }
+    }
+}
