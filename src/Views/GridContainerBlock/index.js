@@ -20,6 +20,7 @@ import BlockPayment from './BlockPayment/BlockPayment';
 import BlockMessage from './BlockMessage/BlockMessage';
 // форма для добавления адресса доставки
 import BlockAddAddressContainer from './BlockAddAddress/BlockAddAddressContainer';
+import BlockAddAddressContainerPhone from './BlockAddAddress/BlockAddAddressContainerPhone';
 import BlockAddAddressLeftSide from './BlockAddAddress/BlockAddAddressLeftSide';
 import BlockAddAddressRightSide from './BlockAddAddress/BlockAddAddressRightSide';
 import BlockAddAddressCell from './BlockAddAddress/BlockAddAddressCell';
@@ -31,6 +32,7 @@ import BlockAddAddressContainerButton from './BlockAddAddress/BlockAddAddressCon
 
 export default {
     BlockAddAddressContainerButton,
+    BlockAddAddressContainerPhone,
     BlockAddAddressRightSide,
     BlockAddAddressContainer,
     BlockAddAddressLeftSide,

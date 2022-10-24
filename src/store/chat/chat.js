@@ -3,111 +3,108 @@ import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const chat = store => {
-    const orderApi = api.orderApi;
+  const orderApi = api.orderApi;
 
-    store.on('sendMessageProduct', async ({ context, closeModalState }, obj, { dispatch }) => {
-       
-          try{
-            const { files, message, idProduct, setFieldValue } = obj;
+  store.on('sendMessageProduct', async ({ context, closeModalState }, obj, { dispatch }) => {
 
+    try {
+      const { files, message, idProduct, setFieldValue } = obj;
+      console.log({ obj })
+      dispatch('setModalState', {
+        show: true,
+      })
 
-            dispatch('setModalState', {
-              show: true,
-            })
-          const fd = new FormData();
-          fd.set('order_item_id', idProduct);
-          fd.set('message', message);
-          fd.set('files', files[0]);     
-            
+      const fd = new FormData();
+      fd.set('order_item_id', idProduct);
+      fd.set('message', message);
+      files ? fd.set('files', files[0]) : null;
 
-          const res = await orderApi.postCorrespondence_order_item(fd);
-          console.log({res})
+      const res = await orderApi.postCorrespondence_order_item(fd);
+      setFieldValue('message', '')
+      setFieldValue('upDownBtn', false)
+      setFieldValue('files', null)
+      setFieldValue('activeBtnMessageForProduct', true)
 
-          setFieldValue('message','')
-          setFieldValue('upDownBtn', false)
-          setFieldValue('files',null)
-          setFieldValue('activeBtnMessageForProduct', true)
-          
-          console.log({res})
-          dispatch('setModalState', {
-            show: false,
-          })
-          } catch (err) {
-            console.log('ERROR removeItemFromOrder = ', err);
-            let error = ['Ошибка на сервере, попробуйте позже!']
-            if (err?.data) {
-                const errors = err.data;
-                if ( typeof errors !== 'object') {
-                    error.push(`${errors}`)
-                }else{
-                    error.push(`${errors[0]}`)
-                }
-                console.log({errors}, {err: typeof errors})
-            }
-            dispatch('setModalState', {
-                show: true,
-                content: textErrorMessage(error),
-                iconImage: errorAlertIcon,
-                addClass: 'modal-alert-error',
-                action: {
-                    title: ['продолжить', null]
-                },
-                onClick: () => closeModalState()
-            })
-          }
-    })
+      console.log({ res })
+      dispatch('setModalState', {
+        show: false,
+      })
+    } catch (err) {
+      console.log('ERROR sendMessageProduct = ', err);
 
-    store.on('sendMessageChatProduct', async ({ context, closeModalState }, obj, { dispatch }) => {
-       
-      try{
-        const { files, message, idProduct, setFieldValue } = obj;
+      let error = ['Ошибка на сервере, попробуйте позже!']
+      if (err?.data) {
+        const errors = err.data;
+        if (typeof errors !== 'object') {
+          error.push(`${errors}`)
+        } else {
+          error.push(`${errors[0]}`)
+        }
+        console.log({ errors }, { err: typeof errors })
+      }
 
+      dispatch('setModalState', {
+        show: true,
+        content: textErrorMessage(error),
+        iconImage: errorAlertIcon,
+        addClass: 'modal-alert-error',
+        action: {
+          title: ['продолжить', null]
+        },
+        onClick: () => closeModalState()
+      })
+    }
+  })
 
-        dispatch('setModalState', {
-          show: true,
-        })
+  store.on('sendMessageChatProduct', async ({ context, closeModalState }, obj, { dispatch }) => {
+
+    try {
+      const { files, message, idProduct, setFieldValue } = obj;
+
+      dispatch('setModalState', {
+        show: true,
+      });
 
       const fd = new FormData();
       fd.set('order', idProduct);
       fd.set('message', message);
-      fd.set('files', files[0]);     
-      console.log({files})
-        
+      files ? fd.set('files', files[0]) : null;
+
       const res = await orderApi.postCorrespondence(fd);
 
-      setFieldValue('message','')
+      setFieldValue('message', '')
       setFieldValue('upDownBtn', false)
-      setFieldValue('files',null)
+      setFieldValue('files', null)
       setFieldValue('activeBtnMessageForProduct', true)
-      
-      console.log({res})
+
       dispatch('setModalState', {
         show: false,
-      })
-      } catch (err) {
-        console.log('ERROR removeItemFromOrder = ', err);
-        let error = ['Ошибка на сервере, попробуйте позже!']
-        if (err?.data) {
-            const errors = err.data;
-            if ( typeof errors !== 'object') {
-                error.push(`${errors}`)
-            }else{
-                error.push(`${errors[0]}`)
-            }
-            console.log({errors}, {err: typeof errors})
+      });
+
+    } catch (err) {
+      console.log('ERROR removeItemFromOrder = ', err);
+      let error = ['Ошибка на сервере, попробуйте позже!']
+      if (err?.data) {
+        const errors = err.data;
+        if (typeof errors !== 'object') {
+          error.push(`${errors}`)
+        } else {
+          error.push(`${errors[0]}`)
         }
-        dispatch('setModalState', {
-            show: true,
-            content: textErrorMessage(error),
-            iconImage: errorAlertIcon,
-            addClass: 'modal-alert-error',
-            action: {
-                title: ['продолжить', null]
-            },
-            onClick: () => closeModalState()
-        })
+        console.log({ errors }, { err: typeof errors })
       }
-})
+      dispatch('setModalState', {
+        show: true,
+        content: textErrorMessage(error),
+        iconImage: errorAlertIcon,
+        addClass: 'modal-alert-error',
+        action: {
+          title: ['продолжить', null]
+        },
+        onClick: () => closeModalState()
+      })
+    }
+  })
 }
 
  // setDisablebtn(true)

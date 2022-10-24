@@ -38,7 +38,9 @@ export default class OrderApi extends AbstractBaseApi {
   //заказы
   getOrders = async (params = {}) => {
     const res = await this.get('/order/order/', params);
-    return serializeOrderData(res.data);
+    // return serializeOrderData(res.data);
+     return res.data;
+
   };
   createOrder = async (params = {}) => {
     const res = await this.post('/order/order/', serializeOrderIsNullField(params));

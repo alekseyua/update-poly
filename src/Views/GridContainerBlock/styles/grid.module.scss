@@ -77,6 +77,11 @@
       @include mobile {
         grid-template-columns: 1fr;
       }
+      //.block-add-address__conteiner-phone{}
+      &-phone{
+        border: 1px solid $dg2;
+        padding: 0 10px;
+      }
     }
     //.block-add-address__left-side{}
     &__left-side{
@@ -89,7 +94,8 @@
       //.block-add-address__cell--container{}
       &--container{
         padding: 0;
-        display: flex;justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
         &>div{
           flex: 0 1 45%;
           &>div>input::placeholder{

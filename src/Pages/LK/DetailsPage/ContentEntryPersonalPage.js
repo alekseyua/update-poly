@@ -162,12 +162,12 @@ const ContentEntryPersonalPage = ({
                               defaultCountry = {'RU'}
                               smartCaret = { true }
                               limitMaxLength = { true }
-                              className = { 'form-input-number-phone-lk'}       
+                              className = { 'form-input-number-phone-lk--phone'}       
                               onChange = { () => {}}                 
                            />
                            <PersonalPageViews.FormBottom
                               onClickChangePassword = {() => values.changePhone(values.phone)}
-                           
+                              phone                           
                            >
                              {/* <Button
                                onClick={() => values.changePhone(values.phone)}

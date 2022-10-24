@@ -37,18 +37,20 @@ const BaseInfoOrder = ({
   };
 
   const selectCreateTo = (date) => {
+    console.log('date to = ', {date})
     getDataOrdersFilters({
       created_at__gte: date,
     })
   };
 
   const selectCreateFrom = (date) => {
+    console.log('date from = ', {date})
     getDataOrdersFilters({
       created_at__lte: date
     })
   };
-
-  
+debugger
+  console.log('-------dateFilterData-----', {dateFilterData})
  return (
     <div className={style['cabinet-content']}>
       <div className={style['cabinet-heading']}>
@@ -57,12 +59,11 @@ const BaseInfoOrder = ({
           <div className={style['cabinet-topfilter']}>
             <div className={style['cabinet-topfilter__left']}>
               <Select
-                variant={'select-theme__black'}
-                placeholder={options[0].title}
-                options={options}
-                onClick={changeStatusFilter}
-                >
-              </Select>
+                className = { 'select-order-list' }
+                placeholder = { options[0].title }
+                options = { options }
+                onClick = { changeStatusFilter }
+              />
             </div>
 
             {

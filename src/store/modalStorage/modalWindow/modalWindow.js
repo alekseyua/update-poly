@@ -702,7 +702,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                     </BlockGrid.BlockAddAddressCell>
 
                     <BlockGrid.BlockAddAddressCell>
-                      <Input
+                      {/* <Input
                         variant={'varian-input'}
                         value={values.phone}
                         name={'phone'}
@@ -713,8 +713,28 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                         label={Text({ text: 'mobPhone' })}
                         onChange={handleChange}
                         className={errors.phone && touched.phone ? 'error' : ''}
-                        helpText={errors.phone && touched.phone ? <ErrorField message={errors.phone} /> : null}
-                      />
+                        /> */}
+
+                      
+                      <BlockGrid.BlockAddAddressContainerPhone
+                        helpText={errors.phone && touched.phone ? <ErrorField message={errors.phone} /> : null}                      
+                      >
+                      <Phone
+                        placeholder = { Text({ text: 'enterPhone' }) }
+                        value = { values.phone }
+                        name={'phone'}
+                        defaultCountry = {'RU'}
+                        smartCaret = { true }
+                        limitMaxLength = { true }
+                        focusInputOnCountrySelection = { true }
+                        className = { 'form-input-number-phone-lk'}       
+                        onChange = { phone => {
+                          setFieldValue('phone', phone) 
+                        }}              
+                        />
+                      
+                        </BlockGrid.BlockAddAddressContainerPhone>
+
                     </BlockGrid.BlockAddAddressCell>
 
                   </BlockGrid.BlockAddAddressLeftSide>
@@ -722,7 +742,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                   <BlockGrid.BlockAddAddressRightSide>
                     <BlockGrid.BlockAddAddressCell>
                       <Select
-                        // className = { 'select-default' }
+                        className = { 'select-addAddress' }
                         value={values.country}
                         autofocus
                         onBlur={handleBlur}

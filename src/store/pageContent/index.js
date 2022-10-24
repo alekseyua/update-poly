@@ -527,7 +527,7 @@ export const pageContent = store => {
             }
 
             if (url.includes('/product-')) {           
-                console.log('url')    
+                console.log('url')
                 const productId = window.location.pathname.split('-')[1]; //res.init_state.page_info.id;
                 const resProducts = await apiContent.getProduct(productId)
                 const activeColor = getActiveColor(resProducts.colors)
@@ -661,6 +661,7 @@ export const pageContent = store => {
             }  
 
             if (url.includes('/orders/2')) {
+                dispatch('correspondence');    
                 const numberId = url.split('/').pop().split('-').pop()
                 const dataOrderItems = await orderApi.getOrderItems({ order_id: numberId });
                 console.log({dataOrderItems})

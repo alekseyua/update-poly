@@ -157,9 +157,10 @@
     //.cabinet-form__end{}
     &__end {
       @include flex(sc);
-      @include mobile-lgm {
-        flex-direction: column;
-      }
+
+      // @include mobile-lgm {
+      //   flex-direction: column;
+      // }
       //.cabinet-form__end--right{}
       &--right {
         text-align: right;

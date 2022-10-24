@@ -20,6 +20,7 @@ const Icon = ({
     className,
     slot,
     bodrad,
+    id,
     ref, 
     src, 
     width, 
@@ -36,9 +37,10 @@ const Icon = ({
 
     return(
         <div 
-            ref={ref}
-            onClick={onClick}
-            className={styleIcons}
+            id = { id }
+            ref={ ref }
+            onClick={ onClick }
+            className={ styleIcons }
             style={{
                 backgroundImage: `url(${src})`,
                 width: `${width}px`,

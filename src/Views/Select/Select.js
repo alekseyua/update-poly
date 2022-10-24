@@ -64,7 +64,7 @@ const Select = ({
   const customClassName = classNames({
     [style['select__body']]: true,
     [style['select__body--active']]: active,
-    [style[getVariantStyleSelect(variant)]]: true,
+    [style[getVariantStyleSelect(variant)]]: !!variant,
     [style[className]]: !!className,
   });
 
@@ -133,6 +133,7 @@ const Select = ({
         })
         }
         slot="suffix"
+        id = { 'droppown-select' }
         src={arrowDown}
         width={20}
         height={20}

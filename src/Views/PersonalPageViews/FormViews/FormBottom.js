@@ -4,10 +4,13 @@ import Button from '../../Button';
 
 import style from '../styles/wrapper.module.scss';
 
-const FormBottom = ({ onClickChangePassword, children }) => {
+const FormBottom = ({ onClickChangePassword, children, phone }) => {
 
   return (
-    <div className={style['cabinet-form__end']}>
+    <div 
+      className={style['cabinet-form__end']}
+      style = { {justifyContent: phone? 'flex-end' : 'space-between' } }  
+    >
       <div className={style['cabinet-form__end--left']}>
         <Button 
           variant = { "cabinet-linkblue" } 
@@ -17,7 +20,10 @@ const FormBottom = ({ onClickChangePassword, children }) => {
           <Text text = { 'changePasswor' } />
         </Button>
       </div>
-      <div className={style['cabinet-form__end--right']}>{children}</div>
+      <div 
+        className={style['cabinet-form__end--right']}
+        style = { {display: phone? 'none' : 'block'} }  
+      >{children}</div>
     </div>
   );
 

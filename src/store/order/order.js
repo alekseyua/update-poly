@@ -296,6 +296,7 @@ export const order = store => {
                     }
                 ]
             }
+            debugger
             let params = {
                 ...initialFiltersOrders,
             }
@@ -309,16 +310,20 @@ export const order = store => {
 
             //const tableBodyData = fakeorder.results;
 
-            const dataCreate = fakeorder.results.map(el => el.created_at).sort((a, b) => a > b ? 1 : -1);
+            const dataCreate = tableBodyData.map(el => el.created_at).sort((a, b) => a > b ? 1 : -1);
+            const thisDate = new Date();
 
-            const data = {
-                created_at__lte: new Date(dataCreate[0]) ?? new Date(String(thisDate.setFullYear(thisDate.getFullYear()))),
-                created_at__gte: new Date(dataCreate[dataCreate.length - 1]) ?? new Date(),
+            let data = {
+                created_at__lte: new Date(dataCreate[0]) ?? String(thisDate.getDate() + '.' + thisDate.getMonth() + '.' + thisDate.getFullYear()),
+                created_at__gte: new Date(dataCreate[dataCreate.length - 1]) ?? String(thisDate.getDate() + '.' + thisDate.getMonth() + '.' + thisDate.getFullYear()),
             };
+
+            
 
             console.log('results getOrders= ',
                 { params },
                 { obj },
+                {data},
             );
 
 

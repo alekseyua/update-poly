@@ -108,7 +108,7 @@ const RegistrationFormBaseInfo = ({
               <PersonalPageViews.FormGroup phoneAuth>
 
                <Phone
-                placeholder="Введите номер телефона"
+                placeholder = { Text({ text: 'enterPhone' }) }
                 value = { values.phone }
                 onChange = { phone => {
                   setFieldValue('phone', phone) 

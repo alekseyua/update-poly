@@ -163,23 +163,35 @@
 	}
 }
 
+.form-input-number-phone-lk--phone{
+	padding: 10px 0;
+	max-width: 171px;
+	&>input{
+		flex:100%;
+		font-size: 17px;
+	}
+}
+
 .cabinet-form__group--phone{
 	display: flex;
 	border: 1px solid #c3c3c3;
 	padding: 0 5px;
     justify-content: space-between;
+	text-align: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	&>:last-child{
-		position: relative;
-		@include adaptive-value('left', 0, -250, px,2);
-		// @include tablet-lgl{
-		// 	left: 0;
-		// }
+		// position: relative;
+		// @include adaptive-value('left', 0, -250, px,2);
+		// // @include tablet-lgl{
+		// // 	left: 0;
+		// // }
 		// @include tablet-mmdl {
-		// 	@include adaptive-value('left', 0, -80, px,2);
+		// 	@include adaptive-value('left', 0, -40, px,2);
 		// }
-		// @include tablet-md {
-		// 	@include adaptive-value('left', 200, -70, px,2);
-		// }
+		// // @include tablet-md {
+		// // 	@include adaptive-value('left', 200, -70, px,2);
+		// // }
 	}
 }
 
