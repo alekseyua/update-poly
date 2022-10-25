@@ -3,12 +3,15 @@ import { StoreContext } from 'storeon/react';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import { hydrate } from 'react-dom';
-import initContext from '../public/content-page.json';// нужно протестить с инишенал данными и без
 import { store } from './store';
 import ScrollToTop from './Views/ScrollToTop';
+import { getCookie } from './helpers/helpers';
+import * as serviceWorker from './serviceWorker';
+
 
 const init_state = window.__INITIAL_DATA__;
 // console.log('store', store.get())
+const token = getCookie('ft_token');
 hydrate(
   <StoreContext.Provider value={store} >
     <BrowserRouter >
@@ -21,4 +24,10 @@ hydrate(
 
 if (module.hot) {
   module.hot.accept();
+}
+
+if (!(!!token)){ 
+  serviceWorker.unregister();
+}else{
+  serviceWorker.register();
 }

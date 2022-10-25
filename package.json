@@ -12,6 +12,7 @@
     "@phuocng/react-pdf-viewer": "^1.7.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "cogo-toast": "^4.2.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
