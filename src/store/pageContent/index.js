@@ -5,6 +5,7 @@ import { getActiveColor, getCookie } from '../../helpers/helpers';
 import { COOKIE_KEYS, ROLE } from '../../const';
 import Text from '../../helpers/Text';
 import { errorAlertIcon } from '../../images';
+import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 
 export const pageContent = store => {
@@ -35,14 +36,15 @@ export const pageContent = store => {
         const currency = getCookie(COOKIE_KEYS.CURRENCIES)
 
         try {
+            
             const { url, redirectTo } = obj;
             //?! пока пользователь не зарегиный у него не все данные в таблице нужно учесть 
-
+            
             console.log('******url store******', {url}, {a: redirectTo} )
             const res = await api.getPage({ url })
             dispatch('setModalState', {
                 // show: false,
-            })
+            });
             // console.log('res new from url =', res.init_state)
             // console.log('res old from context = ', context)
             if (url === '/') {
@@ -661,7 +663,6 @@ export const pageContent = store => {
             }  
 
             if (url.includes('/orders/2')) {
-                dispatch('correspondence');    
                 const numberId = url.split('/').pop().split('-').pop()
                 const dataOrderItems = await orderApi.getOrderItems({ order_id: numberId });
                 console.log({dataOrderItems})
@@ -682,6 +683,7 @@ export const pageContent = store => {
                 // console.log('newContext = ', newContext)
                 
                 dispatch('context', newContext)
+                dispatch('correspondence');    
                
 
             } 
@@ -763,6 +765,25 @@ export const pageContent = store => {
 
         } catch (err) {
             console.log('ERROR CONTEXT PAGE', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 }

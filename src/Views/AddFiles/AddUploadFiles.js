@@ -25,7 +25,7 @@ const AddUploadFiles = ({
   textButton, 
   onBlur,
   className,
-  onChange,
+  onChange = () => {},
 
 }) => {
   const fileInputRef = React.useRef(null);

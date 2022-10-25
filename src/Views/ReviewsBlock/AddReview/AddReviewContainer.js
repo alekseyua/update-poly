@@ -8,8 +8,8 @@ const AddReviewContainer =({
 }) => {
     const { dispatch } = useStoreon();
 
-    const sendReview = (data, options) => {
-        console.log('options  Data = ', options)
+    const sendReview = (data, dataFormik) => {
+
         const params = {
             iAgreeDataProcessing: data.iAgreeDataProcessing,
             files: data.uploadFiles,
@@ -18,7 +18,7 @@ const AddReviewContainer =({
     
             product: data.productId,
             profile: data.profileId,
-
+            dataFormik: dataFormik
             // callbackResult: 
           };
         dispatch('sendReview', params)

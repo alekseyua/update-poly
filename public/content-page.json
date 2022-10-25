@@ -739,7 +739,11 @@
             "addressDilivery": {
                 "count": 0,
                 "results": [],
-                "textSearch": ""
+                "textSearch": "",
+                "correspondence": {
+                    "order_chat": [],
+                    "order_items_chat": []
+                }
             },
             "orders": {
                 "count": 0,

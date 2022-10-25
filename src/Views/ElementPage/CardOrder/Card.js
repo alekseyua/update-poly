@@ -34,15 +34,17 @@ const Card = ({
   role,
   can_cancel,
   currency,
+  contextChats,
 
   clickOpenCommit,
   openModalImage,
+  openModalVideo,
   deleteElementOrder,
   sendMessage,
 
 }) => {
 
-  const correspondenceState = []
+
   const getIconFromStatus = (id) => {
     const statusIcons = {
       collection: shoppingBag,
@@ -79,10 +81,14 @@ const Card = ({
   const initValuesMessageProduct = {
     files: null,
     message: '',
-    upDownBtn: false,
+    upDownBtn: true,
     idProduct: id,
+    // result: [],
     activeBtnMessageForProduct: true
   }
+
+
+  console.log({ contextChats })
   return (
     <div className={classNames({
       [style['cabinet-orders-details__card']]: true,
@@ -138,57 +144,57 @@ const Card = ({
               </div>
               <div className={style['cabinet-orders-details__base-info-desc']}>
                 {
-              status.id !== 'canceled' ?
-                <div className={style['cabinet-orders-details__base-info-desc--status-main']}>
-                  {status.id !== 'payment_waiting' &&
-                    status.id !== 'paid' &&
-                    status.id !== 'packaging' &&
-                    status.id !== 'sended' &&
-                    status.id !== 'ordered' ? (
-                    <Icon
-                      slot="icon-left"
-                      src={getIconFromStatus(status.id)}
-                      className={style['cabinet-orders-details__base-info-icon']}
-                      width={20}
-                      height={20}
-                    />
-                  ) : status.id === 'payment_waiting' ? (
-                    <span className={style['cabinet-orders-details__icon--payment']}>💳</span>
-                  ) : status.id === 'paid' ? (
-                    <span className={style['cabinet-orders-details__icon--paid']}>✔️</span>
-                  ) : status.id === 'ordered' ? (
-                    <span className={style['cabinet-orders-details__icon--paid']}>✅</span>
-                  ) : status.id === 'packaging' ? (
-                    <span className={style['cabinet-orders-details__icon--packaging']}>🛍</span>
-                  ) : status.id === 'sended' ? (
-                    <span className={style['cabinet-orders-details__icon--sended']}>🛫</span>
-                  ) : null}
-                  <span className={style['cabinet-orders-details__base-info-desc--status']}>
-                    {status.title}
-                  </span>
-                </div>
-              : null
+                  status.id !== 'canceled' ?
+                    <div className={style['cabinet-orders-details__base-info-desc--status-main']}>
+                      {status.id !== 'payment_waiting' &&
+                        status.id !== 'paid' &&
+                        status.id !== 'packaging' &&
+                        status.id !== 'sended' &&
+                        status.id !== 'ordered' ? (
+                        <Icon
+                          slot="icon-left"
+                          src={getIconFromStatus(status.id)}
+                          className={style['cabinet-orders-details__base-info-icon']}
+                          width={20}
+                          height={20}
+                        />
+                      ) : status.id === 'payment_waiting' ? (
+                        <span className={style['cabinet-orders-details__icon--payment']}>💳</span>
+                      ) : status.id === 'paid' ? (
+                        <span className={style['cabinet-orders-details__icon--paid']}>✔️</span>
+                      ) : status.id === 'ordered' ? (
+                        <span className={style['cabinet-orders-details__icon--paid']}>✅</span>
+                      ) : status.id === 'packaging' ? (
+                        <span className={style['cabinet-orders-details__icon--packaging']}>🛍</span>
+                      ) : status.id === 'sended' ? (
+                        <span className={style['cabinet-orders-details__icon--sended']}>🛫</span>
+                      ) : null}
+                      <span className={style['cabinet-orders-details__base-info-desc--status']}>
+                        {status.title}
+                      </span>
+                    </div>
+                    : null
 
                 }
-                
+
               </div>
             </div>
           </div>
           {/* {role !== ROLE.WHOLESALE? */}
           <div className={style['cabinet-orders-details__btn-order-item--block-canceled']}>
             {
-                (status.id === 'payment_waiting' ||
-                  status.id === 'collection' ||
-                  status.id === 'paid') && can_cancel ? (
-                  <button
-                    variant="default"
-                    className={style['cabinet-orders-details__btn-order-item--canceled']}
-                    key={id}
-                    onClick={() => deleteElementOrder(id)}
-                  >
-                    отменить
-                  </button>
-                ) : null
+              (status.id === 'payment_waiting' ||
+                status.id === 'collection' ||
+                status.id === 'paid') && can_cancel ? (
+                <button
+                  variant="default"
+                  className={style['cabinet-orders-details__btn-order-item--canceled']}
+                  key={id}
+                  onClick={() => deleteElementOrder(id)}
+                >
+                  отменить
+                </button>
+              ) : null
             }
           </div>
           {/* :null
@@ -202,16 +208,16 @@ const Card = ({
         onSubmit={sendMessage}
       >
         {({ values, errors, handleSubmit, handleChange, setFieldValue }) => {
-          
+            console.log({values})
           return (
-            <Form 
-              id = { id }
+            <Form
+              id={id}
               onSubmit={handleSubmit}
             >
               <div className={classNames({
-                  [style['cabinet-orders-details__comment']]: true,
-                  [style['active']]: values.upDownBtn
-                })}
+                [style['cabinet-orders-details__comment']]: true,
+                [style['active']]: values.upDownBtn
+              })}
               >
                 <div
                   className={classNames({
@@ -220,63 +226,65 @@ const Card = ({
                   })}
                 >
                   <div
+                    onClick={ () => clickOpenCommit(values, setFieldValue) }
                     className={style['cabinet-orders-details__comment-field-message']}
                   >
-                    {correspondenceState.map((el, i) => {
-                      if (el.is_new && el.user === "Менеджер") {
-                        result.push(el.message_id)
-                      }
-                      if (el.is_me) {
-                        return (
-                          <ChatFieldUser
-                            openModalImage={openModalImage}
-                            // openModalVideo={openModalVideo}
-                            key={i}
-                            {...el}
-                          />
-                        );
-                      } else {
-                        return (
-                          <div
-                            className={style['cabinet-orders-details__comment-admin-wrapper']}
-                          >
-                            {values.upDownBtn ?
-                              el.is_new ?
-                                <div
-                                  onClick={() => clickOpenCommit(result, el.order_item_id)}
-                                  className={style['cabinet-orders-details__comment-bell']}
-                                ></div>
-                                : null
-                              : null}
-                            <ChatFieldAdmin
-                              openModalImage={openModalImage}
-                              // openModalVideo={openModalVideo}
-                              key={i}
-                              {...el}
-                            />
-                          </div>
-                        );
-                      }
-                    })}
+                    {
+                      !!contextChats?.chat_order_items?.length ?
+                        contextChats.chat_order_items.map((el, i) => {
+                          if (el.is_me) {
+                            return (
+                              <ChatFieldUser
+                                openModalImage={openModalImage}
+                                openModalVideo={openModalVideo}
+                                key={i}
+                                {...el}
+                              />
+                            );
+                          } else {
+                            return (
+                              <div
+                                className={style['cabinet-orders-details__comment-admin-wrapper']}
+                              >
+                                {values.upDownBtn ?
+                                  el.is_new ?
+                                    <div
+                                      onClick={() =>  clickOpenCommit(values, setFieldValue) }
+                                      className={style['cabinet-orders-details__comment-bell']}
+                                    ></div>
+                                    : null
+                                  : null}
+                                <ChatFieldAdmin
+                                  openModalImage={openModalImage}
+                                  // openModalVideo={openModalVideo}
+                                  key={i}
+                                  {...el}
+                                />
+                              </div>
+                            );
+                          }
+                        })
+                        : null
+                    }
                   </div>
 
                   <div className={style['cabinet-orders-details__comment-field-files']}>
                   </div>
                 </div>
-                {
-                  !!correspondenceState.length ?
+                {/* {
+                  !!contextChats?.chat_order_items?.length ?
                     <div
-                      onClick={() => clickOpenCommit(idMessagers, idOrderMessagers)}
+                      onClick={() => clickOpenCommit()} //idMessagers, idOrderMessagers)}
                       className={style['cabinet-orders-details__comment-up-down']}
                     ></div>
                     : null
-                }
+                } */}
 
                 <SendChatBlock
-                  values = { values }
-                  nameInput = { 'message' }
-                  nameFile = { 'files' }
-                  setFieldValue = { setFieldValue }
+                  values={values}
+                  nameInput={'message'}
+                  nameFile={'files'}
+                  setFieldValue={setFieldValue}
                 />
 
               </div>

@@ -30,6 +30,7 @@ const OrderDetailsPersonalPage = ({
         track_number,
         delivery_cost, 
         specification,
+        correspondence,
         dataOrderItems, 
         payment_method,
         delivery_method, 
@@ -40,6 +41,9 @@ const OrderDetailsPersonalPage = ({
 
     const idOrder = id;
 
+    console.log({correspondence})
+    const order_chat = correspondence?.order_chat;
+    const order_items_chat = correspondence?.order_items_chat;
 
     const { user = {}, role, balance } = profile;
     const { username } = user;
@@ -67,14 +71,16 @@ const OrderDetailsPersonalPage = ({
         updated_at = { updated_at }
         order_cost = { order_cost }
         created_at = { created_at }
-        dataOrderItems = { dataOrderItems }
+        track_number = { track_number }
         delivery_cost = { delivery_cost }
+        specification = { specification }
+        dataOrderItems = { dataOrderItems }
+        payment_method = { payment_method }
+        order_items_chat = { order_items_chat }
+        order_chat = { order_chat }
         delivery_method = { delivery_method }
         fullNumberOrder = { fullNumberOrder }
         delivery_address = { delivery_address }
-        payment_method = { payment_method }
-        specification = { specification }
-        track_number = { track_number }
         deleteElementOrder = { deleteElementOrder }
         />
     )

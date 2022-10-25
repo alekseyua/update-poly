@@ -38,6 +38,8 @@ const DetailsOrders = ({
     specification,
     track_number,
     dataOrderItems,
+    order_items_chat,
+    order_chat,
 
     openModalPay,
     heandlerClickInfo,
@@ -130,6 +132,10 @@ const DetailsOrders = ({
                     {
                         role !== ROLE.WHOLESALE ? (
                             dataOrderItems.map((el, i) => {
+                                let contextChats = [];
+                                if(order_items_chat?.length){
+                                    contextChats = order_items_chat.filter( message => message.item_id === el.id )
+                                }
                                 return (
                                     <Card
                                         {...el}
@@ -146,7 +152,8 @@ const DetailsOrders = ({
                                         url={el.product_url}
                                         can_cancel={el.can_cancel}
                                         currency = { currency } 
-                                        
+                                        contextChats = { contextChats[0] }
+
                                         deleteElementOrder={deleteElementOrder}
                                         sendCommentFromTextField = { sendCommentFromTextField }
                                         clickOpenCommit = { clickOpenCommit }
@@ -202,6 +209,7 @@ const DetailsOrders = ({
                         idOrder = { idOrder }
                         heandlerClickInfo = { heandlerClickInfo }
                         sendMessage = { sendMessage }
+                        order_chat = { order_chat }
                     />
                 </RightSideCol>
             </SectionWrapper>

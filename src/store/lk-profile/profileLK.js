@@ -1,5 +1,6 @@
 import api from "../../api/api";
 import { putUserDataSerializer } from "../../helpers/serializers";
+import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
@@ -8,7 +9,7 @@ export const profileLK = store => {
     const orderApi = api.orderApi;
     const userApi = api.userApi;
 
-    store.on('getAdresses', async ({ context }, obj, { dispatch }) => {
+    store.on('getAdresses', async ({ context, closeModalState }, obj, { dispatch }) => {
       try {
 
           const params = {
@@ -45,9 +46,29 @@ export const profileLK = store => {
                   return () => clearTimeout(timerTimeout);
               }, 400)
           }
-      } catch (err) {
+        } catch (err) {
           console.log('ERROR GET DATA FROM REQUEST ORDER ADDRESS = ', err);
-      }
+          let error = [Text({text: 'error-on-server'})];
+          if (err?.data) {
+              const errors = err.data;
+              if ( typeof errors !== 'object') {
+                  error.push(`${errors}`)
+              }else{
+                  error.push(`${errors[0]}`)
+              }
+              console.log({errors}, {err: typeof errors})
+          }
+          dispatch('setModalState', {
+              show: true,
+              content: textErrorMessage(error),
+              iconImage: errorAlertIcon,
+              addClass: 'modal-alert-error',
+              action: {
+                  title: ['продолжить', null]
+              },
+              onClick: () => closeModalState()
+          })
+        }
     })
 
     store.on('deleteAddresDelivery', async ({  context }, obj, { dispatch }) => {
@@ -116,8 +137,28 @@ export const profileLK = store => {
 
       dispatch('context', newContext);
 
-    }catch(err){
+    } catch (err) {
       console.log('ERROR get data search', err)
+      let error = [Text({text: 'error-on-server'})];
+      if (err?.data) {
+          const errors = err.data;
+          if ( typeof errors !== 'object') {
+              error.push(`${errors}`)
+          }else{
+              error.push(`${errors[0]}`)
+          }
+          console.log({errors}, {err: typeof errors})
+      }
+      dispatch('setModalState', {
+          show: true,
+          content: textErrorMessage(error),
+          iconImage: errorAlertIcon,
+          addClass: 'modal-alert-error',
+          action: {
+              title: ['продолжить', null]
+          },
+          onClick: () => closeModalState()
+      })
     }
     
     })
@@ -220,10 +261,15 @@ export const profileLK = store => {
       } catch (err) {
           console.log('ERROR GET DATA FROM REQUEST updateUserData = ', err);
           setFieldValue('isSaved', true)
-          let error = ['Ошибка на сервере, попробуйте позже!']
+          let error = [Text({text: 'error-on-server'})];
 
           if (err?.data) {
               const errors = err.data;
+              if ( typeof errors !== 'object') {
+                  error.push(`${errors}`)
+              }else{
+                  error.push(`${errors[0]}`)
+              }
               for(let key in errors){
                 error.push(`${errors[key]}`)
                 const element = errors[key][0];

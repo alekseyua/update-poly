@@ -1,5 +1,7 @@
 import api from '../../api/api';
+import Text from '../../helpers/Text';
 import { errorAlertIcon } from '../../images';
+import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 export const authorization = store => {
     const apiUser = api.userApi;
@@ -55,7 +57,7 @@ export const authorization = store => {
         }
     })
     //?! Выход с аккаунта
-    store.on('logoutOut', async ( {logout}, obj, {dispatch} )=>{
+    store.on('logoutOut', async ( {logout, closeModalState}, obj, {dispatch} )=>{
         try{
 
             const { redirectTo } = obj;
@@ -64,8 +66,27 @@ export const authorization = store => {
 
             redirectTo('/authorization');
 
-        }catch(err){
+        } catch (err) {
             console.log('ERROR EXIT LOGOUT', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 

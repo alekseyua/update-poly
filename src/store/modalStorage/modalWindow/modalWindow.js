@@ -155,10 +155,27 @@ export const feedback = async (onSubmit, dispatch, fullName, email) => {
     )
   } catch (err) {
     console.log('ERROR GET FEEDBACK', err)
+    let error = [Text({text: 'error-on-server'})];
+    if (err?.data) {
+        const errors = err.data;
+        if ( typeof errors !== 'object') {
+            error.push(`${errors}`)
+        }else{
+            error.push(`${errors[0]}`)
+        }
+        console.log({errors}, {err: typeof errors})
+    }
     dispatch('setModalState', {
-      show: false,
+        show: true,
+        content: textErrorMessage(error),
+        iconImage: errorAlertIcon,
+        addClass: 'modal-alert-error',
+        action: {
+            title: ['продолжить', null]
+        },
+        onClick: () => closeModalState()
     })
-  }
+}
 }
 
 export const addToCart = (
@@ -324,6 +341,7 @@ export const payment = async (order_id, balance, total_price, currency, first_na
           redirectTo ? redirectTo('/orders') : null;
         }
       } catch (err) {
+        let error = [Text({text: 'error-on-server'})];
 
         const data = err?.data;
         console.log('ERROR IN CREATE PAYMENT', err)
@@ -335,10 +353,10 @@ export const payment = async (order_id, balance, total_price, currency, first_na
             }
           }
         } else {
-          //?! добавить попап с ошибкой
-          dispatch('setModalState', {
-            show: true,
-            content: 'Произошла ошибка попробуйте позже!!!',
+
+            dispatch('setModalState', {
+              show: true,
+              content: textErrorMessage(error),
             iconImage: errorAlertIcon,
             action: {
               title: ['Продолжить', null]
@@ -350,6 +368,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
       }
     }
 
+
+    
     return (
       <Formik
         validationSchema={payModalScheme(errorsMessenge)}
@@ -443,6 +463,26 @@ export const payment = async (order_id, balance, total_price, currency, first_na
     )
   } catch (err) {
     console.log('ERROR IN CREATE PAYMENT', err)
+    let error = [Text({text: 'error-on-server'})];
+    if (err?.data) {
+        const errors = err.data;
+        if ( typeof errors !== 'object') {
+            error.push(`${errors}`)
+        }else{
+            error.push(`${errors[0]}`)
+        }
+        console.log({errors}, {err: typeof errors})
+    }
+    dispatch('setModalState', {
+        show: true,
+        content: textErrorMessage(error),
+        iconImage: errorAlertIcon,
+        addClass: 'modal-alert-error',
+        action: {
+            title: ['продолжить', null]
+        },
+        onClick: () => closeModalState()
+    })
   }
 }
 
@@ -547,11 +587,10 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
         dispatch('context', newContext)
         closeModalState();
       } catch (err) {
-        console.log(err)
+        console.log('ERROR createAddress', err)
         if (!!err?.data) {
           const { data } = err;
           for (let key in data) {
-            console.log('key:', key)
             const element = data[key];
             setFieldError(key, element);
           }
@@ -590,11 +629,9 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
 
       } catch (err) {
         console.error(`ERROR updateAddress`, err)
-        console.log(err)
         if (!!err?.data) {
           const { data } = err;
           for (let key in data) {
-            console.log('key:', key)
             const element = data[key];
             setFieldError(key, element);
           }
@@ -1104,7 +1141,7 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
           })
         }
       } catch (err) {
-
+        let error = [Text({text: 'error-on-server'})];
         const data = err?.data;
         console.log('ERROR IN CREATE request', err)
         if (!!data) {
@@ -1118,11 +1155,11 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
           //?! добавить попап с ошибкой
           dispatch('setModalState', {
             show: true,
-            content: 'Произошла ошибка попробуйте позже!!!',
-            iconImage: errorAlertIcon,
-            action: {
-              title: ['Продолжить', null]
-            },
+            content: textErrorMessage(error),
+          iconImage: errorAlertIcon,
+          action: {
+            title: ['Продолжить', null]
+          },
             onClick: () => closeModalState()
           })
         }
@@ -1242,7 +1279,27 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
     )
   } catch (err) {
     console.log('ERROR IN CREATE PAYMENT', err)
-  }
+    let error = [Text({text: 'error-on-server'})];
+    if (err?.data) {
+        const errors = err.data;
+        if ( typeof errors !== 'object') {
+            error.push(`${errors}`)
+        }else{
+            error.push(`${errors[0]}`)
+        }
+        console.log({errors}, {err: typeof errors})
+    }
+    dispatch('setModalState', {
+        show: true,
+        content: textErrorMessage(error),
+        iconImage: errorAlertIcon,
+        addClass: 'modal-alert-error',
+        action: {
+            title: ['продолжить', null]
+        },
+        onClick: () => closeModalState()
+    })
+}
 }
 
 export const contentInfoOrder = (status, role, numberOrder) => {
@@ -1281,26 +1338,4 @@ export const contentInfoOrder = (status, role, numberOrder) => {
       </p>
 
   )
-}
-
-const heandlerClickInfo = (heandlerClickInfo) => {
-  // setModalStates({
-  //   content: (<>
-  //     <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //     <p
-  //       style={
-  //         {
-  //           fontSize: '18px',
-  //           padding: '10px 25px',
-
-  //         }
-  //       }
-  //     >
-  //       Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате
-  //     </p>
-
-  //   </>),
-  //   show: true,
-  //   addClass: 'modal-info-order',
-  // });
 }

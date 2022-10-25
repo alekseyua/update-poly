@@ -1,4 +1,6 @@
 import api from '../../api/api';
+import { errorAlertIcon } from '../../images';
+import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 
 const search = store =>{
@@ -10,19 +12,37 @@ const search = store =>{
 
     store.on('@init', (_, text = '')=>({textSearch: text}))
     store.on('changeTextSearch', (_,t)=>({textSearch: t}))
-    store.on('setInputSearchValue', async ({search}, value)=>{
+    store.on('setInputSearchValue', async ({search, closeModalState}, value, { dispatch })=>{
         try{
-            store.dispatch('changeTextSearch', value)
+            dispatch('changeTextSearch', value)
             const resultSearch = await api.getSearch(
                 {
                     q: value,
                     role: 0
                 }
                 )
-            store.dispatch( 'resSearch', resultSearch );
-        }catch(err){
-            new Error(`Error has in search ${err}`)
-            return console.log('massage error: ', err.message)
+            dispatch( 'resSearch', resultSearch );
+        } catch (err) {
+            console.log('ERROR GET COUNTRY', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 }

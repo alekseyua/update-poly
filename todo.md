@@ -25,7 +25,7 @@ try{
 
 } catch (err) {
   console.log('ERROR removeItemFromOrder = ', err);
-  let error = ['Ошибка на сервере, попробуйте позже!']
+  let error = [Text({text: 'error-on-server'})];
   if (err?.data) {
       const errors = err.data;
       if ( typeof errors !== 'object') {

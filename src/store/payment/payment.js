@@ -1,10 +1,12 @@
 import api from "../../api/api";
 import { ROLE } from "../../const";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const payment = store => {
     const orderApi = api.orderApi;
 
-    store.on('payment', async ({ context, numberCurrentOrderForAddProduct }, obj, { dispatch }) => {
+    store.on('payment', async ({ context, numberCurrentOrderForAddProduct, closeModalState }, obj, { dispatch }) => {
 
         try {
             const { role, balance, user } = context.init_state.profile
@@ -71,9 +73,28 @@ export const payment = store => {
                 obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
 
 
-        } catch (err) {
-            console.log('ERROR CREATE PAYMENT METHOD', err)
-        }
+            } catch (err) {
+                console.log('ERROR CREATE PAYMENT METHOD', err)
+                let error = [Text({text: 'error-on-server'})];
+                if (err?.data) {
+                    const errors = err.data;
+                    if (typeof errors !== 'object') {
+                        error.push(`${errors}`)
+                    } else {
+                        error.push(`${errors[0]}`)
+                    }
+                }
+                dispatch('setModalState', {
+                    show: true,
+                    content: textErrorMessage(error),
+                    iconImage: errorAlertIcon,
+                    addClass: 'modal-alert-error',
+                    action: {
+                        title: ['продолжить', null]
+                    },
+                    onClick: () => closeModalState()
+                })
+            }
 
     })
 

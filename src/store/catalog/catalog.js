@@ -1,6 +1,7 @@
 import api from "../../api/api";
 
 import { initValueCheckBoxFilters } from "../../helpers/initialValues/initialValues";
+import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
@@ -85,7 +86,7 @@ export const catalog = store => {
         return
     })
 
-    store.on('getCatalog', async ({ context }, obj, { dispatch }) => {
+    store.on('getCatalog', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
             const { youAlredyWatch, filters_params } = context.init_state;
             let params = {};
@@ -187,11 +188,30 @@ export const catalog = store => {
         } catch (err) {
             obj?.page > 1 ? dispatch('setPage', { page: obj.page - 1 }) : null
             console.log('ERROR getCatalog STORE', err)
-
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 
-    store.on('getYouAlreadyWatch', async ( { context }, obj, { dispatch }) => {
+    store.on('getYouAlreadyWatch', async ( { context, closeModalState }, obj, { dispatch }) => {
         try{
             const res = await apiProfile.getAlreadySaw()
             
@@ -209,13 +229,33 @@ export const catalog = store => {
             }
             console.log({updateContext})
             dispatch('context', updateContext)
-
-        }catch(err){
+            
+        } catch (err) {
             console.log('Sorry something went wrong :) ', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
     
-    store.on('getExportCatalog', async ({ context }, obj, { dispatch }) => {
+    store.on('getExportCatalog', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
             console.log({obj})
              
@@ -305,10 +345,30 @@ export const catalog = store => {
 
         } catch (err) {
             console.log('ERROR getCatalog STORE', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
 
-    store.on('showMoreCatalog', async ({ context, page }, obj, { dispatch }) => {
+    store.on('showMoreCatalog', async ({ context, page, closeModalState }, obj, { dispatch }) => {
         try{
 
             const { filters_params } = context.init_state
@@ -336,12 +396,32 @@ export const catalog = store => {
             return dispatch('context', newContext)
 
             
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET DATA CARALOG FOR BUTTON MORE', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
 
-    store.on('showMoreExportCatalog', async ({ context, page, valueCheckBoxFilters }, obj, { dispatch }) => {
+    store.on('showMoreExportCatalog', async ({ context, page, closeModalState }, obj, { dispatch }) => {
         try{
 
             // const page = context.init_state.
@@ -367,10 +447,29 @@ export const catalog = store => {
             }
             return dispatch('context', newContext)
 
-            
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET DATA CARALOG FOR BUTTON MORE', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
     
     store.on('selectPhoto', ({ context }, obj, { dispatch }) => {
@@ -441,29 +540,30 @@ export const catalog = store => {
         return dispatch('context', newContext)
 
 
-
-        }catch(err){
-            console.log('ERROR download photo', err)
-
-            let error = ['Ошибка на сервере, попробуйте позже!']
-  
-            if (err?.data) {
-                const errors = err.data;
-                for(let key in errors){
-                  error.push(`${errors[key]}`)
-                }
+        
+    } catch (err) {
+        console.log('ERROR download photo', err)
+        let error = [Text({text: 'error-on-server'})];
+        if (err?.data) {
+            const errors = err.data;
+            if ( typeof errors !== 'object') {
+                error.push(`${errors}`)
+            }else{
+                error.push(`${errors[0]}`)
             }
-  
-            dispatch('setModalState', {
-                show: true,
-                content: textErrorMessage(error),
-                iconImage: errorAlertIcon,
-                action: {
-                    title: ['продолжить', null]
-                },
-                onClick: () => closeModalState()
-            })
+            console.log({errors}, {err: typeof errors})
         }
+        dispatch('setModalState', {
+            show: true,
+            content: textErrorMessage(error),
+            iconImage: errorAlertIcon,
+            addClass: 'modal-alert-error',
+            action: {
+                title: ['продолжить', null]
+            },
+            onClick: () => closeModalState()
+        })
+      }
     })
 
 }

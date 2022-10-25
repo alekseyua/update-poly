@@ -42,6 +42,8 @@ const OrderDetailsPersonalPageLayout = ({
     activeButtonSpecification,
     deleteElementOrder,
     sendCommentFromTextField,
+    order_items_chat,
+    order_chat,
     clickOpenCommit,
     openModalImage,
     sendMessage,
@@ -89,6 +91,9 @@ const OrderDetailsPersonalPageLayout = ({
                                 specification = { specification }
                                 track_number = { track_number }
                                 dataOrderItems = { dataOrderItems }
+
+                                order_items_chat = { order_items_chat }
+                                order_chat = { order_chat }
 
                                 openModalPay = { openModalPay }
                                 heandlerClickInfo = { heandlerClickInfo }

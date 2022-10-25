@@ -204,14 +204,13 @@
         display: flex;
         justify-content: space-evenly;
         margin-top: 10px;
-        min-width: 450px;
-        
+        margin-bottom: 20px;
+        min-width: 450px;        
         @include mobile-mlg {
             min-width: 320px;
             flex-direction: column;
             align-items: center;
             width: calc(100% - 30px);
-            margin-bottom: 20px;
         }
     }
 }

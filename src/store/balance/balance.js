@@ -1,10 +1,11 @@
 import api from '../../api/api';
+import Text from '../../helpers/Text';
 
 
 export const balance = store => {
     const apiOrder = api.orderApi;
 
-    store.on('getBalace', async ({ context }, obj, { dispatch }) => {
+    store.on('getBalace', async ({ context, closeModalState }, obj, { dispatch }) => {
         try{
 
             const { currency } = context.init_state;
@@ -24,13 +25,32 @@ export const balance = store => {
                 }
             }
             dispatch('context', newContext);
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET BALANCE', err);
-            
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
 
-    store.on('getPayments', async ({ context }, obj, { dispatch }) => {
+    store.on('getPayments', async ({ context, closeModalState }, obj, { dispatch }) => {
         try{
 
             const params = {
@@ -49,13 +69,33 @@ export const balance = store => {
             }
 
             dispatch('context', newContext);
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET PAYMENTS', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
     
 
-    store.on('', ({ context }, obj, { dispatch }) => {
+    store.on('', ({ context, closeModalState }, obj, { dispatch }) => {
 
         try{
             dispatch('setModalState',{
@@ -63,9 +103,29 @@ export const balance = store => {
                 content: 'text'
             })
 
-        }catch(err){
-            console.log('ERROR TOP UP BALANCE', err)
-        }
+        } catch (err) {
+            console.log('ERROR ', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     });
     
 }

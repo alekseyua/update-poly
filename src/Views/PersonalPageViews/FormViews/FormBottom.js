@@ -17,7 +17,7 @@ const FormBottom = ({ onClickChangePassword, children, phone }) => {
           onClick = { onClickChangePassword } 
           className = { style['cabinet-form__link--blue'] }
         >
-          <Text text = { 'changePasswor' } />
+          <Text text = { 'changePhone' } />
         </Button>
       </div>
       <div 

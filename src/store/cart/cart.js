@@ -3,6 +3,7 @@ import { ROLE } from "../../const";
 import { getActiveColor, getActiveSize } from "../../helpers/helpers";
 import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const cart = store => {
     const apiCart = api.cartApi
@@ -28,8 +29,28 @@ export const cart = store => {
             dispatch('context', newContext)
             return { numberCurrentOrderForAddProduct: obj.numberOrder }
         } catch (err) {
-            console.log('ERROR', err)
-        }
+            console.log('ERROR setNumberOrderForAddProducts = ', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
 
     store.on('getDataCart', async ({ context, closeModalState }, obj, { dispatch }) => {
@@ -70,17 +91,35 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR IN GET DATA CART STORE', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
 
     })
 
-    store.on('updateInProductCard', async ({ context }, obj, { dispatch }) => {
+    store.on('updateInProductCard', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
-
             let tempElement = true;
             let amountTrueItem = 0;
-
             const params = [...obj];
             //?! необходимо реализовать выбирать добавлять и т.д. для опта
             console.log({ params })
@@ -92,7 +131,6 @@ export const cart = store => {
                 return false
             }, 0)
 
-            // console.log(']********',obj[0].id, context.init_state.dataCart.cartitem_set.map( el => el.id === obj[0].id? el : null ).filter( el => el !== null )[0])
             const newContext = {
                 ...context,
                 "init_state": {
@@ -111,18 +149,35 @@ export const cart = store => {
                         // cart: context.init_state.dataCart.in_cart + context.init_state.dataCart.cartitem_set.map( el => el.id === obj[0].id? el : null ).filter( el => el !== null )[0].qty - obj[0].qty
                     }
                 },
-            }
-
+            };
             dispatch('context', newContext);
 
         } catch (err) {
-            // ?! необходимо сделать попап для предуприждения что не удалось изминить из за проблем с сервером
-
             console.log('ERROR INCREMENT PRODUCT LIST CART', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
     })
 
-    store.on('deleteItemFromCart', async ({ context }, obj, { dispatch }) => {
+    store.on('deleteItemFromCart', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
             const { dataCart } = context.init_state;
 
@@ -175,7 +230,27 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR DELETE PRODUCT FROM LIST CART', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
 
     })
 
@@ -209,7 +284,7 @@ export const cart = store => {
         dispatch('updateInProductCard', arrayForServerAllSelectItems)
     })
 
-    store.on('multipleDeleteFromCart', async ({ context }, obj, { dispatch }) => {
+    store.on('multipleDeleteFromCart', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
 
             const { dataCart } = context.init_state;
@@ -269,7 +344,27 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR IN MULTY DELETE PRODUCTS', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
 
     })
 
@@ -291,7 +386,7 @@ export const cart = store => {
         dispatch('context', newContext)
     })
 
-    store.on('addToCart', async ({ context, numberProductPastInCart }, obj, { dispatch }) => {
+    store.on('addToCart', async ({ context, numberProductPastInCart, closeModalState }, obj, { dispatch }) => {
         // console.log({obj}, context.init_state)
         try {
             const { profile, productDetails } = context.init_state;
@@ -351,7 +446,27 @@ export const cart = store => {
             }
         } catch (err) {
             console.log('ERROR ADD TO CART ', err)
-        }
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+          }
 
 
     })

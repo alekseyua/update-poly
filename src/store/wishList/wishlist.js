@@ -1,4 +1,7 @@
 import api from "../../api/api";
+import Text from "../../helpers/Text";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const wishList = store => {
     const apiProfile = api.profileApi;
@@ -6,7 +9,7 @@ export const wishList = store => {
     store.on('@init', ()=>({countWishList: 0}));
 
    
-      store.on('getWishlist', async ({ context }, obj, { dispatch }) => {
+      store.on('getWishlist', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
 
@@ -37,11 +40,30 @@ export const wishList = store => {
 
         } catch (err) {
             console.log('ERROR IN GET DATA list_wishes STORE', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
 
     })
 
-    store.on('addWishList', async ({ context }, obj, { dispatch }) => {
+    store.on('addWishList', async ({ context, closeModalState }, obj, { dispatch }) => {
         console.log('test add wish list',{obj})
         try{           
             let newDataProductsResults = context.init_state.dataProducts.results;
@@ -75,12 +97,31 @@ export const wishList = store => {
                 },400)
             }
 
-        }catch(err){
+        } catch (err) {
             console.log('Error add wish list ', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 
-    store.on('removeWishList', async ({ context }, obj, { dispatch }) => {
+    store.on('removeWishList', async ({ context, closeModalState }, obj, { dispatch }) => {
         console.log('test remove wish list', {obj})
         try{
             let newContext = {}
@@ -132,8 +173,27 @@ export const wishList = store => {
                 },400)
             }
 
-        }catch(err){
-            console.log('Error remove wish list ', err)
+        } catch (err) {
+            console.log('Error add wish list ', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 }

@@ -121,7 +121,7 @@ export const modalStorage = store => {
 
                 } catch (err) {
                     console.log('ERROR feedback request', { err })
-                    let error = ['Ошибка на сервере, попробуйте позже!']
+                    let error = [Text({text: 'error-on-server'})];
 
                     if (err?.data) {
                         const errors = err.data;
@@ -150,11 +150,30 @@ export const modalStorage = store => {
                 content: await feedback(onSubmit, dispatch, fullName, email),
                 addClass: 'modal-feedback'
             })
-
-        } catch (err) {
-            console.log('ERROR feedback', err)
-
-        }
+            
+            } catch (err) {
+                console.log('ERROR feedback', err)
+                let error = [Text({text: 'error-on-server'})];
+                if (err?.data) {
+                    const errors = err.data;
+                    if ( typeof errors !== 'object') {
+                        error.push(`${errors}`)
+                    }else{
+                        error.push(`${errors[0]}`)
+                    }
+                    console.log({errors}, {err: typeof errors})
+                }
+                dispatch('setModalState', {
+                    show: true,
+                    content: textErrorMessage(error),
+                    iconImage: errorAlertIcon,
+                    addClass: 'modal-alert-error',
+                    action: {
+                        title: ['продолжить', null]
+                    },
+                    onClick: () => closeModalState()
+                })
+            }
     })
 
     store.on('pdf-viewer', ({ context }, obj, { dispatch }) => {
@@ -250,9 +269,29 @@ export const modalStorage = store => {
                 onClick: cancelOrders,
                 addClass: 'modal-choose-number-order',
             })
-
+            
         } catch (err) {
             console.log('ERROR GET LIST ORDERS', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
     //?! модалка оплаты
@@ -298,17 +337,21 @@ export const modalStorage = store => {
             })
         } catch (err) {
             console.log('ERROR popup add address', err)
-            let error = ['Ошибка на сервере, попробуйте позже!']
-
+            let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;
-                error.push(`${errors[0]}`)
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
             }
-
             dispatch('setModalState', {
                 show: true,
                 content: textErrorMessage(error),
                 iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
                 action: {
                     title: ['продолжить', null]
                 },
@@ -340,17 +383,21 @@ export const modalStorage = store => {
             })
         } catch (err) {
             console.log('ERROR popup add address', err)
-            let error = ['Ошибка на сервере, попробуйте позже!']
-
+            let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;
-                error.push(`${errors[0]}`)
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
             }
-
             dispatch('setModalState', {
                 show: true,
                 content: textErrorMessage(error),
                 iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
                 action: {
                     title: ['продолжить', null]
                 },
@@ -400,7 +447,7 @@ export const modalStorage = store => {
                     console.log({ res })
                     obj.redirectTo('/registration');
                 } else {
-                    let error = ['Ошибка на сервере, попробуйте позже!']
+                    let error = [Text({text: 'error-on-server'})];
 
                     dispatch('setModalState', {
                         show: true,
@@ -423,18 +470,22 @@ export const modalStorage = store => {
             })
 
         } catch (err) {
-            console.log('ERROR popup add address', err)
-            let error = ['Ошибка на сервере, попробуйте позже!']
-
+            console.log('ERROR modalDeleteAccaunt', err)
+            let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;
-                error.push(`${errors[0]}`)
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
             }
-
             dispatch('setModalState', {
                 show: true,
                 content: textErrorMessage(error),
                 iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
                 action: {
                     title: ['продолжить', null]
                 },
@@ -500,9 +551,29 @@ export const modalStorage = store => {
                 content: await getMyCash(first_name, last_name, middle_name, dispatch, redirectTo, closeModalState),
                 addClass: 'modal-get-my-cash'
             })
-
+            
         } catch (err) {
             console.log('ERROR getMyCach FROM BALANCE', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 

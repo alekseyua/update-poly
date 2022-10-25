@@ -182,6 +182,18 @@ div#pdfviewer-specif> div > div.viewer-layout-main {
   margin-right: 15px;
 }
 
+.react-date-picker__wrapper {
+  border: none;
+}
+.react-date-picker__calendar {
+  z-index: 99999;
+  position: absolute;
+  inset: 100% auto auto 0px;
+}
+.react-date-picker__clear-button {
+  display: none;
+}
+
 @keyframes pulse-mobile{
   0%{
     box-shadow: 0 0 0 0 transparentize(#e29a9a, .6)}

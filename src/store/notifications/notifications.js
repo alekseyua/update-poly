@@ -121,12 +121,12 @@ export const notifications = store => {
                     count: res.length,
                     results: res.filter( el => res.lenth = 30 ),
                     selectItemsNotice: [],
+                },
+                profile:{
+                     ...context.init_state.profile,
+                     notifications: res.length,
                 }
                },
-               profile:{
-                    ...context.init_state.profile,
-                    notifications: res.length,
-               }
            }
        dispatch('context', newContext);
 

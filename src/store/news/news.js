@@ -1,4 +1,7 @@
 import api from "../../api/api";
+import Text from "../../helpers/Text";
+import { errorAlertIcon } from "../../images";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 
 export const news = store => {
@@ -29,9 +32,28 @@ export const news = store => {
             }
             dispatch('context', contextNews)
             dispatch('setValueNews', dataNews.results); //?!! не знаю нужно оно 
-            return 
-        }catch(err){
+        } catch (err) {
             console.log('ERROR storege = ', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if ( typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                }else{
+                    error.push(`${errors[0]}`)
+                }
+                console.log({errors}, {err: typeof errors})
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 

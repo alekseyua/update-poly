@@ -4,13 +4,15 @@ import Grid from '../../Views/GridContainerBlock';
 import { addReviewsFunc } from './addReviews';
 
 import { initReviews, initialFetchFiltersReviews } from '../../helpers/initialValues/initialValues';
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
+import { errorAlertIcon } from "../../images";
 
 export const reviews = store => {
     const apiContent = api.contentApi;
 
     store.on('@init', () => ({ reviews: initReviews }));
 
-    store.on('updateLikeInReview', async ({ context, ...dataStore }, obj, { dispatch }) => {
+    store.on('updateLikeInReview', async ({ context, closeModalState, ...dataStore }, obj, { dispatch }) => {
         try {
             let isLiked = false;
             let { product_reviews, service_reviews } = context.init_state.reviews;
@@ -50,7 +52,7 @@ export const reviews = store => {
             return dispatch('context', updateContext)
         } catch (err) {
             console.log('ERROR reviews = ', err)
-            if (err.request.statusText === 'Unauthorized') {
+            if (err.statusText === 'Unauthorized') {
                 dispatch('setModalState', {
                     show: true,
                     content: (
@@ -63,11 +65,32 @@ export const reviews = store => {
                         </Grid.WrapperBlock>
                     )
                 })
+            }else{
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
             }
         }
     })
 
-    store.on('getReviewsContext', async ({ context }, obj, { dispatch }) => {
+    store.on('getReviewsContext', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try{
         const data = await apiContent.getReviews();
         const reviews = {
             "service_reviews": data.results.filter(el => !el.product),
@@ -87,9 +110,31 @@ export const reviews = store => {
             }
         }
         return dispatch('context', updateContext)
+    } catch (err) {
+        console.log('ERROR GET COUNTRY', err);
+        let error = [Text({text: 'error-on-server'})];
+        if (err?.data) {
+            const errors = err.data;
+            if (typeof errors !== 'object') {
+                error.push(`${errors}`)
+            } else {
+                error.push(`${errors[0]}`)
+            }
+        }
+        dispatch('setModalState', {
+            show: true,
+            content: textErrorMessage(error),
+            iconImage: errorAlertIcon,
+            addClass: 'modal-alert-error',
+            action: {
+                title: ['продолжить', null]
+            },
+            onClick: () => closeModalState()
+        })
+    }
     })
 
-    store.on('getReviewsProducts', async ({ context }, obj, { dispatch }) => {
+    store.on('getReviewsProducts', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
 
             const { productId, page } = obj;
@@ -120,16 +165,33 @@ export const reviews = store => {
             return dispatch('context', updateContext);
 
         } catch (err) {
-            console.log('ERROR get data review product', err)
-            if (err.request.status === 404){
-                console.log('Ошибка получение данных ', err.data.detail)
+            console.log('ERROR GET COUNTRY', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
             }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 
-    store.on('sendReview', async ({ context }, obj, { dispatch }) => {
+    store.on('sendReview', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try{
             const { id } = context.init_state.profile;
-            console.log({obj})
+            const { setValues } = obj.dataFormik;
         const params = {
             iAgreeDataProcessing: obj.iAgreeDataProcessing,
             files: obj.uploadFiles,
@@ -140,7 +202,13 @@ export const reviews = store => {
             files: obj.files
         };
         const sendreview = await apiContent.postReviews(params)
-
+        
+        setValues({
+            iAgreeDataProcessing: false,
+            uploadFiles: [],
+            content: '',
+            stars: 0,
+        })
         //?! три пути :
         //?! 1) добавить в контекст и показывать сразу
         let updateContext = {};
@@ -188,7 +256,6 @@ export const reviews = store => {
             }
             
         }
-        console.log('result send reviews = ', {sendreview}, {updateContext} )
         return dispatch('context', updateContext)
          //?! 2) делать запрос на получения всех ревью, но нужно поменять стратегию на бэке
          const paramsUpdateReview = {
@@ -198,10 +265,32 @@ export const reviews = store => {
          }
          // dispatch('getReviewsProducts', paramsUpdateReview)
          //?! 3) Показывать попап что отзыв отправлен на модерацию + 
-
+        } catch (err) {
+            console.log('ERROR GET ', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
     })
 
-    store.on('filterReviews', async ({ context }, obj, { dispatch }) => {
+    store.on('filterReviews', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try{
         let params = { ...initialFetchFiltersReviews }
         !!obj?.product__isnull ? params = { ...params, product__isnull: obj.product__isnull } : null;
         !!obj?.is_with_media ? params = { ...params, is_with_media: obj.is_with_media } : null;
@@ -227,6 +316,28 @@ export const reviews = store => {
             }
         }
         return dispatch('context', updateContext)
+    } catch (err) {
+        console.log('ERROR GET COUNTRY', err);
+        let error = [Text({text: 'error-on-server'})];
+        if (err?.data) {
+            const errors = err.data;
+            if (typeof errors !== 'object') {
+                error.push(`${errors}`)
+            } else {
+                error.push(`${errors[0]}`)
+            }
+        }
+        dispatch('setModalState', {
+            show: true,
+            content: textErrorMessage(error),
+            iconImage: errorAlertIcon,
+            addClass: 'modal-alert-error',
+            action: {
+                title: ['продолжить', null]
+            },
+            onClick: () => closeModalState()
+        })
+    }
     })
 
     store.on('addReview', ({ context }, obj, { dispatch }) => {
@@ -237,7 +348,7 @@ export const reviews = store => {
         })
     })
 
-    store.on('getMyReviewList', async ({ context }, obj, { dispatch }) => {
+    store.on('getMyReviewList', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
 
             const params = {
@@ -261,10 +372,26 @@ export const reviews = store => {
             return dispatch('context', updateContext);
 
         } catch (err) {
-            console.log('ERROR getMyReviewList product', err)
-            if (err.request.status === 404){
-                console.log('Ошибка получение данных ', err.data.detail)
+            console.log('ERROR GET COUNTRY', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
             }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
         }
     })
 

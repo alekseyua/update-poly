@@ -9,6 +9,7 @@ import { serializeDataRegistration } from '../../helpers/serializers/index';
 import Text from '../../helpers/Text';
 import { errorAlertIcon, successAlertIcon } from '../../images';
 import ModalSubmitCode from '../../Views/ModalProvider/ModalSubmitCode/ModalSubmitCode';
+import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 
 export const registration = store => {
@@ -33,12 +34,9 @@ export const registration = store => {
   store.on('setRegistration', async ({ registration, step, roleRegister }, obj, { dispatch }) => {
     const { newValues, setFieldError, setLoading, redirectTo } = obj;
     try {
-      console.log({ obj })
       let params = serializeDataRegistration(newValues, roleRegister);
       const res = await apiUser.registration(params);
-
       setLoading(false)
-
       dispatch('setModalState', {
         show: true,
         action: {
@@ -102,7 +100,7 @@ export const registration = store => {
     }
   })
   //?! проверка ключа с указаной почты
-  store.on('checkKey', async ({ }, obj, { dispatch }) => {
+  store.on('checkKey', async ({ closeModalState }, obj, { dispatch }) => {
     /**
      *    @param {
      *    type: {
@@ -146,6 +144,26 @@ export const registration = store => {
       console.log(err)
       if (err.status === 400) {
         setErrors({ 'errorCod': `${Text({ text: 'inputCod' })}` })
+      }else{
+        let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
       }
     }
   })
@@ -208,19 +226,25 @@ export const registration = store => {
         if (element === 'wrong auth data') element = 'Неправильно введены учётные данные'
         obj?.setFieldError('serverError', element)
       }
-      dispatch('setModalState', {
-        show: true,
-        className: null,
-        iconImage: errorAlertIcon,
-        title: obj.username,
-        //! можно добавить кнопку обратной связи 
-        content: (
-          <div>
-            <i>{Text({ text: 'error_server' })}</i>
-            <p>{Text({ text: 'call_admin' })}</p>
-          </div>
-        ),
-      })
+      let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
     }
   })
   //?! форма ввода ключа с почты и подтверждение его
@@ -245,8 +269,6 @@ export const registration = store => {
       dispatch('checkKey', params)
     };
 
-    console.log({ paramsKeyRegit: obj })
-
     //?! запрос на получение нового кода
     const postKeyFromMail = (email) => {
       dispatch('getNewSubmitCode', {
@@ -270,15 +292,9 @@ export const registration = store => {
 
   //?! Вход в аккаунт при регистрации
   store.on('firstLogin', async ({ closeModalState }, obj, { dispatch }) => {
-    console.log({ objfirst: obj })
     const { username, password, setLoading = () => { }, email, redirectTo } = obj;
     try {
       //?! отправляем запрос для получение ключа на почте
-      // const param = {
-      //   email: email,
-      //   type: 'resend',
-      // }
-      // await apiUser.resendUserKey(param);
 
       const params = {
         username: username,
@@ -312,12 +328,5 @@ export const registration = store => {
       }
     }
   })
-
-
-
-
-
-
-
 
 }

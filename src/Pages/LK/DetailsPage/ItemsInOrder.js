@@ -33,7 +33,6 @@ const ItemsInOrder = ({
   currentPage,
 
  }) => {
-  console.log('tableBodyData', {tableBodyData}, {currency})
 
 const tableHeaderData = [
   [

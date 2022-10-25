@@ -2,6 +2,8 @@ import api from "../../api/api";
 import BlockGrid from '../../Views/GridContainerBlock';
 import AsyncComponent from "../../helpers/asyncComponent";
 import { ROLE } from "../../const";
+import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
+import { errorAlertIcon } from "../../images";
 const AsyncProductCardModal = AsyncComponent(()=>{
     return import ('../../Views/PreviewProduct/PreviewProductCardModal/PreviewProductCardModalContainer');
 })
@@ -9,7 +11,7 @@ const AsyncProductCardModal = AsyncComponent(()=>{
 export const quickViewProduct = store => {
     const apiContent = api.contentApi;
 
-    store.on('quickViewProduct', async ({ context }, obj, { dispatch }) => {
+    store.on('quickViewProduct', async ({ context, closeModalState }, obj, { dispatch }) => {
         
         try{
             const { role, status } = context.init_state.profile;
@@ -89,8 +91,27 @@ export const quickViewProduct = store => {
                 })
 
 
-        }catch(err){
-            console.log('Error in quickViewProduct', err)
-        }
+            } catch (err) {
+                console.log('Error in quickViewProduct', err)
+                let error = [Text({text: 'error-on-server'})];
+                if (err?.data) {
+                    const errors = err.data;
+                    if (typeof errors !== 'object') {
+                        error.push(`${errors}`)
+                    } else {
+                        error.push(`${errors[0]}`)
+                    }
+                }
+                dispatch('setModalState', {
+                    show: true,
+                    content: textErrorMessage(error),
+                    iconImage: errorAlertIcon,
+                    addClass: 'modal-alert-error',
+                    action: {
+                        title: ['продолжить', null]
+                    },
+                    onClick: () => closeModalState()
+                })
+            }
     })
 }

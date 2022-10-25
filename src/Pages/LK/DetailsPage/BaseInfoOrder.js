@@ -49,11 +49,9 @@ const BaseInfoOrder = ({
       created_at__lte: date
     })
   };
-debugger
-  console.log('-------dateFilterData-----', {dateFilterData})
  return (
     <div className={style['cabinet-content']}>
-      <div className={style['cabinet-heading']}>
+      <div className={style['cabinet-heading']}>  
         <Text text={'my.orders'} />
       </div>
           <div className={style['cabinet-topfilter']}>
@@ -67,12 +65,13 @@ debugger
             </div>
 
             {
-              orders?.results.length ?
+              dateFilterData ?
                 <div className={style['wrapper_filter-group']}>
                   <DatePicker
                     clearIcon={null}
+                    // name = { 'created_at__gte'}
                     onChange={selectCreateTo}
-                    value={ dateFilterData.created_at__lte }
+                    value={ dateFilterData.created_at__gte }
                     format={'dd.MM.yyyy'}
                     className={classNames({
                       datepicker: true,
@@ -82,12 +81,13 @@ debugger
                   <span className={style['wrapper_filter-group__datepicker-hyphen']}>-</span>
                   <DatePicker
                     clearIcon={null}
+                    // name = { 'created_at__lte'}
                     className={classNames({
                       datepicker: true,
                       [style['wrapper_filter-group__datepicker']]: true,
                     })}
                     onChange={selectCreateFrom}
-                    value={ dateFilterData.created_at__gte } 
+                    value={ dateFilterData.created_at__lte } 
                     format={'dd.MM.yyyy'}
                   />
                 </div>

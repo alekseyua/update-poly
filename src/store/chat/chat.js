@@ -1,4 +1,5 @@
 import api from "../../api/api";
+import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
@@ -9,10 +10,6 @@ export const chat = store => {
 
     try {
       const { files, message, idProduct, setFieldValue } = obj;
-      console.log({ obj })
-      dispatch('setModalState', {
-        show: true,
-      })
 
       const fd = new FormData();
       fd.set('order_item_id', idProduct);
@@ -25,14 +22,9 @@ export const chat = store => {
       setFieldValue('files', null)
       setFieldValue('activeBtnMessageForProduct', true)
 
-      console.log({ res })
-      dispatch('setModalState', {
-        show: false,
-      })
     } catch (err) {
       console.log('ERROR sendMessageProduct = ', err);
-
-      let error = ['Ошибка на сервере, попробуйте позже!']
+      let error = [Text({text: 'error-on-server'})];
       if (err?.data) {
         const errors = err.data;
         if (typeof errors !== 'object') {
@@ -60,11 +52,6 @@ export const chat = store => {
 
     try {
       const { files, message, idProduct, setFieldValue } = obj;
-
-      dispatch('setModalState', {
-        show: true,
-      });
-
       const fd = new FormData();
       fd.set('order', idProduct);
       fd.set('message', message);
@@ -77,13 +64,9 @@ export const chat = store => {
       setFieldValue('files', null)
       setFieldValue('activeBtnMessageForProduct', true)
 
-      dispatch('setModalState', {
-        show: false,
-      });
-
     } catch (err) {
       console.log('ERROR removeItemFromOrder = ', err);
-      let error = ['Ошибка на сервере, попробуйте позже!']
+      let error = [Text({text: 'error-on-server'})];
       if (err?.data) {
         const errors = err.data;
         if (typeof errors !== 'object') {

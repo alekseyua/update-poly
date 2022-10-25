@@ -12,16 +12,17 @@ const Chat = ({
   idOrder,
   heandlerClickInfo,
   sendMessage,
+  order_chat,
 }) => {
 
-  const correspondenceState = []
   const valuesState = {
     message: '',
     orderChat: idOrder,
     files: null,
-    activeBtnMessageForProduct: true
-
+    activeBtnMessageForProduct: true,
   }
+
+  
   const getChatData = () => {
     // orderApi
     //   .getCorrespondence({ idOrder: idOrder })
@@ -31,11 +32,11 @@ const Chat = ({
   };
 
   const sendCommentFromTextField = async (values, { resetForm }) => {
-   
+
   };
 
 
-  // const openModalImage = (image) => {
+  const openModalImage = (image) => {
   //   setModalStates({
   //     content: (
   //       <ModalContentViews.ModalWrapper>
@@ -50,8 +51,8 @@ const Chat = ({
   //     show: true,
   //     addClass: 'modal-review',
   //   });
-  // };
-  // const openModalVideo = (video, preview) => {
+  };
+  const openModalVideo = (video, preview) => {
   //   setModalStates({
   //     content: (
   //       <ModalContentViews.ModalWrapper>
@@ -66,7 +67,7 @@ const Chat = ({
   //     show: true,
   //     addClass: 'modal-review',
   //   });
-  // };
+  };
 
 
   // *******************************************************************
@@ -75,7 +76,7 @@ const Chat = ({
   return (
     <WrapperChat>
       <HeadChat
-        heandlerClickInfo = { heandlerClickInfo }
+        heandlerClickInfo={heandlerClickInfo}
       />
 
       <Formik
@@ -91,27 +92,31 @@ const Chat = ({
             >
 
               <ChatFieldsWrapper>
-                {correspondenceState.map((el, i) => {
-                  if (el.is_me) {
-                    return (
-                      <ChatFieldUser
-                        openModalImage={openModalImage}
-                        openModalVideo={openModalVideo}
-                        key={i}
-                        {...el}
-                      />
-                    );
-                  } else {
-                    return (
-                      <ChatFieldAdmin
-                        openModalImage={openModalImage}
-                        openModalVideo={openModalVideo}
-                        key={i}
-                        {...el}
-                      />
-                    );
-                  }
-                })}
+                {
+                  order_chat?.length ?
+                    order_chat.map((el, i) => {
+                      if (el.is_me) {
+                        return (
+                          <ChatFieldUser
+                            openModalImage={openModalImage}
+                            openModalVideo={openModalVideo}
+                            key={i}
+                            {...el}
+                          />
+                        );
+                      } else {
+                        return (
+                          <ChatFieldAdmin
+                            openModalImage={openModalImage}
+                            openModalVideo={openModalVideo}
+                            key={i}
+                            {...el}
+                          />
+                        );
+                      }
+                    })
+                    : null
+                }
               </ChatFieldsWrapper>
               <SendChatBlock
                 values={values}
