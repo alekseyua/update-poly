@@ -16,7 +16,6 @@ const CartPage = ({...props}) => {
         profile, 
     } = props.context;
 
-    const opt_minimum_price = null;
     const textConditionPayPart_1 = page_info?.components[0]?.children[0]?.content;
     const textConditionPayPart_2 = page_info?.components[0]?.children[1]?.content;
     
@@ -32,8 +31,12 @@ const CartPage = ({...props}) => {
         selected,
         in_cart, 
      } = dataCart
-    const { role, cart } = profile;
-
+     const { 
+        role, 
+        cart,        
+        } = profile;
+    const opt_minimum_price = profile.opt_minimum_price;
+    
     return (
         <CartPageLayoutContainer
             numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }

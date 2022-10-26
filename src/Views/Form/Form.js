@@ -15,7 +15,7 @@ const Form = ({
     const dinamicStyle = classNames({
         [style['form']]:true,
         [style[variant]]: !!variant,
-        className: !!className
+        [style[className]]: !!className
     })
 
     
@@ -23,7 +23,7 @@ const Form = ({
     return (
         <form 
             onSubmit={onSubmit}
-            className={dinamicStyle}
+            className = {dinamicStyle}
             id={id}
         >
             {children}

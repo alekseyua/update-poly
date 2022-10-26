@@ -26,8 +26,8 @@ export const ACTIONS_KEY = {
 //все доступные валюты на сайте
 export const CURRENCIES_DATA = [
   {
-    name: 'Zl',
-    value: 'zl',
+    name: 'PLN',
+    value: 'PLN',
   },
   {
     name: 'Eur',
@@ -38,16 +38,8 @@ export const CURRENCIES_DATA = [
     value: 'usd',
   },
   {
-    name: 'Byn',
-    value: 'byn',
-  },
-  {
-    name: 'Yah',
-    value: 'yah',
-  },
-  {
-    name: 'Kzt',
-    value: 'kzt',
+    name: 'RUB',
+    value: 'Rub',
   },
 ];
 

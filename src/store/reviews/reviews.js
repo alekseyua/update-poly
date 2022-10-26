@@ -256,7 +256,8 @@ export const reviews = store => {
             }
             
         }
-        return dispatch('context', updateContext)
+        dispatch('context', updateContext)
+        closeModalState()
          //?! 2) делать запрос на получения всех ревью, но нужно поменять стратегию на бэке
          const paramsUpdateReview = {
              product: obj.product,
@@ -340,11 +341,11 @@ export const reviews = store => {
     }
     })
 
-    store.on('addReview', ({ context }, obj, { dispatch }) => {
+    store.on('addReview', ({ context, closeModalState }, obj, { dispatch }) => {
 
         dispatch('setModalState',{
             show: true,
-            content: addReviewsFunc()
+            content: addReviewsFunc(closeModalState)
         })
     })
 

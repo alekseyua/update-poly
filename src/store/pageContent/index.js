@@ -6,6 +6,7 @@ import { COOKIE_KEYS, ROLE } from '../../const';
 import Text from '../../helpers/Text';
 import { errorAlertIcon } from '../../images';
 import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
+import * as serviceWorker from '../../serviceWorker';
 
 
 export const pageContent = store => {
@@ -16,7 +17,19 @@ export const pageContent = store => {
     store.on('@init', () => ({ context: initData }));
 
     store.on('context', ({ context, countWishList, page }, data) => {
-    const currency = getCookie(COOKIE_KEYS.CURRENCIES)
+    const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
+    const token = getCookie('ft_token');
+
+
+    if (!(!!token)){ 
+        console.log('start unregister sw')
+        serviceWorker.unregister();
+      }else{
+        console.log('start register sw')
+        serviceWorker.register();
+      }
+      
+
 
         return { context: { 
             ...data, 
@@ -32,16 +45,25 @@ export const pageContent = store => {
 
     store.on('redirectTo', ({}, obj, {} ) => obj.redirectTo(obj.path) );
 
-    store.on('getContextPage', async ({ context, valueCheckBoxFilters }, obj, { dispatch }) => {
-        const currency = getCookie(COOKIE_KEYS.CURRENCIES)
+    store.on('getContextPage', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
 
         try {
             
             const { url, redirectTo } = obj;
             //?! пока пользователь не зарегиный у него не все данные в таблице нужно учесть 
             
-            console.log('******url store******', {url}, {a: redirectTo} )
+            console.log('******url store******', {url}, {a: currency} )
+
+
+
             const res = await api.getPage({ url })
+
+
+            console.log({resrequest: res})
+
+            if(res.init_state?.code === 403) return redirectTo('/authorization')
+
             dispatch('setModalState', {
                 // show: false,
             });
@@ -723,6 +745,7 @@ export const pageContent = store => {
                         ...res.init_state,
                         profile:{
                             ...context.init_state.profile,
+                            ...res.init_state.profile,
                             balance: resBalance.balance,
                             opt_minimum_price: resBalance.opt_minimum_price,
                             passive_balance: resBalance.passive_balance

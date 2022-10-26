@@ -49,7 +49,7 @@ const HeaderButtonsBottomLK = ({
                 const timerTimeout = setTimeout(()=>{
                     navigate(path);
                     return () => clearTimeout(timerTimeout);
-                },2000)
+                },3000)
             }
         }
         dispatch('logoutOut', params)

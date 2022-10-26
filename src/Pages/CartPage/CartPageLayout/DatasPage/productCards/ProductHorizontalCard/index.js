@@ -65,7 +65,6 @@ const ProductHorizontalCard = ({
     [style['product-card__wrapper--delete']]: deleteItem
   })
 
-  console.log({url})
   return (
     <div
       className={styleDeleteItem}

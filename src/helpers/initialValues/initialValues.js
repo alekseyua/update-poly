@@ -180,6 +180,8 @@ export const reviewInitialState = {
   uploadFiles: [],
   content: '',
   stars: 0,
+  activeButton: true,
+  activeSpinner: false
 }
 
 export const initialValuesOrder = {

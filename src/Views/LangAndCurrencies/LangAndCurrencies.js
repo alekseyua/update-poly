@@ -2,14 +2,19 @@ import React from 'react';
 import DropDownList from '../DropDownList/DropDownList';
 
 
-const LangAndCurrencies = (props) => {
+const LangAndCurrencies = ({
+    currenciesData,
+    setCurrenciesData,
+    ...props
+}) => {
 
     return (
         <>
             <DropDownList 
-                listItems={props.currenciesData.options} 
-                active={props.currenciesData.active}
-                setCurrenciesData={props.setCurrenciesData}
+                active = { currenciesData.active }
+                listItems = { currenciesData.options } 
+                currenciesData = { currenciesData }
+                setCurrenciesData = { setCurrenciesData }
             />
         </>
     )

@@ -1,5 +1,7 @@
 import api from '../../api/api';
 import Text from '../../helpers/Text';
+import { errorAlertIcon } from '../../images';
+import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 
 export const balance = store => {
@@ -52,7 +54,6 @@ export const balance = store => {
 
     store.on('getPayments', async ({ context, closeModalState }, obj, { dispatch }) => {
         try{
-
             const params = {
                 page: obj?.page ?? 1,
                 page_size: 10

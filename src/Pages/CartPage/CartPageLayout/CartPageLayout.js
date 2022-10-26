@@ -59,7 +59,7 @@ const CartPageLayout = ({
     decCounterProduct,
     incCounterProduct,
 }) => {
-    console.log('numberCurrentOrderForAddProduct', numberCurrentOrderForAddProduct)
+    console.log('numberCurrentOrderForAddProduct', {numberCurrentOrderForAddProduct}, {opt_minimum_price})
 
 
 
@@ -92,7 +92,7 @@ const CartPageLayout = ({
                 />;
       }
 
-    return (
+      return (
         <BlockGrid.Container>
             <Breadcrumbs breadcrumbs={breadcrumbs}/>
 
@@ -114,16 +114,27 @@ const CartPageLayout = ({
                         role === ROLE.WHOLESALE ?
                             <Title variant={'cart-min'} type={'h3'}>
                             {                          
-                               checkLocalStorage('numOrder') ?
+                               !!Number(numberCurrentOrderForAddProduct) ?
                                     <>
                                         В заказ можно добавить товары, соблюдая условия минимальной закупки по брендам
                                     </>
                                 : ( 
-                                    <>
-                                        {
-                                            textConditionPayPart_1
-                                        }
-                                    </>
+                                    <React.Fragment>
+                                    {
+                                        opt_minimum_price?
+                                        <>
+                                            {
+                                                textConditionPayPart_1?.replace(/<p.*?>|<\/p>/isg,'')
+                                            }
+                                                {' '}  {opt_minimum_price} {' '} {currency} {' '}
+                                            {
+                                                textConditionPayPart_2?.replace(/<p.*?>|<\/p>/isg,'')
+                                            }
+                                        </>
+                                        
+                                        : null
+                                    }
+                                    </React.Fragment>
                                 )
                             }
 {/*                                     
@@ -181,7 +192,6 @@ const CartPageLayout = ({
 
                                             in_stock.map(el => {
                                                 return (
-
                                                     <ProductHorizontalCard
                                                         is_collection={el.is_collection}
                                                         key={el.id}
@@ -219,21 +229,6 @@ const CartPageLayout = ({
                                                 />
                                             )
                                         })
-                                        // : cardsGoodsDropAndRetail.in_stock ?
-                                        //     cardsGoodsDropAndRetail.in_stock.map(el => {
-                                        //         return (
-                                        //             <ProductHorizontalCard
-                                        //                 is_collection={el.is_collection}
-                                        //                 key={el.id}
-                                        //                 {...el}
-                                        //                 role={role}
-                                        //                 currency={currency}
-                                        //                 deleteProductFromCart={deleteProductFromCart}
-                                        //                 updateProductFromCart={contextUpdateProductFromCard}
-                                        //             />
-                                        //         )
-                                        //     })
-                                        // :null
                                         : null
                             }
                             </WrapperCards>

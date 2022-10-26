@@ -14,7 +14,7 @@ export const cart = store => {
     store.on('@init', () => ({ numberCurrentOrderForAddProduct: null }));
     store.on('setNumberOrderForAddProducts', ({ context, closeModalState }, obj, { dispatch }) => {
         try {
-            // console.log({obj})
+
             const newContext = {
                 ...context,
                 "init_state": {
@@ -22,7 +22,7 @@ export const cart = store => {
                     dataCart: {
                         ...context.init_state.dataCart,
                         valueButtonNextToOrder: obj.numberOrder === null ? Text({ text: 'go.to.registration' }) : 'Перейти к добавлению'
-                    },                  
+                    },
                     numberCurrentOrderForAddProduct: obj.numberOrder
                 },
             }
@@ -30,15 +30,15 @@ export const cart = store => {
             return { numberCurrentOrderForAddProduct: obj.numberOrder }
         } catch (err) {
             console.log('ERROR setNumberOrderForAddProducts = ', err);
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -50,13 +50,13 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
     })
 
     store.on('getDataCart', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
-           
+
             const res = await apiCart.getCartData();
 
             let tempElement = true;
@@ -80,7 +80,7 @@ export const cart = store => {
                         enableAllSelect: valueEnableAllSelectFromServer,
                         agreeWitheRegulations: false,
                     },
-                    profile:{
+                    profile: {
                         ...context.init_state.profile,
                         cart: res.in_cart
                     }
@@ -91,15 +91,15 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR IN GET DATA CART STORE', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -111,7 +111,7 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
 
     })
 
@@ -154,15 +154,15 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR INCREMENT PRODUCT LIST CART', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -174,7 +174,7 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
     })
 
     store.on('deleteItemFromCart', async ({ context, closeModalState }, obj, { dispatch }) => {
@@ -210,7 +210,7 @@ export const cart = store => {
                             enableAllSelect: valueEnableAllSelectFromServer,
                             agreeWitheRegulations: false
                         },
-                        profile:{
+                        profile: {
                             ...context.init_state.profile,
                             cart: context.init_state.profile.cart - 1
                         }
@@ -230,15 +230,15 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR DELETE PRODUCT FROM LIST CART', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -250,50 +250,51 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
 
     })
 
-    store.on('selectAllItemsInCart', async ({ context }, obj, { dispatch }) => {
-        const { dataCart } = context.init_state;
-        const { cartitem_set, enableAllSelect } = dataCart;
-        let newCartItemSet = []
-        let arrayForServerAllSelectItems = [];
-        newCartItemSet = cartitem_set.map(el => ({ ...el, selected: !enableAllSelect }))
+    store.on('selectAllItemsInCart', ({ context }, obj, { dispatch }) => {
+        try {
+            const { dataCart } = context.init_state;
+            const { cartitem_set, enableAllSelect } = dataCart;
+            let newCartItemSet = []
+            let arrayForServerAllSelectItems = [];
+            newCartItemSet = cartitem_set.map(el => ({ ...el, selected: !enableAllSelect }))
 
-        arrayForServerAllSelectItems = newCartItemSet.map(el => ({
-            id: el.id,
-            qty: el.qty,
-            selected: el.selected
-        }))
+            arrayForServerAllSelectItems = newCartItemSet.map(el => ({
+                id: el.id,
+                qty: el.qty,
+                selected: el.selected
+            }))
 
-        const newContext = {
-            ...context,
-            "init_state": {
-                ...context.init_state,
-                dataCart: {
-                    ...context.init_state.dataCart,
-                    cartitem_set: newCartItemSet,
-                    enableAllSelect: !enableAllSelect,
-                    agreeWitheRegulations: false
-                }
-            },
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataCart: {
+                        ...context.init_state.dataCart,
+                        cartitem_set: newCartItemSet,
+                        enableAllSelect: !enableAllSelect,
+                        agreeWitheRegulations: false
+                    }
+                },
+            }
+
+            dispatch('context', newContext)
+            dispatch('updateInProductCard', arrayForServerAllSelectItems)
+        } catch (err) {
+            console.log('ERROR selectAllItemsInCart');
         }
-
-        dispatch('context', newContext)
-        dispatch('updateInProductCard', arrayForServerAllSelectItems)
     })
 
     store.on('multipleDeleteFromCart', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
-
             const { dataCart } = context.init_state;
             const { cartitem_set, enableAllSelect } = dataCart;
-
             const params = cartitem_set.map(el => el.selected ? ({ id: el.id, is_pack: el.is_pack }) : null).filter(el => el !== null);
             if (!params.length) {//?! нужен попап что не выбран не один элемент
                 console.log('нужен попап что не выбран не один элемент')
-
                 return
             }
 
@@ -313,8 +314,6 @@ export const cart = store => {
                 return false
             }, 0)
 
-
-
             if (res >= 200 < 300) {
                 const newContext = {
                     ...context,
@@ -325,7 +324,7 @@ export const cart = store => {
                             enableAllSelect: valueEnableAllSelectFromServer,
                             agreeWitheRegulations: false
                         },
-                        profile:{
+                        profile: {
                             ...context.init_state.profile,
                             cart: context.init_state.profile.cart - amountTrueItem
                         }
@@ -344,15 +343,15 @@ export const cart = store => {
 
         } catch (err) {
             console.log('ERROR IN MULTY DELETE PRODUCTS', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -364,30 +363,33 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
 
     })
 
     store.on('handleAgreeWitheRegulations', ({ context }, obj, { dispatch }) => {
-        const { dataCart } = context.init_state;
-        const { agreeWitheRegulations } = dataCart;
+        try {
+            const { dataCart } = context.init_state;
+            const { agreeWitheRegulations } = dataCart;
 
-        const newContext = {
-            ...context,
-            "init_state": {
-                ...context.init_state,
-                dataCart: {
-                    ...context.init_state.dataCart,
-                    agreeWitheRegulations: !agreeWitheRegulations
-                }
-            },
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataCart: {
+                        ...context.init_state.dataCart,
+                        agreeWitheRegulations: !agreeWitheRegulations
+                    }
+                },
+            }
+            dispatch('context', newContext)
+
+        } catch (err) {
+            console.log('ERROR handleAgreeWitheRegulations', err)
         }
-
-        dispatch('context', newContext)
     })
 
     store.on('addToCart', async ({ context, numberProductPastInCart, closeModalState }, obj, { dispatch }) => {
-        // console.log({obj}, context.init_state)
         try {
             const { profile, productDetails } = context.init_state;
             const { role } = profile;
@@ -402,7 +404,7 @@ export const cart = store => {
                 };
 
                 role === ROLE.WHOLESALE ? params = Object.assign({}, params, { add_product: true }) : null;
-                const res = await apiCart.addToCart( params );
+                const res = await apiCart.addToCart(params);
                 dispatch('saveNumberProductAddToCart', { productId: obj.productId })
                 const newContext = {
                     ...context,
@@ -410,14 +412,14 @@ export const cart = store => {
                         ...context.init_state,
                         profile: {
                             ...context.init_state.profile,
-                            cart: context.init_state.profile.cart + ( obj.count ?? 1 )
+                            cart: context.init_state.profile.cart + (obj.count ?? 1)
                         }
                     },
                 }
 
-                    dispatch('context', newContext);
+                dispatch('context', newContext);
 
-                if ( obj.modalView ) {
+                if (obj.modalView) {
                     dispatch('quickViewProduct', {
                         id: params.product,
                         color: params.color,
@@ -431,7 +433,7 @@ export const cart = store => {
                     })
                 }
 
-                if ( numberProductPastInCart !== obj.productId ) {
+                if (numberProductPastInCart !== obj.productId) {
                     const timerSetTimeout = setTimeout(() => {
                         dispatch('modalRedirectToCart', {
                             redirectTo: obj.redirectTo
@@ -446,15 +448,15 @@ export const cart = store => {
             }
         } catch (err) {
             console.log('ERROR ADD TO CART ', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
-                if ( typeof errors !== 'object') {
+                if (typeof errors !== 'object') {
                     error.push(`${errors}`)
-                }else{
+                } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
+                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -466,7 +468,7 @@ export const cart = store => {
                 },
                 onClick: () => closeModalState()
             })
-          }
+        }
 
 
     })

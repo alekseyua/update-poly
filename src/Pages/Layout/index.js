@@ -8,15 +8,19 @@ import { Helmet } from 'react-helmet';
 import { useStoreon } from 'storeon/react';
 
 import style from './layout.module.scss';
-
+import cogoToast from 'cogo-toast';
+import { getCookie } from '../../helpers/helpers'; 
 
 
 const Layout = (props) => {
-  console.log('start go to props == ', props)
+  // console.log('start go to props == ', props)
+  const token = getCookie('ft_token');
 
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
+  const [notice, setNotice] = useState(null)
+
   const logoLinkGoto = '/'
   const description = 'описание сайта '
   useEffect(()=>{
@@ -24,6 +28,39 @@ const Layout = (props) => {
   },[props.context])
   const { title } = dataPage.init_state.page_info
   
+
+  useEffect(() => {
+    if (notice !== null) {
+      const { hide } = cogoToast.success(notice, {
+        position: 'top-center',
+        heading: `Уведомление `,
+        style: `marginTop: 100px`,
+        hideAfter: 90,
+        onClick: (e) => hide()
+      }
+      );
+      setNotice(null)
+    }
+  }, [notice])
+
+    useEffect(() => {
+      if (navigator.serviceWorker) {
+        console.log('navigator.serviceWorker',navigator.serviceWorker)
+        const listener = event => {
+          // console.log({event})
+          const { notification } = event.data
+          if (event.data && event.data.type === 'SKIP_WAITING') {
+            self.skipWaiting();
+          }
+          const { body } = notification
+          setNotice(body)
+        }
+        navigator.serviceWorker.addEventListener('message', listener);
+        return removeEventListener('message', listener);
+      }
+    }, [])
+
+
   useEffect(()=>{
 
     dispatch('setModalState',{
@@ -66,6 +103,7 @@ const Layout = (props) => {
      </Helmet>
 
     <div className={style['layout__container']}>
+        <div className='goto'></div>
         <header className={style['layout__header']}>
           <Header 
             logo={dataPage.init_state.site_configuration.logo_1} 

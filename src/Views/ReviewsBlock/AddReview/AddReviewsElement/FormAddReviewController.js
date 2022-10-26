@@ -3,10 +3,11 @@ import CheckBox from '../../../CheckBox';
 import Text from '../../../../helpers/Text';
 import classNames from 'classnames';
 import Button from '../../../Button';
+import BlockSpinner from '../../../../Views/SpinnerWrapper';
 
 import style from '../styles/addreview.module.scss';
 
-const FormAddReviewController = ({ values, setFieldValue, canselationCallback, activeBtn, handleSubmit, productId, profileId }) => {
+const FormAddReviewController = ({ values, setFieldValue, canselationCallback, onChange,handleSubmit, productId, profileId }) => {
   return (
     <div className={style['productreviews__form-submit-wrappar']}>
       <CheckBox
@@ -14,6 +15,7 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, a
         onChange={(e) => {
           const value = e.checked;
           setFieldValue('iAgreeDataProcessing', !value);
+          onChange(value)
         }}
         variant="input"
         label={Text({ text: 'iAgreeDataProcessing' })}
@@ -21,7 +23,7 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, a
       />
       <div className={style['productreviews__form-submit-btnwrap']}> 
         <Button 
-          disabled={activeBtn}
+          disabled={values.activeButton}
           data-cy={`send_review`} 
           type="submit" 
           className={classNames({
@@ -30,13 +32,14 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, a
           onClick={(e)=>{
             setFieldValue('productId', productId)
             setFieldValue('profileId', profileId)
-
             e.preventDefault();
             handleSubmit()
             // canselationCallback(e)
           }}
-        >
+          
+          >
           <Text text={'send'} />
+          { !values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
         </Button>
 
         <Button
@@ -48,6 +51,7 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, a
           data-cy={`cancel_form_review`}
         >
           <Text text={'clearlation'} />
+
         </Button>
       </div>
     </div>

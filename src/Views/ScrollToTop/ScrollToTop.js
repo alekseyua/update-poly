@@ -8,13 +8,15 @@ const ScrollToTop = () => {
   useEffect(() => {
     let t;
     const up = () => {
-      let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
-      if(top > 0) {
-        console.log({top})
-        window.scrollBy(0,-100);
-        t = setTimeout(up(),1000);
-      } else clearTimeout(t);
-      return false;
+      console.log('start scroll to top')
+      document.querySelector('.goto').scrollIntoView({block:'center', behavior: 'smooth'})
+      // let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+      // if(top > 0) {
+      //   console.log({top})
+      //   window.scrollBy(0,-100);
+      //   t = setTimeout(up(),1000);
+      // } else clearTimeout(t);
+      // return false;
     }
 
     up()

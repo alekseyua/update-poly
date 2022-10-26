@@ -1,10 +1,15 @@
 import api from "./api/api";
 import { UNREG_PUSH_v1 } from "./const";
 import { setLocalStorage } from "./helpers/helpers";
+//!!navigator.platform.match(/iPhone|iPod|iPad/)
 
-  export async function register() {
+// iOSiPadOS = /^iP/.test(navigator.platform) ||
+// /^Mac/.test(navigator.platform) && navigator.maxTouchPoints > 4;
+
+export async function register() {
     if ('serviceWorker' in navigator) {
       const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
+      console.log("publicUrl.origin !== window.location.origin", publicUrl.origin ,'!== ',  window.location.origin )
       if (publicUrl.origin !== window.location.origin) {
         return;
       }

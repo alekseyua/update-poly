@@ -5,7 +5,7 @@ import PersonalPageLayoutContainer from './PersonalPageLayout/PersonalPageLayout
 const PersonalPage = ({
     context
 }) => {
-    console.log({ PersonalPage: context })
+    // console.log({ PersonalPage: context })
     const {        
         cabinet_site_menu,
         cabinet_menu,

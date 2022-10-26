@@ -4,16 +4,13 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import routes from './routes/routes';
 import Layout from './Pages/Layout';
 import { useStoreon } from 'storeon/react';
-import cogoToast from 'cogo-toast';
-import { getCookie } from './helpers/helpers';
+
 
 
 const App = (props) => {
   // console.log('init Context', props)
-  const token = getCookie('ft_token');
 
   const { context, goToPage, dispatch } = useStoreon('context', 'goToPage');
-  const [notice, setNotice] = useState(null)
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,45 +30,13 @@ const App = (props) => {
         const timerTimeout = setTimeout(() => {
           navigate(path);
           return () => clearTimeout(timerTimeout);
-        }, 2000)
+        }, 500)
       }
     })
+    document.querySelector('.goto').scrollIntoView({block:'center', behavior: 'smooth'})
+
   }, [location.pathname, location.search, currencyCurrencies])
 
-  useEffect(() => {
-    if (notice !== null) {
-      const { hide } = cogoToast.success(notice, {
-        position: 'top-center',
-        heading: `Уведомление `,
-        style: `marginTop: 100px`,
-        hideAfter: 90,
-        onClick: (e) => hide()
-      }
-      );
-      setNotice(null)
-    }
-  }, [notice])
-
-  if (!!token) {
-    // =========================================================================================
-    useEffect(() => {
-      if (navigator.serviceWorker) {
-        // console.log('navigator.serviceWorker',navigator.serviceWorker)
-        const listener = event => {
-          // console.log({event})
-          const { notification } = event.data
-          if (event.data && event.data.type === 'SKIP_WAITING') {
-            self.skipWaiting();
-          }
-          const { body } = notification
-          setNotice(body)
-        }
-        navigator.serviceWorker.addEventListener('message', listener);
-        return removeEventListener('message', listener);
-      }
-    }, [])
-
-  }
 
 
   return (

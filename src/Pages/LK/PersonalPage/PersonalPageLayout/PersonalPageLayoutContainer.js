@@ -43,7 +43,8 @@ const PersonalPageLayoutContainer = ({
         dispatch('modalChangePhone'); 
     }
   
-    const changePassword = () => {
+    const changePassword = (e) => {
+        console.log({e})
         dispatch('openModalRestorePassword')
     }
 
@@ -67,7 +68,6 @@ const PersonalPageLayoutContainer = ({
     }
 
     return (
-        <>
         <PersonalPageLayout
             receive_newsletter = { receive_newsletter }
             cabinet_site_menu = { cabinet_site_menu }
@@ -99,7 +99,6 @@ const PersonalPageLayoutContainer = ({
             deleteAccaunt = { deleteAccaunt }
             changeReiciveNewLatters = { changeReiciveNewLatters }
         />
-        </>
     )
 }
 

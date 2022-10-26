@@ -4,7 +4,7 @@ import Raiting from '../../../Raiting/RaitingView';
 
 import style from '../styles/addreview.module.scss';
 
-const FormAddReviewRating = ({ values, setFieldValue }) => {
+const FormAddReviewRating = ({ values, setFieldValue, onChange }) => {
 
   return (
     <p className={style['productreviews__form-raiting']}>
@@ -15,6 +15,7 @@ const FormAddReviewRating = ({ values, setFieldValue }) => {
         onChange={(e) => {
           const value = +e.target.parentElement.getAttribute('value') + 1;
           setFieldValue('stars', value);
+          onChange(e)
         }}
         className={style['productreviews__form-rating-indicator']}
 

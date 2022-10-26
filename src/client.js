@@ -15,7 +15,7 @@ const token = getCookie('ft_token');
 hydrate(
   <StoreContext.Provider value={store} >
     <BrowserRouter >
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <App context={init_state} initContext={store.get()} />
     </BrowserRouter>
   </StoreContext.Provider>,
@@ -26,8 +26,10 @@ if (module.hot) {
   module.hot.accept();
 }
 
-if (!(!!token)){ 
-  serviceWorker.unregister();
-}else{
-  serviceWorker.register();
-}
+// if (!(!!token)){ 
+//   console.log('start unregister sw')
+//   serviceWorker.unregister();
+// }else{
+//   console.log('start register sw')
+//   serviceWorker.register();
+// }

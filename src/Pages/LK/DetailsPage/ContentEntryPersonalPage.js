@@ -101,7 +101,7 @@ const ContentEntryPersonalPage = ({
              {({ handleSubmit, handleChange, values, errors, setValues, setFieldValue }) => {
 
                return (
-                 <Form onSubmit={ (e) => handleSubmit(e, setValues) }>
+                 <Form onSubmit={ handleSubmit }>
                    <PersonalPageViews.FormBlockContent>
                      {/* top Row */}
                      <PersonalPageViews.FormRow>
@@ -169,14 +169,6 @@ const ContentEntryPersonalPage = ({
                               onClickChangePassword = {() => values.changePhone(values.phone)}
                               phone                           
                            >
-                             {/* <Button
-                               onClick={() => values.changePhone(values.phone)}
-                               type={'button'}
-                               variant={'cabinet-linkblue'}
-                               slot={'suffix'}
-                             >
-                               Сменить номер
-                             </Button> */}
                            </PersonalPageViews.FormBottom>   
                          </PersonalPageViews.FormGroup>
 
@@ -268,13 +260,13 @@ const ContentEntryPersonalPage = ({
                             <PersonalPageViews.FormColl>
                               <PersonalPageViews.FormGroup>
                                 <Input
-                                  value={values.vk}
-                                  name={'vk'}
-                                  autocomplete={'off'}
-                                  onChange={handleChange}
+                                  name = { 'vk' }
+                                  label = { 'VK *' } 
+                                  value = { values.vk }
+                                  autocomplete = { 'off' }
+                                  onChange = { handleChange }
                                   className={errors.vk ? 'error' : ''}
                                   helpText={errors.vk ? <ErrorField message={errors.vk} /> : null}
-                                  label={'VK *'}
                                   placeholder={'Ссылка на профиль '}
                                 >
                                   <Icon src={vkIcon} alt="" slot={'suffix'} height={20} width={20} />
@@ -282,8 +274,8 @@ const ContentEntryPersonalPage = ({
                               </PersonalPageViews.FormGroup>
                               <PersonalPageViews.FormGroup>
                                 <Input
-                                  value={values.instagram}
                                   name={'instagram'}
+                                  value={values.instagram}
                                   autocomplete={'off'}
                                   onChange={handleChange}
                                   className={errors.instagram ? 'error' : ''}
@@ -298,14 +290,14 @@ const ContentEntryPersonalPage = ({
                               </PersonalPageViews.FormGroup>
                               <PersonalPageViews.FormGroup>
                                 <Input
-                                  value={values.otherSocialLink}
-                                  name={'otherSocialLink'}
-                                  autocomplete={'off'}
+                                  value = { values.otherSocialLink }
+                                  name = { 'otherSocialLink' }
+                                  autocomplete = { 'off' }
                                   onChange={handleChange}
-                                  className={errors.otherSocialLink ? 'error' : ''}
-                                  helpText={  errors.otherSocialLink ?  <ErrorField message={errors.otherSocialLink} />  : null }
-                                  label={'Другая соц. сеть *'}
-                                  placeholder={'Ссылка на профиль '}
+                                  className = { errors.otherSocialLink ? 'error' : ''}
+                                  helpText = { errors.otherSocialLink ?  <ErrorField message={errors.otherSocialLink} />  : null }
+                                  label = { 'Другая соц. сеть *' }
+                                  placeholder = { 'Ссылка на профиль' }
                                 >
                                   {/* <Icon src={fbIcon} alt="" slot={'suffix'} /> */}
                                 </Input>
@@ -318,11 +310,11 @@ const ContentEntryPersonalPage = ({
                      {/* END bottom Row */}
                      <PersonalPageViews.FormBottom onClickChangePassword = { values.changePassword } >
                        <Button 
-                        type={'submit'} 
+                        type = {'submit'} 
                         variant = {'cabinet_default'} 
                        >
                          <Text text={'save'} />
-                         {!values.isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
+                         { !values.isSaved ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
                        </Button>
                      </PersonalPageViews.FormBottom>
                    </PersonalPageViews.FormBlockContent>

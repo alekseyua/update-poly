@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import { infoWhite, arrowDown } from '../../images';
 
-import style from './select.module.scss';
+import style from './styles/select.module.scss';
 import BlackStyle from './styles/blackStyle.module.scss';
 
 const Select = ({

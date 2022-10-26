@@ -16,7 +16,6 @@ const ModalAddReview = ({
   profileId,
 }) => {
 
-  const activeBtn = null;
 
   return (
     <Formik
@@ -35,14 +34,18 @@ const ModalAddReview = ({
           setFieldValue('content', '');
           setFieldValue('stars', 0);
           !!values.iAgreeDataProcessing? setFieldValue('iAgreeDataProcessing', false): null;
+          setFieldValue( 'activeButton', true )
         }
-
+console.log({values})
         return (
           <Form novalidate onChange={handleSubmit}>
             <ReviewsElementBlock.FormAddReview>
               <textarea
                 value={!!values.content ? values.content : ''}
-                onChange={handleChange}
+                onChange = { (e) => { 
+                  values.content && !!values.stars && values.iAgreeDataProcessing && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                  handleChange(e)
+                }}
                 className={style["productreviews__form-textarea"]}
                 placeholder={Text({text: 'text-review'})}
                 name={'content'}
@@ -61,12 +64,18 @@ const ModalAddReview = ({
                 onBlur={handleBlur}
                 multiple={null}
                 setFieldValue={setFieldValue}
+                onChange = { (e) => { 
+                  values.content && !!values.stars && values.iAgreeDataProcessing && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                }}
               />
 
 
               <ReviewsElementBlock.FormAddReviewRating
                 values={values}
                 setFieldValue={setFieldValue}
+                onChange = { (e) => { 
+                  values.content && !!values.stars && values.iAgreeDataProcessing && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                }}
               />
 
               {/* <Captcha
@@ -80,10 +89,13 @@ const ModalAddReview = ({
                 values={values}
                 setFieldValue={setFieldValue}
                 canselationCallback={canselationCallback}
-                activeBtn={activeBtn}
                 handleSubmit={handleSubmit}
                 productId={productId}
                 profileId={profileId}
+                onChange = { (value) => { 
+
+                  values.content && !!values.stars && value && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                }}
               />
 
             </ReviewsElementBlock.FormAddReview>

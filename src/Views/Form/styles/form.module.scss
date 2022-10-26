@@ -12,3 +12,12 @@
     padding: 0 10px;
     
 }
+
+.drop-down{
+    //.drop-down__form{}
+    &__form{
+        margin-right: 15px;
+        background-color: transparent;
+        overflow: visible;
+    }
+}

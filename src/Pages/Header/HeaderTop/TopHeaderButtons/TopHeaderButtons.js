@@ -4,7 +4,11 @@ import LangAndCurrencies from '../../../../Views/LangAndCurrencies/LangAndCurren
 import style from './topheaderbuttons.module.scss';
 
 
-const TopHeaderButtons = (props) => {
+const TopHeaderButtons = ({
+  currenciesData,
+  setCurrenciesData,
+  ...props
+}) => {
    
     return (
       <div
@@ -14,8 +18,8 @@ const TopHeaderButtons = (props) => {
       >
           <div className={style['header-buttons-dropdowns']}>
             <LangAndCurrencies
-              currenciesData={props.currenciesData}
-              setCurrenciesData={props.setCurrenciesData}  
+              currenciesData = { currenciesData }
+              setCurrenciesData = { setCurrenciesData }  
             />
           </div>
       </div>

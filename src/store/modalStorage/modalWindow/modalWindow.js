@@ -21,18 +21,34 @@ import Text from "../../../helpers/Text";
 import SubTitle from "../../../Views/InformationViews/HowTo/SubTitle";
 import InfoBalanse from "../../../Views/InfoBalance/InfoBalanse";
 import AddUploadFiles from "../../../Views/AddFiles";
-import { errorAlertIcon, successAlertIcon } from "../../../images";
-import PhoneField from "../../../Views/PhoneField";
+import { errorAlertIcon, spin, spinnerCart2, successAlertIcon } from "../../../images";
 import TextUnderTitle from "../../../Views/TextUnderTitle";
-// import 'react-phone-number-input/rrui.scss'
-
+import BlockSpinner from '../../../Views/SpinnerWrapper';
 
 const contentApi = api.contentApi;
 const orderApi = api.orderApi;
 
-export const feedback = async (onSubmit, dispatch, fullName, email) => {
-  try {
+export const textSuccessMessage = (text) => {
+  return (
+    <BlockGrid.Container>
+      <BlockGrid.BlockMessage>
+        {text}
+      </BlockGrid.BlockMessage>
+    </BlockGrid.Container>
+  )
+}
 
+export const textErrorMessage = (error) => {
+  return (
+    <BlockGrid.Container>
+      <BlockGrid.BlockMessage>
+        {error.map((el, i) => <p key={`error-${i}`}> {el} </p>)}
+      </BlockGrid.BlockMessage>
+    </BlockGrid.Container>
+  )
+}
+export const feedback = async (onSubmit, dispatch, fullName, email, closeModalState) => {
+  try {
     const res = await contentApi.getProblemArea();
     const optionsProblemArea = await res.map((el) => {
       return {
@@ -40,7 +56,6 @@ export const feedback = async (onSubmit, dispatch, fullName, email) => {
         title: el.problem_area,
       };
     })
-
     return (
       <Formik
         enableReinitialize
@@ -56,9 +71,8 @@ export const feedback = async (onSubmit, dispatch, fullName, email) => {
         onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
-
+          console.log({values})
           return (
-
             <Form onSubmit={handleSubmit} >
               <BlockGrid.Container>
                 <Title mb={'40px'} title={'Форма обратной связи'} />
@@ -155,31 +169,31 @@ export const feedback = async (onSubmit, dispatch, fullName, email) => {
     )
   } catch (err) {
     console.log('ERROR GET FEEDBACK', err)
-    let error = [Text({text: 'error-on-server'})];
+    let error = [Text({ text: 'error-on-server' })];
     if (err?.data) {
-        const errors = err.data;
-        if ( typeof errors !== 'object') {
-            error.push(`${errors}`)
-        }else{
-            error.push(`${errors[0]}`)
-        }
-        console.log({errors}, {err: typeof errors})
+      const errors = err.data;
+      if (typeof errors !== 'object') {
+        error.push(`${errors}`)
+      } else {
+        error.push(`${errors[0]}`)
+      }
     }
     dispatch('setModalState', {
-        show: true,
-        content: textErrorMessage(error),
-        iconImage: errorAlertIcon,
-        addClass: 'modal-alert-error',
-        action: {
-            title: ['продолжить', null]
-        },
-        onClick: () => closeModalState()
+      show: true,
+      content: textErrorMessage(error),
+      iconImage: errorAlertIcon,
+      addClass: 'modal-alert-error',
+      action: {
+        title: ['продолжить', null]
+      },
+      onClick: closeModalState
     })
-}
+  }
 }
 
 export const addToCart = (
   product_rcAmount,
+  is_collection,
   product_rc,
   old_price,
   currency,
@@ -310,6 +324,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
     comment: '',
     receipt: null,
     order_id: order_id ? order_id : null,
+    activeButton: true,
+    activeSpinner: false
   };
   const errorsMessenge = {
     symbol: 'Поле не должно содержать спец. символы',
@@ -322,8 +338,9 @@ export const payment = async (order_id, balance, total_price, currency, first_na
   try {
 
     const requisites = await orderApi.getRandomRequizites();
-    const sendCheckToServer = async (data, { setFieldError }) => {
+    const sendCheckToServer = async (data, { setFieldError, setFieldValue }) => {
       try {
+        setFieldValue('activeSpinner', true)
         const fdPayments = new FormData();
         fdPayments.set('requisites_id', requisites.id);
         !!data.order_id ? fdPayments.set('order_id', data.order_id) : null;
@@ -341,10 +358,10 @@ export const payment = async (order_id, balance, total_price, currency, first_na
           redirectTo ? redirectTo('/orders') : null;
         }
       } catch (err) {
-        let error = [Text({text: 'error-on-server'})];
 
-        const data = err?.data;
         console.log('ERROR IN CREATE PAYMENT', err)
+        let error = [Text({ text: 'error-on-server' })];
+        const data = err?.data;
         if (!!data) {
           for (const key in data) {
             const element = Array.isArray(data[key]) ? data[key][0] : data[key];
@@ -353,10 +370,9 @@ export const payment = async (order_id, balance, total_price, currency, first_na
             }
           }
         } else {
-
-            dispatch('setModalState', {
-              show: true,
-              content: textErrorMessage(error),
+          dispatch('setModalState', {
+            show: true,
+            content: textErrorMessage(error),
             iconImage: errorAlertIcon,
             action: {
               title: ['Продолжить', null]
@@ -368,8 +384,6 @@ export const payment = async (order_id, balance, total_price, currency, first_na
       }
     }
 
-
-    
     return (
       <Formik
         validationSchema={payModalScheme(errorsMessenge)}
@@ -403,7 +417,10 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     name={'cost'}
                     autofocus
                     autocomplete={'off'}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     onBlur={handleBlur}
                     helpText={errors.cost && touched.cost ? <ErrorField message={errors.cost} /> : null}
                     label={'Сумма к зачислению*'}
@@ -414,7 +431,10 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     className={'input-mt_20'}
                     name={'fio'}
                     autocomplete={'off'}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     autofocus
                     onBlur={handleBlur}
                     helpText={errors.fio && touched.fio ? <ErrorField message={errors.fio} /> : null}
@@ -442,16 +462,20 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                    }}
                   />
                   {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
 
                   <Button
+                    disabled = { values.activeButton }
                     type={'submit'}
                     full
                     variant={'black_btn_full_width'}
                   >
                     ОПЛАТИТЬ
-
+                    { !values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
                   </Button>
                 </BlockGrid.BlockPayment>
 
@@ -463,47 +487,26 @@ export const payment = async (order_id, balance, total_price, currency, first_na
     )
   } catch (err) {
     console.log('ERROR IN CREATE PAYMENT', err)
-    let error = [Text({text: 'error-on-server'})];
+    let error = [Text({ text: 'error-on-server' })];
     if (err?.data) {
-        const errors = err.data;
-        if ( typeof errors !== 'object') {
-            error.push(`${errors}`)
-        }else{
-            error.push(`${errors[0]}`)
-        }
-        console.log({errors}, {err: typeof errors})
+      const errors = err.data;
+      if (typeof errors !== 'object') {
+        error.push(`${errors}`)
+      } else {
+        error.push(`${errors[0]}`)
+      }
     }
     dispatch('setModalState', {
-        show: true,
-        content: textErrorMessage(error),
-        iconImage: errorAlertIcon,
-        addClass: 'modal-alert-error',
-        action: {
-            title: ['продолжить', null]
-        },
-        onClick: () => closeModalState()
+      show: true,
+      content: textErrorMessage(error),
+      iconImage: errorAlertIcon,
+      addClass: 'modal-alert-error',
+      action: {
+        title: ['продолжить', null]
+      },
+      onClick: () => closeModalState()
     })
   }
-}
-
-export const textSuccessMessage = (text) => {
-  return (
-    <BlockGrid.Container>
-      <BlockGrid.BlockMessage>
-        {text}
-      </BlockGrid.BlockMessage>
-    </BlockGrid.Container>
-  )
-}
-
-export const textErrorMessage = (error) => {
-  return (
-    <BlockGrid.Container>
-      <BlockGrid.BlockMessage>
-        {error.map((el, i) => <p key={`error-${i}`}> {el} </p>)}
-      </BlockGrid.BlockMessage>
-    </BlockGrid.Container>
-  )
 }
 
 export const addAddressForPost = async (currency, first_name, last_name, middle_name, phone, email, dispatch, closeModalState, typeModal, profileId, context, idAddress) => {
@@ -515,8 +518,6 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
         title: el.title,
       };
     })
-
-    console.log({ countryOptions })
 
     let defaultParamsInitData = {
       city: '',
@@ -569,6 +570,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
 
     const createAddress = async (data, setFieldError) => {
       try {
+        if (!!!data.middle_name) delete data['middle_name'];
         const resCreateAddress = await orderApi.postOrderAddressDeliviry(data, data.profileId)
 
         const newContext = {
@@ -661,18 +663,14 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
         onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, values, errors, setFieldValue, handleBlur, touched }) => {
-          console.log({ values }, { errors },
-            !!values.city, !!values.country, !!values.first_name, !!values.last_name, !!values.phone, !!values.post_code, !!values.street, !!values.house
-          )
+
           let enadledNext = true
           if (!!values.city && !!values.country && !!values.first_name && !!values.last_name && !!values.phone && !!values.post_code && !!values.street && !!values.house) {
             enadledNext = false
           } else {
             enadledNext = true
           }
-          // handleChange = (e) => {
-          //   console.log({e})
-          // }
+
           return (
             <Form onSubmit={handleSubmit}>
               <BlockGrid.Container>
@@ -752,25 +750,25 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                         className={errors.phone && touched.phone ? 'error' : ''}
                         /> */}
 
-                      
+
                       <BlockGrid.BlockAddAddressContainerPhone
-                        helpText={errors.phone && touched.phone ? <ErrorField message={errors.phone} /> : null}                      
+                        helpText={errors.phone && touched.phone ? <ErrorField message={errors.phone} /> : null}
                       >
-                      <Phone
-                        placeholder = { Text({ text: 'enterPhone' }) }
-                        value = { values.phone }
-                        name={'phone'}
-                        defaultCountry = {'RU'}
-                        smartCaret = { true }
-                        limitMaxLength = { true }
-                        focusInputOnCountrySelection = { true }
-                        className = { 'form-input-number-phone-lk'}       
-                        onChange = { phone => {
-                          setFieldValue('phone', phone) 
-                        }}              
+                        <Phone
+                          placeholder={Text({ text: 'enterPhone' })}
+                          value={values.phone}
+                          name={'phone'}
+                          defaultCountry={'RU'}
+                          smartCaret={true}
+                          limitMaxLength={true}
+                          focusInputOnCountrySelection={true}
+                          className={'form-input-number-phone-lk'}
+                          onChange={phone => {
+                            setFieldValue('phone', phone)
+                          }}
                         />
-                      
-                        </BlockGrid.BlockAddAddressContainerPhone>
+
+                      </BlockGrid.BlockAddAddressContainerPhone>
 
                     </BlockGrid.BlockAddAddressCell>
 
@@ -779,7 +777,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                   <BlockGrid.BlockAddAddressRightSide>
                     <BlockGrid.BlockAddAddressCell>
                       <Select
-                        className = { 'select-addAddress' }
+                        className={'select-addAddress'}
                         value={values.country}
                         autofocus
                         onBlur={handleBlur}
@@ -887,6 +885,11 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
                     <Error message={errors.message_button} />
                   ) : null
                 }
+                {
+                  errors[0] ? (
+                    <Error message={errors[0]} />
+                  ) : null
+                }
                 <BlockGrid.BlockAddAddressContainerButton>
                   <Button
                     variant={'catalog-link-transparent__modal'}
@@ -912,6 +915,25 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
     )
   } catch (err) {
     console.log('ERROR function add Address', res)
+    let error = [Text({ text: 'error-on-server' })];
+    if (err?.data) {
+      const errors = err.data;
+      if (typeof errors !== 'object') {
+        error.push(`${errors}`)
+      } else {
+        error.push(`${errors[0]}`)
+      }
+    }
+    dispatch('setModalState', {
+      show: true,
+      content: textErrorMessage(error),
+      iconImage: errorAlertIcon,
+      addClass: 'modal-alert-error',
+      action: {
+        title: ['продолжить', null]
+      },
+      onClick: () => closeModalState()
+    })
   }
 
 }
@@ -1100,6 +1122,8 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
     beneficiaryBankAccountNumber: '',
     beneficiaryBankBIC: '',
     receipt: null,
+    activeButton: true,
+    activeSpinner: false
   };
 
   const errorsMessenge = {
@@ -1141,7 +1165,7 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
           })
         }
       } catch (err) {
-        let error = [Text({text: 'error-on-server'})];
+        let error = [Text({ text: 'error-on-server' })];
         const data = err?.data;
         console.log('ERROR IN CREATE request', err)
         if (!!data) {
@@ -1156,10 +1180,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
           dispatch('setModalState', {
             show: true,
             content: textErrorMessage(error),
-          iconImage: errorAlertIcon,
-          action: {
-            title: ['Продолжить', null]
-          },
+            iconImage: errorAlertIcon,
+            action: {
+              title: ['Продолжить', null]
+            },
             onClick: () => closeModalState()
           })
         }
@@ -1198,7 +1222,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'cost'}
                     autofocus
                     autocomplete={'off'}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     onBlur={handleBlur}
                     helpText={errors.cost && touched.cost ? <ErrorField message={errors.cost} /> : null}
                     label={'Сумма*'}
@@ -1212,7 +1239,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     className={'input-mt_20'}
                     name={'fio'}
                     autocomplete={'off'}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     autofocus
                     onBlur={handleBlur}
                     helpText={errors.fio && touched.fio ? <ErrorField message={errors.fio} /> : null}
@@ -1228,7 +1258,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'beneficiaryBankAccountNumber'}
                     autocomplete={'off'}
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     helpText={
                       errors.beneficiaryBankAccountNumber && touched.beneficiaryBankAccountNumber ? <ErrorField message={errors.beneficiaryBankAccountNumber} /> : null
                     }
@@ -1244,7 +1277,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'beneficiaryBankBIC'}
                     autocomplete={'off'}
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                      handleChange(e);
+                    }}
                     helpText={
                       errors.beneficiaryBankBIC && touched.beneficiaryBankBIC ? <ErrorField message={errors.beneficiaryBankBIC} /> : null
                     }
@@ -1258,6 +1294,9 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
+                    onChange = { (e) => { 
+                      values.cost && values.fio && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                    }}
                   />
                   {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
 
@@ -1265,9 +1304,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     type={'submit'}
                     full
                     variant={'black_btn_full_width'}
+                    disabled = { values.activeButton }
                   >
                     оформить возврат
-
+                    { !values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
                   </Button>
                 </BlockGrid.BlockPayment>
 
@@ -1279,63 +1319,62 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
     )
   } catch (err) {
     console.log('ERROR IN CREATE PAYMENT', err)
-    let error = [Text({text: 'error-on-server'})];
+    let error = [Text({ text: 'error-on-server' })];
     if (err?.data) {
-        const errors = err.data;
-        if ( typeof errors !== 'object') {
-            error.push(`${errors}`)
-        }else{
-            error.push(`${errors[0]}`)
-        }
-        console.log({errors}, {err: typeof errors})
+      const errors = err.data;
+      if (typeof errors !== 'object') {
+        error.push(`${errors}`)
+      } else {
+        error.push(`${errors[0]}`)
+      }
     }
     dispatch('setModalState', {
-        show: true,
-        content: textErrorMessage(error),
-        iconImage: errorAlertIcon,
-        addClass: 'modal-alert-error',
-        action: {
-            title: ['продолжить', null]
-        },
-        onClick: () => closeModalState()
+      show: true,
+      content: textErrorMessage(error),
+      iconImage: errorAlertIcon,
+      addClass: 'modal-alert-error',
+      action: {
+        title: ['продолжить', null]
+      },
+      onClick: () => closeModalState()
     })
-}
+  }
 }
 
 export const contentInfoOrder = (status, role, numberOrder) => {
-  console.log({status})
-  return (
-      <p
-        style={
-          {
-            fontSize: '18px',
-            padding: '10px 25px',
 
-          }
-        }
-      >
+  return (
+    <p
+      style={
         {
-          status === 'payment_waiting' ?
-            `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
-            : status === 'in_process' ?
-              <>Ваш заказ №{numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. {role === ROLE.RETAIL ? '' : ' Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта'} </>
-              : status === 'packaging' ?
-                `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
-                : status === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
-                  `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
-                  : status === 'delivery_paid' ?
-                    `Ваш заказ №${numberOrder} готов к отправке.`
-                    : status === 'sended' ?
-                      `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
-                      : status === 'canceled' ?
-                        `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
-                        : status === 'return' ?
-                          `По Заказу №${numberOrder} оформлен возврат`                          
-                          : status === 'chat' ?
-                          `Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате`
-                            : role === ROLE.WHOLESALE ? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
+          fontSize: '18px',
+          padding: '10px 25px',
+
         }
-      </p>
+      }
+    >
+      {
+        status === 'payment_waiting' ?
+          `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
+          : status === 'in_process' ?
+            <>Ваш заказ №{numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. {role === ROLE.RETAIL ? '' : ' Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта'} </>
+            : status === 'packaging' ?
+              `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
+              : status === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
+                `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
+                : status === 'delivery_paid' ?
+                  `Ваш заказ №${numberOrder} готов к отправке.`
+                  : status === 'sended' ?
+                    `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
+                    : status === 'canceled' ?
+                      `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
+                      : status === 'return' ?
+                        `По Заказу №${numberOrder} оформлен возврат`
+                        : status === 'chat' ?
+                          `Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате`
+                          : role === ROLE.WHOLESALE ? `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
+      }
+    </p>
 
   )
 }

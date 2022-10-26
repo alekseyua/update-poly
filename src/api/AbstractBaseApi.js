@@ -55,8 +55,8 @@ class AbstractBaseApi extends BaseApi {
     axios.defaults.headers.common['Authorization'] = token ? `Token ${token}` : '';
     axios.defaults.headers.common['Accept-Language'] = language;
     if (currency) {
-       axios.defaults.headers.post['currency'] = currency; // for POST requests
-       axios.defaults.headers.common['currency'] = currency; // for all requests
+       axios.defaults.headers.post['currency'] = currency.toLocaleUpperCase(); // for POST requests
+       axios.defaults.headers.common['currency'] = currency.toLocaleUpperCase(); // for all requests
     }
     return axios;
   };

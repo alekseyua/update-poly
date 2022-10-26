@@ -1,46 +1,28 @@
 import React, { useState } from 'react';
 import Form from '../Form';
-import Select from '../Select';
+import SelectCurrency from '../Select/SelectCurrency';
 import style from './dropdownlist.module.scss';
 
 const DropDownList = ({ listItems, active, currenciesData, setCurrenciesData }) => {
     const [activeItem, setActiveItem] = useState(active);
     const handlerChangeDropDown = (e) => {
         e.preventDefault();
-        setActiveItem(e.target.value)
+        setActiveItem(e.target.getAttribute('name'))
         setCurrenciesData({
             ...currenciesData,
-            active: e.target.value,
+            active: e.target.getAttribute('name'),
         })
     }
-
     return (
-        <Form className={style['drop-down__form']}>
-            <select 
-                className={style['drop-down__select']} 
-                value={activeItem} 
-                onChange={handlerChangeDropDown}
-            >
-                {
-                    listItems.map((el, i) => {
-                        return (
-                            <option
-                                key={`list-drop-down-currencies-${i}`}
-                                value={el.value}
-                            >
-                                {el.name}
-                            </option>
-                        )
-                    })
-                }
-            </select>
-                {/* <Select
-                className={'drop-down__select'}                
+        <Form className = {'drop-down__form'}>
+                <SelectCurrency
+                className={'select__drop-down'}                
                 value={activeItem}
                 onClick={handlerChangeDropDown}
                 options={listItems}
                 placeholder={activeItem}
-              /> */}
+              />
+
         </Form>
     )
 }

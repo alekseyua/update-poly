@@ -39,7 +39,7 @@ const jsScriptTagsFromAssets = (assets, entrypoint, ...extra) => {
 export const renderApp = async (req, res, next) => {
   try {
     // console.log('process.env.RAZZLE_PUBLIC_DIR =' , process.env.RAZZLE_PUBLIC_DIR)
-    // console.log('__dirname' , req.path)
+    console.log('__dirname' , req.path)
     global.document = document;
     global.document.cookie = req.headers.cookie;
     global.localStorage = { getItem: () => '' };
@@ -62,11 +62,11 @@ export const renderApp = async (req, res, next) => {
      //: Promise.resolve();
      : PATHS.ALL.fetchInitialData(req.path, axiosParams)
     // const promise = PATHS.ALL.fetchInitialData(req.path, axiosParams)
-    //  console.log( '+++++++activeRoute url*****', promise )
+      // console.log( '+++++++activeRoute url*****', promise )
 
     promise
       .then((data) => {
-        // console.log('data ===== ', data)
+        console.log('data ===== ', data)
         const markup = renderToString(
           <StoreContext.Provider value={store} >
             <StaticRouter location={req.url} context={data} >
@@ -96,7 +96,7 @@ export const renderApp = async (req, res, next) => {
             ${helmet.meta.toString()}
             ${helmet.link.toString()}
 
-          ${`<title>${data.init_state.page_info.title}</title>`}
+          ${`<title>${data?.init_state?.page_info?.title}</title>`}
             
           ${`<script defer >window.__INITIAL_DATA__ = ${JSON.stringify(data)
             .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, '')
@@ -114,9 +114,12 @@ export const renderApp = async (req, res, next) => {
         return res.status(200).send(html);
       })
       // .catch(next);
-      .catch(err=>console.log('errrrrrrr',err))
+      .catch( err => {
+        console.log('errrrrrrr',err)
+        return res.status(200).send(JSON.stringify(err,null,4))
+      })
   } catch (err) {
-    console.log('ggggggggggg',err)
+     console.log('ggggggggggg',err)
   }
 
 }

@@ -1,5 +1,6 @@
 import api from "../../api/api";
 import { ROLE } from "../../const";
+import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
@@ -20,7 +21,7 @@ export const payment = store => {
                 delivery_address: obj.selectedAdress,
                 agree_personal_data: obj.agree_personal_data,
                 wait_call: obj.waitForCall,
-                currency: currency,
+                currency: currency?.toLocaleUpperCase(),
                 order_cost: price,
                 discount: discount,
                 total_cost: price,
@@ -37,7 +38,7 @@ export const payment = store => {
 
 
 
-            role === ROLE.RETAIL?
+            role === ROLE.RETAIL && !!!numberCurrentOrderForAddProduct?
                 params = {
                     ...params,
                     delivery_cost: priceDilivery.price,

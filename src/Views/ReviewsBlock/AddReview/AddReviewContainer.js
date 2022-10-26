@@ -22,10 +22,12 @@ const AddReviewContainer =({
             // callbackResult: 
           };
         dispatch('sendReview', params)
+
     }
 
     return(
-        <FormAddReview 
+        <FormAddReview
+
             sendReview={sendReview}  
             productId={productId}
             profileId={profileId}

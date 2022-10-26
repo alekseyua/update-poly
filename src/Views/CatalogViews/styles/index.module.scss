@@ -267,7 +267,7 @@
     grid-template-rows: 1fr;
   }
   @include mobile-lgm {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
   }
   //.wrapper__product-export-card{}

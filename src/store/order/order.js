@@ -151,7 +151,7 @@ export const order = store => {
 
             const paramsCountryDilivery = {
                 country: obj.country,
-                currency: currency
+                currency: currency?.toLocaleUpperCase()
             }
             const res = await orderApi.getCountryDeliviry(paramsCountryDilivery);
 

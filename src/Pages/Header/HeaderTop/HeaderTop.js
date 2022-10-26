@@ -14,8 +14,11 @@ import BurgerMenuContainer from './TopHeaderMenu/BurgerMenu/BurgerMenuContainer'
 
 import style from './index.module.scss';
 
-const HeaderTop = (props) => {
-// console.log('props header top', props)
+const HeaderTop = ({
+  currencies,
+  ...props
+}) => {
+//  console.log('props header top', props)
 
   useEffect(()=>{
     !getCookie(COOKIE_KEYS.CURRENCIES)?
@@ -30,13 +33,15 @@ const HeaderTop = (props) => {
       return DEFAULT_CURRENCIES;
     }
   };
+
   const defaultCurrenciesSingle = getCurrencies;
   const currencyDefault = getCookie(COOKIE_KEYS.CURRENCIES);
+
   const defaultCurrenciesData = {
     isOpen: false,
     active: currencyDefault ? currencyDefault : defaultCurrenciesSingle(),
-    options: props.currencies
-      ? props.currencies.map((el) => {
+    options: currencies
+      ? currencies.map((el) => {
         return {
           name: el,
           value: el,
@@ -45,6 +50,10 @@ const HeaderTop = (props) => {
       : CURRENCIES_DATA,
   };
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
+
+  // useEffect(()=>{
+  //   setCurrencies(prev => ({...prev, options: currencies }))
+  // },[currencies])
 
   const setCurrenciesData = (data) => {
     setCookie(COOKIE_KEYS.CURRENCIES, data.active, ONE_YEARS);

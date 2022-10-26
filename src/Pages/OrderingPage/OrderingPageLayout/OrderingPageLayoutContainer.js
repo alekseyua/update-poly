@@ -48,7 +48,7 @@ const OrderingPageLayoutContainer = ({
     const handlerSubmitOrder = (values, currency) =>{
         const paramsPayment = {
             ...values,
-            currency: currency,
+            currency: currency?.toLocaleUpperCase(),
             redirectTo: (to) => {
                 const timerTimeout = setTimeout(()=>{
                     navigate(to);
