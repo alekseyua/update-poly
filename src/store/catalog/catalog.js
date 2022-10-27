@@ -224,6 +224,7 @@ export const catalog = store => {
             dispatch('context', updateContext);
         } catch (err) {
             console.log('Sorry something went wrong :) ', err)
+            if ( err === undefined ) return;
             let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;

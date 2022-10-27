@@ -70,7 +70,6 @@ export const pageContent = store => {
             // console.log('res new from url =', res.init_state)
             // console.log('res old from context = ', context)
             if (url === '/') {
-                window.scrollTo(0,0)
                 const filters = res.init_state.main_page.first_screen.filters;
                 const in_stock_product_filters = res.init_state.main_page.in_stock_product_filters;
                 const page_info = res.init_state.page_info;
@@ -89,6 +88,7 @@ export const pageContent = store => {
                             ...res.init_state.profile
                         },
                         "products": !!res.init_state.products.length ? res.init_state.products : [],
+                        filters_params: { ...initValueCheckBoxFilters },
                         "main_page": {
                             ...res.init_state.main_page,
                             "first_screen": {
@@ -341,6 +341,7 @@ export const pageContent = store => {
                 return dispatch('context', newContext)
             }
             if (url === '/catalog') {
+                debugger
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -359,6 +360,7 @@ export const pageContent = store => {
                         },                        
                     },
                 }
+
                 dispatch('context', newContext)
                 
                 return dispatch('getCatalog')

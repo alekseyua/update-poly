@@ -28,7 +28,7 @@ const TradingPlatformLayout = ({ first_screen, page_type_catalog, front_admin, g
                   <Text text={'about_company'} />
                 </NavLink>
 
-                <Button dataintro="step1" onClick={()=>goToCatalog(page_type_catalog)} variant={'accent'}>
+                <Button dataintro="step1" onClick={()=>goToCatalog('/catalog')} variant={'accent'}>
                   <Icon
                     slot={'icon-left'}
                     src={cartIcon}

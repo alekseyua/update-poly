@@ -5,10 +5,11 @@ const YouHaveAlreadyWatchedContainer = ({
     youAlredyWatch, 
     currency
 }) => {
+    console.log({youAlredyWatch})
     return (
         <>
         {   
-            youAlredyWatch?
+            youAlredyWatch?.results.length?
                 <YouHaveAlreadyWatched
                     listAlreadySaw={youAlredyWatch.results}
                     currency={currency}
