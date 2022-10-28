@@ -7,6 +7,8 @@ import Button from '../../../Views/Button';
 import Table from '../../../Views/Table';
 import Text from '../../../helpers/Text';
 import DefaultEmptyOrder from './DefaultEmptyOrder';
+import dayjs from '../../../helpers/dayjs';
+import api from '../../../api/api';
 
 const ItemsInOrder = ({
   dateFilterData,
@@ -63,7 +65,7 @@ const ItemsInOrder = ({
       //!date
       tr.push({
         attr: { 'data-label': 'Дата' },
-        content: el.created_at,
+        content: dayjs(api.language, el.created_at).format('DD.MM.YYYY')
       });
       //!№ order
       tr.push({

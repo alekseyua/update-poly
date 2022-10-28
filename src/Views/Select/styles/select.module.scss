@@ -19,6 +19,13 @@
       top: 22px;
     }
   }
+  //.select__feedback{}
+  &__feedback{
+    padding: 0;
+    ~div{
+      top: 30px; 
+    }
+  }
   //.select__drop-down{}
   &__drop-down{
     padding: 0;
@@ -148,7 +155,7 @@
   }
 }
 
-//select
+
 .select-currency {
 
   //.select-currency__container{}

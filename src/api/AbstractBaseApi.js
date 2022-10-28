@@ -6,7 +6,7 @@ class AbstractBaseApi extends BaseApi {
     super(MAIN_URL);
   }
 
-  language = null;
+  language = 'ru';
   AUTH_TOKEN_KEY = 'ft_token';
   CURRENCY_KEY = 'currency';
 

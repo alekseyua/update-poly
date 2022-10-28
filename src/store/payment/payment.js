@@ -45,7 +45,28 @@ export const payment = store => {
                 }
                 : null
             const res = await orderApi.createOrder(params);
-            console.log({res})
+            
+            let newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    dataCart: {
+                        "cartitem_set": [],
+                        "in_stock": [],
+                        "valueButtonNextToOrder": Text({text: "go.to.registration"}),
+                        "id": 228,
+                        "in_cart": null,
+                        "total_price": null,
+                        "total_discount": null,
+                        "delivery_price": null,
+                        "total_order_price": null,
+                        "is_performed": false,
+                        "enableAllSelect": false,
+                        "agreeWitheRegulations": false
+                    }
+                },
+            }
+            dispatch('context', newContext)
             //?! если добовляем в заказ переходим на страницу orders
                 if(numberCurrentOrderForAddProduct){
 

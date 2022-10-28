@@ -10,8 +10,8 @@ import './Home.css';
 const Home = (props) => {
 //  console.log({HOME: props})
   const { first_screen, in_stock_product_filters } = props.context.main_page;
-  const { banners, dataProducts, profile, partner_banners, news, about_banner, reviews, currency } = props.context;
-  const { page_type_catalog, page_type_news, page_type_reviews } = props.context.site_configuration;
+  const { banners, dataProducts, products_in_stock, profile, partner_banners, news, about_banner, reviews, currency } = props.context;
+  const { page_type_catalog, page_type_news, page_type_reviews, main_title_video } = props.context.site_configuration;
   const { dispatch } = useStoreon();
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,6 +32,7 @@ const Home = (props) => {
         first_screen={first_screen}
         page_type_catalog ={page_type_catalog}
         goToCatalog={goToCatalog}
+        main_title_video = { main_title_video }
         // front_admin = {props.profile.front_admin}
       /> 
 
@@ -41,15 +42,18 @@ const Home = (props) => {
       />
       
       
-      {!!dataProducts?.length?
+      {
+        products_in_stock?
+      !!products_in_stock?.results?.length?
           <HomeComponent.ProductsInStock
             role={profile.role}
             // front_admin = {props.profile.front_admin}
             in_stock_product_filters={in_stock_product_filters}
-            products={dataProducts}
+            products={products_in_stock?.results}
             catalog_url={page_type_catalog}
             currency = { currency }
           /> 
+          :null
           :null
       }
       

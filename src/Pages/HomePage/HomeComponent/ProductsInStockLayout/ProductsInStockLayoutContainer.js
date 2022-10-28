@@ -8,8 +8,7 @@ const ProductsInStockLayoutContainer = ({
   filterList,
 }) => {
   const { dispatch } = useStoreon();
-  const [ activeItemList, setActiveItemList ] = useState(filterList[0].id)
-  console.log({filterList}, {activeItemList})
+  const [ activeItemList, setActiveItemList ] = useState(filterList[0]?.id)
   const getProductsInStockForName = (id) => {
     setActiveItemList(id)
     const params = {
@@ -18,7 +17,7 @@ const ProductsInStockLayoutContainer = ({
       is_in_stock: true,
       page_size: 12,
     }
-    dispatch('getCatalog', params)
+    dispatch('getCatalogIsInStock', params)
   }
 
 

@@ -10,6 +10,10 @@ Replace Autoprefixer browsers option to Browserslist config.
   https://github.com/browserslist/browserslist#readme
   https://twitter.com/browserslist
 
+`Login: root `
+`Password: ABkxb52RF8 `
+` Выделенный IP: 91.218.229.240 `
+
 
 Чтобы выбирать язык необходимо реализовать lang
 

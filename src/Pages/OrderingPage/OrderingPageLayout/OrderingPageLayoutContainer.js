@@ -12,6 +12,7 @@ const OrderingPageLayoutContainer = ({
     delivery_methods,
     payment_methods,
     addressDilivery,
+    priceDilivery,
     cart_content,
     breadcrumbs,
     total_price,
@@ -67,6 +68,7 @@ const OrderingPageLayoutContainer = ({
             delivery_methods = { delivery_methods }
             payment_methods = { payment_methods }
             addressDilivery = { addressDilivery }
+            priceDilivery = { priceDilivery }
             cart_content = { cart_content }
             breadcrumbs = { breadcrumbs }
             total_price = { total_price }

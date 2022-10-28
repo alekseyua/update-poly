@@ -8,6 +8,14 @@
   color: var(--gx-color-white);
   overflow: hidden;
 
+  //.trading-platform__video{}
+  &__video{
+    padding: 0;
+    &>video{
+      height: 100%;
+      object-fit: cover;
+    }
+  }
   // height: calc(100vh - 160px);
   //.trading-platform__container{}
   &__container {

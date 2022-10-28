@@ -5,20 +5,17 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { matchPath } from "react-router-dom";
 import Helmet from 'react-helmet';
-
 import { StoreContext } from 'storeon/react';
 import { store } from './store';
+import api from './api/api';
+import { PATHS } from './const';
 
 const cookieParser = require('cookie-parser');
 const document = require('global/document');
 const cors = require('cors');
 
-import path from 'path';
-import api from './api/api';
-import { PATHS } from './const';
 
 const routes = require('./routes/routes.js');
-
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const cssLinksFromAssets = (assets, entrypoint) => {
@@ -123,43 +120,17 @@ export const renderApp = async (req, res, next) => {
   }
 
 }
-
+// console.log(path.join(__dirname,'certs')
 
 const server = express();
 
-/**
- * console.log('process.env.RAZZLE_PUBLIC_DIR',process.env.RAZZLE_PUBLIC_DIR)  
- * process.env.RAZZLE_PUBLIC_DIR = /home/alekseyua/Desktop/my-app-poly/public
- */
-
 server
   .disable('x-powered-by')
-  // .use(express.static('public'))
-  // .use('/static', express.static(__dirname + '/public'))  
-  
-  // .use(express.static(publicFolder))
-  
-  
   .use(cors())
   .use(cookieParser())
-  
-  // .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .use(express.static('public'))
-  // .use('/static', express.static(__dirname + '/public'))  
-
-  // .use(express.static(__dirname + '/public'))
-  // обслуживание статических ресурсов
-  // .get( /\.(js|css|map|ico)$/, express.static( path.resolve( __dirname, '../build' ) ) )
-
   .get('/*', (req, res, next) => {
-    // const { data, html } = 
     renderApp(req, res, next);
-    // console.log('context',data)
-    // if (context.url) {
-    //   res.redirect(context.url);
-    // } else {
-    // res.status(200).send(html);
-    // }
   });
 
 export default server;

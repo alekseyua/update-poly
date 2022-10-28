@@ -15,11 +15,9 @@ const AddReviewContainer =({
             files: data.uploadFiles,
             content: data.content,
             stars: data.stars,
-    
             product: data.productId,
             profile: data.profileId,
             dataFormik: dataFormik
-            // callbackResult: 
           };
         dispatch('sendReview', params)
 

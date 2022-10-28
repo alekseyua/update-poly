@@ -220,6 +220,9 @@
     //.modal-quick-view-product{}
     &-quick-view-product {
         height: 100%;
+        &>div.modal-provider__content {
+            height: 90%;
+        }
     }
 
     //.modal-feedback{}

@@ -12,29 +12,11 @@ import Spinner from '../../../Views/SpinnerWrapper/Spinner';
 // const apiContent = api.contentApi;
 const NewsComponent = ({ titlePage = 'новости', ...props }) => {
   // console.log('props news component', props)
-  const { newsStore, dispatch } = useStoreon('newsStore');
+  const { dispatch } = useStoreon('');
   const { news = [], rubrics = [], breadcrumbs = [] } = props;
   const [ activeRubrics, setActiveRubrics ] = useState(null)
 
-  useEffect(()=>{
-    //?! необходимо из массива достать рубрики сконкатинировать их в массив
-    //?! coбрать массив с наименованием
-    // setTimeout(()=>{
-    // },500)
-  },[])
-  console.log('news === ', news)
 
-
-  const tempBreadCrumbs = [
-    {
-      link: '/',
-      title: 'Главная',
-    },
-    {
-      link: 'news',
-      title: 'Новости',
-    },
-  ];
 
   const handleFilter = (id) => {
     console.log('handleFilter id', id);

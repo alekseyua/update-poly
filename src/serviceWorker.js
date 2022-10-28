@@ -9,7 +9,7 @@ import { setLocalStorage } from "./helpers/helpers";
 export async function register() {
     if ('serviceWorker' in navigator) {
       const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
-      console.log("publicUrl.origin !== window.location.origin", publicUrl.origin ,'!== ',  window.location.origin )
+      // console.log("publicUrl.origin !== window.location.origin", publicUrl.origin ,'!== ',  window.location.origin )
       if (publicUrl.origin !== window.location.origin) {
         return;
       }
@@ -54,8 +54,8 @@ export async function register() {
           // console.log('Рукопожатие прошло успешно админ знает про нас ',result)
         }
       }catch(e){
-        console.log('Ошибка в регистрации service worker' + e.name + ":" + e.message)
         console.log(e)
+        // console.log('Ошибка в регистрации service worker' + e.name + ":" + e.message)
       }
   }
 

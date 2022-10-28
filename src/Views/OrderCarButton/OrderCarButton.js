@@ -21,7 +21,7 @@ const OrderCar = ({
 				handlerSubmitOrder(values)
 			},7000)
 		}
-
+console.log('styleCar',styleCar)
     return(
 		<ToolTip
 			content = {
@@ -42,11 +42,16 @@ const OrderCar = ({
 			local = {'top-center'}
 			trigger={!(styleCar === 'orderCar')?'hover': ''}
 		>
-			<div className = {'oder-main'}>
+			<div 
+				className = {'oder-main'}
+				style = {{
+					pointerEvents: 'none'
+				}}
+			>
 				<Button
 					disabled = { enabled }
 					className={ styleCar }
-					onClick = { lifehack }
+					onClick = { (styleCar !== 'orderCar animate')? ()=>lifehack() : null }
 				>	
 					{
 						!!numberCurrentOrderForAddProduct? 

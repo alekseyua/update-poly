@@ -1,6 +1,6 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder, contentInfoCollection } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
@@ -356,11 +356,20 @@ export const modalStorage = store => {
 
             const redirectTo = obj?.redirectTo;
 
+            const closeRedirect = () => {
+                redirectTo?
+                    redirectTo('/balance')
+                    : null
+                console.log('close and redirect');
+                closeModalState();
+            }
+
             dispatch('setModalState', {
                 show: true,
                 title: 'Пополнение баланса для оплаты',
                 content: await payment(order_id, balance, total_price, currency, first_name, last_name, middle_name, dispatch, redirectTo, closeModalState),
-                addClass: 'modal-payment'
+                addClass: 'modal-payment',
+                closeModal: closeRedirect
             })
         } catch (err) {
             console.log('ERROR GET LIST ORDERS', err)
@@ -772,5 +781,44 @@ export const modalStorage = store => {
         }
     })
 
+    store.on('openModalCollections', ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+            const { role } = context.init_state.profile;
+            const numberOrder = context.init_state.order.fullNumberOrder;
+            dispatch('setModalState', {
+                show: true,
+                title: 'Иформация по открытым сборам',
+                content: contentInfoCollection( role, numberOrder),
+                action: {
+                    title: ['продолжить', null]
+                },
+                addClass: 'modal-default',
+                onClick: () => closeModalState(),
+            })
+        } catch (err) {
+            console.log('ERROR modalDeleteAccaunt', err)
+            let error = [Text({ text: 'error-on-server' })];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    
 }
 

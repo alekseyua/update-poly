@@ -36,7 +36,6 @@ const ModalAddReview = ({
           !!values.iAgreeDataProcessing? setFieldValue('iAgreeDataProcessing', false): null;
           setFieldValue( 'activeButton', true )
         }
-console.log({values})
         return (
           <Form novalidate onChange={handleSubmit}>
             <ReviewsElementBlock.FormAddReview>
@@ -61,6 +60,7 @@ console.log({values})
                 className={'wrapperBtnFile'}
                 label={'Прикрепить изображение:'}
                 accept={'.png, .jpg, .jpeg, .mp4'}
+                countFiles = { values.uploadFiles ?? 0}
                 onBlur={handleBlur}
                 multiple={null}
                 setFieldValue={setFieldValue}

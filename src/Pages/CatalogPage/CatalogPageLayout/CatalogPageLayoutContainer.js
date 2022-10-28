@@ -21,13 +21,12 @@ const CatalogPageLayoutContainer = ({
   content,
   role,
 }) => {
-
   const { dispatch } = useStoreon();
   const [showFilters, setShowFilters] = useState(false);
   const [offsetTopBtnSubmit, setOffsetTopBtnSubmit] = useState(0)
   const [valueProducts, setValueProducts] = useState(initialValuesFilters)
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
-  const [filterParams, setFilterParams] = useState({ ...initValueCheckBoxFilters })
+  const [filterParams, setFilterParams] = useState(initValueCheckBoxFilters)
 
   const loadData = (data) => {
     dispatch('changeParamsFilters', {
@@ -41,7 +40,6 @@ const CatalogPageLayoutContainer = ({
 
   useEffect(() => {
     const eventDocument = (e) => {
-
       if (e.target.getAttribute('name') === 'apply' || e.target.getAttribute('datanoclick') === 'noClick') setIsShowBtnSubmit(false);
       setOffsetTopBtnSubmit(e.y)
     };
@@ -61,7 +59,6 @@ const CatalogPageLayoutContainer = ({
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...initValueCheckBoxFilters }
     })
-
   }
 
   const resetContextFilter = (key, id) =>{

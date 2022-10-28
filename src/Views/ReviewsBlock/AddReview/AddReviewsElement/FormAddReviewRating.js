@@ -18,9 +18,8 @@ const FormAddReviewRating = ({ values, setFieldValue, onChange }) => {
           onChange(e)
         }}
         className={style['productreviews__form-rating-indicator']}
-
         ActiveStar={+values?.stars}
-      ></Raiting>
+      />
     </p>
   );
 };

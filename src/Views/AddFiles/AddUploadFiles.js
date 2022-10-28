@@ -20,6 +20,7 @@ const AddUploadFiles = ({
   accept, 
   label, 
   setFieldValue, 
+  countFiles,
   name , 
   multiple = '', 
   textButton, 
@@ -29,7 +30,6 @@ const AddUploadFiles = ({
 
 }) => {
   const fileInputRef = React.useRef(null);
-
   return (
     <div className={classNames({
       [style['files-uploud__form-upload']]:true,
@@ -61,6 +61,7 @@ const AddUploadFiles = ({
             <>
               <ul className={style['files-uploud__form-upload-list']}>
                 {
+                  !!countFiles.length?
                   preview.map((el, i) => {
                     return (
                       <li key={i} className={style['files-uploud__form-upload-item']}>
@@ -72,6 +73,7 @@ const AddUploadFiles = ({
                       </li>
                     );
                   })
+                  : null
                 }
               </ul>
               <div 

@@ -4,10 +4,11 @@ import { defaultImageCard } from '../../images';
 import dayjs from '../../helpers/dayjs';
 
 import style from './newsCard.module.scss';
+import api from '../../api/api';
 
 const NewsCard = (props) => {
   const { img, title, date, url = '#', description = '', id } = props;
-  
+
   return (
     <div className={style['news-card']}>
       <div className={style['news-card__wrap']}>
@@ -18,7 +19,7 @@ const NewsCard = (props) => {
           <NavLink to={url} className={style['news-card__title']} >
             {title}
           </NavLink>
-          <span className={style['news-card__date']}>{dayjs('ru', date).format('DD MMMM YYYY')}</span>
+          <span className={style['news-card__date']}>{date}</span>
         </div>
       </div>
     </div>

@@ -61,6 +61,7 @@ const ProductDetailsContainer = ({
 
     const handlerOpenListCollection = () => {
         console.log('необходимо реализовать решение для отображения попапа со сборами')
+        dispatch('openModalCollections')
     }
 
     const addLikeProductCard = (id) => {

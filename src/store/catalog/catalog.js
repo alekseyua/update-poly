@@ -91,7 +91,6 @@ export const catalog = store => {
             let statusCollection = false;
 
             if (obj) {
-                console.log({ filter: obj })
                 if (obj['is_import'] && !obj['is_polish']) {
                     delete obj['is_polish']
                     statusPolish = false;
@@ -134,8 +133,6 @@ export const catalog = store => {
                     statusNotRange = false;
                     statusCollection = false;
                 }
-                // delete obj['is_not_range']
-                // delete obj['is_in_collection']
 
                 params = {
                     page: obj?.page ? obj.page : 1,
@@ -166,6 +163,7 @@ export const catalog = store => {
                         categories: !!obj?.categories?.length ? obj.categories : []
                     },
                     dataProducts: products,
+
                 }
             }
             dispatch('context', newContext)
@@ -177,6 +175,59 @@ export const catalog = store => {
             }
 
             return true
+
+        } catch (err) {
+            obj?.page > 1 ? dispatch('setPage', { page: obj.page - 1 }) : null;
+
+            console.log('ERROR getCatalog STORE', err)
+            let error = [Text({ text: 'error-on-server' })];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+
+    store.on('getCatalogIsInStock', async ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+            let params = {};
+         
+            params = {
+                page: obj?.page ? obj.page : 1,
+                page_size: obj?.page_size ? obj.page_size : 30,
+                    ...obj,
+                }
+
+            obj?.page > 1 ? dispatch('setPage', { page: obj.page }) : dispatch('setPage', { page: 1 });
+            const products = await apiContent.getCatalogData(params);
+
+            const newContext = {
+                ...context,
+                "init_state": {
+                    ...context.init_state,
+                    "products_in_stock": products ?? {
+                        count: 0,
+                        results: []
+                    },                   
+                }
+            }
+            dispatch('context', newContext)
+
 
         } catch (err) {
             obj?.page > 1 ? dispatch('setPage', { page: obj.page - 1 }) : null;

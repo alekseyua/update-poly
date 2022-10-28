@@ -39,6 +39,7 @@ const SendChatBlock = ({
                     accept = { '.png, .jpg, .jpeg, .mp4'}
                     multiple = { false }
                     className = { 'cabinet-orders-details' }
+                    countFiles = { values[nameFile] ?? 0}
                     setFieldValue = { setFieldValue }
                     onChange = { e => {
                         const files = e.currentTarget.files;

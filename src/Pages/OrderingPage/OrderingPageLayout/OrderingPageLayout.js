@@ -36,6 +36,7 @@ const OrderingPageLayout = ({
     statusFildValue,
     payment_methods,
     addressDilivery,
+    priceDilivery,
     cart_content,
     breadcrumbs,
     total_price,
@@ -176,7 +177,16 @@ const OrderingPageLayout = ({
                                                                 <BlockText type={'sale-text--red'}>
                                                                     { cart_content?.discount ?? 0 } { currency }
                                                                 </BlockText>
+
+                                                                <BlockText type={'text-default'}>
+                                                                    <Text text={'shipping'} />
+                                                                </BlockText>
+
+                                                                <BlockText type={'sale-text--red'}>
+                                                                    { priceDilivery?.price ?? 0 } { currency }
+                                                                </BlockText>
                                                             </BlockRightSide>
+                                                            
                                                         ) : ROLE.WHOLESALE === role ? (
                                                             <div>
                                                                 Доставка: <span>По тарифам КАРГО</span>
@@ -196,7 +206,9 @@ const OrderingPageLayout = ({
                                                             <Text text={'total.payable'} />:
                                                         </BlockText>
                                                         <BlockText type={'text-title'}>
-                                                            { cart_content?.total_price ?? 0 } { currency }
+                                                            { priceDilivery?.price && ROLE.RETAIL === role ?
+                                                                ( cart_content?.total_price + priceDilivery?.price ).toFixed(2)
+                                                                : cart_content?.total_price ?? 0 } { currency }
                                                         </BlockText>
                                                     </BlockRightSide>
 

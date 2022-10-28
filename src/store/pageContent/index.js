@@ -21,14 +21,15 @@ export const pageContent = store => {
     const token = getCookie('ft_token');
 
 
-    if (!(!!token)){ 
-        console.log('start unregister sw')
-        serviceWorker.unregister();
-      }else{
-        console.log('start register sw')
-        serviceWorker.register();
-      }
+    // if (!(!!token)){ 
+    //     console.log('start unregister sw')
+    //     serviceWorker.unregister();
+    //   }else{
+    //     console.log('start register sw')
+    //     serviceWorker.register();
+    //   }
       
+      console.log('---------------------------------------------', data)
 
 
         return { context: { 
@@ -54,8 +55,88 @@ export const pageContent = store => {
             //?! пока пользователь не зарегиный у него не все данные в таблице нужно учесть 
             
             console.log('******url store******', {url}, {a: currency} )
-
-
+            //?! Здесь будем обнулять данные при переходе по страницам
+            let newContext = {
+                ...context,
+                numberCurrentOrderForAddProduct: null,
+                "init_state": {
+                    ...context.init_state,
+                    products: [],
+                    page_info: {
+                        // "id": 1,
+                        "title": "",
+                        "title_ru": "",
+                        "slug": "",
+                        "created_at": "2021-03-29T12:43:47.659811",
+                        "updated_at": "2022-06-21T13:26:22.312590",
+                        "seo_title": "",
+                        "seo_title_ru": null,
+                        "seo_keywords": "",
+                        "seo_keywords_ru": null,
+                        "seo_description": "",
+                        "seo_description_ru": null,
+                        "seo_author": "",
+                        "seo_author_ru": null,
+                        "seo_og_type": "",
+                        "seo_image": null,
+                        "content": "",
+                        "content_ru": "",
+                        "parent": null,
+                        "page_type": 1,
+                        "login_required": false,
+                        "components": []
+                    },
+                    productDetails: {
+                        "id": null,
+                        "title": "",
+                        "category": "",
+                        "brand": "",
+                        "slug": "",
+                        "minimum_rc": null,
+                        "minimum_rc_price": null,
+                        "media": [],
+                        "colors": [],
+                        "sizes": [],
+                        "collections": [],
+                        "is_new": false,
+                        "is_bestseller": false,
+                        "is_closeout": false,
+                        "is_in_stock": false,
+                        "is_liked": false,
+                        "in_cart_count": 0,
+                        "in_stock_count": 0,
+                        "prices": {
+                            "price": null,
+                            "old_price": null,
+                            "more_3_item_price": null,
+                            "more_5_item_price": null
+                        },
+                        "product_rc": "5 шт с фирмы любых моделей",
+                        "is_collection": false,
+                        "product_sku": [],
+                        "content": "",
+                        "extra": "",
+                        "short_content": "",
+                        "created_at": "",
+                        "updated_at": "",
+                        "ordering": 0,
+                        "review": {
+                            "all_count": 0,
+                            "all_count_percent": 0
+                        },
+                        "seo_title": "",
+                        "seo_keywords": "",
+                        "seo_description": "",
+                        "seo_author": "",
+                        "seo_og_type": "website",
+                        "seo_image": null,
+                        "article": "",
+                        "product_url": ""
+                    },
+                    news: [],
+                },
+            }
+            dispatch('context', newContext)
 
             const res = await api.getPage({ url })
 
@@ -70,15 +151,16 @@ export const pageContent = store => {
             // console.log('res new from url =', res.init_state)
             // console.log('res old from context = ', context)
             if (url === '/') {
+                
                 const filters = res.init_state.main_page.first_screen.filters;
                 const in_stock_product_filters = res.init_state.main_page.in_stock_product_filters;
                 const page_info = res.init_state.page_info;
-
-                const newContext = {
-                    ...context,
+                // let newContext = {};
+                newContext = {
+                    ...newContext,
                     "type": res.type,
                     "init_state": {
-                        ...context.init_state,
+                        ...newContext.init_state,
                         ...res.init_state,
                         "announce": res.init_state.announce,
                         "breadcrumbs" : res.init_state.breadcrumbs,
@@ -87,7 +169,8 @@ export const pageContent = store => {
                             ...context.init_state.profile,
                             ...res.init_state.profile
                         },
-                        "products": !!res.init_state.products.length ? res.init_state.products : [],
+                        "products_in_stock": !!res.init_state.products.length ? res.init_state.products : [],
+                        "products": [],
                         filters_params: { ...initValueCheckBoxFilters },
                         "main_page": {
                             ...res.init_state.main_page,
@@ -109,10 +192,13 @@ export const pageContent = store => {
                                 results: []
                             }
                         },
+                        dataProducts: {
+                            count: 0,
+                            results: []
+                        },
                         numberCurrentOrderForAddProduct: null
                     },
                 }
-                // console.log('newContext = ', newContext)
                 
                 dispatch('context', newContext)
 
@@ -122,10 +208,20 @@ export const pageContent = store => {
                     is_in_stock: true,
                     categories: res.init_state.main_page.in_stock_product_filters[0].id
                 }
-                const timerTimeout = setTimeout(()=>{
-                    dispatch('getCatalog',paramsInstock)
-                    return ()=>clearTimeout(timerTimeout);
-                },600)
+                const products_in_stock = await apiContent.getCatalogData(paramsInstock);
+
+                newContext = {
+                    ...newContext,
+                    "init_state": {
+                        ...newContext.init_state,
+                        products_in_stock: products_in_stock,
+                        },
+                }
+                dispatch('context', newContext)
+                // const timerTimeout = setTimeout(()=>{
+                //     dispatch('getCatalog',paramsInstock)
+                //     return ()=>clearTimeout(timerTimeout);
+                // },600)
             }
             if (url === '/registration') {
                 const newContext = {
@@ -172,15 +268,12 @@ export const pageContent = store => {
             if (url === '/news') {
                 //    console.log('ressss === ', resss) 
                 
-                const newContext = {
-                    ...context,
+                newContext = {
+                    ...newContext,
                     "type": res.type,
                     "init_state": {
-                        ...context.init_state,
-                        ...res.init_state,
-                        
-                        "news": [],
-                        numberCurrentOrderForAddProduct: null,
+                        ...newContext.init_state,
+                        ...res.init_state,                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -341,17 +434,15 @@ export const pageContent = store => {
                 return dispatch('context', newContext)
             }
             if (url === '/catalog') {
-                debugger
-                const newContext = {
-                    ...context,
+                newContext = {
+                    ...newContext,
                     "type": res.type,
                     "init_state": {
-                        ...context.init_state,
+                        ...newContext.init_state,
                         ...res.init_state,
                         filters_params: { ...initValueCheckBoxFilters },
-                        numberCurrentOrderForAddProduct: null,
                         "multy_choise_filters":{
-                            ...context.init_state.multy_choise_filters,
+                            ...newContext.init_state.multy_choise_filters,
                             "by_brand": res.init_state.multy_choise_filters.by_brand ?? [],
                             "by_categories": res.init_state.multy_choise_filters.by_categories ?? [],
                             "by_color": res.init_state.multy_choise_filters.by_color ?? [],
@@ -360,10 +451,18 @@ export const pageContent = store => {
                         },                        
                     },
                 }
-
                 dispatch('context', newContext)
-                
-                return dispatch('getCatalog')
+                let params = {};
+                const products = await apiContent.getCatalogData(params);
+                newContext = {
+                    ...newContext,
+                    "init_state": {
+                        ...newContext.init_state,
+                        dataProducts: products,
+                    }
+                }
+               return dispatch('context', newContext)
+                // return dispatch('getCatalog')
             }
             // ExportCatalog
             if (url === '/catalog_export') {
@@ -481,7 +580,7 @@ export const pageContent = store => {
                                 ...resDataCart,
                                 enableAllSelect: valueEnableAllSelectFromServer,
                                 agreeWitheRegulations: false,
-                                valueButtonNextToOrder: <Text text={'go.to.registration'} />
+                                valueButtonNextToOrder: Text({text: 'go.to.registration'})
                             },                            
                             listCurrentOrder: {
                                 ...context.init_state.listCurrentOrder,
@@ -564,21 +663,20 @@ export const pageContent = store => {
                     type: 'image',
                 }) : null );
 
-                const newContext = {
-                    ...context,
+                newContext = {
+                    ...newContext,
                     "type": res.type,
                     "init_state": {
-                        ...context.init_state,
+                        ...newContext.init_state,
                         ...res.init_state,
                         productDetails: {
-                            ...context.init_state.productDetails,
+                            ...newContext.init_state.productDetails,
                             ...resProducts,                           
                             media: [newMedia[0], ...resProducts.media],
                         },
                         youAlredyWatch: {
                             results: []
                         },
-                        numberCurrentOrderForAddProduct: null,
                     },
                 };            
                 

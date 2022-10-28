@@ -5,7 +5,7 @@ const YouHaveAlreadyWatchedContainer = ({
     youAlredyWatch, 
     currency
 }) => {
-    console.log({youAlredyWatch})
+
     return (
         <>
         {   

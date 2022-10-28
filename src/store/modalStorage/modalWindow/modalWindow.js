@@ -86,6 +86,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
                     variant={'select-feedback'}
                     name={'problem_area'}
                     value={values.problem_area}
+                    className = { 'select__feedback' }
                     onClick={e => {
                       setFieldValue('problem_area', e.target.getAttribute('value'))
                     }}
@@ -142,6 +143,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
                     type={'file'}
                     className={'wrapperBtnFile'}
                     label={'Прикрепить изображение:'}
+                    countFiles = { values.files ?? 0}
                     accept={'.png, .jpg, .jpeg, .mp4'}
                     onBlur={handleBlur}
                     multiple={null}
@@ -459,6 +461,7 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     label={'Прикрепить чек:'}
                     accept={'.png, .jpg, .jpeg, .mp4'}
                     onBlur={handleBlur}
+                    countFiles = { values.receipt ?? 0}
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
@@ -1198,8 +1201,6 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
         onSubmit={sendRequestGetMyCash}
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
-          console.log('errors', { errors })
-          console.log('values', { values })
 
           return (
             <Form onSubmit={handleSubmit}>
@@ -1291,6 +1292,7 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     label={'Прикрепить скан-копию заявления:'}
                     accept={'.png, .jpg, .jpeg, .bmp, .zip, .rar, .pdf'} //.jpg (jpeg), .png, bmp, .zip, .rar, .pdf.
                     onBlur={handleBlur}
+                    countFiles = { values.receipt ?? 0}
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
@@ -1376,5 +1378,14 @@ export const contentInfoOrder = (status, role, numberOrder) => {
       }
     </p>
 
+  )
+}
+
+export const contentInfoCollection = () => {
+
+  return (
+    <>
+    
+    </>
   )
 }
