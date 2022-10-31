@@ -4,10 +4,10 @@ import { ROLE } from '../../const';
 
 const RightSide = ({ children, role, openModalFeedbackReedFile, site_configuration }) => {
   const privacyPolicy = () => {
-    openModalFeedbackReedFile(site_configuration.policy);
+    openModalFeedbackReedFile(site_configuration.policy, 'Политика конфиденциальности');
   }
   const heandlerPolicy = () => {
-    openModalFeedbackReedFile(site_configuration.public_offer_1);
+    openModalFeedbackReedFile(site_configuration.public_offer_1, 'Пользовательское соглашение');
   }
   
   return (

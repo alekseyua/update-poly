@@ -239,10 +239,26 @@
         padding: 0;
         height: 100%;
         width: 80vw;
+        &>div.modal-provider__content {
+            height: 100%;
+        }
         @include mobile {
             width: 100%;
         }
     }
+    //.modal-policy{}
+    &-policy{
+        padding: 0;
+        height: 100%;
+        width: 80vw;
+        &>div.modal-provider__content {
+            height: 100%;
+        }
+        @include mobile {
+            width: 100%;
+        }
+    }
+
     //.modal-specification{}
     &-specification{
         padding: 0;

@@ -100,50 +100,13 @@ const Registration = (props) => {
     dispatch('stepDecrement', step)
   };
   
-  //     const openModalFeedbackReedFile = (file) => { 
-  //       const closeModal = () => { 
-  //         dispatch('modal/update', {
-  //           show: false,
-  //           content: null,
-  //           addClass: false,
-  //         });
-  //       };
-  //       const renderPage = (props) => {
-  //           return (
-  //               <>
-  //                   {props.canvasLayer.children}
-  //                   <div style={{ userSelect: 'none' }}>{props.textLayer.children}</div>
-  //                   {props.annotationLayer.children}
-  //               </>
-  //           );
-  //       };
-    
-  //       dispatch('modal/update', {
-  //         show: true,
-  //         addClass: 'modal-file_views',
-  //         content: (
-  //                 <ModalPreviewFile closeModal={closeModal}>
-  //                   <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-  //                       <div id="pdfviewer" style={{overflow:'auto'}}>
-  //                         <Viewer 
-  //                           fileUrl={`${file}`}
-  //                           defaultScale = {'PageWidth'}
-  //                           renderPage={renderPage}
-  //                           theme={{
-  //                             theme: 'dark',
-  //                           }}
-  //                           httpHeaders={{
-  //                             Authorization: `Token ${getCookie('ft_token')}`,
-  //                           }}
-  //                           withCredentials={true}
-  //                         />
-  //                       </div>
-  //                   </Worker>
-    
-  //                 </ModalPreviewFile>
-  //           )
-  //       })
-  //     }
+      const openModalFeedbackReedFile = (link, title) => { 
+           dispatch('pdf-viewer', {
+              link: link,
+              title: title,
+              addClass: 'modal-policy'
+           })  
+      }
     
 
  
@@ -159,7 +122,7 @@ const Registration = (props) => {
     <AuthorizationAndRegViews.RightSide 
       role={roleRegister}
       site_configuration={site_configuration}
-      // openModalFeedbackReedFile={openModalFeedbackReedFile}
+      openModalFeedbackReedFile={openModalFeedbackReedFile}
     >
     {step !== 0 ? (
         <AuthorizationAndRegViews.StepsBreadcrumbs

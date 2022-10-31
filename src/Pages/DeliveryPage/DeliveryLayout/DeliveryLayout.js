@@ -24,13 +24,6 @@ const DeliveryLayout = ({ breadcrumbs, role, title = '', retailData ='', whosale
                         : title                    
                     }
                 </Title>
-                <InformationViews.PaymentsTextBlock>
-                    <InformationViews.PaymentsTitle>{retailData.title}</InformationViews.PaymentsTitle>
-    
-                    <InformationViews.PaymentsDescription>
-                        <div dangerouslySetInnerHTML={{ __html: retailData.content }}></div>
-                    </InformationViews.PaymentsDescription>
-                </InformationViews.PaymentsTextBlock>
             </InformationViews.PaymentsConteiner>
             {
             

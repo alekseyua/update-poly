@@ -5,15 +5,17 @@
 .input{
     &__wrapper{
         width: 100%;
-        // margin: 0 0 7px 0;
         display: flex;
         justify-content: space-between;
         padding: 10px;
         border: 1px solid $dg2;
         border-radius: 2px;
-        // max-height: 40px;
         position: relative;
         margin-bottom: 15px;
+        min-width: 325px;
+        @include mobile {
+            min-width: 280px;
+        }
     }
     //.input__input{}
     &__input{
