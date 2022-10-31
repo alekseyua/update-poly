@@ -1,6 +1,7 @@
 import React from 'react';
 import LayoutDropDownMenuAccount from '../../Views/LayoutDropDownMenuAccount';
 import DropDownHeaderLK from '../../Views/DropDownHeaderLK';
+import Text from '../../helpers/Text';
 // import Text from '../Text';
 
 const Dropshipper = ({
@@ -20,7 +21,7 @@ const Dropshipper = ({
       <DropDownHeaderLK.PersonalInfo
         first_name={first_name}
         last_name={last_name}
-        // titleRole={Text({ text: 'dropshipper' })}
+        titleRole={Text({ text: 'dropshipper' })}
       />
       <DropDownHeaderLK.Line />
       <DropDownHeaderLK.Menu cabinet_menu={cabinet_menu} />

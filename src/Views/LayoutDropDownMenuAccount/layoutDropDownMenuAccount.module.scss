@@ -40,30 +40,26 @@
             bottom: 55px;
             &::before{
                 content: '';
-                // top: 0;
                 width: 0px;
                 height: 0px;
-                // background-color: #000;
                 position: absolute;
-                // transform: translate(139px, 367px) rotate(134deg); //translate(138px, 188px) rotate(134deg);
-                left: 154px;
-                top: 279px;
-                transform: rotate(134deg); 
                 border: 11px solid;
                 border-color: $g2 $g2 transparent transparent;        
+                left: 50%;
+                top: 100%;
+                transform: translate(-50%, -10px) rotate(134deg);
             }
             &::after{
                 content: '';
-                // top: 0;
                 width: 21px;
                 height: 21px;
                 position: absolute;
-                //transform:  translate(52px, 45px) rotate(134deg); //translate(139px, 5px) rotate(133deg);
-                left: 154px;
-                top: 279px;
-                transform: rotate(134deg);                
+                left: 50%;
+                top: 100%;
+                transform: translate(-50%, -10px) rotate(134deg);               
                 border: 2px solid;
                 border-color: $dg $dg transparent transparent;
+
             }
         }
 }

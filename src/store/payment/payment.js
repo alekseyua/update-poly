@@ -1,7 +1,7 @@
 import api from "../../api/api";
 import { ROLE } from "../../const";
 import Text from "../../helpers/Text";
-import { errorAlertIcon } from "../../images";
+import { errorAlertIcon, successAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 
 export const payment = store => {
@@ -27,16 +27,6 @@ export const payment = store => {
                 total_cost: price,
                 add_goods_order_id: +numberCurrentOrderForAddProduct ?? 0, // localStore берём номер заказа куда добавить товар по старому отправляем 0 если нет добавления
             };
-
-
-           
-            // passport_number: values.serias_and_number_passport,
-            // passport_issued: values.issued_passport,
-            // passport_issue_date: date && date !== 'Invalid Date' ? date : null,            
-            // comment_passport: values.comment,
-            // comment_order: values.comment_order,
-
-
 
             role === ROLE.RETAIL && !!!numberCurrentOrderForAddProduct?
                 params = {
@@ -71,13 +61,23 @@ export const payment = store => {
                 if(numberCurrentOrderForAddProduct){
 
                     dispatch('setNumberOrderForAddProducts', {numberOrder: null} );    
-
-                    return obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
+                    const message = ['Благодарим за Ваш выбор.', 'Товары добавлены в Ваш заказ', 'Приятного шопинга в мире моды']
+                    dispatch('setModalState', {
+                        show: true,
+                        content: textErrorMessage(message),
+                        iconImage: successAlertIcon,
+                        addClass: 'modal-alert-error',
+                        action: {
+                            title: ['продолжить', null]
+                        },
+                        onClick: () => obj.redirectTo('/orders'),
+                        closeModal: () => obj.redirectTo('/orders')
+                    })
+                    return //obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
                 }
 
             //?! если баланс меньше суммы заказа показать попап для оплаты суммы и прикладывания чека об оплаты
                 if ( balance < total_price ){
-                    // let res = {id:null}
                     const order_id = res.id;
                     const params = {
                         order_id: order_id, 
@@ -90,10 +90,24 @@ export const payment = store => {
                     }
                     return dispatch('modalCheckPayment', params)
                 }
-            //?! если больше переходим на страницу orders
-                console.log('test after return in if', balance > total_price)
-                obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
 
+                //?! если больше переходим на страницу orders
+                
+                //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
+                const message = ['Благодарим за Ваш выбор.', 'Денежные средства будут списаны с Вашего счёта', 'Приятного шопинга в мире моды']
+                    dispatch('setModalState', {
+                        show: true,
+                        content: textErrorMessage(message),
+                        iconImage: successAlertIcon,
+                        addClass: 'modal-alert-error',
+                        action: {
+                            title: ['продолжить', null]
+                        },
+                        onClick: () => obj.redirectTo('/orders'),
+                        closeModal: () => obj.redirectTo('/orders')
+                    })
+                return
+                    //obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
 
             } catch (err) {
                 console.log('ERROR CREATE PAYMENT METHOD', err)

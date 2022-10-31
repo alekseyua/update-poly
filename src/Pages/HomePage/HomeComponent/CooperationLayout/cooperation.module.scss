@@ -15,7 +15,7 @@
     height: 639px;
     margin: 0 auto;
     @media (max-width: 787px) {
-      height: 100%;
+      // height: 100%;
     }
     @include padding-for-mobile;
     @include tablet-lg {

@@ -355,9 +355,23 @@ export const payment = async (order_id, balance, total_price, currency, first_na
         } else {
           fdPayments.set('receipt', data?.receipt[0]);
           const resCreatePayment = await orderApi.createPayments(fdPayments)
-          debugger
-          if (!order_id) return closeModalState();
-          redirectTo ? redirectTo('/orders') : null;
+
+          
+          //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
+          const message = ['Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.', 'Приятного шопинга в мире моды']
+          dispatch('setModalState', {
+              show: true,
+              content: textErrorMessage(message),
+              iconImage: successAlertIcon,
+              addClass: 'modal-alert-error',
+              action: {
+                  title: ['продолжить', null]
+              },
+              onClick: () => !order_id? closeModalState() : obj.redirectTo('/orders'),
+              closeModal: () => !order_id? closeModalState() : obj.redirectTo('/orders')
+          })
+          //redirectTo ? redirectTo('/orders') : null;
+          dispatch('getBalace');
         }
       } catch (err) {
 
