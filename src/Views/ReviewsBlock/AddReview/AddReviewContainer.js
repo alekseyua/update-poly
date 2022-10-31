@@ -20,12 +20,10 @@ const AddReviewContainer =({
             dataFormik: dataFormik
           };
         dispatch('sendReview', params)
-
     }
 
     return(
         <FormAddReview
-
             sendReview={sendReview}  
             productId={productId}
             profileId={profileId}

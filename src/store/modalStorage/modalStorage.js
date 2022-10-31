@@ -64,8 +64,17 @@ export const modalStorage = store => {
 
     store.on('feedback', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
-            const { first_name, last_name, middle_name, email } = context.init_state.profile.user;
-            const fullName = (first_name || last_name || middle_name) ? `${first_name} ${last_name} ${middle_name}` : '';
+            const first_name = context.init_state.profile.user?.first_name;
+            const last_name = context.init_state.profile.user?.last_name;
+            const middle_name = context.init_state.profile.user?.middle_name;
+            const email = context.init_state.profile.user?.email;
+            let fullName = '';
+             fullName = (first_name || last_name || middle_name) ? `${last_name} ${middle_name}` 
+             : (last_name || middle_name) ? `${last_name} ${middle_name}` 
+             : (first_name || middle_name) ? `${first_name} ${middle_name}` : 
+             (first_name || last_name) ? `${first_name} ${last_name}` 
+             : '';
+
             dispatch('setModalState', {
                 show: true,
             })

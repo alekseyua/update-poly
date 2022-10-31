@@ -24,7 +24,7 @@ const ModalAddReview = ({
       onSubmit={sendReview}
     >
       {({ handleSubmit, values, setFieldValue, handleBlur, handleChange }) => {
-
+console.log({values})
        const canselationCallback = (e) => {
           let arr = [];
           !!values?.uploadFiles?(
@@ -33,7 +33,7 @@ const ModalAddReview = ({
           ): null;
           setFieldValue('content', '');
           setFieldValue('stars', 0);
-          !!values.iAgreeDataProcessing? setFieldValue('iAgreeDataProcessing', false): null;
+          !!!values.iAgreeDataProcessing? setFieldValue('iAgreeDataProcessing', true): null;
           setFieldValue( 'activeButton', true )
         }
         return (
@@ -42,7 +42,8 @@ const ModalAddReview = ({
               <textarea
                 value={!!values.content ? values.content : ''}
                 onChange = { (e) => { 
-                  values.content && !!values.stars && values.iAgreeDataProcessing && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                  // console.log('test input text area = ', {values}, { e: e.target.value })
+                  !!e.target.value && !!values.stars && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                   handleChange(e)
                 }}
                 className={style["productreviews__form-textarea"]}
@@ -65,7 +66,8 @@ const ModalAddReview = ({
                 multiple={null}
                 setFieldValue={setFieldValue}
                 onChange = { (e) => { 
-                  values.content && !!values.stars && values.iAgreeDataProcessing && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                  // console.log('test upload', {values}, {e: e.currentTarget.files.length})
+                  !!values.content && !!values.stars && !!e.currentTarget.files.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                 }}
               />
 
@@ -73,8 +75,9 @@ const ModalAddReview = ({
               <ReviewsElementBlock.FormAddReviewRating
                 values={values}
                 setFieldValue={setFieldValue}
-                onChange = { (e) => { 
-                  values.content && !!values.stars && values.iAgreeDataProcessing && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                onChange = { (e, countStar) => { 
+                  // console.log('test star =', {values}, { e: e}, {value})
+                  !!values.content && !!countStar && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                 }}
               />
 
@@ -93,8 +96,9 @@ const ModalAddReview = ({
                 productId={productId}
                 profileId={profileId}
                 onChange = { (value) => { 
+                  console.log('test ', {values}, {value})
 
-                  values.content && !!values.stars && value && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
+                  // values.content && !!values.stars && value && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
                 }}
               />
 

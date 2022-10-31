@@ -345,6 +345,7 @@ export const reviews = store => {
 
         dispatch('setModalState',{
             show: true,
+            title: '',
             content: addReviewsFunc(closeModalState)
         })
     })

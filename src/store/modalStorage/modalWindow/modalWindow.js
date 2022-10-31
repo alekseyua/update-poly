@@ -354,9 +354,7 @@ export const payment = async (order_id, balance, total_price, currency, first_na
           setFieldError('receipt', 'Вы не приложили квитанцию об оплате')
         } else {
           fdPayments.set('receipt', data?.receipt[0]);
-          const resCreatePayment = await orderApi.createPayments(fdPayments)
-
-          
+          const resCreatePayment = await orderApi.createPayments(fdPayments);          
           //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
           const message = ['Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.', 'Приятного шопинга в мире моды']
           dispatch('setModalState', {
@@ -372,6 +370,7 @@ export const payment = async (order_id, balance, total_price, currency, first_na
           })
           //redirectTo ? redirectTo('/orders') : null;
           dispatch('getBalace');
+          dispatch('getPayments');          
         }
       } catch (err) {
 

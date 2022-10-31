@@ -5,7 +5,7 @@ const BalancePage = ({
     context
 }) => {
 
-    console.log({ BalancePage: context })
+    // console.log({ BalancePage: context })
 
     const {        
         cabinet_site_menu,

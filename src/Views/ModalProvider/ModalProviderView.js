@@ -32,11 +32,11 @@ const ModalProviderView = ({
     addClass,
     style,
     ...props}) => {
+
     const [ showPopup, setShowPopup ] = useState({
         container : 'modal-provider__container',
         popup: 'modal-provider__body'
     });
-
 
     useEffect(()=>{
 
@@ -85,7 +85,11 @@ const ModalProviderView = ({
                 {
                     content?
                     <>
-                        <div className={styleModal['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div>
+                        { 
+                            !!title? 
+                                <div className={styleModal['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div> 
+                                : null 
+                        }
                         <div className={styleModal['modal-provider__content']}>
                                 {content}
                         </div>

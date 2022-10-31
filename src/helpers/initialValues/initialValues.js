@@ -176,7 +176,7 @@ export const optionsFiltersCatalog = [
 ];
 
 export const reviewInitialState = {
-  iAgreeDataProcessing: false,
+  iAgreeDataProcessing: true,
   uploadFiles: [],
   content: '',
   stars: 0,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { startTransition, useEffect, useState } from 'react';
 import FiltersReviewsHome from '../../../../Views/FiltersReviewsHome';
 
 import ReviewsCard from '../../../../Views/ReviewsCard';
@@ -51,6 +51,7 @@ const MainReviewsLayout = ({ service_reviews, product_reviews, profileId, review
     // autoplay: {
     //   delay: 5000,
     // },
+    autoplay:2000,
     centeredSlides: true,
     watchSlidesProgress: true,
   };

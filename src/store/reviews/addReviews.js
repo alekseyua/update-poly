@@ -3,7 +3,6 @@ import AddReviewContainer from "../../Views/ReviewsBlock/AddReview/AddReviewCont
 
 
 export const addReviewsFunc = (closeModalState) => {
-    console.log('start reviews');
     return (
         <AddReviewContainer
             closeModalState = { closeModalState }

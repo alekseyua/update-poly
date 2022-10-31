@@ -15,7 +15,7 @@ const InformationRewievsLayoutComtainer = ({ title, breadcrumbs, reviews, insta_
   }
 
   const changeIswithMedia = (e) => {
-    const value = e.target.checked;
+    const value = e.checked;
     if (value) {
       setResultsReversed([])
       setFilterParams(c => ({ ...c, is_with_media: !c.is_with_media }))
