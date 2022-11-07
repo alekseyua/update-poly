@@ -7,48 +7,22 @@ import DatePicker from 'react-date-picker/dist/entry.nostyle';
 import style from '../../../Views/MyOrderViews/styles/index.module.scss';
 import '../../../Views/MyOrderViews/styles/celender.scss';
 import '../../../Views/MyOrderViews/styles/datepicker.scss';
+import Input from '../../../Views/Input';
+import Icon from '../../../Views/Icon';
+import { searchIcon } from '../../../images';
 
 const BaseInfoOrder = ({
+  searchOrderForFio,
   dateFilterData,
-  statuses = [],
-  orders,
-  
-  getDataOrdersFilters,
+  options,
+  changeStatusFilter,
+  changeValueSearch,
+  selectCreateFrom,
+  selectCreateTo,
+
 }) => {
 
-  const options = statuses.map((el) => {
-    return {
-      title: `${el.title} (${el.count})`,
-      value: el.status,
-    };
-  });
-
-  options.unshift({
-    title: `Все заказы`,
-    value: null,
-  });
-
-  const changeStatusFilter = (e) => {
-    const statusFilter = e.target.getAttribute('value');
-    getDataOrdersFilters({
-      status: statusFilter,
-    })
-
-  };
-
-  const selectCreateTo = (date) => {
-    console.log('date to = ', {date})
-    getDataOrdersFilters({
-      created_at__gte: date,
-    })
-  };
-
-  const selectCreateFrom = (date) => {
-    console.log('date from = ', {date})
-    getDataOrdersFilters({
-      created_at__lte: date
-    })
-  };
+  
  return (
     <div className={style['cabinet-content']}>
       <div className={style['cabinet-heading']}>  
@@ -93,8 +67,20 @@ const BaseInfoOrder = ({
                 </div>
                 : null
           }
-
           </div>
+            <div className={style['cabinet-topfilter__left']}>
+              <Input
+                className={'cabinet-lk__search'}
+                value = { searchOrderForFio ? searchOrderForFio : '' }
+                name = { 'search-order' }
+                onChange = { changeValueSearch }
+                placeholder = { 'Поиск по ФИО' }
+                helpText = {
+                  <Icon src = {searchIcon} className = { style['cabinet-topfilter__search-icon'] } width = { 20 } height = { 20 } />
+                }
+              />
+            </div>
+
     </div>
   );
 };

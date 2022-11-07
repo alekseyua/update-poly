@@ -31,7 +31,7 @@ const ProductsInStockLayout = ({
             <div className={style['products-in-stock__list']}>
               {children}
             </div>
-            <MoreLink url={catalog_url}>
+            <MoreLink url={'/catalog?is_in_stock=true&page=1'}>
               <Text text={'show_all'} />
             </MoreLink>
           </div>

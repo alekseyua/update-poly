@@ -27,6 +27,7 @@ const OrderDetailsPersonalPageLayout = ({
     updated_at,
     order_cost,
     created_at,
+    numberOrder,
     delivery_cost,
     delivery_method,
     delivery_address,
@@ -83,6 +84,7 @@ const OrderDetailsPersonalPageLayout = ({
                                 updated_at = { updated_at }
                                 order_cost = { order_cost }
                                 created_at = { created_at }
+                                numberOrder = { numberOrder }
                                 delivery_cost = { delivery_cost }
                                 delivery_method = { delivery_method }
                                 fullNumberOrder = { fullNumberOrder }

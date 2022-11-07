@@ -10,8 +10,8 @@
   //.cabinet-orders{}
   &-orders{
     padding: 0;
+    position: relative;
   }
-
   &-row {
     @include row(15);
   }
@@ -177,7 +177,13 @@
     @include mobile {
       flex-direction: column;
     }
-
+    //.cabinet-topfilter__search-icon{}
+    &__search-icon{
+      padding: 0;
+      position: absolute;
+      left: 5px;
+      top: 12px;
+    }
 
   }
 

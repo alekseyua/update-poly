@@ -27,7 +27,7 @@ const Table = ({ classNameTable, tableHeaderData, tableBodyData = [], statusLoad
         }
       </thead>
       <tbody>
-        {
+        {/* {
         statusLoad !== 'loading' ? (
           <tr>
             <td colSpan={5}>
@@ -35,7 +35,7 @@ const Table = ({ classNameTable, tableHeaderData, tableBodyData = [], statusLoad
             </td>
           </tr>
         ) : null
-        }
+        } */}
         
         {
           !!tableBodyData.length?

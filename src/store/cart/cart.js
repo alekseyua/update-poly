@@ -78,7 +78,7 @@ export const cart = store => {
                         in_stock: res.in_stock,
                         ...res,
                         enableAllSelect: valueEnableAllSelectFromServer,
-                        agreeWitheRegulations: false,
+                        agreeWitheRegulations: true,
                     },
                     profile: {
                         ...context.init_state.profile,
@@ -142,7 +142,7 @@ export const cart = store => {
                         cartitem_set: res.cartitem_set,
                         in_stock: res.in_stock,
                         enableAllSelect: valueEnableAllSelectFromServer,
-                        agreeWitheRegulations: false
+                        agreeWitheRegulations: true
                     },
                     profile: {
                         ...context.init_state.profile,
@@ -208,7 +208,7 @@ export const cart = store => {
                         dataCart: {
                             ...newDataCart,
                             enableAllSelect: valueEnableAllSelectFromServer,
-                            agreeWitheRegulations: false
+                            agreeWitheRegulations: true
                         },
                         profile: {
                             ...context.init_state.profile,
@@ -276,7 +276,7 @@ export const cart = store => {
                         ...context.init_state.dataCart,
                         cartitem_set: newCartItemSet,
                         enableAllSelect: !enableAllSelect,
-                        agreeWitheRegulations: false
+                        agreeWitheRegulations: true
                     }
                 },
             }
@@ -322,7 +322,7 @@ export const cart = store => {
                         dataCart: {
                             ...newDataCart,
                             enableAllSelect: valueEnableAllSelectFromServer,
-                            agreeWitheRegulations: false
+                            agreeWitheRegulations: true
                         },
                         profile: {
                             ...context.init_state.profile,

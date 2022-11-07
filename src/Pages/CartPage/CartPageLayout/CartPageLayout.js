@@ -59,9 +59,6 @@ const CartPageLayout = ({
     decCounterProduct,
     incCounterProduct,
 }) => {
-    console.log('numberCurrentOrderForAddProduct', {numberCurrentOrderForAddProduct}, {opt_minimum_price})
-
-
 
     const labelLink = () => {
         return (
@@ -318,13 +315,10 @@ const CartPageLayout = ({
                             onClick={handleGoToOrder}                            
                         >
                             { valueButtonNextToOrder }
-                            {/* <Text text={'go.to.registration'} /> */}
-                            {/* {valueButton} */}
                         </LinkToFirmalization>
 
                         {/* //?! 
                           */}
-                        {/* <BlockRightSide mt={20} mb={20} fd={'column'}> */}
                             <CheckBox
                                 variant={'informations_block'}
                                 checked={agreeWitheRegulations}
@@ -336,10 +330,6 @@ const CartPageLayout = ({
                                 label={labelLink()}
                             >
                             </CheckBox>
-                        {/* </BlockRightSide> */}
-
-
-
                     </WrapperRightSide>
                 </BlockGrid.CollPageRight>
             </BlockGrid.CollPageContainer>

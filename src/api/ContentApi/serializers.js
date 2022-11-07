@@ -33,7 +33,6 @@ export const newsCardSerializer = (data) => {
       ...el,
       title: el.title,
       image: el.image,
-      created_at: dayjs(Api.language, el.created_at).format('DD MMMM YYYY'),
       content: el.content,
       description: el.description,
       slug: el.slug,

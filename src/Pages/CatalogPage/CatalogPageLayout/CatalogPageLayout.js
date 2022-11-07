@@ -67,10 +67,10 @@ const CatalogPageLayout = ({
   checkIsShowCategorysAndProducType,
   handlerChangePaginations ,
   showMore,
-  
+  showMoreSpinner,
 }) => {
 
-
+console.log('!!!dataProducts?.results.length && showFilters', dataProducts?.results.length , showFilters)
   return (
     <React.Fragment>
       <Block.Container>
@@ -197,8 +197,8 @@ const CatalogPageLayout = ({
                 </CatalogViews.Wrapper>
               </CatalogViews.Filters>
 
-              {
-                !showFilters ?
+              {/* {
+                showFilters ? */}
 
 
                   <CatalogViews.Catalog>
@@ -214,12 +214,12 @@ const CatalogPageLayout = ({
                       options={options}
                     />
                     {/* {status === 'loading' ? ( */}
-                    { 
+                    {/* { 
                      !!dataProducts?.result?.length ? (
                       <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
                           <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
                         </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                     ) : (
+                     ) : ( */}
                     <>
                       <CatalogViews.Tags>
 
@@ -328,9 +328,9 @@ const CatalogPageLayout = ({
                       }
                       {
                         !!dataProducts?.results.length?
-                      <CatalogViews.WrapperCard>
+                          <CatalogViews.WrapperCard>
                             {
-                                dataProducts?.results?.map((el) => {
+                                dataProducts.results.map((el) => {
                                 return (
                                   <AsyncProductCard
                                     role = { role }
@@ -355,21 +355,23 @@ const CatalogPageLayout = ({
                                   );
                                 })
                             }
+                            {
+                              showMoreSpinner?
+                                  <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                                    <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
+                                  </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                                  : null
+                            }
                           </CatalogViews.WrapperCard> 
-                        
-                        
-                        
-                        :  <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                          <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
-                        </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-}
+                        :  null
+                        }
                        {
                           dataProducts?.results.length  < dataProducts?.count && currentPage * 30 < dataProducts?.count? (
                             <Button full onClick={showMore} variant={'show_more'}>
                               <Text text={'show.more'} />
                             </Button>
                           ) : null
-                          }
+                        }
 
                       <Pagination
                         location = {'left'}
@@ -379,10 +381,10 @@ const CatalogPageLayout = ({
                         handlerChangePaginations = { handlerChangePaginations }
                       />
                     </>
-                    )}
+                    {/* )} */}
                   </CatalogViews.Catalog>
-                  : null
-              }
+                  {/* : null
+              } */}
             </React.Fragment>
           </CatalogViews.Row>
         </React.Fragment>

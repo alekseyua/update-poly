@@ -764,23 +764,23 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
             [style['information-howto__switcher-heading']]: true,
             [style['active']]: !russiasStandart,
           })}
-          onClick={() => russiasStandart?handClick():null}
+          onClick={ () => russiasStandart? handClick() : null }
         >
-          <Text text={!!productTableVariant ? 'er.size' : 'euro.standart.size'} />
+          <Text text={ !!productTableVariant? 'er.size' : 'euro.standart.size'} />
         </div>
       </div>
       {russiasStandart ? (
         <Table
-          classNameTable={styleTableHowto}
-          tableBodyData={state.tableBodyDataRu}
-          tableHeaderData={!!productTableVariant ? [] : state.tableHeaderDataRu}
+          classNameTable = { styleTableHowto }
+          tableBodyData = { state.tableBodyDataRu }
+          tableHeaderData = { !!productTableVariant? [] : state.tableHeaderDataRu }
         />
       ) : (
 
         <Table
-          classNameTable={styleTableHowto}
-          tableBodyData={state.tableBodyDataEu}
-          tableHeaderData={!!productTableVariant ? [] : state.tableHeaderDataEu}
+          classNameTable = { styleTableHowto }
+          tableBodyData = { state.tableBodyDataEu }
+          tableHeaderData = { !!productTableVariant? [] : state.tableHeaderDataEu }
         />
       )}
         {slug !== 'how_to'?
@@ -791,6 +791,7 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
               сайте, могут отличаться. Если вы затрудняетесь с определением своего размера, просьба
               обратиться в нашу техническую поддержку.
             </p>
+            
             <Button href={'/information/how_to'} variant={'cancel-black-full'}>
               <Text text={'how.choose.size'} />
             </Button>

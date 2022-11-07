@@ -23,12 +23,14 @@ const CatalogPageLayoutContainer = ({
 }) => {
   const { dispatch } = useStoreon();
   const [showFilters, setShowFilters] = useState(false);
+  const [showMoreSpinner, setShowMoreSpinner] = useState(false);
   const [offsetTopBtnSubmit, setOffsetTopBtnSubmit] = useState(0)
   const [valueProducts, setValueProducts] = useState(initialValuesFilters)
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
   const [filterParams, setFilterParams] = useState(initValueCheckBoxFilters)
 
   const loadData = (data) => {
+    setShowFilters(true)
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...filterParams, ...data }
     })
@@ -55,10 +57,12 @@ const CatalogPageLayoutContainer = ({
   };
 
   const resetAllFilters = (e) => {
+    setShowFilters(false)
     e.preventDefault();
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...initValueCheckBoxFilters }
     })
+
   }
 
   const resetContextFilter = (key, id) =>{
@@ -80,6 +84,7 @@ const CatalogPageLayoutContainer = ({
   }
 
   const showMore = () => {
+    setShowMoreSpinner(true)
     dispatch('showMoreCatalog', {
       ...filterParams
     })
@@ -159,7 +164,8 @@ const CatalogPageLayoutContainer = ({
     !!Object.keys(multy_choise_filters).length ?
       setValueProducts(c => ({
         ...c,
-        categories: [...categories],
+        // categories: [...categories],
+        categories: [...multy_choise_filters.by_type],
         brands: [...multy_choise_filters.by_brand],
         colors: [...multy_choise_filters.by_color],
         sizes: [...multy_choise_filters.by_size],
@@ -178,7 +184,9 @@ const CatalogPageLayoutContainer = ({
       ) : null
   }, [filters_params])
 
-
+  useEffect(()=>{
+    setShowMoreSpinner(false)
+  },[dataProducts?.results.length])
   return (
     <CatalogPageLayout
       breadcrumbs={breadcrumbs}
@@ -208,7 +216,7 @@ const CatalogPageLayoutContainer = ({
       resetAllFilters={resetAllFilters}
       checkIsShowCategorysAndProducType={checkIsShowCategorysAndProducType}
       handlerChangePaginations = { handlerChangePaginations }
-
+      showMoreSpinner = { showMoreSpinner }
     />
   )
 }

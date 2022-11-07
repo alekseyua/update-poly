@@ -13,7 +13,7 @@
     padding: 0;
     &>video{
       height: 100%;
-      object-fit: cover;
+      object-fit: fill;
     }
   }
   // height: calc(100vh - 160px);

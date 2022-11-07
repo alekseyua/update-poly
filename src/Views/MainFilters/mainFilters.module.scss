@@ -20,6 +20,7 @@
     &__list {
         width: auto;
         height: 70px;
+        @include scrollbar;
         @include tabs;
         @include tablet-lg {
             justify-content: unset;

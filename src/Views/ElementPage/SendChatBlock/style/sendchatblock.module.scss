@@ -8,6 +8,9 @@
         background: rgba(243, 239, 243, 0.3);
         box-shadow: inset -2px 0px 4px rgba(0, 0, 0, 0.04), inset 2px 0px 4px rgba(0, 0, 0, 0.04);
         @include flex(sc);
+        &>div{
+            min-width: 265px !important;
+        }
     }
     //.cabinet-orders-details__comment-input{}
     &__comment-input{

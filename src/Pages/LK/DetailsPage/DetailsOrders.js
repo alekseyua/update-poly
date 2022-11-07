@@ -30,6 +30,7 @@ const DetailsOrders = ({
     updated_at,
     order_cost,
     created_at,
+    numberOrder,
     delivery_cost,
     delivery_method,
     delivery_address,
@@ -92,7 +93,7 @@ const DetailsOrders = ({
                 currency={currency}
                 delivery_cost={delivery_cost}
                 delivery_method={delivery_method}
-                fullNumberOrder={fullNumberOrder}
+                numberOrder={numberOrder}
                 delivery_address={delivery_address}
                 payment_method={payment_method}
                 specification={specification}
@@ -151,6 +152,8 @@ const DetailsOrders = ({
                                         image={el.image}
                                         url={el.product_url}
                                         can_cancel={el.can_cancel}
+                                        redeemed = { el.redeemed }
+                                        sended = { el.sended }
                                         currency = { currency } 
                                         contextChats = { contextChats[0] }
 
@@ -188,6 +191,8 @@ const DetailsOrders = ({
                                                         role={role}
                                                         can_cancel={item.can_cancel}
                                                         currency = { currency }
+                                                        redeemed = { item.redeemed }
+                                                        sended = { item.sended }
                                                         
                                                         deleteElementOrder={deleteElementOrder}
                                                         sendCommentFromTextField = { sendCommentFromTextField }

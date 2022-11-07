@@ -10,8 +10,6 @@ import InformationLayoutContainer from './InformationLayout/InformationLayoutCon
 
 
 const Information = (props) => {
-  console.log('information', props)
-
   const { page_info, breadcrumbs } = props.context;
   const { components } = page_info;
 

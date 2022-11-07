@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 import Icon from '../Icon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
@@ -23,7 +23,7 @@ const Slider = ({
     return (
         <Swiper
             // install Swiper modules
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
             {...paramsSlider}
         // spaceBetween={50}
         // slidesPerView={3}

@@ -42,16 +42,15 @@ const MainReviewsLayout = ({ service_reviews, product_reviews, profileId, review
   const paramsSlider = {
     slidesPerView: 1,
     spaceBetween: 100,
-    speed: 2400,
+    speed:3400,
     observer: true,
     observeParents: true,
     pagination: true,
     navigation: true,
     loop: true,
-    // autoplay: {
-    //   delay: 5000,
-    // },
-    autoplay:2000,
+    autoplay: {
+      delay: 4000,
+    },
     centeredSlides: true,
     watchSlidesProgress: true,
   };

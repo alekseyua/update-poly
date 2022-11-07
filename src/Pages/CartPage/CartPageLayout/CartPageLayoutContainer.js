@@ -27,18 +27,7 @@ const CartPageLayoutContainer = ({
     role,
 }) => {
     const { dispatch } = useStoreon();
-    const navigate = useNavigate();
-    // if ( role === ROLE.UNREGISTRED){
-    //     dispatch('getDataCart',{
-    //         path: '/catalog',
-    //         redirectTo: (to) => {
-    //             const timerTimeout = setTimeout(()=>{
-    //               navigate(to);
-    //               return () => clearTimeout(timerTimeout);          
-    //             },100)
-    //           }
-    //     })
-    // }
+
     const deleteProductFromCart=(id)=>{
         const params = {
             id: id
@@ -52,7 +41,6 @@ const CartPageLayoutContainer = ({
             qty: qty,
             selected: selected
         }]
-        // console.log('eeee', params)
         dispatch('updateInProductCard', params)
     }
 
@@ -79,7 +67,6 @@ const CartPageLayoutContainer = ({
     const selectAllItemsInCart = () => dispatch('selectAllItemsInCart');
    
     const openModalListAddCurrencyOrdering = () => {
-        console.log('open list odering for shoose add products')
         dispatch('modalOpenListForAddProduct')
     }
 

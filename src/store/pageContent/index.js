@@ -579,7 +579,7 @@ export const pageContent = store => {
                                 in_stock: resDataCart.in_stock,
                                 ...resDataCart,
                                 enableAllSelect: valueEnableAllSelectFromServer,
-                                agreeWitheRegulations: false,
+                                agreeWitheRegulations: true,
                                 valueButtonNextToOrder: Text({text: 'go.to.registration'})
                             },                            
                             listCurrentOrder: {
@@ -694,6 +694,8 @@ export const pageContent = store => {
             }
 
             if (url === '/order') {
+            
+                const resBalance = await api.getUserBalance({"currency": currency});
                 const paramsAddress = {
                     page: 1
                 }
@@ -707,7 +709,13 @@ export const pageContent = store => {
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
-                        ...res.init_state,  
+                        ...res.init_state, 
+                        profile:{
+                            ...context.init_state.profile,
+                            balance: resBalance.balance,
+                            opt_minimum_price: resBalance.opt_minimum_price,
+                            passive_balance: resBalance.passive_balance,
+                        }, 
                         // numberCurrentOrderForAddProduct: null,
                     }
                 }

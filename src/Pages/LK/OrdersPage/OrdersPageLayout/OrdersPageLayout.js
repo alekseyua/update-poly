@@ -6,6 +6,7 @@ import ActiveAndArchivedOrders from '../../DetailsPage/ActiveAndArchivedOrders';
 
 const OrdersPageLayout = ({
     getDataOrdersFilters,
+    searchOrderForFio,
     cabinet_site_menu,
     btnAddOrderItems,
     dateFilterData,
@@ -19,13 +20,18 @@ const OrdersPageLayout = ({
     profileId,
     username,
     currency,
-    statuses,
+    loading,
     profile,
     balance,
+    options,
     orders,
     shop,
     role,
 
+    changeStatusFilter,
+    changeValueSearch,
+    selectCreateFrom,
+    selectCreateTo,
 }) => {
 
     return (
@@ -50,14 +56,20 @@ const OrdersPageLayout = ({
 
                         <BlockGrid.GridPageRightLK>
                         <ActiveAndArchivedOrders
+                            searchOrderForFio = { searchOrderForFio }
                             dateFilterData = { dateFilterData }
                             tableBodyData = { tableBodyData }
-                            statuses = {statuses}
+                            loading = {loading}
                             profile = {profile}
+                            options = { options }              
                             orders = { orders }
                             currency = { currency }
 
                             getDataOrdersFilters = { getDataOrdersFilters }
+                            changeStatusFilter = { changeStatusFilter }
+                            changeValueSearch = { changeValueSearch }
+                            selectCreateFrom = { selectCreateFrom }
+                            selectCreateTo = { selectCreateTo }
                             btnAddOrderItems = { btnAddOrderItems }
                             sendToArchive = { sendToArchive }
                             btnDelOrder = { btnDelOrder }

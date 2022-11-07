@@ -38,10 +38,10 @@ const OrderDetailsPersonalPageLayoutContainer = ({
 }) => {
 
   const { dispatch } = useStoreon();
-
-  const openModalPay = (fullNumberOrder, total_cost) => {
+  const numberOrder = fullNumberOrder?.split('-').pop();
+  const openModalPay = (NumberOrder, total_cost) => {
     const params = {
-      order_id: fullNumberOrder,
+      order_id: NumberOrder,
       total_price: total_cost
     }
     dispatch('modalCheckPayment', params)
@@ -152,6 +152,7 @@ const OrderDetailsPersonalPageLayoutContainer = ({
       updated_at={updated_at}
       order_cost={order_cost}
       created_at={created_at}
+      numberOrder = { numberOrder }
       order_items_chat = { order_items_chat }
       order_chat = { order_chat }
       delivery_cost={delivery_cost}

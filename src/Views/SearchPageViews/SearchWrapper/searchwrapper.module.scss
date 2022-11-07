@@ -53,6 +53,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      &>div{
+        border: none;
+        margin: 0;
+      }
 
       @include laptop-sm {
         // width: 100%;

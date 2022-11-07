@@ -27,7 +27,6 @@ export const websocket = store => {
     } else if (order_item_message !== undefined) {
       let newObj = order_item_message;
       messageItemsChat = messagesItemsOrderFromContext.map(item => {
-        debugger
         if (item.item_id === newObj.order_item_id) {
           item = {
             chat_order_items: item.chat_order_items.concat(newObj).sort( (a,b)  => b.message_id - a.message_id),

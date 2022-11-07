@@ -11,10 +11,11 @@ import dayjs from '../../../helpers/dayjs';
 import api from '../../../api/api';
 
 const ItemsInOrder = ({
+  searchOrderForFio,
   dateFilterData,
   tableBodyData,
   currency,
-  statuses,
+  loading,
   profile,
   orders,
 
@@ -22,9 +23,14 @@ const ItemsInOrder = ({
   btnAddOrderItems,
   sendToArchive,
   btnDelOrder,
+  options,
 
   handlerChangePaginations,
   currentPage,
+  changeStatusFilter,
+  changeValueSearch,
+  selectCreateFrom,
+  selectCreateTo,
 
 }) => {
 
@@ -150,18 +156,26 @@ const ItemsInOrder = ({
   return (
 
     <React.Fragment>
-      {
-        !!tableBodyData?.lengt?
             < BaseInfoOrder
-              getDataOrdersFilters = { getDataOrdersFilters }
+              searchOrderForFio = { searchOrderForFio }
               dateFilterData = { dateFilterData }
-              statuses = { statuses }
+              loading = { loading }
               orders = { orders }
               count = { orders?.count }
+              options = { options }              
+              changeStatusFilter = { changeStatusFilter }
+              changeValueSearch = { changeValueSearch }
+              selectCreateFrom = { selectCreateFrom }
+              selectCreateTo = { selectCreateTo }
             />
+      {
+        !!tableBodyData?.length?
+            <></>
             : null
       }
-      <MyOrderViews.WrapperTable>
+      <MyOrderViews.WrapperTable 
+        loading = { loading }
+      >
         <Table
           statusLoad={'loading'}
           classNameTable="cabinet-table"

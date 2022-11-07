@@ -17,7 +17,7 @@ const OrdersPage = ({
         shop,
     } = context;
     
-    const { orders, tableBodyData, dateFilterData } = order;
+    const { orders, tableBodyData, dateFilterData, searchOrderForFio } = order;
     const { user = {}, role, passport, organization, links, balance, id } = profile;
     // const { is_has_shop, shop_link } = shop;
     const { username } = user;
@@ -26,6 +26,7 @@ const OrdersPage = ({
         <>
         <OrdersPageLayoutContainer
             cabinet_site_menu = { cabinet_site_menu }
+            searchOrderForFio = { searchOrderForFio }
             dateFilterData = { dateFilterData }
             tableBodyData = { tableBodyData }
             cabinet_menu = { cabinet_menu }

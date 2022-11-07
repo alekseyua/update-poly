@@ -19,7 +19,7 @@ const NewsCard = (props) => {
           <NavLink to={url} className={style['news-card__title']} >
             {title}
           </NavLink>
-          <span className={style['news-card__date']}>{date}</span>
+          <span className={style['news-card__date']}>{dayjs(api.language,date).format('DD MMMM YYYY')}</span>
         </div>
       </div>
     </div>

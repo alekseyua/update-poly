@@ -1,5 +1,4 @@
 import api from "../../api/api";
-import { ROLE } from "../../const";
 import dayjs from "../../helpers/dayjs";
 import { initialFiltersOrders } from "../../helpers/initialValues/initialValues";
 import Text from "../../helpers/Text";
@@ -326,6 +325,7 @@ export const order = store => {
             obj?.created_at__gte ? params = { ...params, created_at__gte: dayjs(api.language, obj?.created_at__gte).format() }
                 : obj?.created_at__lte ? params = { ...params, created_at__lte: dayjs(api.language, obj?.created_at__lte).format() }
                     : obj?.status ? params = { ...params, status: obj?.status }
+                        : obj?.q ? params = { ...params, q: obj?.q }
                         : null
 
             const res = await orderApi.getOrders(params);
@@ -350,6 +350,7 @@ export const order = store => {
                         orders: res,
                         tableBodyData: tableBodyData.length ? tableBodyData : [],
                         dateFilterData: data,
+                        searchOrderForFio: obj?.q? obj.q : '',
                     }
                 }
             }

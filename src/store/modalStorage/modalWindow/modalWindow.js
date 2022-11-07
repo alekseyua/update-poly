@@ -285,8 +285,9 @@ export const listCurrentOrders = (listOrders, changeStatusOrder, currency) => {
 
   let newListRes = listOrders.filter(el => el.status?.status === 'in_process' || el.status?.status === 'payment_waiting' || el.status?.status === 'redeemed');
   const options = newListRes.map((el) => {
+
     return {
-      title: `${el.order_number} (${el.total} ${currency})`,
+      title: `№${el.id} - (${el.total} ${currency}) 🧾 ${el.address.last_name}`,
       value: el.id,
     };
   });
@@ -365,8 +366,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
               action: {
                   title: ['продолжить', null]
               },
-              onClick: () => !order_id? closeModalState() : obj.redirectTo('/orders'),
-              closeModal: () => !order_id? closeModalState() : obj.redirectTo('/orders')
+              onClick: () => !order_id? closeModalState() : (closeModalState(), redirectTo? redirectTo('/orders') : null ),
+              closeModal: () => !order_id? closeModalState() : (closeModalState(), redirectTo? redirectTo('/orders') : null )
           })
           //redirectTo ? redirectTo('/orders') : null;
           dispatch('getBalace');

@@ -4,32 +4,45 @@ import OrderDetailsContent from './OrderDetailsContent';
 
 const ActiveAndArchivedOrders = ({
   getDataOrdersFilters,
+  searchOrderForFio,
   dateFilterData,
   tableBodyData,
-  statuses,
+  loading,
   currency,
+  options,
   profile,
   orders,
   btnAddOrderItems,
   sendToArchive,
   btnDelOrder,
 
+  changeStatusFilter,
+  changeValueSearch,
+  selectCreateFrom,
+  selectCreateTo,
+
 }) => {
 
   return (
     <OrderDetailsContent>
           <ItemsInOrder
-            dateFilterData={dateFilterData}
-            tableBodyData={tableBodyData}
-            statuses={statuses}
-            currency={currency}
-            profile={profile}
-            orders={orders}
+            searchOrderForFio = { searchOrderForFio }
+            dateFilterData = { dateFilterData}
+            tableBodyData = { tableBodyData}
+            options = { options }              
+            loading = { loading }
+            currency = { currency }
+            profile = { profile }
+            orders = { orders }
 
             getDataOrdersFilters={getDataOrdersFilters}
-            btnAddOrderItems={btnAddOrderItems}
-            sendToArchive={sendToArchive}
-            btnDelOrder={btnDelOrder}
+            changeStatusFilter = { changeStatusFilter }
+            changeValueSearch = { changeValueSearch }
+            selectCreateFrom = { selectCreateFrom }
+            btnAddOrderItems = { btnAddOrderItems }
+            selectCreateTo = { selectCreateTo }
+            sendToArchive = { sendToArchive }
+            btnDelOrder = { btnDelOrder }
           />
     </OrderDetailsContent>
   );

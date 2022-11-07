@@ -11,7 +11,7 @@ import Text from '../../../helpers/Text';
 import style from './styles/juridical.module.scss';
 
 
-const JuridicalLayout = ({ breadcrumbs, title, front_admin, components, role, heandlerPolicy }) => {
+const JuridicalLayout = ({ site_configuration, breadcrumbs, title, front_admin, components, role, heandlerPolicy }) => {
 
 
     return (
@@ -115,31 +115,31 @@ const JuridicalLayout = ({ breadcrumbs, title, front_admin, components, role, he
                                     </InformationViews.PaymentsDescription>
                                     <InformationViews.PaymentsDescription>
                                         <div className={style['information-exchange__wrapper']}>
-                                            <div onClick={heandlerPolicy} data-name='policy' className={style['information-exchange__link']}>
+                                            <div onClick={ e => heandlerPolicy( e, site_configuration ) } data-name='policy' className={style['information-exchange__link']}>
                                                 {
                                                     Text({ text: 'privacy-policy' })
                                                 }
                                             </div>
 
-                                            <div onClick={heandlerPolicy} data-name='public_offer_1' className={style['information-exchange__link']}>
+                                            <div onClick={ e => heandlerPolicy( e, site_configuration ) } data-name='public_offer_1' className={style['information-exchange__link']}>
                                                 {
                                                     Text({ text: 'terms-of-use' })
                                                 }
                                             </div>
 
-                                            <div onClick={heandlerPolicy} data-name='terms' className={style['information-exchange__link']}>
+                                            <div onClick={ e => heandlerPolicy( e, site_configuration ) } data-name='terms' className={style['information-exchange__link']}>
                                                 {
                                                     Text({ text: 'terms-of-use-dilivery' })
                                                 }
                                             </div>
 
-                                            <div onClick={heandlerPolicy} data-name='public_offer_2' className={style['information-exchange__link']}>
+                                            <div onClick={ e => heandlerPolicy( e, site_configuration ) } data-name='public_offer_2' className={style['information-exchange__link']}>
                                                 {
                                                     Text({ text: 'terms-of-use-opt' })
                                                 }
                                             </div>
 
-                                            <div onClick={heandlerPolicy} data-name='statement_performance' className={style['information-exchange__link']}>
+                                            <div onClick={ e => heandlerPolicy( e, site_configuration ) } data-name='statement_performance' className={style['information-exchange__link']}>
                                                 {
                                                     Text({ text: 'poor-quality' })
                                                 }

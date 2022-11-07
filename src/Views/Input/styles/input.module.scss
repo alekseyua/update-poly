@@ -86,3 +86,19 @@
         }
     }
 }
+
+.cabinet-lk__search{
+    padding: 0;
+    position: relative;
+    width: 255px;
+    height: 40px;
+    min-width: 255px;
+    border: 1px solid $dg;
+    margin-left: 5px;
+    &>input{
+        padding: 5px 0 0 30px;
+    }
+    @include tablet-md {
+        margin-left: 19px;
+    }
+}

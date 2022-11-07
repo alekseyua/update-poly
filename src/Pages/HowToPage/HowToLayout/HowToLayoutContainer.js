@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useStoreon } from 'storeon/react';
 import HowToLayout from './HowToLayout';
 
 const HowToLayoutContainer = ({ breadcrumbs, slug, components }) => {
-    console.log({components})
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
+    const { dispatch } = useStoreon();
     useEffect(() => {
         !!components.length?(
             setContent(components[0].content),
@@ -13,11 +14,7 @@ const HowToLayoutContainer = ({ breadcrumbs, slug, components }) => {
     }, [components])
 
     const openVidjet = () => {
-        console.log('open vidjet faq')
-        // ?! должен открывать виджет faq
-        // dispatch('faq/update', {
-        //   show: true,
-        // });
+        dispatch('feedback');
     };
 
     return (

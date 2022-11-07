@@ -26,7 +26,7 @@ const OrderBaseDetails = ({
   payment_method,
   delivery_method,
   delivery_address,
-  fullNumberOrder,
+  numberOrder,
   comment,
   discount,
   weight,
@@ -117,7 +117,7 @@ const OrderBaseDetails = ({
 
             {
               status.id === 'payment_waiting' ?
-                <Button onClick={ () => openModalPay(fullNumberOrder, total_cost) } variant={'cabinet_default'}>
+                <Button onClick={ () => openModalPay(numberOrder, total_cost) } variant={'cabinet_default'}>
                   оплатить заказ
                 </Button>
                 : null

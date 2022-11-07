@@ -34,6 +34,7 @@ export const payment = store => {
                     delivery_cost: priceDilivery.price,
                 }
                 : null
+                debugger
             const res = await orderApi.createOrder(params);
             
             let newContext = {
@@ -52,7 +53,7 @@ export const payment = store => {
                         "total_order_price": null,
                         "is_performed": false,
                         "enableAllSelect": false,
-                        "agreeWitheRegulations": false
+                        "agreeWitheRegulations": true
                     }
                 },
             }

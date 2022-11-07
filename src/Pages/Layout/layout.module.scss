@@ -27,6 +27,8 @@
         position: relative;
         padding: 0 15px;
         flex: 1 1 auto;
+        max-width: 1400px;
+        margin: 0 auto;
         // overflow-x: hidden;
         @include mobile-mlg{
             padding: 0;

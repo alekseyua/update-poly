@@ -17,6 +17,8 @@ import ChatFieldUser from '../ChatField/ChatFieldUser';
 import SendChatBlock from '../SendChatBlock/SendChatBlock';
 
 import style from './styles/index.module.scss';
+import dayjs from '../../../helpers/dayjs';
+import api from '../../../api/api';
 
 
 const Card = ({
@@ -35,6 +37,8 @@ const Card = ({
   can_cancel,
   currency,
   contextChats,
+  redeemed,
+  sended,
 
   clickOpenCommit,
   openModalImage,
@@ -174,8 +178,19 @@ const Card = ({
                       </span>
                     </div>
                     : null
-
                 }
+                 <div
+                  className={style['cabinet-orders-details__base-info-desc-date-status']}
+                >
+                  {
+                    redeemed? 
+                    dayjs(api.language, redeemed).format('DD.MM.YYYY')
+                      : sended?
+                      dayjs(api.language, sended).format('DD.MM.YYYY')
+                        : null
+                      
+                  } 
+                </div>
 
               </div>
             </div>

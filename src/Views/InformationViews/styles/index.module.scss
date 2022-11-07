@@ -28,7 +28,6 @@
 
     //.information-payments__wrapper-desc{}
     &-desc {
-
       padding-left: 20px;
       padding-right: 20px;
       margin-top: 20px;
@@ -38,19 +37,19 @@
       margin-bottom: 20px;
 
       @media (max-width:680px) {
-
-        // align-items: center;
         &>div>ul {
           padding: 0px;
         }
       }
 
       #table_wrapper {
-        overflow: scroll;
+        overflow: auto;
       }
-
+      
       table {
         @include tableStyle;
+        overflow-x: auto !important;
+        @include scrollbar
       }
 
       //.information-delivery__wrapper-desc-small{}
@@ -272,6 +271,9 @@
     align-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    &>div{
+      max-width: 300px;
+    }
     @include mobile-mlg{
       flex-direction: column;
       align-items: flex-start;

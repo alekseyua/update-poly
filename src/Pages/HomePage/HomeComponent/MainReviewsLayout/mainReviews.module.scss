@@ -111,6 +111,8 @@
       &-pagination {
         &-bullets {
           bottom: -3px !important;
+          z-index: -1;
+          position: relative;
         }
 
         &-bullet {

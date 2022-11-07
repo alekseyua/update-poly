@@ -3,7 +3,7 @@ import JuridicalLayoutContainer from './JuridicalLayout/JuridicalLayoutContainer
 
 
 const InformationJuridical = ({ ...props }) => {
-const { breadcrumbs, profile } = props.context;
+const { breadcrumbs, profile, site_configuration } = props.context;
 const { title, components } = props.context.page_info;
 const { role } = profile;
 
@@ -11,10 +11,11 @@ const { role } = profile;
 
   return (
     <JuridicalLayoutContainer 
-      breadcrumbs={breadcrumbs}
-      title={title}
-      components={components}
-      role={role}
+      site_configuration = { site_configuration }
+      breadcrumbs = { breadcrumbs }
+      components = { components }
+      title = { title }
+      role = { role }
     />
   );
 };
