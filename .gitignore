@@ -6,6 +6,9 @@ npm-debug.log*
 coverage
 node_modules
 build
+build1
+build2
+build3
 cache
 .env.local
 .env.development.local
