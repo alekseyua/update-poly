@@ -24,6 +24,9 @@ import AddUploadFiles from "../../../Views/AddFiles";
 import { errorAlertIcon, spin, spinnerCart2, successAlertIcon } from "../../../images";
 import TextUnderTitle from "../../../Views/TextUnderTitle";
 import BlockSpinner from '../../../Views/SpinnerWrapper';
+import PhotoView from '../../../Views/PhotoView/ViewsImage';
+
+
 
 const contentApi = api.contentApi;
 const orderApi = api.orderApi;
@@ -71,7 +74,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
         onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
-          console.log({values})
+          console.log({ values })
           return (
             <Form onSubmit={handleSubmit} >
               <BlockGrid.Container>
@@ -86,7 +89,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
                     variant={'select-feedback'}
                     name={'problem_area'}
                     value={values.problem_area}
-                    className = { 'select__feedback' }
+                    className={'select__feedback'}
                     onClick={e => {
                       setFieldValue('problem_area', e.target.getAttribute('value'))
                     }}
@@ -143,7 +146,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
                     type={'file'}
                     className={'wrapperBtnFile'}
                     label={'Прикрепить изображение:'}
-                    countFiles = { values.files ?? 0}
+                    countFiles={values.files ?? 0}
                     accept={'.png, .jpg, .jpeg, .mp4'}
                     onBlur={handleBlur}
                     multiple={null}
@@ -355,23 +358,23 @@ export const payment = async (order_id, balance, total_price, currency, first_na
           setFieldError('receipt', 'Вы не приложили квитанцию об оплате')
         } else {
           fdPayments.set('receipt', data?.receipt[0]);
-          const resCreatePayment = await orderApi.createPayments(fdPayments);          
+          const resCreatePayment = await orderApi.createPayments(fdPayments);
           //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
           const message = ['Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.', 'Приятного шопинга в мире моды']
           dispatch('setModalState', {
-              show: true,
-              content: textErrorMessage(message),
-              iconImage: successAlertIcon,
-              addClass: 'modal-alert-error',
-              action: {
-                  title: ['продолжить', null]
-              },
-              onClick: () => !order_id? closeModalState() : (closeModalState(), redirectTo? redirectTo('/orders') : null ),
-              closeModal: () => !order_id? closeModalState() : (closeModalState(), redirectTo? redirectTo('/orders') : null )
+            show: true,
+            content: textErrorMessage(message),
+            iconImage: successAlertIcon,
+            addClass: 'modal-alert-error',
+            action: {
+              title: ['продолжить', null]
+            },
+            onClick: () => !order_id ? closeModalState() : (closeModalState(), redirectTo ? redirectTo('/orders') : null),
+            closeModal: () => !order_id ? closeModalState() : (closeModalState(), redirectTo ? redirectTo('/orders') : null)
           })
           //redirectTo ? redirectTo('/orders') : null;
           dispatch('getBalace');
-          dispatch('getPayments');          
+          dispatch('getPayments');
         }
       } catch (err) {
 
@@ -433,8 +436,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     name={'cost'}
                     autofocus
                     autocomplete={'off'}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
@@ -447,8 +450,8 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     className={'input-mt_20'}
                     name={'fio'}
                     autocomplete={'off'}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     autofocus
@@ -475,24 +478,24 @@ export const payment = async (order_id, balance, total_price, currency, first_na
                     label={'Прикрепить чек:'}
                     accept={'.png, .jpg, .jpeg, .mp4'}
                     onBlur={handleBlur}
-                    countFiles = { values.receipt ?? 0}
+                    countFiles={values.receipt ?? 0}
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && e.currentTarget.files ? setFieldValue('activeButton', false) : null;
                     }}
                   />
                   {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
 
                   <Button
-                    disabled = { values.activeButton }
+                    disabled={values.activeButton}
                     type={'submit'}
                     full
                     variant={'black_btn_full_width'}
                   >
                     ОПЛАТИТЬ
-                    { !values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
+                    {!values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad={50} /> : null}
                   </Button>
                 </BlockGrid.BlockPayment>
 
@@ -1237,8 +1240,8 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'cost'}
                     autofocus
                     autocomplete={'off'}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
@@ -1254,8 +1257,8 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     className={'input-mt_20'}
                     name={'fio'}
                     autocomplete={'off'}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     autofocus
@@ -1273,8 +1276,8 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'beneficiaryBankAccountNumber'}
                     autocomplete={'off'}
                     onBlur={handleBlur}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     helpText={
@@ -1292,8 +1295,8 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     name={'beneficiaryBankBIC'}
                     autocomplete={'off'}
                     onBlur={handleBlur}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && values.beneficiaryBankBIC && values.beneficiaryBankAccountNumber && values.recient ? setFieldValue('activeButton', false) : null;
                       handleChange(e);
                     }}
                     helpText={
@@ -1306,12 +1309,12 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     label={'Прикрепить скан-копию заявления:'}
                     accept={'.png, .jpg, .jpeg, .bmp, .zip, .rar, .pdf'} //.jpg (jpeg), .png, bmp, .zip, .rar, .pdf.
                     onBlur={handleBlur}
-                    countFiles = { values.receipt ?? 0}
+                    countFiles={values.receipt ?? 0}
                     multiple={null}
                     name={'receipt'}
                     setFieldValue={setFieldValue}
-                    onChange = { (e) => { 
-                      values.cost && values.fio && e.currentTarget.files? setFieldValue( 'activeButton', false ) : null;
+                    onChange={(e) => {
+                      values.cost && values.fio && e.currentTarget.files ? setFieldValue('activeButton', false) : null;
                     }}
                   />
                   {errors.receipt && touched ? <Error message={errors.receipt} /> : null}
@@ -1320,10 +1323,10 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
                     type={'submit'}
                     full
                     variant={'black_btn_full_width'}
-                    disabled = { values.activeButton }
+                    disabled={values.activeButton}
                   >
                     оформить возврат
-                    { !values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null }
+                    {!values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad={50} /> : null}
                   </Button>
                 </BlockGrid.BlockPayment>
 
@@ -1399,7 +1402,22 @@ export const contentInfoCollection = () => {
 
   return (
     <>
-    
+
     </>
+  )
+}
+
+export const openPhotoForSiew = ( image, urlProduct ) => {
+
+  return (
+    <React.Fragment>
+      <BlockGrid.Container>
+        <BlockGrid.BlockCenter>
+          <BlockGrid.Row>            
+            <PhotoView image = { image } url = { urlProduct } />
+          </BlockGrid.Row>
+        </BlockGrid.BlockCenter>
+      </BlockGrid.Container>
+    </React.Fragment>
   )
 }

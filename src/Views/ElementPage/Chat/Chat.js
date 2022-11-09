@@ -13,6 +13,8 @@ const Chat = ({
   heandlerClickInfo,
   sendMessage,
   order_chat,
+  openModalImage,
+  openModalVideo,
 }) => {
 
   const valuesState = {
@@ -21,57 +23,6 @@ const Chat = ({
     files: null,
     activeBtnMessageForProduct: true,
   }
-
-  
-  const getChatData = () => {
-    // orderApi
-    //   .getCorrespondence({ idOrder: idOrder })
-    //   .then((res) => {
-    //     //setcorrespondenceState(res);
-    //   });
-  };
-
-  const sendCommentFromTextField = async (values, { resetForm }) => {
-
-  };
-
-
-  const openModalImage = (image) => {
-  //   setModalStates({
-  //     content: (
-  //       <ModalContentViews.ModalWrapper>
-  //         <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //         <ModalContentViews.ContentBlock>
-  //           <ModalContentViews.CenterPosition>
-  //             <ModalContentViews.ViewsImage image={image} />
-  //           </ModalContentViews.CenterPosition>
-  //         </ModalContentViews.ContentBlock>
-  //       </ModalContentViews.ModalWrapper>
-  //     ),
-  //     show: true,
-  //     addClass: 'modal-review',
-  //   });
-  };
-  const openModalVideo = (video, preview) => {
-  //   setModalStates({
-  //     content: (
-  //       <ModalContentViews.ModalWrapper>
-  //         <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //         <ModalContentViews.ContentBlock>
-  //           <ModalContentViews.CenterPosition>
-  //             <ModalContentViews.ViewsVideo video={video} preview={preview} />
-  //           </ModalContentViews.CenterPosition>
-  //         </ModalContentViews.ContentBlock>
-  //       </ModalContentViews.ModalWrapper>
-  //     ),
-  //     show: true,
-  //     addClass: 'modal-review',
-  //   });
-  };
-
-
-  // *******************************************************************
-
 
   return (
     <WrapperChat>

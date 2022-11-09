@@ -28,76 +28,19 @@ const ReviewsCard = ({
     dispatch('updateLikeInReview', {id, profileId})
   };
 
-  const openModalVideo = (slideData = false) => {
-  //   if (slideData) {
-
-      // if (homePage) {
-  //       return propsSetModalStates({
-  //         content: (
-  //           <ModalContentViews.ModalWrapper>
-  //             <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //             <ModalContentViews.ContentBlock>
-  //               <ModalContentViews.CenterPosition>
-  //                 <ModalContentViews.ViewsVideo
-  //                   preview={slideData.video_preview}
-  //                   video={slideData.video}
-  //                 />
-  //               </ModalContentViews.CenterPosition>
-  //             </ModalContentViews.ContentBlock>
-  //           </ModalContentViews.ModalWrapper>
-  //         ),
-  //         isShow: true,
-  //       });
-  //     }
-  //     setModalStates({
-  //       content: (
-  //         <ModalContentViews.ModalWrapper>
-  //           <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //           <ModalContentViews.ContentBlock>
-  //             <ModalContentViews.CenterPosition>
-  //               <ModalContentViews.ViewsVideo
-  //                 preview={slideData.video_preview}
-  //                 video={slideData.video}
-  //               />
-  //             </ModalContentViews.CenterPosition>
-  //           </ModalContentViews.ContentBlock>
-  //         </ModalContentViews.ModalWrapper>
-  //       ),
-  //       isShow: true,
-  //     });
-  //   }
+  const openModalVideo = ( video, preview, url = null ) => {
+    dispatch('openModalVideo', {
+      video: video,
+      preview: preview,
+      urlProduct: null
+    })
   };
+  
   const openModalImage = (slideData = false) => {
-  //   if (slideData) {
-  //     if (homePage) {
-  //       return propsSetModalStates({
-  //         content: (
-  //           <ModalContentViews.ModalWrapper>
-  //             <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //             <ModalContentViews.ContentBlock>
-  //               <ModalContentViews.CenterPosition>
-  //                 <ModalContentViews.ViewsImage image={slideData.image} />
-  //               </ModalContentViews.CenterPosition>
-  //             </ModalContentViews.ContentBlock>
-  //           </ModalContentViews.ModalWrapper>
-  //         ),
-  //         isShow: true,
-  //       });
-  //     }
-  //     setModalStates({
-  //       content: (
-  //         <ModalContentViews.ModalWrapper>
-  //           <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //           <ModalContentViews.ContentBlock>
-  //             <ModalContentViews.CenterPosition>
-  //               <ModalContentViews.ViewsImage image={slideData.image} />
-  //             </ModalContentViews.CenterPosition>
-  //           </ModalContentViews.ContentBlock>
-  //         </ModalContentViews.ModalWrapper>
-  //       ),
-  //       isShow: true,
-  //     });
-  //   }
+    dispatch('openModalPhoto',{
+      image: null,
+      urlProduct: slideData.image
+    })
   };
 
   useEffect(() => {

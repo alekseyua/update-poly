@@ -50,7 +50,8 @@ const DetailsOrders = ({
     deleteElementOrder,
     sendCommentFromTextField,
     clickOpenCommit,
-    openModalImage, 
+    openModalImage,
+    openModalVideo,
     sendMessage,
 
 }) => {
@@ -215,6 +216,8 @@ const DetailsOrders = ({
                         heandlerClickInfo = { heandlerClickInfo }
                         sendMessage = { sendMessage }
                         order_chat = { order_chat }
+                        openModalImage = { openModalImage }
+                        openModalVideo = { openModalVideo }
                     />
                 </RightSideCol>
             </SectionWrapper>

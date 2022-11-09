@@ -168,11 +168,6 @@ const ItemsInOrder = ({
               selectCreateFrom = { selectCreateFrom }
               selectCreateTo = { selectCreateTo }
             />
-      {
-        !!tableBodyData?.length?
-            <></>
-            : null
-      }
       <MyOrderViews.WrapperTable 
         loading = { loading }
       >
@@ -191,7 +186,9 @@ const ItemsInOrder = ({
               currentPage={currentPage ?? 1}
               handlerChangePaginations={handlerChangePaginations}
             />
-            : <DefaultEmptyOrder />
+            : <DefaultEmptyOrder 
+              textMessage = { searchOrderForFio? `который бы соответствовал критериям поиска ${searchOrderForFio}` : '' }
+            />
         }
       </MyOrderViews.WrapperTable>
     </React.Fragment>
@@ -199,47 +196,3 @@ const ItemsInOrder = ({
 };
 
 export default React.memo(ItemsInOrder);
-
-  // const openModalFinalyAddReview = (data) => {
-  //   return setModalStates({
-  //     content: (
-  //       <ModalContentViews.ModalWrapper>
-  //         <ModalContentViews.CloseBtn closeModal={closeModal} />
-  //         <ModalContentViews.ContentBlock>
-  //           <ModalContentViews.CenterPosition>
-  //             <ModalContentViews.SuccessOrError
-  //               closeModal={closeModal}
-  //               success={data}
-  //               content={'Неправильно введены данные!'}
-  //             />
-  //           </ModalContentViews.CenterPosition>
-  //         </ModalContentViews.ContentBlock>
-  //       </ModalContentViews.ModalWrapper>
-  //     ),
-  //     show: true,
-  //     addClass: 'modal-success_error',
-  //   });
-  // };
-
-  // const setDefaultTableBlock = () => {
-  //   setTableBodyData([
-  //     [
-  //       {
-  //         content: (
-  //           tableBodyData ?
-  //            null
-  //             :(
-  //           <MyOrderViews.InfoReview
-  //             page_type_catalog={page_type_catalog}
-  //           />)
-  //         ),
-  //         attr: { colSpan: 5, className: 'cabinet-table__tdfull not_hovered' },
-  //       },
-  //     ],
-  //   ]);
-  // };
-
-  // useEffect(() => {
-  //   // setDefaultTableBlock();
-  // }, []);
-

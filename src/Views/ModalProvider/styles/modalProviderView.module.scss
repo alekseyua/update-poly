@@ -300,10 +300,20 @@
         padding: 0;
         @include mobile-min {
             min-width: 500px;
+
         }
         // &>div.modal-provider__content>form.form {
         //     height: 60vh;
         // }
+    }
+    //.modal-preview-photo{}
+    &-preview-photo{
+        @include mobile-min {
+            min-width: 500px;
+            height: 100%;
+            overflow: auto;
+            @include scrollbar;
+        }
     }
     //.modal-add-address{}
     &-add-address{

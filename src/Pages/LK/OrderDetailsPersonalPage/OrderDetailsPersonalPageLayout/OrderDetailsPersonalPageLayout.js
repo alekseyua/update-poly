@@ -47,6 +47,7 @@ const OrderDetailsPersonalPageLayout = ({
     order_chat,
     clickOpenCommit,
     openModalImage,
+    openModalVideo,
     sendMessage,
 
 }) => {
@@ -105,6 +106,7 @@ const OrderDetailsPersonalPageLayout = ({
                                 sendCommentFromTextField = { sendCommentFromTextField }
                                 clickOpenCommit = { clickOpenCommit }
                                 openModalImage = { openModalImage }
+                                openModalVideo = { openModalVideo }
                                 sendMessage = { sendMessage }
                             />
 

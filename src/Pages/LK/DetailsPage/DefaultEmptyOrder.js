@@ -4,16 +4,20 @@ import BlockGrid from '../../../Views/GridContainerBlock';
 import LinkToCatalog from '../../CartPage/CartPageLayout/DatasPage/LinkToCatalog';
 import TextUnderTitle from '../../../Views/TextUnderTitle';
 
-const DefaultEmptyOrder = ({ }) => {
+const DefaultEmptyOrder = ({ textMessage }) => {
   return (
     <BlockGrid.Container>
       <BlockGrid.Row>
         <BlockGrid.Coll className="cart__empty">
-          <Title variant={'cart'} type={'h1'}>
+          <Title variant={'order'} type={'h1'}>
             У Вас нет ни одного заказа.
           </Title>
           <TextUnderTitle type={'text-under_title'} variant={'text-content__cart-info'} >
-           Добавляйте товары в карзину и оформляйте заказы. Желаем приятного шоппинга в мире моды!
+           {
+              textMessage?
+                textMessage
+                : 'Добавляйте товары в карзину и оформляйте заказы. Желаем приятного шоппинга в мире моды!'
+           }
           </TextUnderTitle>
           <LinkToCatalog to={'/catalog'}>
             СМОТРЕТЬ ТОВАРЫ
