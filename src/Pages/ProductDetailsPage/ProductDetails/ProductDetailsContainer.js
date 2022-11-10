@@ -59,9 +59,12 @@ const ProductDetailsContainer = ({
         dispatch('getProductDetails', params)
     }
 
-    const handlerOpenListCollection = () => {
+    const handlerOpenListCollection = (collections, title) => {
         console.log('необходимо реализовать решение для отображения попапа со сборами')
-        dispatch('openModalCollections')
+        dispatch('openModalCollections', {
+            collections, 
+            title
+        })
     }
 
     const addLikeProductCard = (id) => {

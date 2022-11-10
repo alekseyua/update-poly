@@ -25,8 +25,8 @@ import { errorAlertIcon, spin, spinnerCart2, successAlertIcon } from "../../../i
 import TextUnderTitle from "../../../Views/TextUnderTitle";
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import PhotoView from '../../../Views/PhotoView/ViewsImage';
-
-
+import VideoView from '../../../Views/VideoView/ViewsVideo';
+import CardCollectionView from '../../../Views/CardCollectionView/CardCollectionView';
 
 const contentApi = api.contentApi;
 const orderApi = api.orderApi;
@@ -1398,12 +1398,33 @@ export const contentInfoOrder = (status, role, numberOrder) => {
   )
 }
 
-export const contentInfoCollection = () => {
+export const contentInfoCollection = (collections, title) => {
 
   return (
-    <>
+    <React.Fragment>
+      <BlockGrid.Container>
+        {/* <BlockGrid.BlockCenter> */}
+          {/* <BlockGrid.Row>  */}
+            <BlockGrid.BlockContainerCollections>
+              {
+                collections.length?
+                  collections.map( ( el, i ) => {
 
-    </>
+                    return(
+                      <CardCollectionView
+                        key = { i }
+                        title = { title }
+                        { ...el }
+                      />
+                    )
+                  })
+                  : <>Данный товар отсутствует в сборах</>
+              }
+            </BlockGrid.BlockContainerCollections>           
+          {/* </BlockGrid.Row> */}
+        {/* </BlockGrid.BlockCenter> */}
+      </BlockGrid.Container>
+    </React.Fragment>
   )
 }
 
@@ -1415,6 +1436,20 @@ export const openPhotoForSiew = ( image, urlProduct ) => {
         <BlockGrid.BlockCenter>
           <BlockGrid.Row>            
             <PhotoView image = { image } url = { urlProduct } />
+          </BlockGrid.Row>
+        </BlockGrid.BlockCenter>
+      </BlockGrid.Container>
+    </React.Fragment>
+  )
+}
+export const openVideoForSiew = ( video, preview, urlProduct ) => {
+
+  return (
+    <React.Fragment>
+      <BlockGrid.Container>
+        <BlockGrid.BlockCenter>
+          <BlockGrid.Row>            
+            <VideoView video = { video } preview = { perview } url = { urlProduct } />
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>
       </BlockGrid.Container>

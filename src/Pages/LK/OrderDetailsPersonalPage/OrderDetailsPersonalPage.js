@@ -5,7 +5,7 @@ const OrderDetailsPersonalPage = ({
     context,
 
 }) => {
-    console.log('OrderDetailsPersonalPage = ', {context})
+    // console.log('OrderDetailsPersonalPage = ', {context})
     const {        
         cabinet_site_menu,
         cabinet_menu,
@@ -40,8 +40,6 @@ const OrderDetailsPersonalPage = ({
     } = order;
 
     const idOrder = id;
-
-    console.log({correspondence})
     const order_chat = correspondence?.order_chat;
     const order_items_chat = correspondence?.order_items_chat;
 

@@ -300,11 +300,18 @@
         padding: 0;
         @include mobile-min {
             min-width: 500px;
-
         }
-        // &>div.modal-provider__content>form.form {
-        //     height: 60vh;
-        // }
+    }
+    //.modal-collections{}
+    &-collections{
+        padding: 0;
+        @include scrollbar;
+        @include mobile-min {
+            min-width: 500px;
+            width: 68vw;
+            height: 100%;
+            overflow: auto;
+        }
     }
     //.modal-preview-photo{}
     &-preview-photo{

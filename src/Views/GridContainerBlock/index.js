@@ -25,12 +25,15 @@ import BlockAddAddressLeftSide from './BlockAddAddress/BlockAddAddressLeftSide';
 import BlockAddAddressRightSide from './BlockAddAddress/BlockAddAddressRightSide';
 import BlockAddAddressCell from './BlockAddAddress/BlockAddAddressCell';
 import BlockAddAddressAdditionalInfo from './BlockAddAddress/BlockAddAddressAdditionalInfo';
-
 import BlockAddAddressContainerButton from './BlockAddAddress/BlockAddAddressContainerButton';
- 
+
+// блок обёртка для показа карточек товаров в сборе
+import BlockContainerCollections from './BlockContainerCollections/BlockContainerCollections';
 
 
 export default {
+    BlockContainerCollections,
+
     BlockAddAddressContainerButton,
     BlockAddAddressContainerPhone,
     BlockAddAddressRightSide,

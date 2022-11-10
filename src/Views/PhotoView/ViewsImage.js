@@ -6,7 +6,7 @@ const ViewsImage = ({ image, url = '#' }) => {
 
   return (
     <div className={style['preview-image']}>
-      <NavLink to={`/${url}`} >
+      <NavLink to={ url? `/${url}` : '#'} >
         <img src={image} />
       </NavLink>
     </div>

@@ -3,7 +3,8 @@
 
 //.breadcrumbs-wrapper{}
 .breadcrumbs-wrapper {
-  width: 100%;
+  width: 100vw;
+  max-width: 1360px;
   min-height: 30px;
   padding-top: 10px;
   padding-bottom: 10px;

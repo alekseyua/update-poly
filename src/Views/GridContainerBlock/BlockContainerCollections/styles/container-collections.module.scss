@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.scss';
+
+//.collections__container{}
+
+.collections__container{
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 270px);
+    grid-template-rows: auto;
+    grid-gap: 15px;
+    justify-content: space-around;
+}

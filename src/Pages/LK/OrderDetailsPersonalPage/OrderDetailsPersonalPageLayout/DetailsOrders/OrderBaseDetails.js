@@ -40,6 +40,8 @@ const OrderBaseDetails = ({
   openModalPay,
   heandlerClickInfo,
 }) => {
+// console.log({delivery_address})
+  // if (delivery_address) return (<></>);
 
   const {
     city,

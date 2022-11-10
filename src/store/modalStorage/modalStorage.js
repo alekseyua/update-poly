@@ -1,6 +1,6 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder, contentInfoCollection, openPhotoForSiew } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder, contentInfoCollection, openPhotoForSiew, openVideoForSiew } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
@@ -794,14 +794,17 @@ export const modalStorage = store => {
         try {
             const { role } = context.init_state.profile;
             const numberOrder = context.init_state.order.fullNumberOrder;
+            console.log({obj})
+            const { collections, title } = obj;
+
             dispatch('setModalState', {
                 show: true,
                 title: 'Иформация по открытым сборам',
-                content: contentInfoCollection( role, numberOrder),
+                content: contentInfoCollection( collections, title),
                 action: {
                     title: ['продолжить', null]
                 },
-                addClass: 'modal-default',
+                addClass: 'modal-collections',
                 onClick: () => closeModalState(),
             })
         } catch (err) {
@@ -865,6 +868,43 @@ export const modalStorage = store => {
             })
         }
     })
-    //openModalVideo
+    store.on('openModalVideo', ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+           
+            dispatch('setModalState', {
+                show: true,
+                title: null,
+                content: openVideoForSiew( obj.video, obj.preview, obj.urlProduct ),
+                action: {
+                    title: ['продолжить', null]
+                },
+                addClass: 'modal-preview-photo',
+                onClick: () => closeModalState(),
+            })
+        } catch (err) {
+            console.log('ERROR modalDeleteAccaunt', err)
+            let error = [Text({ text: 'error-on-server' })];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    //
 }
 
