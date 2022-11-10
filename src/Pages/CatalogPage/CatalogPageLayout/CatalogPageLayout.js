@@ -183,7 +183,8 @@ console.log('!!!dataProducts?.results.length && showFilters', dataProducts?.resu
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleSubmit();
-                                setShowFilters(!showFilters);
+                                // setShowFilters(false)
+                            
                               }}
                               variant={'catalog_mobile__apply'}
                             >

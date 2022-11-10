@@ -189,9 +189,12 @@ export const reviews = store => {
     })
 
     store.on('sendReview', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const { setValues } = obj.dataFormik;
         try{
+            setValues({
+                activeSpinner: true
+            })
             const { id } = context.init_state.profile;
-            const { setValues } = obj.dataFormik;
         const params = {
             iAgreeDataProcessing: obj.iAgreeDataProcessing,
             files: obj.uploadFiles,
@@ -208,6 +211,8 @@ export const reviews = store => {
             uploadFiles: [],
             content: '',
             stars: 0,
+            activeButton: true,
+            activeSpinner: false
         })
         //?! три пути :
         //?! 1) добавить в контекст и показывать сразу
@@ -268,6 +273,9 @@ export const reviews = store => {
          //?! 3) Показывать попап что отзыв отправлен на модерацию + 
         } catch (err) {
             console.log('ERROR GET ', err);
+            setValues({
+                activeSpinner: false
+            })
             let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;
@@ -346,7 +354,7 @@ export const reviews = store => {
         dispatch('setModalState',{
             show: true,
             title: '',
-            content: addReviewsFunc(closeModalState)
+            content: addReviewsFunc()
         })
     })
 

@@ -30,7 +30,8 @@ const CatalogPageLayoutContainer = ({
   const [filterParams, setFilterParams] = useState(initValueCheckBoxFilters)
 
   const loadData = (data) => {
-    setShowFilters(true)
+    console.log('click change')
+    setShowFilters(false)
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...filterParams, ...data }
     })

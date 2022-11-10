@@ -60,7 +60,6 @@ const ProductDetailsContainer = ({
     }
 
     const handlerOpenListCollection = (collections, title) => {
-        console.log('необходимо реализовать решение для отображения попапа со сборами')
         dispatch('openModalCollections', {
             collections, 
             title

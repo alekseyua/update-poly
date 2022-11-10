@@ -1,11 +1,9 @@
-import React from "react";
-import Text from "../../../helpers/Text";
-import Button from '../../Button';
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-
-import style from './styles/sizesitems.module.scss';
 import Icon from "../../Icon";
 import { fire } from "../../../images";
+
+import style from './styles/sizesitems.module.scss';
 
 const SizesItems = ({
   handleChooseProduct,
@@ -14,7 +12,10 @@ const SizesItems = ({
   colors,
   sizes,
 }) => {
-
+  const [ disabledButton, setDisabledButton ] = useState(false);
+  useEffect(()=>{
+    setDisabledButton(false)
+  },[sizes])
   return (
     <div className={style['prodpage-sizes']}>
       <ul className={style['prodpage-sizes__items']}>
@@ -31,9 +32,13 @@ const SizesItems = ({
                   className={classNames({
                     [style['prodpage-sizes__btn']]: true,
                     [style['prodpage-sizes__btn--active']]: el.selected,
+                    [style['prodpage-sizes__btn--redeemed']]: el?.redeemed,
+                    [style['prodpage-sizes__btn--disabled']]: disabledButton,
+
                   })}
                   onClick={() => {
                     handleChooseProduct(productId, colors, el.id)
+                    setDisabledButton(true)
                   }}
                   variant="text"
                 >

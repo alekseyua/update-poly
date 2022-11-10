@@ -41,7 +41,8 @@
     @include padding-for-mobile;
 
     @include tablet-lg {
-      width: 100%;
+      // width: 100%;
+      width: calc(100vw - 20px);
     }
 
     @include tablet-md {
@@ -216,6 +217,7 @@
     @include tablet-lg {
       height: 275px;
       @include adaptive-value('height',1048,240,px,2);
+      width: calc(100vw - 20px);
     }
     img {
       object-fit: cover;

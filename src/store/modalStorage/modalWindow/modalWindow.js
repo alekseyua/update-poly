@@ -1398,7 +1398,7 @@ export const contentInfoOrder = (status, role, numberOrder) => {
   )
 }
 
-export const contentInfoCollection = (collections, title) => {
+export const contentInfoCollection = (collections, title, product, recommended_price, currency, role) => {
 
   return (
     <React.Fragment>
@@ -1414,6 +1414,14 @@ export const contentInfoCollection = (collections, title) => {
                       <CardCollectionView
                         key = { i }
                         title = { title }
+                        number = { i + 1 }
+                        role = { role }
+                        image = { product.product_sku }
+                        prices = { product.prices }
+                        colors = { product.colors }
+                        sizes = { product.sizes }
+                        recommended_price = { recommended_price }
+                        currency = { currency }
                         { ...el }
                       />
                     )

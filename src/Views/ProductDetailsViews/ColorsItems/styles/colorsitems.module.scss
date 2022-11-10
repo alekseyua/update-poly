@@ -28,15 +28,21 @@
     //.prodpage-colors__btn{}
     &__btn{
         padding: 0;
+        pointer-events: all;
         &:hover{
             cursor: pointer;
         }
         &--active{
             box-shadow: inset 3px 3px 3px #000, inset -4px -4px 3px #000;
             transform: scale(120%);
+            pointer-events: none;
             &:hover{
                 cursor: not-allowed;
             }
+        }
+        //.prodpage-colors__btn--disabled{}
+        &--disabled{
+            pointer-events: none;
         }
     }
 }

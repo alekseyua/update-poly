@@ -2,10 +2,9 @@ import * as React from "react"
 import AddReviewContainer from "../../Views/ReviewsBlock/AddReview/AddReviewContainer";
 
 
-export const addReviewsFunc = (closeModalState) => {
+export const addReviewsFunc = () => {
     return (
         <AddReviewContainer
-            closeModalState = { closeModalState }
         />
     )
 }

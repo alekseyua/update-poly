@@ -245,6 +245,9 @@
     //.cabinet-orders-details__paystatus{}
     &__paystatus {
       color: $a;
+      @include mobile-lgm{
+        flex-wrap: wrap;
+      }
       //.cabinet-orders-details__paystatus-icon{}
       &-icon{
         padding: 0;

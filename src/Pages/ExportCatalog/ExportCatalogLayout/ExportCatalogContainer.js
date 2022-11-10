@@ -168,7 +168,7 @@ const ExportCatalogLayoutContainer = ({
         brands: [...multy_choise_filters.by_brand],
         colors: [...multy_choise_filters.by_color],
         sizes: [...multy_choise_filters.by_size],
-        // type: [...multy_choise_filters.by_type]
+        type: [...categories]// просто идём на хитрость писало код куча прогеров и необоходимо было бы снова теребить бэкенщика т.к. данные не приходят
       }))
       : null
   }, [multy_choise_filters])

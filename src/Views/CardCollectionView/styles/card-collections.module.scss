@@ -26,6 +26,33 @@
                     inset -3px -3px 20px #bbb1b1;
     }
 
-    //.
-
+    //.card-collections__title-wrap{}
+    &__title-wrap{
+        padding: 0;
+        margin-bottom: 15px;
+    }
+    //.card-collections__photo-wrap{}
+    &__photo-wrap{
+        padding: 0;
+        margin-bottom: 15px;
+    }
+    //.card-collections__recommend-wrap{}
+    &__recommend-wrap{
+        padding: 0;
+        margin-bottom: 15px;
+        &>div>div>p>span{
+            color: $a2;
+        }
+    }
+    //.card-collections__colors-wrap{}
+    &__colors-wrap{
+        padding: 0;
+        margin-bottom: 15px;
+        width: 100%;
+        padding-left: 15px;
+    }
+    //.card-collections__sizes-wrap{}
+    &__sizes-wrap{
+        padding: 0;
+    }
 }

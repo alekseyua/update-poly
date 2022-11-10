@@ -12,12 +12,12 @@
     // width: 1400px;
     // @include adaptive-value('width',400,150,px,2)
     @include adaptive-value ('width',1400,320,px,2);
-    height: 639px;
+    height: 720px;
     margin: 0 auto;
     @media (max-width: 787px) {
       // height: 100%;
     }
-    @include padding-for-mobile;
+    // @include padding-for-mobile;
     @include tablet-lg {
       padding-top: 30px;
       padding-bottom: 30px;
@@ -111,7 +111,7 @@
       justify-content: center;
       margin-bottom: 15px;
       padding-bottom: 20px;
-
+      box-shadow: 1px 1px 3px #e1d7d7, -1px -1px 3px #e1d7d7;
       &:not(:last-child){
         margin-right: 5px;
       }

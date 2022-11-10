@@ -30,22 +30,14 @@ const ProductCardContainer = ({
     const defaultImageSet = [defaultProductCard];
 
     const addLikeProductCard = (id) => {
-
-        console.log('addWishList = ', id,
-        {a: location.pathname}
-        )
         dispatch('addWishList', { id: id, pathname: location.pathname})
     }
 
     const removeLikeProductCard = (id) => {
-        console.log('removeWishList = ', id)
         dispatch('removeWishList', { id: id, pathname: location.pathname })
     }
 
     const handleQuickView = (id, url) => {
-
-    console.log('url in function = ', url)
-
         const params = {
             id: id,
             url: url

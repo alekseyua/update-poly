@@ -793,14 +793,16 @@ export const modalStorage = store => {
     store.on('openModalCollections', ({ context, closeModalState }, obj, { dispatch }) => {
         try {
             const { role } = context.init_state.profile;
-            const numberOrder = context.init_state.order.fullNumberOrder;
-            console.log({obj})
+            const product = context.init_state.productDetails;
+            const recommended_price = context.init_state.recommended_price;
+            const currency = context.init_state.currency;
+            console.log({obj}, { product })
             const { collections, title } = obj;
 
             dispatch('setModalState', {
                 show: true,
                 title: 'Иформация по открытым сборам',
-                content: contentInfoCollection( collections, title),
+                content: contentInfoCollection( collections, title, product, recommended_price, currency, role),
                 action: {
                     title: ['продолжить', null]
                 },
