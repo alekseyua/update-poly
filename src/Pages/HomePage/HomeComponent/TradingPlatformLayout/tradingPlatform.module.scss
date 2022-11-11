@@ -37,6 +37,7 @@
     @include flexcol('s');
     align-items: center;
     text-align: center;
+    font-weight: 400;
     z-index: 0;
     @include padding-for-mobile;
 

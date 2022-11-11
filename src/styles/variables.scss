@@ -470,7 +470,7 @@ $fontSize: 1.2rem;//16px
   }
 }
 @mixin scrollbar {
-
+  scrollbar-color: #ffa6b0 #fcd2d7;
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
