@@ -1,6 +1,6 @@
 import api from '../../api/api';
 import { initCloseModalState, initModalState } from '../../helpers/initialValues/initialValues';
-import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder, contentInfoCollection, openPhotoForSiew, openVideoForSiew } from './modalWindow/modalWindow';
+import { addAddressForPost, addToCart, changePhone, feedback, listCurrentOrders, payment, textErrorMessage, textSuccessMessage, changePhoneFunc, accountDelete, contentMessage, getMyCash, contentInfoOrder, contentInfoCollection, openPhotoForSiew, openVideoForSiew, openTableSize, openVidjetChat } from './modalWindow/modalWindow';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers';
@@ -881,6 +881,80 @@ export const modalStorage = store => {
                     title: ['продолжить', null]
                 },
                 addClass: 'modal-preview-photo',
+                onClick: () => closeModalState(),
+            })
+        } catch (err) {
+            console.log('ERROR modalDeleteAccaunt', err)
+            let error = [Text({ text: 'error-on-server' })];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    store.on('openModalTableSize', ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+           
+            dispatch('setModalState', {
+                show: true,
+                title: null,
+                content: openTableSize( ),
+                action: {
+                    title: ['продолжить', null]
+                },
+                addClass: 'modal-preview-table',
+                onClick: () => closeModalState(),
+            })
+        } catch (err) {
+            console.log('ERROR modalDeleteAccaunt', err)
+            let error = [Text({ text: 'error-on-server' })];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+                console.log({ errors }, { err: typeof errors })
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    store.on('openModalVidjetChat', ({ context, closeModalState }, obj, { dispatch }) => {
+        try {
+           
+            dispatch('setModalState', {
+                show: true,
+                title: null,
+                content: openVidjetChat( ),
+                // action: {
+                //     title: [null, null]
+                // },
+                addClass: 'modal-vidjet-chat',
                 onClick: () => closeModalState(),
             })
         } catch (err) {

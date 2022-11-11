@@ -61,10 +61,11 @@
       cursor: pointer;
       letter-spacing: 0.06px;
       &>a{
-        font-size: $fontSize;
         color: $w;
         position: relative;
         padding: 10px;
+        letter-spacing: .8px;
+        font-size: 18px;
         &::before{
           transition: transform .6s ease-out;
           position: absolute;

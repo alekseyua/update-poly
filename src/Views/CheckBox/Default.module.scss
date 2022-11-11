@@ -12,6 +12,9 @@
     @include mobile {
       margin-bottom: 10px;
     }
+    > label {  //??? нужно просмотреть что бы ни чего не сломалось в других местах сделал для каталога
+        color: #000;
+    }
   }
 
   //.checkbox__label{}
@@ -31,10 +34,10 @@
       display: inline-block;
       position: relative;
       background-color: transparent;
-      width: 20px; // width: 25px для круглого
-      height: 20px; // height: 25px для круглого
+      width: 16px; // width: 25px для круглого
+      height: 16px; // height: 25px для круглого
       transform-origin: center;
-      border: 2px solid $back;
+      border: 2px solid $dg;
       border-radius: 5px;
       // border-radius: 50%; // делает круглый 
       vertical-align: -6px;
@@ -51,8 +54,8 @@
         background: $dg2;
         position: absolute;
         transform: rotate(45deg);
-        top: 9px; // top: 13px; для круглого
-        left: 5px; // left: 9px; для круглого
+        top: 5px; // top: 13px; для круглого
+        left: 3px; // left: 9px; для круглого
         transition: width 50ms ease 50ms;
         transform-origin: 0% 0%;
       }
@@ -65,8 +68,8 @@
         background: $dg2;
         position: absolute;
         transform: rotate(305deg);
-        top: 12px; // top: 16px; для круглого
-        left: 7px; // left: 10px; для круглого
+        top: 9px; // top: 16px; для круглого
+        left: 4px; // left: 10px; для круглого
         transition: width 50ms ease;
         transform-origin: 0% 0%;
       }

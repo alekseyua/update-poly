@@ -52,10 +52,14 @@ import SceletonBlock from '../../../Views/SceletonBlock';
 
 import style from '../../../Views/PreviewProduct/PreviewProductCardModal/styles/previewproduct.module.scss';
 import SectionDescription from '../../../Views/ProductDetailsViews/SectionDescription/SectionDescription';
+import { hanger } from '../../../images';
+import Button from '../../../Views/Button';
+import Icon from '../../../Views/Icon';
 
 const ProductDetails = ({
     defaultProductCard,
     dataReviewProductCount,
+    delivery_condition,
     pageReviewProduct,
     recommended_price,
     reviews_statistic,
@@ -95,6 +99,7 @@ const ProductDetails = ({
     handlerOpenListCollection,
     addLikeProductCard,
     removeLikeProductCard,
+    openTableSize,
 }) => {
 
 
@@ -186,6 +191,21 @@ const ProductDetails = ({
                                 sizes={sizes}
                             />
                         </BlockGrid.Row>
+                        <BlockGrid.Row  // ? 6 информационный ряд цветовая разкраска товара
+                            className={style['preview-product-modal__row']}
+                        >
+                            <Button 
+                                className="prodpage-sizes__btn" 
+                                variant="text" 
+                                onClick = { openTableSize }
+                            
+                            >
+                                <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width = { 20 } height = { 20 } />
+                                Таблица размеров
+                            </Button>
+                        </BlockGrid.Row>
+
+
                         {
                             role === ROLE.WHOLESALE || (role === ROLE.DROPSHIPPER && is_collection) ?
                                 <BlockGrid.Row  // ? 7 информационный ряд c условиями выкупа
@@ -241,6 +261,14 @@ const ProductDetails = ({
                             />
                         </BlockGrid.Row>
 
+                        <BlockGrid.Row  // ? 10 информационный ряд c кнопками добавления и перехода к товару
+                            className={style['preview-product-modal__row']}
+                        >
+                            <ProductDetailsViews.DeliveryInfo
+                                role={role}
+                                description={delivery_condition}
+                            />
+                        </BlockGrid.Row>
 
                     </div>
                 </div>

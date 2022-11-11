@@ -198,6 +198,42 @@ div#pdfviewer-specif> div > div.viewer-layout-main {
   top: 53px;
   position: relative;
 }
+.productdescription__row{
+  p{
+    line-height: 25px;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+
+.inner-chat{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: pulse-mobile 1.5s infinite;
+  transition: background-color .3s, color .3s, box-shadow .3s;
+  position: fixed;
+  z-index: 400;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  > div {
+    top: 17px;
+    left: 10px;
+    transform: scale(2.2);
+    position: relative;
+  }
+  @include mobile {
+    bottom: 80px;
+    right: 17px;
+  }
+  &:hover{
+    animation: none;
+    cursor: pointer;
+  }
+}
 
 @keyframes pulse-mobile{
   0%{

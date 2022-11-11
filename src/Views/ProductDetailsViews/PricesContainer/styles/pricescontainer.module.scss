@@ -1,12 +1,17 @@
+@import '../../../../styles/variables.scss';
 
 .prodpage-price{
-    //.prodpage-price-container{}
+    //.prodpage-price__container{}
+
     &__container{
         padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
     //.prodpage-price__mainprice{}
     &__mainprice{
         padding-bottom: 10px;
+        font-size: 32px;
         //.prodpage-price__mainprice--old{}
         &--old{
             padding-bottom: 10px;
@@ -14,8 +19,11 @@
     }
     //.prodpage-price__recommended{}
     &__recommended{
-        &>p{
-            padding-bottom: 10px;
+        &> p{
+            padding-bottom: 5px;
+            span {
+                color: $a2;
+            }
         }
     }
 

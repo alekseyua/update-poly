@@ -30,8 +30,8 @@ const SectionRaitingAndSharingAndMyWish = ({
                 ActiveStar = { 0 }//?!чтобы показать общий рейтинг товара
                 countRaiting={3}
                 className = { style['prodpage__raiting-star--disable']}
+                label = { 'Отзыв(ов)' }
             />
-
             <div
                 className={style['prodpage__raitsharewish-inner']}
             >

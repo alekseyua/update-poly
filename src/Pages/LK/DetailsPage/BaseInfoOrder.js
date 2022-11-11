@@ -68,6 +68,8 @@ const BaseInfoOrder = ({
                 : null
           }
           </div>
+           {
+              dateFilterData ?
             <div className={style['cabinet-topfilter__left']}>
               <Input
                 className={'cabinet-lk__search'}
@@ -80,7 +82,8 @@ const BaseInfoOrder = ({
                 }
               />
             </div>
-
+            : null
+          }
     </div>
   );
 };

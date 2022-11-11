@@ -165,7 +165,7 @@
   &-topfilter {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     @include tablet-md {
       margin-left: 15px;
     }
@@ -173,6 +173,7 @@
     &__left {
       max-width: 280px;
       min-width: 260px;
+
     }
     @include mobile {
       flex-direction: column;
@@ -365,6 +366,8 @@
   &-group {
     display: flex;
     margin-left: 30px;
+    max-height: 40px;
+    margin-top: 5px;
 
     @include mobile {
       flex-wrap: wrap;

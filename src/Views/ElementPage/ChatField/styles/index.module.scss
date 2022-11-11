@@ -99,6 +99,11 @@
         flex-direction: column-reverse;
         padding: 15px 10px;
         background-color: $w;
+        & ~div{
+            div{
+                min-width: 0;
+            }
+        }
     }
 
 

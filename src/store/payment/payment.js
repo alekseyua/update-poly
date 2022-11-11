@@ -34,7 +34,6 @@ export const payment = store => {
                     delivery_cost: priceDilivery.price,
                 }
                 : null
-                debugger
             const res = await orderApi.createOrder(params);
             
             let newContext = {

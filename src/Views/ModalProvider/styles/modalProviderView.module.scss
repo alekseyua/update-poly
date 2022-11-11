@@ -322,6 +322,19 @@
             @include scrollbar;
         }
     }
+    //.modal-preview-table{}
+    &-preview-table{
+        @include mobile-min {
+            min-width: 500px;
+            height: 100%;
+            overflow: auto;
+            @include scrollbar;
+            width: 80vw;
+        }
+        a{
+            color: $a2;
+        }
+    }
     //.modal-add-address{}
     &-add-address{
         padding: 0;

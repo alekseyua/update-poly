@@ -1,0 +1,40 @@
+@import '../../../../styles/variables.scss';
+
+.prodpage{
+    //.prodpage__delivery-info{}
+    &__delivery-info{
+        padding: 0;
+        background: rgba(243, 239, 243, 0.3);
+        border-radius: 2px;
+        padding: 1px 17px 8px;
+        max-width: 376px;
+    }
+    //.prodpage__delivery-info-title{}
+    &__delivery-info-title{
+        padding: 0;
+        color: $a2;
+        font-size: 14px;
+        letter-spacing: 0px;
+        font-weight: bold;
+        margin-top: 12px;
+        display: flex;
+        align-items: flex-end;
+        > span {
+            border-bottom: 1px dashed #933468;
+        }
+    }
+    //.prodpage__delivery-info-icon{}
+    &__delivery-info-icon{
+        padding: 0;
+        margin-right: 7px;
+            margin-bottom: -8px;
+    }
+    //.prodpage__delivery-info-description{}
+    &__delivery-info-description{
+        padding: 0;
+        padding-left: 44px;
+        font-size: 12px;
+        line-height: 140%;
+        color: $dg2;
+    }
+}

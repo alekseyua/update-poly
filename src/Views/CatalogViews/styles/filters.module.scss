@@ -124,6 +124,11 @@
     position: relative;
     @include flex(sc);
     cursor: pointer;
+    > div{  
+      label {
+        color: #000;
+      }
+    }
 
     &__count {
       flex-shrink: 0;

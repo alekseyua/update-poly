@@ -10,6 +10,7 @@ const ProductDetailsContainer = ({
     const { dispatch } = useStoreon();
     console.log('props product details = ', context)
     const {
+        role_configuration,
         recommended_price,
         reviews_statistic,
         reviews_count,
@@ -48,7 +49,7 @@ const ProductDetailsContainer = ({
     const { role, status } = context.profile;
     const { dataReviewProductCount = null, product_reviews, pageReviewProduct = null } = reviews;
     const profileId = context.profile?.id;
-
+    const { delivery_condition } = role_configuration;
     const handleChooseProduct = (productId, colorId, sizeId) => {
         const params = {
                 productId:productId,
@@ -79,9 +80,17 @@ const ProductDetailsContainer = ({
         dispatch('removeWishList', { id: id, pathname: location.pathname })
     }
 
+    const openTableSize = () => {        
+        dispatch('openModalTableSize')
+    }
+
+
+    console.log({delivery_condition})
+
     return (
         <ProductDetails
             dataReviewProductCount={dataReviewProductCount}
+            delivery_condition = { delivery_condition }
             defaultProductCard={defaultProductCard}
             pageReviewProduct={pageReviewProduct}
             recommended_price={recommended_price}
@@ -121,6 +130,7 @@ const ProductDetailsContainer = ({
             handlerOpenListCollection={handlerOpenListCollection}
             addLikeProductCard = { addLikeProductCard }
             removeLikeProductCard = { removeLikeProductCard }
+            openTableSize = { openTableSize }
         />
     )
 }

@@ -10,6 +10,7 @@ import { useStoreon } from 'storeon/react';
 import style from './layout.module.scss';
 import cogoToast from 'cogo-toast';
 import { getCookie } from '../../helpers/helpers'; 
+import VidjetChatComponent from '../../Views/VidjetChat';
 
 
 const Layout = (props) => {
@@ -28,7 +29,7 @@ const Layout = (props) => {
   },[props.context])
   const { title } = dataPage.init_state.page_info
   
-
+const isShowChat = false
   useEffect(() => {
     if (notice !== null) {
       const { hide } = cogoToast.success(notice, {
@@ -119,7 +120,9 @@ const Layout = (props) => {
         </header>
 
         <main className={style['layout__main']}>
-          {/* <VidjetChatComponent /> */}
+          <VidjetChatComponent 
+            isShowChat = { isShowChat }
+          />
           
           <Outlet />
 

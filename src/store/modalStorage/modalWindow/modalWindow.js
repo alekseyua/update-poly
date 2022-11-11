@@ -27,6 +27,7 @@ import BlockSpinner from '../../../Views/SpinnerWrapper';
 import PhotoView from '../../../Views/PhotoView/ViewsImage';
 import VideoView from '../../../Views/VideoView/ViewsVideo';
 import CardCollectionView from '../../../Views/CardCollectionView/CardCollectionView';
+import WorldStandardSizesChart from "../../../Views/WorldStandardSizesChart";
 
 const contentApi = api.contentApi;
 const orderApi = api.orderApi;
@@ -1458,6 +1459,35 @@ export const openVideoForSiew = ( video, preview, urlProduct ) => {
         <BlockGrid.BlockCenter>
           <BlockGrid.Row>            
             <VideoView video = { video } preview = { perview } url = { urlProduct } />
+          </BlockGrid.Row>
+        </BlockGrid.BlockCenter>
+      </BlockGrid.Container>
+    </React.Fragment>
+  )
+}
+export const openTableSize = ( ) => {
+
+  return (
+    <React.Fragment>
+      <BlockGrid.Container>
+        <BlockGrid.BlockCenter>
+          <BlockGrid.Row>            
+           <WorldStandardSizesChart
+           />
+          </BlockGrid.Row>
+        </BlockGrid.BlockCenter>
+      </BlockGrid.Container>
+    </React.Fragment>
+  )
+}
+export const openVidjetChat = (  ) => {
+
+  return (
+    <React.Fragment>
+      <BlockGrid.Container>
+        <BlockGrid.BlockCenter>
+          <BlockGrid.Row>            
+
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>
       </BlockGrid.Container>

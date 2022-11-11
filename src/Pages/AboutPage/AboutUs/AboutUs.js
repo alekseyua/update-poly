@@ -13,19 +13,22 @@ import {
   tehnologyFone,
   tehnologyInfo,
 } from '../../../images';
+import Breadcrumbs from '../../../Views/Breadcrumbs';
 
-import style from './style/style.module.scss';
+import style from './style/aboutus.module.scss';
 
 const AboutUs = (props) => {
   const { 
     goToRegistration,
     title,
     dangerouslySetInnerHTML,
+    breadcrumbs
   } = props;
 
   return (
     <>
       <div className={style["about__container"]}>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div className={style["about__container-wrapper"]}>
 
         
@@ -35,7 +38,7 @@ const AboutUs = (props) => {
               <div className={style["company-about__block"]}>
                 <div className={style["company-about__content"]}>
                   <h1 className={style["company-about__title"]}>{title}</h1>
-                  <div className={style["company-about__description"]} dangerouslySetInnerHTML={dangerouslySetInnerHTML}>
+                  <div className={style["company-about__description"]} dangerouslySetInnerHTML = { dangerouslySetInnerHTML } >
                     
                   </div>
                 </div>

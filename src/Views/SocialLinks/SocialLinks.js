@@ -49,7 +49,7 @@ const SocialLinks = ({site_configuration}) => {
                 <Icon 
                   className={style['social-links__list-item-icon']} 
                   src={el.icon} alt="social" 
-                  height={20} width={20}
+                  height={40} width={40}
                 />
             </li>
           );

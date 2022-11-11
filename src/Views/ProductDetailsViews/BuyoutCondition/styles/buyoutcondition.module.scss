@@ -17,8 +17,9 @@
     &__title{
         padding: 0;
         color: $dg2;
-      margin-top: 0;
-      margin-bottom: 5px;
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-size: 12px;
     }
     //.prodpage-condition__body{}
     &__body{
@@ -31,7 +32,7 @@
         margin-bottom: 5px;
         display: flex;
         flex-direction: column;
-        @include adaptive-value('font-size', 12, 14, px, 2);
+        @include adaptive-value('font-size', 14, 12, px, 2);
     }
     //.prodpage-condition__row-price{}
     &__row-price{
