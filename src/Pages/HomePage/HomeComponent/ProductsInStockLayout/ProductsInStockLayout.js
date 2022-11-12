@@ -24,7 +24,6 @@ const ProductsInStockLayout = ({
           <MainFilters
             filters = { filterList }
             activeItemList = { activeItemList }
-
             getProductsInStockForName = { getProductsInStockForName }
           />
           <div className={style['products-in-stock__content']}>

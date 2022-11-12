@@ -10,16 +10,17 @@ import { useStoreon } from 'storeon/react';
 import style from './layout.module.scss';
 import cogoToast from 'cogo-toast';
 import { getCookie } from '../../helpers/helpers'; 
-import VidjetChatComponent from '../../Views/VidjetChat';
+import VidjetChat from '../../Views/VidjetChat';
+import ButtonScrollTop from '../../Views/ButtonScrollTop';
 
 
 const Layout = (props) => {
-  // console.log('start go to props == ', props)
   const token = getCookie('ft_token');
 
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
+  const [ isShowChat, setIsShowChat ] = useState(false);
   const [notice, setNotice] = useState(null)
 
   const logoLinkGoto = '/'
@@ -27,9 +28,9 @@ const Layout = (props) => {
   useEffect(()=>{
     setDataPage(prev => ({...prev, ...props.context}))
   },[props.context])
-  const { title } = dataPage.init_state.page_info
   
-const isShowChat = false
+  const { title } = dataPage.init_state.page_info
+  const { answerCategorys, answers } = dataPage.init_state.faq;
   useEffect(() => {
     if (notice !== null) {
       const { hide } = cogoToast.success(notice, {
@@ -44,22 +45,22 @@ const isShowChat = false
     }
   }, [notice])
 
-    useEffect(() => {
-      if (navigator.serviceWorker) {
-        console.log('navigator.serviceWorker',navigator.serviceWorker)
-        const listener = event => {
-          // console.log({event})
-          const { notification } = event.data
-          if (event.data && event.data.type === 'SKIP_WAITING') {
-            self.skipWaiting();
-          }
-          const { body } = notification
-          setNotice(body)
+  useEffect(() => {
+    if (navigator.serviceWorker) {
+      console.log('navigator.serviceWorker',navigator.serviceWorker)
+      const listener = event => {
+        // console.log({event})
+        const { notification } = event.data
+        if (event.data && event.data.type === 'SKIP_WAITING') {
+          self.skipWaiting();
         }
-        navigator.serviceWorker.addEventListener('message', listener);
-        return removeEventListener('message', listener);
+        const { body } = notification
+        setNotice(body)
       }
-    }, [])
+      navigator.serviceWorker.addEventListener('message', listener);
+      return removeEventListener('message', listener);
+    }
+  }, [])
 
 
   useEffect(()=>{
@@ -84,7 +85,25 @@ const isShowChat = false
 
   },[])
 
-  
+  const toggleOpenChats = () => {
+    dispatch('getFaq');
+    setIsShowChat(c => !c)
+  }
+
+  const submitQuestrion = (data) => {
+    // const params = {
+    //   name: data.name,
+    //   email: data.email,
+    //   category: data.category,
+    //   question: data.question,
+    // };
+    // contentApi.postAnswer(params).then((res) => {
+    //   setsuccessResponse(res.email);
+    // });
+  };
+
+  const successResponse = false;
+
   return (
       <ModalProvider.ModalProviderView
         show={modalState.show}
@@ -120,17 +139,22 @@ const isShowChat = false
         </header>
 
         <main className={style['layout__main']}>
-          <VidjetChatComponent 
+          <VidjetChat 
+            answers = { answers }
+            categorys = { answerCategorys }
             isShowChat = { isShowChat }
+            successResponse = { successResponse }
+            submitQuestrion = { submitQuestrion }
+            toggleOpenChats = { toggleOpenChats }
           />
           
           <Outlet />
 
-          {/* <ButtonScrollTopComponent/> */}
+          <ButtonScrollTop/>
         </main>
 
         <footer className={style['layout__footer']}>
-         <Footer 
+          <Footer 
             footer_menu = {dataPage.init_state.footer_menu}
             site_configuration = {dataPage.init_state.site_configuration}
             role_configuration = {dataPage.init_state.role_configuration}

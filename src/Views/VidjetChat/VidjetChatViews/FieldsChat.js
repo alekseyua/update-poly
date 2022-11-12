@@ -1,45 +1,49 @@
 import React from 'react';
-import {
-  GxInput,
-  GxMenuItem,
-  GxSelect,
-  GxTextarea,
-  GxForm,
-} from '@garpix/garpix-web-components-react';
 import classNames from 'classnames';
 import { Formik } from 'formik';
-import Button from '../../Views/Button';
-import { FaqSchema } from '../../utils/schemesFormic';
-import ErrorField from '../ErrorField';
-import style from './styles/index.module.scss';
-import { motion } from 'framer-motion';
+import { FaqSchema } from '../../../helpers/schemesFormic';
+import ErrorField from '../../ErrorField';
+import BlockSpinner from '../../SpinnerWrapper';
+import Form from '../../Form';
+import Input from '../../Input';
+import Select from '../../Select';
+import Button from '../../Button';
+import TextArea from '../../TextArea';
 
-const FieldsChat = ({ answers = [], categorys = [], submitQuestrion, successResponse }) => {
+import style from './styles/index.module.scss';
+
+const FieldsChat = ({
+  answers = [],
+  categorys = [],
+  submitQuestrion,
+  successResponse,
+  isShowChat,
+}) => {
 
   return (
-    <div className={style['widget__chat_field']}>
-            <details className={style['widget__chat_details']}>
-        <summary className={style['widget__chat_summary']}>
-          <div className={style['widget__chat_button-text']}>Написать нам</div>
+    <div className={style['widget__chat-field']}>
+      <details className={style['widget__chat-details']}>
+        <summary className={style['widget__chat-summary']}>
+          <div className={style['widget__chat-button-text']}>Написать нам</div>
         </summary>
         <div
           className={classNames({
-            [style['widget__chatmessage-full']]: true,
-            [style['widget__chatmessage-user']]: true,
+            [style['widget__chat-message-full']]: true,
+            [style['widget__chat-message-user']]: true,
           })}
         >
-          <div className={style['widget__chatmessage_wrapper']}>
-            <div className={style['widget__chatmessage_name']}>Не нашли ответа на свой вопрос?</div>
+          <div className={style['widget__chat-message-wrapper']}>
+            <div className={style['widget__chat-message-name']}>Не нашли ответа на свой вопрос?</div>
           </div>
-          <p className={style['widget__chatmessage_text']}>
+          <p className={style['widget__chat-message-text']}>
             Вы можете задать его в форме ниже, ответ придет на указанную почту.
           </p>
           <Formik
             enableReinitialize
             validationSchema={FaqSchema}
             initialValues={{
-              name: null,
-              email: null,
+              name: '',
+              email: '',
               category: null,
               question: null,
             }}
@@ -47,110 +51,119 @@ const FieldsChat = ({ answers = [], categorys = [], submitQuestrion, successResp
           >
             {({ handleSubmit, values, touched, errors, setFieldValue, handleChange }) => {
               return (
-                <GxForm novalidate onGx-submit={handleSubmit}>
-                  <div className={style['widget__form_wrap']}>
-                    <GxInput
-                      className={style['widget__form_input']}
+                <Form novalidate onGx-submit={handleSubmit}>
+                  <div className={style['widget__form-wrap']}>
+                    <Input
+                      className={style['widget__form-input']}
                       name="name"
                       onGx-change={handleChange}
                       placeholder="ФИО"
                     />
                     {errors.name && touched.name ? <ErrorField message={errors.name} /> : null}
-                    <GxInput
-                      className={style['widget__form_input']}
+                    <Input
+                      className={style['widget__form-input']}
                       type="email"
                       name={'email'}
                       onGx-change={handleChange}
                       placeholder="Электронная почта"
                     />
                     {errors.email && touched.email ? <ErrorField message={errors.email} /> : null}
-                    <GxSelect
+                    <Select
                       name={'category'}
-                      onGx-change={handleChange}
-                      className={style['widget__form_input']}
+                      onClick={handleChange}
+                      className={style['widget__form-input']}
                       placeholder="Категория"
                     >
-                      {categorys.map((el) => {
-                        return (
-                          <GxMenuItem key={el.id} value={el.id}>
-                            {el.category}
-                          </GxMenuItem>
-                        );
-                      })}
-                    </GxSelect>
+                      {
+                        categorys.map((el) => {
+                          return (
+                            // <MenuItem key={el.id} value={el.id}>
+                            //   {el.category}
+                            // </MenuItem>
+                            <summary
+                              key={el.id}
+                              className={style['widget__chat-summary']}
+                              value={el.id}
+                            >
+                              <div className={style['widget__chat-button-text']}>{el.category}</div>
+                            </summary>
+
+                          );
+                        })
+                      }
+                    </Select>
                     {errors.category && touched.category ? (
                       <ErrorField message={errors.category} />
                     ) : null}
-                    <GxTextarea
+                    <TextArea
                       name={'question'}
                       onGx-change={handleChange}
-                      className={style['widget__form_input']}
+                      className={style['widget__form-input']}
                       placeholder="Напишите Ваш вопрос"
                     />
                     {errors.question && touched.question ? (
                       <ErrorField message={errors.question} />
                     ) : null}
-                    <div className={style['widget__form_btnwrap']}>
+                    <div className={style['widget__form-btn-wrap']}>
                       <Button type="submit" variant="cabinet_default">
                         Отправить
                       </Button>
                     </div>
                   </div>
-                </GxForm>
+                </Form>
               );
             }}
           </Formik>
         </div>
       </details>
-      {successResponse ? (
-        <div
-          className={classNames({
-            [style['widget__chatmessage-full']]: true,
-            [style['widget__chatmessage-user']]: true,
-          })}
-        >
-          <p className={style['widget__chatmessage-notify']}>
-            Сообщение отправлено. Ответ придет на почту {successResponse}
-          </p>
-        </div>
-      ) : null}
-      {answers.map((el) => {
 
-        return (
-          <motion.details 
-            initial={{
-              height:0,
-              opacity: 0
-            }}
-            animate={{
-              height:'100%',
-              opacity: 1
-            }}
-            translate={{
-              delay: 4,
-              duration: 3
-            }}
-          key={el.id} className={style['widget__chat_details']}>
-            <summary className={style['widget__chat_summary']}>
-              <div className={style['widget__chat_button-text']}>{el.question}</div>
-            </summary>
-            <motion.div
-             
-              className={classNames({
-                [style['widget__chatmessage-full']]: true,
-                [style['widget__chatmessage-admin']]: true,
-              })}
-            >
-              <div className={style['widget__chatmessage_wrapper']}>
-                <div className={style['widget__chatmessage_name']}>{el.question}</div>
-              </div>
-              <motion.p 
-             
-              className={style['widget__chatmessage_text']}>{el.answer}</motion.p>
-            </motion.div>
-          </motion.details>
-        );
-      })}
+      {
+        successResponse ? (
+          <div
+            className={classNames({
+              [style['widget__chat-message-full']]: true,
+              [style['widget__chat-message-user']]: true,
+            })}
+          >
+            <p className={style['widget__chat-message-notify']}>
+              Сообщение отправлено. Ответ придет на почту {successResponse}
+            </p>
+          </div>
+        ) : null
+      }
+      {
+        answers.length ?
+          answers.map((el) => {
+
+            return (
+              <details
+                key={el.id}
+                className={style['widget__chat-details']}
+              >
+                <summary className={style['widget__chat-summary']}>
+                  <div className={style['widget__chat-button-text']}>{el.question}</div>
+                </summary>
+                <div
+
+                  className={classNames({
+                    [style['widget__chat-message-full']]: true,
+                    [style['widget__chat-message-admin']]: true,
+                  })}
+                >
+                  <div className={style['widget__chat-message-wrapper']}>
+                    <div className={style['widget__chat-message-name']}>{el.question}</div>
+                  </div>
+                  <p
+
+                    className={style['widget__chat-message-text']}>{el.answer}</p>
+                </div>
+              </details>
+            );
+          })
+          : <BlockSpinner.SpinnerCenter>
+            <BlockSpinner.Spinner sizeHeight='25' sizeWidth='25' />
+          </BlockSpinner.SpinnerCenter>
+      }
 
     </div>
   );

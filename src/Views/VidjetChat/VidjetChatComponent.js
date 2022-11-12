@@ -1,18 +1,19 @@
 import React from 'react';
 import { useStoreon } from 'storeon/react';
 import VidjetChat from './VidjetChat';
+import VidjetChatViews from './VidjetChatViews';
 
 const VidjetChatComponent = ({
-  isShowChat
+  answers,
+  isShowChat,
+  answerCategorys,
+  successResponse,
+  toggleOpenChats,
+  submitQuestrion
 }) => {
   const { dispatch } = useStoreon();
 
-  const toggleOpenChats = () => {
-    dispatch('openModalVidjetChat');
-    // setisShowChat(!isShowChat);
-  };
 
- 
   if (!isShowChat) {
     return (
     <VidjetChat
@@ -21,7 +22,16 @@ const VidjetChatComponent = ({
     )
   }else{
     return (
-      <></>
+      <VidjetChatViews.Wrapper>
+      <VidjetChatViews.HeadChat toggleOpenChats={toggleOpenChats} />
+      <VidjetChatViews.FieldsChat
+        isShowChat = { isShowChat }
+        answers={answers}
+        categorys={answerCategorys}
+        successResponse={successResponse}
+        submitQuestrion={submitQuestrion}
+      />
+    </VidjetChatViews.Wrapper>
     )
   }
 

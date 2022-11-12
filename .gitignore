@@ -9,6 +9,7 @@ build
 build1
 build2
 build3
+src1
 cache
 .env.local
 .env.development.local

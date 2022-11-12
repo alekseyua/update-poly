@@ -815,7 +815,11 @@
                                     "by_color": [],
                                     "by_size": [],
                                     "by_type": []
-                               }
+                               },
+        "faq" : {
+            "answerCategorys": [],
+            "answers": []
+        }
     }
 
 }

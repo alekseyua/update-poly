@@ -1,12 +1,13 @@
-@import '../../../styles/variables/index.scss';
-@import '../../../styles/fonts/index.scss';
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
 .widget {
+  //.widget__wrap{}
   &__wrap {
     //   УБРАТЬ display: none;
     //   display: none;
     //   УБРАТЬ display: none;
     position: fixed;
-    bottom: 0;
+    bottom: auto;
     right: 0;
     max-width: 500px;
     // height: 100%;
@@ -21,12 +22,14 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    &_head {
+    //.widget__chat-head{}
+    &-head {
       display: flex;
       // @include flex(sc);
       padding: 20px;
       background-color: $a2;
-      &_text {
+      //.widget__chat-head-text{}
+      &-text {
         @extend %font-head;
         color: $w;
         font-weight: bold;
@@ -35,15 +38,16 @@
         letter-spacing: 0.08em;
         min-width: max-content;
       }
-      &_btn {
+      //.widget__chat-head-btn{}
+      &-btn {
         margin-left: 20px;
       }
-      &_icon {
+      &-icon {
         color: $w;
         opacity: 0.8;
       }
-      //.widget__chat_head_buttons
-      &_buttons{
+      //.widget__chat-head-buttons
+      &-buttons{
         display: flex;
         justify-content: space-between;
         padding-left: 5px;
@@ -51,19 +55,17 @@
         width: 100%;
       }
     }
-    &_field {
+    //.widget__chat-field{}
+    &-field {
       min-height: 450px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       padding: 15px 10px;
       background-color: $w;
-      height: 100%;
+      @include scrollbar;
+      height: calc(100vh - 194px);
 
-      // Scrollbar styles
-      // moz
-      scrollbar-color: rgba(147, 52, 104, 0.3) rgba(252, 210, 215, 0.3); /* «цвет ползунка» «цвет полосы скроллбара» */
-      scrollbar-width: thin;
       // webkit
       &::-webkit-scrollbar {
         width: 4px;
@@ -73,28 +75,34 @@
         background-color: rgba(147, 52, 104, 0.3); /* «цвет ползунка» */
       }
     }
-    &_send {
+    //.
+    &-send {
       background-color: $w;
     }
-    &message {
+
+    &-message {
       border-radius: 10px;
       padding: 10px;
       width: 95%;
       margin-bottom: 10px;
+      //.widget__chat-message-admin{}
       &-admin {
         align-self: flex-start;
         background-color: rgba(var(--gx-color-accent2-rgb), 0.3);
       }
+      //.widget__chatmessage-full{}
       &-full {
         border-radius: 10px;
         padding: 10px;
         width: 100%;
         margin-bottom: 10px;
       }
+      //.widget__chat-message-user{}
       &-user {
         align-self: flex-end;
         background-color: $g2;
       }
+      //.widget__chat-message-notify{}
       &-notify {
         margin: 0;
         font-weight: bold;
@@ -103,47 +111,46 @@
         letter-spacing: 0.02em;
         color: $a2;
       }
-      &_wrapper {
+      //.widget__chat-message-wrapper{}
+      &-wrapper {
         @include flex(sc);
         margin-bottom: 5px;
       }
-      &_name {
+      //.widget__chat-message-name{}
+      &-name {
         color: $a2;
         font-weight: bold;
         line-height: 140%;
       }
-      &_date {
+
+      &-date {
         // color: $p;
         opacity: 0.5;
       }
-      &_text {
+      //.widget__chat-message-text{}
+      &-text {
         margin: 0;
       }
     }
-    &_button {
+    //.
+    &-button {
+
       align-self: flex-end;
       margin-bottom: 10px;
-      &::part(base) {
-        background-color: $g2;
-        border: 1px solid $a2;
-        padding: 13px;
-        min-height: 47px;
-        border-radius: 10px;
-        min-width: 190px;
-      }
-      &::part(label) {
-        font-size: 14px;
-        line-height: 140%;
-        color: $a2;
-      }
+      background-color: $g2;
+      border: 1px solid $a2;
+      padding: 13px;
+      min-height: 47px;
+      border-radius: 10px;
+      min-width: 190px;
+      font-size: 14px;
+      line-height: 140%;
+      color: $a2;
       &:hover {
-        &::part(base) {
           background-color: $a2;
-        }
-        &::part(label) {
           color: $w;
-        }
       }
+      //.widget__chat-button-text{}
       &-text {
         margin-bottom: 10px;
         background-color: $g2;
@@ -163,8 +170,8 @@
         }
       }
     }
-    &_send {
-      &_form {
+    &-send {
+      &-form {
         box-shadow: 0px 0px 34px rgba(0, 0, 0, 0.1);
         padding-top: 6px;
         padding-right: 18px;
@@ -172,33 +179,29 @@
         padding-left: 6px;
         @include flex(sc);
       }
-      &_input {
+      &-input {
         width: 100%;
-        &::part(base) {
-          border: none;
-        }
-        &::part(input) {
-          @include mobile-sm {
-            margin: 0;
-          }
+        border: none;
+        @include mobile-sm {
+          margin: 0;
         }
       }
-      &_btn {
-        &::part(base) {
-          border: none;
-          padding: 0;
-          &:hover {
-          }
+      &-btn {
+        border: none;
+        padding: 0;
+        &:hover {
         }
       }
-      &_sendbtn {
+      &-sendbtn {
         margin-left: 18px;
       }
     }
-    &_details {
+    //.widget__chat-details{}
+    &-details {
       width: 100%;
     }
-    &_summary {
+    //.widget__chat-summary{}
+    &-summary {
       display: block;
       width: 100%;
       cursor: pointer;
@@ -208,21 +211,20 @@
     }
   }
   &__form {
-    &_wrap {
+    //.widget__form-wrap{}
+    &-wrap {
       margin-top: 10px;
     }
-    &_input {
+    //.widget__form-input{}
+    &-input {
       margin-bottom: 10px;
-      &::part(base) {
-        border: 2px solid $pil;
-      }
+      border: 2px solid $pil;
       &:hover {
-        &::part(base) {
-          border: 2px solid $a2;
-        }
+        border: 2px solid $a2;
       }
     }
-    &_btnwrap {
+    //.widget__form-btn-wrap{}
+    &-btn-wrap {
       width: max-content;
       margin-left: auto;
     }

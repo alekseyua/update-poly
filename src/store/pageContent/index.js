@@ -20,7 +20,6 @@ export const pageContent = store => {
     const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
     const token = getCookie('ft_token');
 
-
     // if (!(!!token)){ 
     //     console.log('start unregister sw')
     //     serviceWorker.unregister();
@@ -29,7 +28,7 @@ export const pageContent = store => {
     //     serviceWorker.register();
     //   }
       
-      console.log('---------------------------------------------', data)
+    //   console.log('---------------------------------------------', {data})
 
 
         return { context: { 
@@ -38,7 +37,7 @@ export const pageContent = store => {
                 ...data.init_state,
                 currency: currency,
                 countWishList: countWishList,
-                currentPage: page
+                currentPage: page,
             }
         } }
 

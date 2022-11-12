@@ -1,35 +1,41 @@
 import React from 'react';
-import { GxInput, GxButton, GxIcon } from '@garpix/garpix-web-components-react';
-import { paperclip, send } from '../../images';
+import { paperclip, send } from '../../../images';
 import classNames from 'classnames';
-import style from './styles/index.module.scss';
 
-const SendChat = ({}) => {
+import style from './styles/index.module.scss';
+import Input from '../../Input';
+import Button from '../../Button';
+import Icon from '../../Icon';
+
+const SendChat = ({
+
+}) => {
+  
   return (
     <div className={style['widget__chat_send']}>
       <div className={style['widget__chat_send_form']}>
-        <GxInput
+        <Input
           className={style['widget__chat_send_input']}
           placeholder="Написать сообщение..."
-        ></GxInput>
-        <GxButton
+        ></Input>
+        <Button
           size="sm"
           className={classNames({
             [style['widget__chat_send_sendbtn']]: true,
             [style['widget__chat_send_btn']]: true,
           })}
         >
-          <GxIcon src={paperclip} />
-        </GxButton>
-        <GxButton
+          <Icon src={paperclip} />
+        </Button>
+        <Button
           size="sm"
           className={classNames({
             [style['widget__chat_send_sendbtn']]: true,
             [style['widget__chat_send_btn']]: true,
           })}
         >
-          <GxIcon src={send} />
-        </GxButton>
+          <Icon src={send} />
+        </Button>
       </div>
     </div>
   );

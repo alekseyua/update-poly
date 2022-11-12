@@ -17,6 +17,7 @@ import {
 } from '../../images';
 
 import style from './productCard.module.scss';
+import { ROLE } from '../../const';
 
 const AsyncSlider = AsyncComponent(() => {
   return import('./Slider');
@@ -26,6 +27,7 @@ const ProductCard = (props) => {
   const {
     swapperDisabled,
     title,
+    role,
     id,
     url,
     brand,
@@ -101,7 +103,11 @@ const ProductCard = (props) => {
              />
           )}
           <div className={style['product-card__head']}>
-            <h6 className={style['product-card__brand']}>{brand}</h6>
+            {
+              role !== ROLE.UNREGISTRED && role !== ROLE.RETAIL? 
+                <h6 className={style['product-card__brand']}>{brand}</h6>
+                : null
+            }
             <Button
               variant="text"
               className={classNames({

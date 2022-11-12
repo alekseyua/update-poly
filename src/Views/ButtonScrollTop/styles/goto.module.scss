@@ -1,0 +1,18 @@
+@import '../../../styles/variables.scss';
+
+.go-to{
+    //.go-to__container{}
+    &__container{
+        position: fixed;
+        bottom: 40px;
+        margin-left: 20px;
+        z-index: 444;
+        @include mobile{
+            bottom: 60px;
+        }
+        &>div:hover{
+            cursor: pointer;
+        }
+    }
+
+}

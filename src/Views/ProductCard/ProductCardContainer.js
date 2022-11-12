@@ -6,9 +6,10 @@ import { useLocation } from "react-router-dom";
 
 const ProductCardContainer = ({
     key,
-    title,
     id,
     url,
+    title,
+    role,
     brand,
     prices,
     stock,
@@ -49,6 +50,7 @@ const ProductCardContainer = ({
             id={id}
             key={key}
             url={ url }
+            role = { role }
             brand={brand}
             prices={prices}
             stock={stock}

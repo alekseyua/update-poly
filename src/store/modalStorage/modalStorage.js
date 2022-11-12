@@ -7,6 +7,7 @@ import { getActiveColor, getActiveSize, getCookie } from '../../helpers/helpers'
 import { errorAlertIcon, successAlertIcon } from '../../images';
 import Text from '../../helpers/Text';
 import SubTitle from '../../Views/InformationViews/HowTo/SubTitle';
+import VidjetChatViews from '../../Views/VidjetChat/VidjetChatViews';
 
 
 const contentApi = api.contentApi;
@@ -944,19 +945,18 @@ export const modalStorage = store => {
             })
         }
     })
-    store.on('openModalVidjetChat', ({ context, closeModalState }, obj, { dispatch }) => {
+    store.on('', ({ context, closeModalState }, obj, { dispatch }) => {
         try {
-           
-            dispatch('setModalState', {
-                show: true,
-                title: null,
-                content: openVidjetChat( ),
-                // action: {
-                //     title: [null, null]
-                // },
-                addClass: 'modal-vidjet-chat',
-                onClick: () => closeModalState(),
-            })
+            // dispatch('setModalState', {
+            //     show: true,
+            //     title: null,
+            //     content: openVidjetChat( ),
+            //     // action: {
+            //     //     title: [null, null]
+            //     // },
+            //     addClass: 'modal-vidjet-chat',
+            //     onClick: () => closeModalState(),
+            // })
         } catch (err) {
             console.log('ERROR modalDeleteAccaunt', err)
             let error = [Text({ text: 'error-on-server' })];

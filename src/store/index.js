@@ -23,8 +23,10 @@ import { profileLK } from './lk-profile/profileLK';
 import { payment } from './payment/payment';
 import { chat } from './chat/chat';
 import { websocket } from './websocket/websocket';
+import { faq } from './faq/faq';
 
 export const store = createStoreon([
+    faq,
     websocket,
     chat,
     payment,
