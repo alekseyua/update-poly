@@ -7,6 +7,9 @@
     &--left {
         display: flex;
         margin-bottom: 20px;
+        @include tablet-md {
+            flex-direction: column;
+        }
     }
 
     //.juridical-block--right{}
@@ -14,6 +17,9 @@
         display: flex;
         flex-direction: row-reverse;
         margin-bottom: 20px;
+        @include tablet-md {
+            flex-direction: column;
+        }
     }
 
     //.juridical-block__left {}

@@ -11,7 +11,7 @@ export const payment = store => {
 
         try {
             const { role, balance, user } = context.init_state.profile
-            const { first_name, last_name, middle_name } = user;
+            const { first_name = '', last_name = '', middle_name = '' } = user;
             const { currency } = context.init_state;
             const { priceDilivery } = context.init_state.order
             const { price, discount, total_price } = context.init_state.cart_content
@@ -61,7 +61,7 @@ export const payment = store => {
                 if(numberCurrentOrderForAddProduct){
 
                     dispatch('setNumberOrderForAddProducts', {numberOrder: null} );    
-                    const message = ['Благодарим за Ваш выбор.', 'Товары добавлены в Ваш заказ', 'Приятного шопинга в мире моды']
+                    const message = ['Товары добавлены в Ваш заказ', 'Приятного шопинга в мире моды']
                     dispatch('setModalState', {
                         show: true,
                         content: textErrorMessage(message),
@@ -94,7 +94,7 @@ export const payment = store => {
                 //?! если больше переходим на страницу orders
                 
                 //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
-                const message = ['Благодарим за Ваш выбор.', 'Денежные средства будут списаны с Вашего счёта', 'Приятного шопинга в мире моды']
+                const message = ['Денежные средства будут списаны с Вашего счёта', 'Приятного шопинга в мире моды']
                     dispatch('setModalState', {
                         show: true,
                         content: textErrorMessage(message),

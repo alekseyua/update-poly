@@ -10,8 +10,9 @@ import { useStoreon } from 'storeon/react';
 import style from './layout.module.scss';
 import cogoToast from 'cogo-toast';
 import { getCookie } from '../../helpers/helpers'; 
-import VidjetChat from '../../Views/VidjetChat';
+import VidjetChatContainer from '../../Views/VidjetChat';
 import ButtonScrollTop from '../../Views/ButtonScrollTop';
+import Cookie from '../../Views/Cookie/Cookie';
 
 
 const Layout = (props) => {
@@ -20,7 +21,6 @@ const Layout = (props) => {
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
   const [ dataPage, setDataPage ] = useState(props.context);
-  const [ isShowChat, setIsShowChat ] = useState(false);
   const [notice, setNotice] = useState(null)
 
   const logoLinkGoto = '/'
@@ -31,8 +31,12 @@ const Layout = (props) => {
   
   const { title } = dataPage.init_state.page_info
   const { answerCategorys, answers } = dataPage.init_state.faq;
+  console.log({props: props.context},{dataPage})
   useEffect(() => {
     if (notice !== null) {
+      console.log({notice})
+      //сдесь происходит магия запуска обнавления контекста 
+      if ([notice].includes('на Товар оплачен')) console.log('observer work good!!!') //dispatch('')
       const { hide } = cogoToast.success(notice, {
         position: 'top-center',
         heading: `Уведомление `,
@@ -60,49 +64,36 @@ const Layout = (props) => {
       navigator.serviceWorker.addEventListener('message', listener);
       return removeEventListener('message', listener);
     }
-  }, [])
-
-
-  useEffect(()=>{
-
-    dispatch('setModalState',{
-      show: false,
-      className: null,
-      // iconImage: errorAlertIcon,
-      title: 'testing popup',
-      // content: (
-      //   <div>
-      //     <i>{ Text({ text : 'error_server' }) }</i>
-      //     <p>{ Text({ text : 'call_admin' }) }</p>
-      //   </div>
-      // ),
-      // action : { title : ['next step', null]},
-      // onClick : ()=>dispatch('setModalState',{
-      //             show: true,
-      //             content: 'hhhhhhhhh'
-      //           })     
-    })
-
   },[])
 
-  const toggleOpenChats = () => {
-    dispatch('getFaq');
-    setIsShowChat(c => !c)
+
+  // useEffect(()=>{
+  //   console.log('show modal window')
+  //   dispatch('setModalState',{
+  //     show: true,
+  //     className: null,
+  //     // iconImage: errorAlertIcon,
+  //     // title: 'testing popup',
+  //     // content: (
+  //     //   <div>
+  //     //     <i>{ Text({ text : 'error_server' }) }</i>
+  //     //     <p>{ Text({ text : 'call_admin' }) }</p>
+  //     //   </div>
+  //     // ),
+  //     // action : { title : ['next step', null]},
+  //     // onClick : ()=>dispatch('setModalState',{
+  //     //             show: true,
+  //     //             content: 'hhhhhhhhh'
+  //     //           })     
+  //   })
+  // },[])
+
+  const openModalFeedbackReedFile = (link, title) => {
+    dispatch('pdf-viewer', {
+      link: link,
+      title: title
+    });
   }
-
-  const submitQuestrion = (data) => {
-    // const params = {
-    //   name: data.name,
-    //   email: data.email,
-    //   category: data.category,
-    //   question: data.question,
-    // };
-    // contentApi.postAnswer(params).then((res) => {
-    //   setsuccessResponse(res.email);
-    // });
-  };
-
-  const successResponse = false;
 
   return (
       <ModalProvider.ModalProviderView
@@ -139,13 +130,9 @@ const Layout = (props) => {
         </header>
 
         <main className={style['layout__main']}>
-          <VidjetChat 
+          <VidjetChatContainer 
             answers = { answers }
             categorys = { answerCategorys }
-            isShowChat = { isShowChat }
-            successResponse = { successResponse }
-            submitQuestrion = { submitQuestrion }
-            toggleOpenChats = { toggleOpenChats }
           />
           
           <Outlet />
@@ -163,6 +150,7 @@ const Layout = (props) => {
             activeButton = { dataPage.init_state.activeButton}
           />
         </footer>
+        <Cookie openModalFeedbackReedFile={openModalFeedbackReedFile} policy={dataPage.init_state.site_configuration.policy}/>
     </div>
       </ModalProvider.ModalProviderView>
   );

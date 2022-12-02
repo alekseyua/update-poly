@@ -24,30 +24,30 @@ const ModalAddReview = ({
       onSubmit={sendReview}
     >
       {({ handleSubmit, values, setFieldValue, handleBlur, handleChange }) => {
-console.log({values})
-       const canselationCallback = (e) => {
+        const canselationCallback = (e) => {
           let arr = [];
-          !!values?.uploadFiles?(
+          !!values?.uploadFiles ? (
             arr = Array.from(values?.uploadFiles),
             setFieldValue('uploadFiles', [])
-          ): null;
+          ) : null;
           setFieldValue('content', '');
           setFieldValue('stars', 0);
-          !!!values.iAgreeDataProcessing? setFieldValue('iAgreeDataProcessing', true): null;
-          setFieldValue( 'activeButton', true )
+          !!!values.iAgreeDataProcessing ? setFieldValue('iAgreeDataProcessing', true) : null;
+          setFieldValue('activeButton', true)
         }
         return (
           <Form novalidate onChange={handleSubmit}>
             <ReviewsElementBlock.FormAddReview>
               <textarea
                 value={!!values.content ? values.content : ''}
-                onChange = { (e) => { 
+                onChange={(e) => {
                   // console.log('test input text area = ', {values}, { e: e.target.value })
-                  !!e.target.value && !!values.stars && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  // !!e.target.value && !!values.stars && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  !!e.target.value && !!values.stars ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                   handleChange(e)
                 }}
                 className={style["productreviews__form-textarea"]}
-                placeholder={Text({text: 'text-review'})}
+                placeholder={Text({ text: 'text-review' })}
                 name={'content'}
               ></textarea>
 
@@ -61,13 +61,14 @@ console.log({values})
                 className={'wrapperBtnFile'}
                 label={'Прикрепить изображение:'}
                 accept={'.png, .jpg, .jpeg, .mp4'}
-                countFiles = { values.uploadFiles ?? 0}
+                countFiles={values.uploadFiles ?? 0}
                 onBlur={handleBlur}
                 multiple={null}
                 setFieldValue={setFieldValue}
-                onChange = { (e) => { 
+                onChange={(e) => {
                   // console.log('test upload', {values}, {e: e.currentTarget.files.length})
-                  !!values.content && !!values.stars && !!e.currentTarget.files.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  // !!values.content && !!values.stars && !!e.currentTarget.files.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  !!values.content && !!values.stars ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                 }}
               />
 
@@ -75,9 +76,10 @@ console.log({values})
               <ReviewsElementBlock.FormAddReviewRating
                 values={values}
                 setFieldValue={setFieldValue}
-                onChange = { (e, countStar) => { 
+                onChange={(e, countStar) => {
                   // console.log('test star =', {values}, { e: e}, {value})
-                  !!values.content && !!countStar && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  // !!values.content && !!countStar && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
+                  !!values.content && !!countStar ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                 }}
               />
 
@@ -95,8 +97,8 @@ console.log({values})
                 handleSubmit={handleSubmit}
                 productId={productId}
                 profileId={profileId}
-                onChange = { (value) => { 
-                  console.log('test ', {values}, {value})
+                onChange={(value) => {
+                  console.log('test ', { values }, { value })
 
                   // values.content && !!values.stars && value && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
                 }}

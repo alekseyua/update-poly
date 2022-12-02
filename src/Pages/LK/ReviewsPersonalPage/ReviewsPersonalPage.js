@@ -7,7 +7,7 @@ const ReviewsPersonalPage = ({
 
     console.log({ ReviewsPersonalPage: context })
 
-    const {        
+    const {
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
@@ -16,26 +16,27 @@ const ReviewsPersonalPage = ({
         reviews,
         shop,
     } = context;
-    
+
     const { user = {}, role, balance } = profile;
-    console.log('reviews',reviews)
+    const amountNotifications = profile?.notifications;
     const getMyReviewList = reviews?.getMyReviewList;
     const { username } = user;
 
     return (
         <ReviewsPersonalPageLayoutContainer
+            amountNotifications={amountNotifications}
             cabinet_site_menu={cabinet_site_menu}
-            getMyReviewList = { getMyReviewList }
-            cabinet_menu = { cabinet_menu }
-            is_has_shop = { shop?.is_has_shop }
-            create_shop = { shop?.shop_link }
-            breadcrumbs = { breadcrumbs }
-            currency = { currency }
-            username = { username }
-            balance = { balance }
-            reviews = { reviews }
-            shop = { shop }
-            role = { role }
+            getMyReviewList={getMyReviewList}
+            cabinet_menu={cabinet_menu}
+            is_has_shop={shop?.is_has_shop}
+            create_shop={shop?.shop_link}
+            breadcrumbs={breadcrumbs}
+            currency={currency}
+            username={username}
+            balance={balance}
+            reviews={reviews}
+            shop={shop}
+            role={role}
         />
     )
 }

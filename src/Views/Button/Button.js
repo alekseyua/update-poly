@@ -16,7 +16,8 @@ import CatalogLinkTransparentModal from './styles/CatalogLinkTransparentModal.mo
 import cabinetDefault from './styles/cabinetDefault.module.scss';
 import cabinetLinkblue from './styles/cabinetLinkblue.module.scss';
 import showMore from './styles/showMore.module.scss';
-
+import buttonRegistration from './styles/buttonRegistration.module.scss';
+import styleAddClass from './styles/addClass.module.scss';
 import style from './styles/icons.module.scss';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
@@ -32,7 +33,8 @@ import Icon from '../Icon';
  * pill - 
  * outline - 
  * variant - передаём вариант стиля кнопки
- * className - задаваемый стиль кнопке
+ * className - задаваемый стиль кнопке из вне
+ * addClass - добавляем названия класса 
  * href - используем Link для навигации
  * target - в связке вместе с href для открытия на новой странице
  * onClickIcon - навешиваем событие на иконку
@@ -61,6 +63,7 @@ const Button = ({
   classNameIcon,
   datanoClick,
   value,
+  addClass,
   ...props
 }) => {
 
@@ -104,6 +107,8 @@ const Button = ({
         return cabinetLinkblue['btn']
       case 'show_more':
         return showMore['show_more'];
+      case 'button_registration':
+        return buttonRegistration['button_registration'];
       default: ''
     }
   }
@@ -117,11 +122,13 @@ const Button = ({
     [`button--circle`]: circle,
     [`button--pill`]: pill,
     [`button--outline`]: outline,
+
   };
 
   const customClassName = classNames({
     [getVariantStyleBtn(variant)]: variant !== 'none',
     [className]: !!className,
+    [styleAddClass[addClass]]: !!addClass,
     ...classes
   });
 

@@ -217,7 +217,7 @@
     }
     //.widget__form-input{}
     &-input {
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       border: 2px solid $pil;
       &:hover {
         border: 2px solid $a2;
@@ -227,6 +227,7 @@
     &-btn-wrap {
       width: max-content;
       margin-left: auto;
+      margin-top: 10px;
     }
   }
 }

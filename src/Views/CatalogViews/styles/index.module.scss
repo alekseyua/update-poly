@@ -169,7 +169,7 @@
     margin-bottom: 10px;
 
     @include mobile {
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
     }
   }
 

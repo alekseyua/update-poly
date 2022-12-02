@@ -29,7 +29,16 @@ import BalanceStatus from './BalanceViews/BalanceStatus';
 import WrapperCodePhoneHead from './WrapperCodePhoneHead';
 import WrapperButton from './WrapperButton'
 
+import InfoPayGreyText from './InfoPaidOrders/InfoPayGreyText';
+import InfoPayText from './InfoPaidOrders/InfoPayText';
+import InfoPayWrapper from './InfoPaidOrders/InfoPayWrapper';
+
+
 export default {
+  InfoPayGreyText,
+  InfoPayText,
+  InfoPayWrapper,
+
   WrapperButton,
   WrapperCodePhoneHead,
   WrapperButtonBottom,

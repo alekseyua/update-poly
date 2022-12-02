@@ -6,13 +6,17 @@ import style from './styles/tooltip.module.scss';
 /**
  * @param { *  
  * @1) local = {'top-center'} || 
- * 
+ *  2) content
+ *  3) trigger
+ *  4) 
  * }
  *  @returns 
  */
 
 const ToolTip = ({
   className,
+  active = false,
+  addClass,
   children,
   content,
   trigger,
@@ -32,6 +36,7 @@ const ToolTip = ({
   if (trigger = 'hover') {
 
   }
+  console.log({active})
 
   useEffect(()=>{
     // getBoundingClientRect
@@ -58,6 +63,7 @@ const ToolTip = ({
   const classTooltip = classNames({
     [style['toolTip__tooltip']]: true,
     [style[local]]: !!local,
+    [style[addClass]]: !!addClass,
     [className]: !!className
   })
 
@@ -69,8 +75,8 @@ const ToolTip = ({
         onClick={handlerChangeState}
         className={classNames({
           [style["toolTip__wrapper-trigger"]]: true,
-          [style["toolTip__wrapper-trigger--active"]]: activeToolTip
-
+          [style["toolTip__wrapper-trigger--active"]]: activeToolTip,
+          [style["toolTip__wrapper-trigger--disable"]]: active
         })
         }
       >

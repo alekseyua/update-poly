@@ -50,7 +50,6 @@ const ASSET_URLS = [
 self.addEventListener('install', async ()=>{
     console.log('install sw');
     try{
-
         const cache = await caches.open(STATIC_CACHE_NAME);
         await cache.addAll(ASSET_URLS);
     }catch(err){
@@ -101,12 +100,12 @@ async function networkFirst(request){
     try{ 
         const response = await fetch(request)
         // мы заносим данные в кэш которые получили с response, через метод put, клонируя данные
-        if(request.method !== "POST") await cache.put(request, response.clone())
+        if(request.method !== "POST" && request.method !== "DELETE" ) await cache.put(request, response.clone())
         return response
     }
     catch(err){
         // если у нас не получается получить данные с сети то получаем их с кэша
-        if(request.method !== "POST"){
+        if(request.method !== "POST" && request.method !== "DELETE"){
             const cached = await cache.match(request);
             return cached ?? await caches.match('/offline.html');
         }else{

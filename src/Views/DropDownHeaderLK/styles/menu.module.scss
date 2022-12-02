@@ -17,6 +17,7 @@
   }
   //.cabinet-menu__item{}
   &__item{
+    padding: 5px 0;
     &:not(:last-child){
       margin-bottom: 5px;
     }
@@ -26,6 +27,17 @@
     @extend %font;
     color: $p;
     font-size: $fontSize;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    &>div{
+      animation-name: recieveNotification;
+      animation-direction: alternate;
+      animation-duration: 1.5s;
+      animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation-iteration-count: infinite;
+      // opacity: 0;
+    }
     &:hover{
       color: $a;
     }
@@ -36,5 +48,16 @@
     font-style: normal;
     color: $p;
     font-weight: bold;
+  }
+}
+
+@keyframes recieveNotification {
+  to {
+    filter: invert(0%);
+    opacity: 5%;
+  }
+  from {
+    filter: invert(20%);
+    opacity: 100%;
   }
 }

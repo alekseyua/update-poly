@@ -1,3 +1,4 @@
+export const delay = async (ms) => await new Promise(resolve => setTimeout(resolve, ms));
 
 export const getCookie = (name) => {
     try {
@@ -13,7 +14,6 @@ export const getCookie = (name) => {
         return null;
     }
 }
-
 export const setCookie = (name, value, days) => {
     let expires = '';
     if (days) {

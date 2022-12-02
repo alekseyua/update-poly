@@ -162,6 +162,7 @@
   color: $p;
   @include mobile-lg {
     font-size: 36px;
+    padding: 0;
   }
 }
 

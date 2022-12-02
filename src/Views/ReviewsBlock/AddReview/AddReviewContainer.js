@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 import FormAddReview from '../AddReview/AddReviewBlock/FormAddReview'
 
@@ -7,6 +8,7 @@ const AddReviewContainer =({
     profileId,
 }) => {
     const { dispatch } = useStoreon();
+    const navigate = useNavigate();
 
     const sendReview = (data, dataFormik) => {
 
@@ -17,7 +19,13 @@ const AddReviewContainer =({
             stars: data.stars,
             product: data.productId,
             profile: data.profileId,
-            dataFormik: dataFormik
+            dataFormik: dataFormik,
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                  navigate(path);
+                  return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
           };
         dispatch('sendReview', params)
     }

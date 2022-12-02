@@ -4,6 +4,7 @@ import { useStoreon } from 'storeon/react';
 import PersonalPageLayout from './PersonalPageLayout';
 
 const PersonalPageLayoutContainer = ({
+            amountNotifications,
             receive_newsletter,        
             cabinet_site_menu,
             addressDilivery,
@@ -69,6 +70,7 @@ const PersonalPageLayoutContainer = ({
 
     return (
         <PersonalPageLayout
+            amountNotifications = { amountNotifications }
             receive_newsletter = { receive_newsletter }
             cabinet_site_menu = { cabinet_site_menu }
             addressDilivery = { addressDilivery }

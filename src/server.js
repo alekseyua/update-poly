@@ -56,10 +56,8 @@ export const renderApp = async (req, res, next) => {
     : {};
      const promise = activeRoute.fetchInitialData
      ? activeRoute.fetchInitialData(req.path, axiosParams)
-     //: Promise.resolve();
      : PATHS.ALL.fetchInitialData(req.path, axiosParams)
-    // const promise = PATHS.ALL.fetchInitialData(req.path, axiosParams)
-      // console.log( '+++++++activeRoute url*****', promise )
+
 
     promise
       .then((data) => {

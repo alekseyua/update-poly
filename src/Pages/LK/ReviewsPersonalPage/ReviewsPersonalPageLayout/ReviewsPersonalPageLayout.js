@@ -6,6 +6,7 @@ import MyReviews from '../../DetailsPage/MyReviews';
 
 
 const ReviewsPersonalPageLayout = ({
+    amountNotifications,
     cabinet_site_menu,
     getMyReviewList,
     cabinet_menu,
@@ -31,6 +32,7 @@ const ReviewsPersonalPageLayout = ({
 
                     <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
+                            amountNotifications={amountNotifications}
                             cabinet_site_menu={cabinet_site_menu}
                             cabinet_menu={cabinet_menu}
                             create_shop={create_shop}

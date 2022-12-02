@@ -6,22 +6,65 @@ import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 const search = store =>{
     // let text = '';
 
-    store.on('@init',()=>({search : []}))
+    store.on('@init',()=>({search : {}}))
+    store.on('@init', (_, text = '')=>({textSearch: text}))
+    store.on('@init', (_, text = '')=>({textSearchStore: text}))
 
     store.on( 'resSearch', ({search}, q ) => ({ search : q }))
 
-    store.on('@init', (_, text = '')=>({textSearch: text}))
     store.on('changeTextSearch', (_,t)=>({textSearch: t}))
-    store.on('setInputSearchValue', async ({search, closeModalState}, value, { dispatch })=>{
+    store.on('changeTextSearchStore', (_,t)=>({textSearchStore: t}))
+
+    store.on('setInputSearchValue', async ({ context, search, closeModalState }, value, { dispatch })=>{
         try{
             dispatch('changeTextSearch', value)
-            const resultSearch = await api.getSearch(
-                {
-                    q: value,
-                    role: 0
+            console.log({value})
+            dispatch('changeTextSearchStore', value)
+            const { role } = context.init_state.profile;
+            
+            let params =  {   
+                q: value,
+                role: role,
+            }
+
+            const resultSearch = await api.getSearch(params)
+            dispatch( 'resSearch', {...resultSearch, currentPage: 1 } );
+        } catch (err) {
+            console.log('ERROR GET COUNTRY', err);
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
                 }
-                )
-            dispatch( 'resSearch', resultSearch );
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
+    })
+    store.on('getProductSearch', async ({ context, textSearchStore, closeModalState }, obj, { dispatch })=>{
+        try{
+            const { role } = context.init_state.profile;
+            
+            let params =  {
+                page: obj?.page || 1,
+                q: textSearchStore,
+                page_size: 30,
+                role: role,
+            }
+            const resultSearch = await api.getSearch(params)
+            dispatch( 'resSearch', {...resultSearch, currentPage: obj?.page ?? 1 } );
+
         } catch (err) {
             console.log('ERROR GET COUNTRY', err);
             let error = [Text({text: 'error-on-server'})];

@@ -3,6 +3,7 @@ import { useStoreon } from 'storeon/react';
 import OrderDetailsPersonalPageLayout from './OrderDetailsPersonalPageLayout';
 
 const OrderDetailsPersonalPageLayoutContainer = ({
+  amountNotifications,
   cabinet_site_menu,
   cabinet_menu,
   breadcrumbs,
@@ -48,7 +49,8 @@ const OrderDetailsPersonalPageLayoutContainer = ({
   };
 
   const heandlerClickInfo = (status) => {
-    dispatch('modalShowInfoOrder', {...status})    
+
+    dispatch('modalShowInfoOrder', {status: status})    
     // dispatch('correspondence')
   }
 
@@ -110,6 +112,7 @@ const OrderDetailsPersonalPageLayoutContainer = ({
 
   return (
     <OrderDetailsPersonalPageLayout
+      amountNotifications = { amountNotifications }
       cabinet_site_menu={cabinet_site_menu}
       cabinet_menu={cabinet_menu}
       breadcrumbs={breadcrumbs}

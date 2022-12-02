@@ -58,36 +58,39 @@ export const authorization = store => {
     })
     //?! Выход с аккаунта
     store.on('logoutOut', async ( {logout, closeModalState}, obj, {dispatch} )=>{
-        // try{
-            console.log('check logout')
+        try{
             const { redirectTo } = obj;
-
+            dispatch('setModalState', {
+                show:true
+            })
             logout = await apiUser.logout();
 
             redirectTo('/authorization');
-
-        // } catch (err) {
-        //     console.log('ERROR EXIT LOGOUT', err)
-        //     let error = [Text({text: 'error-on-server'})];
-        //     if (err?.data) {
-        //         const errors = err.data;
-        //         if (typeof errors !== 'object') {
-        //             error.push(`${errors}`)
-        //         } else {
-        //             error.push(`${errors[0]}`)
-        //         }
-        //     }
-        //     dispatch('setModalState', {
-        //         show: true,
-        //         content: textErrorMessage(error),
-        //         iconImage: errorAlertIcon,
-        //         addClass: 'modal-alert-error',
-        //         action: {
-        //             title: ['продолжить', null]
-        //         },
-        //         onClick: () => closeModalState()
-        //     })
-        // }
+            dispatch('setModalState', {
+                show: false
+            })
+        } catch (err) {
+            console.log('ERROR EXIT LOGOUT', err)
+            let error = [Text({text: 'error-on-server'})];
+            if (err?.data) {
+                const errors = err.data;
+                if (typeof errors !== 'object') {
+                    error.push(`${errors}`)
+                } else {
+                    error.push(`${errors[0]}`)
+                }
+            }
+            dispatch('setModalState', {
+                show: true,
+                content: textErrorMessage(error),
+                iconImage: errorAlertIcon,
+                addClass: 'modal-alert-error',
+                action: {
+                    title: ['продолжить', null]
+                },
+                onClick: () => closeModalState()
+            })
+        }
     })
 
 }

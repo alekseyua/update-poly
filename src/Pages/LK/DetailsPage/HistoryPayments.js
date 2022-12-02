@@ -12,7 +12,7 @@ import Input from '../../../Views/Input';
 const HistoryPayments = ({
   historyPayment,
   currency,
-
+  confirm_payments_cost,
   changePaginationsPayments,
 }) => {
 
@@ -52,7 +52,7 @@ const HistoryPayments = ({
     //       dataFeth.obj.id,
     //       'id',
     //     );
-        
+
     //   });
   };
 
@@ -107,24 +107,25 @@ const HistoryPayments = ({
    * @param {[]} data
    * @returns масив с собранными компонентами для таблицы
    */
-  const [ numIndex, setNumIndex ] = useState(null);
-  
+  const [numIndex, setNumIndex] = useState(null);
+
   const handleRequisites = (e) => {
     const indexElement = e.target.getAttribute('data-index');
-    console.log({indexElement}, {e :  e.target})
+    console.log({ indexElement }, { e: e.target })
     setNumIndex(+indexElement)
   }
   useEffect(() => {
-    const onClick = e => { 
-      e.target.className === ('requisites') || setNumIndex(null)}
+    const onClick = e => {
+      e.target.className === ('requisites') || setNumIndex(null)
+    }
     document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click',onClick)
+    return () => document.removeEventListener('click', onClick)
   }, [])
 
   const createTdForTable = (data = [], currency) => {
     let results = [];
 
-    data.forEach((el,i) => {
+    data.forEach((el, i) => {
       let tr = [];
       //!Дата
       tr.push({
@@ -134,19 +135,19 @@ const HistoryPayments = ({
       //!Счёт получателя
       tr.push({
         attr: { 'data-label': 'Счёт получателя' },
-        content:  <div
-                      key={i}
-                      data-index={i}
-                      className='requisites'
-                      style={{
-                        height: i === numIndex? 'auto' : '50px',
-                        overflow: 'hidden',
-                        cursor: 'pointer',
-                      }}
-                      onClick={handleRequisites} 
-                      dangerouslySetInnerHTML={{ __html: el.requisites.requisites }}
-                  >                      
-                  </div>,
+        content: <div
+          key={i}
+          data-index={i}
+          className='requisites'
+          style={{
+            height: i === numIndex ? 'auto' : '50px',
+            overflow: 'hidden',
+            cursor: 'pointer',
+          }}
+          onClick={handleRequisites}
+          dangerouslySetInnerHTML={{ __html: el.requisites.requisites }}
+        >
+        </div>,
       });
       //!Статус
       tr.push({
@@ -181,12 +182,12 @@ const HistoryPayments = ({
         tr.push({
           attr: { 'data-label': 'Чек' },
           content: el.receipt ? (
-            <Button 
-            variant={'linkBtn'} 
-            type={'link'} 
-            href={`//${el.receipt.split('https://')[1]}`} 
-            target = {'_blank'} 
-            iconLeft={btnDown}>
+            <Button
+              variant={'linkBtn'}
+              type={'link'}
+              href={`//${el.receipt.split('https://')[1]}`}
+              target={'_blank'}
+              iconLeft={btnDown}>
               <Text text={'download'} />
             </Button>
           ) : (
@@ -219,24 +220,33 @@ const HistoryPayments = ({
 
 
 
-      return (       
-           <MyOrderViews.WrapperTable>
-              <Title variant={'cabinet__heading'} type={'h3'}>
-                <Text text={'history.payments'} />
-              </Title>
+  return (
+    <MyOrderViews.WrapperTable>
+      <Title variant={'cabinet__heading'} type={'h3'}>
+        <Text text={'history.payments'} />
+      </Title>
+      
+      <PersonalPageViews.InfoPayWrapper>
+        <PersonalPageViews.InfoPayText>
+          Сумма всех платежей {confirm_payments_cost} {' '} {currency}
+        </PersonalPageViews.InfoPayText>
+        <PersonalPageViews.InfoPayGreyText>
+          * Общая сумма всех подтвержденных админом платежей
+        </PersonalPageViews.InfoPayGreyText>
+      </PersonalPageViews.InfoPayWrapper>
 
-              <Table
-                statusLoad={'loading'}
-                classNameTable="cabinet-table"
-                tableHeaderData={tableHeaderData}
-                tableBodyData={createTdForTable(historyPayment.results, currency) }
-              /> 
-              <Pagination 
-                allCount={historyPayment?.count ?? 0} 
-                count={10} 
-                handlerChangePaginations = { changePaginationsPayments } 
-              />
-            </MyOrderViews.WrapperTable>
+      <Table
+        statusLoad={'loading'}
+        classNameTable="cabinet-table"
+        tableHeaderData={tableHeaderData}
+        tableBodyData={createTdForTable(historyPayment.results, currency)}
+      />
+      <Pagination
+        allCount={historyPayment?.count ?? 0}
+        count={10}
+        handlerChangePaginations={changePaginationsPayments}
+      />
+    </MyOrderViews.WrapperTable>
   );
 };
 

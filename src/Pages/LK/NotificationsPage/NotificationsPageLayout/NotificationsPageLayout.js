@@ -6,7 +6,7 @@ import Notifications from '../../DetailsPage/Notifications';
 
 
 const NotificationsPageLayout = ({
-    notificationsPrifile,
+    amountNotifications,
     breadcrumbs,
     shop,
     create_shop,
@@ -31,35 +31,36 @@ const NotificationsPageLayout = ({
         <React.Fragment>
             <BlockGrid.Container>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    <BlockGrid.GridPageLK>
-                        
-                        <BlockGrid.GridPageLeftLK>
-                        <SidebarPersonalPage
-                            shop={shop}
-                            cabinet_site_menu = { cabinet_site_menu }
-                            cabinet_menu = { cabinet_menu }
-                            create_shop = { create_shop }
-                            is_has_shop = { is_has_shop }
-                            currency = { currency }
-                            username = { username }
-                            balance = { balance }
-                            role = { role }
-                        />
-                        </BlockGrid.GridPageLeftLK>
+                <BlockGrid.GridPageLK>
 
-                        <BlockGrid.GridPageRightLK>
-                            <Notifications
-                                notificationsPrifile = { notificationsPrifile }
-                                notifications = { notifications }
-                                heandlerReedNotic={heandlerReedNotic} 
-                                heandlerDelNotic={heandlerDelNotic} 
-                                heandlerCheckAllNotice = { heandlerCheckAllNotice }
-                                stateActiveCheckNotice = { stateActiveCheckNotice }
-                                heandlerCheckNotice = { heandlerCheckNotice }
-                                changePaginations = { changePaginations }
-                            />
-                        </BlockGrid.GridPageRightLK>
-                    </BlockGrid.GridPageLK>
+                    <BlockGrid.GridPageLeftLK>
+                        <SidebarPersonalPage
+                            amountNotifications={amountNotifications}
+                            cabinet_site_menu={cabinet_site_menu}
+                            cabinet_menu={cabinet_menu}
+                            create_shop={create_shop}
+                            is_has_shop={is_has_shop}
+                            currency={currency}
+                            username={username}
+                            balance={balance}
+                            role={role}
+                            shop={shop}
+                        />
+                    </BlockGrid.GridPageLeftLK>
+
+                    <BlockGrid.GridPageRightLK>
+                        <Notifications
+                            amountNotifications={amountNotifications}
+                            notifications={notifications}
+                            heandlerReedNotic={heandlerReedNotic}
+                            heandlerDelNotic={heandlerDelNotic}
+                            heandlerCheckAllNotice={heandlerCheckAllNotice}
+                            stateActiveCheckNotice={stateActiveCheckNotice}
+                            heandlerCheckNotice={heandlerCheckNotice}
+                            changePaginations={changePaginations}
+                        />
+                    </BlockGrid.GridPageRightLK>
+                </BlockGrid.GridPageLK>
             </BlockGrid.Container>
         </React.Fragment>
     )

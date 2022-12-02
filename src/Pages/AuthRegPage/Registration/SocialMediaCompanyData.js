@@ -46,7 +46,7 @@ const SocialMediaCompanyData = ({
       {
         (props)=>{
           const {values, handleBlur, errors, touched, setFieldValue, handleSubmit} = props
-          // console.log('props formik errors', errors)
+          console.log('props formik errors', errors)
 
           return (
             <form onSubmit={handleSubmit}>

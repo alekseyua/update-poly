@@ -17,11 +17,11 @@ const FormBottom = ({ onClickChangePassword, children, phone }) => {
           onClick = { onClickChangePassword } 
           className = { style['cabinet-form__link--blue'] }
         >
-          <Text text = { 'changePhone' } />
+          <Text text = { phone? 'changePhone' : 'changePasswor' } />
         </Button>
       </div>
       <div 
-        className={style['cabinet-form__end--right']}
+        className={style['cabinet-form__end--right']} 
         style = { {display: phone? 'none' : 'block'} }  
       >{children}</div>
     </div>

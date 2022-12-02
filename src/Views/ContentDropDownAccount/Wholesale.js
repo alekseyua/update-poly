@@ -12,6 +12,7 @@ const Wholesale = ({
   logOut,
   stateOpen,
   openMenuRef,
+  amountNotifications,
 }) => {
   return (
     <LayoutDropDownMenuAccount
@@ -24,7 +25,10 @@ const Wholesale = ({
         titleRole={Text({ text: 'wholesaleBuyer' })}
       />
       <DropDownHeaderLK.Line />
-      <DropDownHeaderLK.Menu cabinet_menu={cabinet_menu} />
+      <DropDownHeaderLK.Menu
+        cabinet_menu={cabinet_menu}
+        amountNotifications={amountNotifications}
+      />
       {shop.is_has_shop ? (
         <DropDownHeaderLK.MarketInfo
           is_has_shop={shop.is_has_shop}

@@ -14,7 +14,7 @@ export const news = store => {
         return { newsStore: obj }
     })
 
-    store.on('getNews', async ({ context, newsStore }, obj, { dispatch }) => {
+    store.on('getNews', async ({ context, closeModalState }, obj, { dispatch }) => {
         try{
             let params = {}
             obj?.id ? params = {

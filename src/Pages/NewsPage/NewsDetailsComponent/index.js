@@ -13,7 +13,7 @@ const NewsDetailsComponent = ({title, breadcrumbs, created_at, content, ...props
   // ?! необходимо перенести получение данных storeon
   const navigate = useNavigate();
   const [imageOrVideoSet, setImageOrVideoSet] = useState([]);
-  const buttonBackHandle = () => {
+  const gotoPrevPage = () => {
     navigate(-1);
   };
   
@@ -37,7 +37,7 @@ const NewsDetailsComponent = ({title, breadcrumbs, created_at, content, ...props
         {imageOrVideoSet.length ? <Slider imageOrVideoSet={imageOrVideoSet} /> : null}
       </NewsDetailsViews.Wrapper>
       <NewsDetailsViews.WrapperBackBtn>
-        <Button onClick={buttonBackHandle} variant={'catalog-link-uppercase'}>
+        <Button onClick={gotoPrevPage} variant={'catalog-link-uppercase'}>
           {'<'} назад к разделу
         </Button>
       </NewsDetailsViews.WrapperBackBtn>

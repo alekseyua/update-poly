@@ -11,13 +11,14 @@ import Button from '../../Button';
 import TextArea from '../../TextArea';
 
 import style from './styles/index.module.scss';
+import Icon from '../../Icon';
+import { spin } from '../../../images';
 
 const FieldsChat = ({
   answers = [],
-  categorys = [],
+  options = [],
   submitQuestrion,
   successResponse,
-  isShowChat,
 }) => {
 
   return (
@@ -45,68 +46,70 @@ const FieldsChat = ({
               name: '',
               email: '',
               category: null,
-              question: null,
+              question: '',
+              spinnerBtn: false
             }}
             onSubmit={submitQuestrion}
           >
             {({ handleSubmit, values, touched, errors, setFieldValue, handleChange }) => {
               return (
-                <Form novalidate onGx-submit={handleSubmit}>
+                <Form novalidate onSubmit={handleSubmit}>
                   <div className={style['widget__form-wrap']}>
                     <Input
                       className={style['widget__form-input']}
+                      value = { values.name }
                       name="name"
-                      onGx-change={handleChange}
-                      placeholder="ФИО"
+                      onChange={handleChange}
+                      placeholder = { "ФИО" }
+                      helpText = { 
+                        errors.name && touched.name ? <ErrorField message={errors.name} /> : null
+                      }
                     />
-                    {errors.name && touched.name ? <ErrorField message={errors.name} /> : null}
                     <Input
                       className={style['widget__form-input']}
+                      value = { values.email}
                       type="email"
                       name={'email'}
-                      onGx-change={handleChange}
+                      onChange={handleChange}
                       placeholder="Электронная почта"
+                      helpText = {
+                        errors.email && touched.email ? <ErrorField message={errors.email} /> : null
+                      }
                     />
-                    {errors.email && touched.email ? <ErrorField message={errors.email} /> : null}
                     <Select
                       name={'category'}
-                      onClick={handleChange}
-                      className={style['widget__form-input']}
+                      value = { values.category }
+                      onClick={(e) => {
+                        const value = e.target.getAttribute('value');
+                        setFieldValue('category', value)
+                      }}
+                      className={'select-chat-answer'}
                       placeholder="Категория"
-                    >
-                      {
-                        categorys.map((el) => {
-                          return (
-                            // <MenuItem key={el.id} value={el.id}>
-                            //   {el.category}
-                            // </MenuItem>
-                            <summary
-                              key={el.id}
-                              className={style['widget__chat-summary']}
-                              value={el.id}
-                            >
-                              <div className={style['widget__chat-button-text']}>{el.category}</div>
-                            </summary>
-
-                          );
-                        })
+                      options = { options }
+                      helpText = {
+                        errors.category && touched.category ? (
+                          <ErrorField message={errors.category} />
+                        ) : null
                       }
-                    </Select>
-                    {errors.category && touched.category ? (
-                      <ErrorField message={errors.category} />
-                    ) : null}
+                   />
                     <TextArea
                       name={'question'}
-                      onGx-change={handleChange}
-                      className={style['widget__form-input']}
-                      placeholder="Напишите Ваш вопрос"
+                      value = { values.question }
+                      onChange={ handleChange }
+                      className={ style['widget__form-input'] }
+                      placeholder = "Напишите Ваш вопрос"
+                      helpText={
+                        errors.question && touched.question ? errors.question : null                        
+                      }
                     />
-                    {errors.question && touched.question ? (
-                      <ErrorField message={errors.question} />
-                    ) : null}
                     <div className={style['widget__form-btn-wrap']}>
-                      <Button type="submit" variant="cabinet_default">
+                      <Button 
+                        disabled = { values.spinnerBtn }
+                        type="button"  
+                        variant="cabinet_default"
+                      >
                         Отправить
+                        { values.spinnerBtn? <Icon src = { spin } width = { '20' } height = { '20' } bodrad = {50} slot = { 'icon-right' } /> : null }
                       </Button>
                     </div>
                   </div>

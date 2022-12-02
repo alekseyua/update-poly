@@ -43,6 +43,9 @@ export const serializeDataRegistration = (values, role) => {
     organization: values.companyName,
     other_where_did_hear_about: values.otherWhereDidHearAbout,
     birthdate: dayjs(api.language, new Date()).format('DD.MM.YYYY'),
+    // iAgreeDataProcessing: typeof values.iAgreeDataProcessing === 'boolean' ? values.iAgreeDataProcessing : true,
+    // iAgreeDataProcessing: typeof values.receiveNewsletters === 'boolean' ? values.receiveNewsletters : true,
+
   };
 
   return data;

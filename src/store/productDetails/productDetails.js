@@ -53,10 +53,10 @@ export const ProductDetails = store => {
             }
             console.log({ updateContext_store: updateContext }, {res}, {newMedia}, {context})
             
-            // const timerGetReviews = setTimeout(()=>{
-            //     dispatch('getReviewsProducts', params)
-            //     return () => clearTimeout(timerGetReviews);
-            // },500)
+            const timerGetReviews = setTimeout(()=>{
+                dispatch('getReviewsProducts', params)
+                return () => clearTimeout(timerGetReviews);
+            },500)
             
             // const timerGetAlreadyWatch = setTimeout(()=>{
             //     dispatch('getYouAlreadyWatch');

@@ -1,0 +1,41 @@
+@import '../../styles/variables.scss';
+//.cookie__wrapper{}
+.cookie{
+    &__wrapper{
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        height: 150px;
+        width: 100%;
+        background-color: red;
+        padding: 30px;
+        flex-direction: column;
+
+        letter-spacing: .5px;
+        @include adaptive-value('font-size',16,13,px,2);
+        border-top-right-radius: 120px;
+        z-index: 9999;
+        background-color: rgb(226, 223, 223);
+        @include mobile{
+            justify-content: space-around;
+            border-radius: 0;
+            padding: 10px;
+            height: 170px;
+        }
+    }
+    //.cookie__inner-button{}
+    &__inner-button{
+        display: flex;
+        justify-content: space-around;
+        & > div{
+            padding: 5px;
+            &:first-child{
+                text-decoration: underline;
+            }
+            &:hover{
+                cursor: pointer;
+                color: $a2;
+            }
+        }
+    }
+}

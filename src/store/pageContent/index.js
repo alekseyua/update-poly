@@ -7,30 +7,32 @@ import Text from '../../helpers/Text';
 import { errorAlertIcon } from '../../images';
 import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 import * as serviceWorker from '../../serviceWorker';
+import dayjs from '../../helpers/dayjs';
 
 
 export const pageContent = store => {
     const orderApi = api.orderApi;
     const apiCart = api.cartApi
     const apiContent = api.contentApi;
+    const apiProfile = api.profileApi;
 
     store.on('@init', () => ({ context: initData }));
 
-    store.on('context', ({ context, countWishList, page }, data) => {
+    store.on('context', ({ context, countWishList, page }, data, { dispatch }) => {
     const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
     const token = getCookie('ft_token');
-
-    // if (!(!!token)){ 
-    //     console.log('start unregister sw')
-    //     serviceWorker.unregister();
-    //   }else{
-    //     console.log('start register sw')
-    //     serviceWorker.register();
-    //   }
+        console.log('кто выполняется первым context')
+    if (!(!!token)){ 
+        console.log('start unregister sw')
+        serviceWorker.unregister();
+      }else{
+        console.log('start register sw')        
+        serviceWorker.register();
+      }
       
+
+
     //   console.log('---------------------------------------------', {data})
-
-
         return { context: { 
             ...data, 
             "init_state": {
@@ -45,11 +47,11 @@ export const pageContent = store => {
 
     store.on('redirectTo', ({}, obj, {} ) => obj.redirectTo(obj.path) );
 
-    store.on('getContextPage', async ({ context, closeModalState }, obj, { dispatch }) => {
-        const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
+    store.on('getContextPage', async ({ context, closeModalState, resSearch }, obj, { dispatch }) => {
+        const currency = await getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
 
         try {
-            
+     
             const { url, redirectTo } = obj;
             //?! пока пользователь не зарегиный у него не все данные в таблице нужно учесть 
             
@@ -133,22 +135,20 @@ export const pageContent = store => {
                         "product_url": ""
                     },
                     news: [],
+                    notifications: {
+                        count: 0,
+                        results: [],
+                        selectItemsNotice: [],
+                    },
                 },
             }
             dispatch('context', newContext)
-
+            
             const res = await api.getPage({ url })
-
-
             console.log({resrequest: res})
 
             if(res.init_state?.code === 403) return redirectTo('/authorization')
 
-            dispatch('setModalState', {
-                // show: false,
-            });
-            // console.log('res new from url =', res.init_state)
-            // console.log('res old from context = ', context)
             if (url === '/') {
                 
                 const filters = res.init_state.main_page.first_screen.filters;
@@ -317,8 +317,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
-                        numberCurrentOrderForAddProduct: null,
-                        
+                        numberCurrentOrderForAddProduct: null,                        
                     },
                 }
                 // console.log('newContext = ', newContext)
@@ -451,8 +450,12 @@ export const pageContent = store => {
                     },
                 }
                 dispatch('context', newContext)
+
                 let params = {};
                 const products = await apiContent.getCatalogData(params);
+                dispatch('setModalState', {
+                    show: false
+                });
                 newContext = {
                     ...newContext,
                     "init_state": {
@@ -490,30 +493,27 @@ export const pageContent = store => {
                 return dispatch('getExportCatalog')
             }
             if (url === '/wishlist') {
+                const params = {
+                    page_size: 30,
+                    page: obj?.page || 1
+                }
+                const resWishList = await  apiProfile.getWishlist(params);
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
-                        numberCurrentOrderForAddProduct: null,
+                        profile: {
+                            ...res.init_state.profile,
+                            list_wishes: resWishList,
+                        }
                     },
                 }
                 
                 dispatch('context', newContext)
-
-                console.log('context.init_state.profile.wishlist',context.init_state.profile.wishlist)
                 
-                if(!!res.init_state.profile.wishlist){
-                    console.log('getWishlist')
-                    const timerTimeoutGetWishList = setTimeout(()=>{
-                        dispatch('getWishlist');
-                        return () => clearTimeout(timerTimeoutGetWishList);
-                    },400)
-                }
-
-                if(!!!res.init_state.profile.wishlist){
-                    console.log('getCatalog')
+                if(!!!newContext.init_state.profile.wishlist){
                     const timerTimeout = setTimeout(()=>{
                         dispatch('getCatalog');
                         return () => clearTimeout(timerTimeout);
@@ -522,7 +522,7 @@ export const pageContent = store => {
             }
             if (url === '/cart') {
                 
-                const { role } = context.init_state.profile;
+                const { role } = res.init_state.profile;
 
                 if ( role === ROLE.UNREGISTRED ) return (
                    dispatch('setModalState',{
@@ -532,8 +532,14 @@ export const pageContent = store => {
                         action: {
                         title: ['Зарегистрироваться', null]
                         },
-                        onClick: () => redirectTo('/registration'),
-                        closeModal: () => redirectTo('/authorization')
+                        onClick: () => {
+                            redirectTo('/registration')
+                            closeModalState()
+                        },
+                        closeModal: () => {
+                            redirectTo('/authorization')
+                            closeModalState()
+                        }
                     })
                 )
 
@@ -649,6 +655,25 @@ export const pageContent = store => {
                 dispatch('context', newContext)
                 return dispatch('getCatalog', params)
             }
+            if (url.includes('search?q=')) {
+                let params = {
+                    page: 1,                
+                }
+                const newContext = {
+                    ...context,
+                    "type": res.type,
+                    "init_state": {
+                        ...context.init_state,
+                        ...res.init_state,
+                    },
+                };
+                
+                console.log({resSearch})
+                
+                dispatch('context', newContext)
+
+            }
+
 
             if (url.includes('/product-')) {           
                 console.log('url')
@@ -681,14 +706,11 @@ export const pageContent = store => {
                 
                 dispatch('context', newContext)
                 
-                // const timerTimeoutAddress = setTimeout(()=>{
-                //     const params = {
-                //         productId: res.init_state.page_info.id
-                //     }                    
-                //     dispatch('getProductDetails', params)
-                //     return () => clearTimeout(timerTimeoutAddress);
-                // },2500)
-                
+                const paramsReviews = {
+                    productId: productId
+                }
+                dispatch('getReviewsProducts', paramsReviews)
+              
                 return 
             }
 
@@ -715,7 +737,6 @@ export const pageContent = store => {
                             opt_minimum_price: resBalance.opt_minimum_price,
                             passive_balance: resBalance.passive_balance,
                         }, 
-                        // numberCurrentOrderForAddProduct: null,
                     }
                 }
                 
@@ -734,25 +755,41 @@ export const pageContent = store => {
                 
             }
             if (url === '/orders') {
+                let data = {
+                    created_at__lte: new Date(),
+                    created_at__gte: new Date()
+                };
+                const resOrders = await orderApi.getOrders();
+                const tableBodyData = resOrders.results;
+                const resBalance = await api.getUserBalance({"currency": currency});
+                console.log({resBalance})
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
-                        numberCurrentOrderForAddProduct: null,
-                        
+                        profile:{
+                            ...context.init_state.profile,
+                            ...res.init_state.profile,
+                            balance: resBalance.balance,
+                            total_debt_orders: resBalance.total_debt_orders || 0,
+                            opt_minimum_price: resBalance.opt_minimum_price,
+                            passive_balance: resBalance.passive_balance,
+                            confirm_payments_cost: resBalance.confirm_payments_cost,
+                            total_orders_price_paid: resBalance.total_orders_price_paid,
+                            total_orders_price_unpaid: resBalance.total_orders_price_unpaid
+                        }, 
+                        order: {
+                            ...context.init_state.order,
+                            orders: resOrders,
+                            tableBodyData: tableBodyData.length ? tableBodyData : [],
+                            dateFilterData: data,
+                            searchOrderForFio: '',
+                        },                        
                     },
                 }
-                // console.log('newContext = ', newContext)
-                
                 dispatch('context', newContext)
-
-                const timerTimeout = setTimeout(()=>{
-                    dispatch('getOrders')
-                    return ()=>clearTimeout(timerTimeout);
-                },600)
-
             }
 
             if (url === '/profile') {
@@ -791,7 +828,7 @@ export const pageContent = store => {
 
             }  
 
-            if (url.includes('/orders/2')) {
+            if (url.includes('/orders/20') || url.includes('/20' )) {
                 const numberId = url.split('/').pop().split('-').pop()
                 const dataOrderItems = await orderApi.getOrderItems({ order_id: numberId });
                 console.log({dataOrderItems})
@@ -826,8 +863,7 @@ export const pageContent = store => {
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state,
-                        numberCurrentOrderForAddProduct: null,
-                        
+                        numberCurrentOrderForAddProduct: null,                       
                     },
                 }
                 console.log('newContext = ', res.init_state)
@@ -855,7 +891,10 @@ export const pageContent = store => {
                             ...res.init_state.profile,
                             balance: resBalance.balance,
                             opt_minimum_price: resBalance.opt_minimum_price,
-                            passive_balance: resBalance.passive_balance
+                            passive_balance: resBalance.passive_balance,
+                            confirm_payments_cost: resBalance.confirm_payments_cost,
+                            total_orders_price_paid: resBalance.total_orders_price_paid,
+                            total_orders_price_unpaid: resBalance.total_orders_price_unpaid
                         },                        
                         numberCurrentOrderForAddProduct: null,
                     },
@@ -892,7 +931,9 @@ export const pageContent = store => {
                 },400)
                 
             } 
-
+            if (res.init_state.profile?.id){
+                dispatch('notification', res.init_state.profile.id)
+            }
         } catch (err) {
             console.log('ERROR CONTEXT PAGE', err)
             let error = [Text({text: 'error-on-server'})];

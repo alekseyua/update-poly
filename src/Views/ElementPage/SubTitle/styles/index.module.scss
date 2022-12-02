@@ -5,8 +5,8 @@
 .create-order__subtitle{
     padding: 0;
     color: $dg;
-    @extend %font-title;
-    @include adaptive-value('font-size', 24, 12, px, 2);
+    // @extend %font-head;
+    @include adaptive-value('font-size', 24, 16, px, 2);
     // font-size: 24px;
     margin-left: 10px;
 }

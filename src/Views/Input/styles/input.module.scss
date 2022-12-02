@@ -9,7 +9,7 @@
         justify-content: space-between;
         padding: 10px;
         border: 1px solid $dg2;
-        border-radius: 2px;
+        border-radius: 5px;
         position: relative;
         margin-bottom: 15px;
         min-width: 325px;
@@ -24,7 +24,7 @@
     }
     //.input__label{}
     &__label{
-        font-size: calc($fontSize - 6px);
+        font-size: $fontSize;
         color: $p;
         @extend %font;
         margin: 0 0 0 10px;
@@ -76,6 +76,7 @@
         border: none;
         border-bottom: 1px solid;
         margin-bottom: 10px;
+        min-width: 0;
         &>input{
             margin-bottom: -8px;
             background-color: transparent;
@@ -101,4 +102,8 @@
     @include tablet-md {
         margin-left: 19px;
     }
+    @include mobile {
+        width: 273px;
+    }
+
 }

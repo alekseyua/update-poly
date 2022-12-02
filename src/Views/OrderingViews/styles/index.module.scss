@@ -239,7 +239,8 @@
     @include mobile {
       padding-left: 10px;
       padding-right: 10px;
-      width: calc(100% - 30px);
+      // width: calc(100% - 30px);
+      width: 100%;
     }
     //.ordering__pay-head-wrap{}
     &-head-wrap {
@@ -256,8 +257,8 @@
     @include mobile {
       padding-left: 10px;
       padding-right: 10px;
-      width: calc(100% - 30px);
-
+      // width: calc(100% - 30px);
+      width: 100%;
     }
 //.ordering__delivery-form{}
     &-form {
@@ -268,8 +269,8 @@
       @include mobile {
         padding-left: 10px;
         padding-right: 10px;
-        width: calc(100% - 30px);
-
+        // width: calc(100% - 30px);
+        width: 100%;
       }
       //.ordering__delivery-form-top{}
       &-top {
@@ -278,7 +279,8 @@
         @include mobile {
           padding-left: 10px;
           padding-right: 10px;
-          width: calc(100% - 30px);
+          // width: calc(100% - 30px);
+          width: 100%;
         }
       }
 
@@ -404,7 +406,8 @@
     @include mobile {
       padding-left: 10px;
       padding-right: 10px;
-      width: calc(100% - 30px);
+      // width: calc(100% - 30px);
+      width: 100%;
     }
     //.ordering__address-search{}
     &-search {

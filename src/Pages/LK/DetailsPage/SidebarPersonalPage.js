@@ -5,6 +5,7 @@ import PersonalPageViews from '../../../Views/PersonalPageViews';
   
   
   const SidebarPersonalPage = ({
+    amountNotifications,
     cabinet_site_menu,
     cabinet_menu,
     create_shop,
@@ -19,10 +20,12 @@ import PersonalPageViews from '../../../Views/PersonalPageViews';
     return (
     <PersonalPageViews.Container >
       <PersonalPageViews.UserRoutingPanel 
+        amountNotifications = { amountNotifications }
         cabinet_menu = { cabinet_menu }
         username = { username }
         currency = { currency }
         balance = { balance }
+        
         role = { role }
       />
       {

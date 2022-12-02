@@ -6,17 +6,17 @@ import Retailer from '../../../../Views/ContentDropDownAccount/Retailer';
 import Dropshipper from '../../../../Views/ContentDropDownAccount/Dropshipper';
 import Wholesale from '../../../../Views/ContentDropDownAccount/Wholesale';
 
-import style from './dropdownmenuaccount.module.scss';
 import { ROLE } from '../../../../const';
 
 const DropdownMenuAccount = (props) =>{
-    // console.log('DropdownMenuAccount =', props)
-    const { stateOpen, getKeyForAccess, logOut, openMenuRef } = props;
-    const { role, status, user = {}, shop = { is_has_shop: false } } = props.profile;
+    const { stateOpen, getKeyForAccess, logOut, openMenuRef, openModalFeedback, profile,site_configuration, cabinet_menu } = props;
+    const { role, status, user = {}, shop = { is_has_shop: false } } = profile;
+    const amountNotifications = profile?.notifications;
     const {
       page_type_auth,
       page_type_reg,
-    } = props.site_configuration;
+    } = site_configuration;
+
     const { first_name = 'Имя', last_name = 'Фамилия', email = '', checkEmail = false } = user;
   
     const variantDropDown = {
@@ -26,12 +26,14 @@ const DropdownMenuAccount = (props) =>{
             last_name={last_name}
             logOut={logOut}
             page_type_auth={page_type_auth}
+            checkEmail = { user.checkEmail }
             role={role}
             email={email}
             stateOpen={stateOpen}
             openMenuRef={openMenuRef}
             
-            getKeyForAccess={getKeyForAccess}
+            getKeyForAccess = { getKeyForAccess }
+            openModalFeedback = { openModalFeedback }
           />
         ),
         rejectedAccount: (
@@ -56,33 +58,36 @@ const DropdownMenuAccount = (props) =>{
           <Retailer
             first_name={first_name}
             last_name={last_name}
-            cabinet_menu={props.cabinet_menu}        
+            cabinet_menu={cabinet_menu}        
             logOut={logOut}
             page_type_auth={page_type_auth}
             openMenuRef={openMenuRef}
             stateOpen={stateOpen}
+            amountNotifications={amountNotifications}
           />
         ),
         dropshipper: (
           <Dropshipper
             first_name={first_name}
             last_name={last_name}
-            cabinet_menu={props.cabinet_menu}
+            cabinet_menu={cabinet_menu}
             shop={shop}
             logOut={logOut}
             stateOpen={stateOpen}
             openMenuRef={openMenuRef}
+            amountNotifications={amountNotifications}
           />
         ),
         wholesale: (
           <Wholesale
             first_name={first_name}
             last_name={last_name}
-            cabinet_menu={props.cabinet_menu}
+            cabinet_menu={cabinet_menu}
             shop={shop}
             logOut={logOut}
             stateOpen={stateOpen}
             openMenuRef={openMenuRef}
+            amountNotifications={amountNotifications}
           />
         ),
       };

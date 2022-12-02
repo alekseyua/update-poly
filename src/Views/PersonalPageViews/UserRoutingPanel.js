@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Text from '../../helpers/Text';
-import { COOKIE_KEYS, ROLE } from '../../const';
-import { getCookie } from '../../helpers/helpers';
+
+import Icon from '../Icon';
+import { noticeIcon } from '../../images';
+import { ROLE } from '../../const';
 
 import style from './styles/userRouting.module.scss';
 
-
 const UserRoutingPanel = ({
+  amountNotifications,
   cabinet_menu = [],
   username = '',
   currency, 
@@ -16,28 +18,6 @@ const UserRoutingPanel = ({
 }) => {
 
   const initialsName = `${username[0]}${username[username.length - 1]}`;
-
-  // const closeModal = () => {
-  //   setModalStates({
-  //     content: null,
-  //     show: false,
-  //     addClass: false,
-  //   });
-  // };
-
-  // const openModalPay = () => {
-  //   orderApi.getRandomRequizites().then((res) => {
-  //     setModalStates({
-  //       content: <PayModalContent 
-  //                   closeModal={closeModal}
-  //                   requisites={res}
-  //                   order_id={false}
-  //                />,
-  //       show: true,
-  //       addClass: 'modal-payments',
-  //     });
-  //   });
-  // };
 
   const checkRole = (role) => {
     switch (role) {
@@ -71,9 +51,6 @@ const UserRoutingPanel = ({
           </div>
         </div>
         <div className={style['cabinet-sidebar__balance-btns']}>
-          {/* <Button onClick={openModalPay} variant={'cabinet_border_accent'}>
-            Пополнить
-          </Button> */}
         </div>
       </div>
       <div className={style['cabinet-sidebar__menu']}  dataintro="step9">
@@ -86,6 +63,11 @@ const UserRoutingPanel = ({
               data-cy={`cabinet-sidebar${el.id}`}
             >
               {el.title}
+              {
+                  el.id === 30 && !!amountNotifications? 
+                    <Icon src = { noticeIcon } width = { 15 } height = { 15 } />
+                    : null
+              }
             </NavLink>
           );
         })}

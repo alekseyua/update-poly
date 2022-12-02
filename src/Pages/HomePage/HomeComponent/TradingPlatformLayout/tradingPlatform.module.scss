@@ -39,7 +39,7 @@
     text-align: center;
     font-weight: 400;
     z-index: 0;
-    @include padding-for-mobile;
+    // @include padding-for-mobile;
 
     @include tablet-lg {
       // width: 100%;

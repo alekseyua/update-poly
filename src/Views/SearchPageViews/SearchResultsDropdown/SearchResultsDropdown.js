@@ -10,6 +10,7 @@ const SearchResultsDropdown = ({
     currency,
     urlShowAll,
     urlNothingSearch,
+    handleClickSearchRoot,
     ...props
 }) => {
 
@@ -43,7 +44,9 @@ const SearchResultsDropdown = ({
                             })}
                         >
                             <Link
+                                name = { 'show-all'}
                                 to={urlShowAll}
+                                onClick = { handleClickSearchRoot }
                             >
                                 Показать всё
                             </Link>
@@ -56,7 +59,7 @@ const SearchResultsDropdown = ({
                                 [style['search-result__items-all']]: true,
                             })}
                             >
-                                <Link to={urlNothingSearch}>
+                                <Link to={urlNothingSearch} >
                                     Ничего не найдено
                                 </Link>
                             </div>

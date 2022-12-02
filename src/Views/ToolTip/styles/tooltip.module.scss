@@ -25,6 +25,10 @@
                     opacity: 1;
                 }
             }
+            //.toolTip__wrapper-trigger--disable{}
+            &--disable{
+                display: none;
+            }
         }
     }
 
@@ -65,6 +69,7 @@
             transform: translate(-24px, -66px);
         }
     }
+    
 }
 
 .top-center{

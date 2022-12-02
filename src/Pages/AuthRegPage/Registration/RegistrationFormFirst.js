@@ -12,6 +12,7 @@ import Error from '../../../Views/Error';
 import Icon from '../../../Views/Icon/Icon';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import Form from '../../../Views/Form';
+import Offset from '../../../Views/Offset';
 const errorsMessenge = {
   requiredField: Text({ text: 'requiredField' }),
   shortLastName: Text({ text: 'short.last.name' }),
@@ -31,9 +32,8 @@ const RegistrationFormFirst = ({
   onSaveFormData, 
   initialValues,
   loading,
-
 }) => {
-
+console.log({initialValues})
   return (
     <Formik
       validationSchema={signUpFirstFormSchema(errorsMessenge)}
@@ -41,8 +41,8 @@ const RegistrationFormFirst = ({
       onSubmit={onSaveFormData}
     >
       {
-        (props)=>{
-          const {values, handleBlur, errors, touched, setFieldValue, handleSubmit} = props
+        ({ values, handleBlur, errors, touched, setFieldValue, handleSubmit })=>{
+          console.log({values})
           return (
             <Form id={'form-second-data'} onSubmit={handleSubmit}>
               <Input
@@ -92,7 +92,7 @@ const RegistrationFormFirst = ({
               >
                 <Input
                   className={'input-mt_20'}
-                  value={values.username}
+                  value = {values.username}
                   variant={'largeCustomLabel'}
                   placeholder={Text({ text: 'enterusername' })}
                   name={'username'}
@@ -106,21 +106,22 @@ const RegistrationFormFirst = ({
                   <Icon slot={'suffix'} src={toolTipIcon} height={20} width={20} />
                 </Input>
               </AuthorizationAndRegViews.WrapperInputForTooltip>
+
               <AuthorizationAndRegViews.WrapperCheckBox>
-                <CheckBox
-                   checked={values.iAgreeDataProcessing}
-                   name={'iAgreeDataProcessing'}
-                   className={'input-mt_20'}
-                   data-cy={'registration_check_box'}
-                   label={Text({ text: 'iAgreeDataProcessing' })}
-                   value={''} 
-                   onChange={(e) => {
+                <CheckBox 
+                   checked = { values.iAgreeDataProcessing }
+                   name = {'iAgreeDataProcessing'}
+                   className = { 'input-mt_20' }
+                   data-cy = { 'registration_check_box' }
+                   label = { Text({ text: 'iAgreeDataProcessing' }) }
+                   value = { values.iAgreeDataProcessing } 
+                   onChange = { e => {
                      let checked = e.checked;
                      if (checked === null) return;
                      setFieldValue('iAgreeDataProcessing', !checked);
                    }}
                 />
-                  {values.iAgreeDataProcessing ? <ErrorField message={errors.iAgreeDataProcessing} /> : null} 
+                  { values.iAgreeDataProcessing ? <ErrorField message={errors.iAgreeDataProcessing} /> : null }
                   {errors.iAgreeDataProcessing && touched.iAgreeDataProcessing ? <Error message={!!errors.iAgreeDataProcessing?'необходимо соглассие на обработку данных': null} /> : null}
               </AuthorizationAndRegViews.WrapperCheckBox>
                 <Button

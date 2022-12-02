@@ -8,6 +8,7 @@ import HistoryPayments from '../../DetailsPage/HistoryPayments';
 
 
 const BalancePageLayout = ({
+    amountNotifications,
     cabinet_site_menu,
     passive_balance,
     historyPayment,
@@ -21,6 +22,7 @@ const BalancePageLayout = ({
     shop,
     role,
 
+    confirm_payments_cost,
     openModalTopUpYouBalance,
     openModalGetMyCache,
     changePaginationsPayments,
@@ -30,39 +32,40 @@ const BalancePageLayout = ({
         <React.Fragment>
             <BlockGrid.Container>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    <BlockGrid.GridPageLK>
-                        
-                        <BlockGrid.GridPageLeftLK>
-                            <SidebarPersonalPage
-                                cabinet_site_menu = { cabinet_site_menu }
-                                cabinet_menu = { cabinet_menu }
-                                create_shop = { create_shop }
-                                is_has_shop = { is_has_shop }
-                                currency = { currency }
-                                username = { username }
-                                balance = { balance }
-                                shop = { shop }
-                                role = { role }
-                            />
-                            </BlockGrid.GridPageLeftLK>
-                            <BlockGrid.GridPageRightLK>
-                                <Balance
-                                    balance={balance}
-                                    passive_balance = { passive_balance }
-                                    currency = { currency }
-                                    openModalTopUpYouBalance = { openModalTopUpYouBalance }
-                                />
-                                <WithdrawalFunds
-                                    openModalGetMyCache = { openModalGetMyCache }
-                                />
-                                <HistoryPayments
-                                    historyPayment = { historyPayment }
-                                    currency = { currency }
-                                    
-                                    changePaginationsPayments = { changePaginationsPayments }
-                                />                        
-                            </BlockGrid.GridPageRightLK>
-                    </BlockGrid.GridPageLK>
+                <BlockGrid.GridPageLK>
+
+                    <BlockGrid.GridPageLeftLK>
+                        <SidebarPersonalPage
+                            amountNotifications={amountNotifications}
+                            cabinet_site_menu={cabinet_site_menu}
+                            cabinet_menu={cabinet_menu}
+                            create_shop={create_shop}
+                            is_has_shop={is_has_shop}
+                            currency={currency}
+                            username={username}
+                            balance={balance}
+                            shop={shop}
+                            role={role}
+                        />
+                    </BlockGrid.GridPageLeftLK>
+                    <BlockGrid.GridPageRightLK>
+                        <Balance
+                            balance={balance}
+                            passive_balance={passive_balance}
+                            currency={currency}
+                            openModalTopUpYouBalance={openModalTopUpYouBalance}
+                        />
+                        <WithdrawalFunds
+                            openModalGetMyCache={openModalGetMyCache}
+                        />
+                        <HistoryPayments
+                            historyPayment={historyPayment}
+                            currency={currency}
+                            confirm_payments_cost={confirm_payments_cost}
+                            changePaginationsPayments={changePaginationsPayments}
+                        />
+                    </BlockGrid.GridPageRightLK>
+                </BlockGrid.GridPageLK>
             </BlockGrid.Container>
         </React.Fragment>
     )

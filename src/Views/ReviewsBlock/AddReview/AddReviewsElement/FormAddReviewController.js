@@ -6,6 +6,7 @@ import Button from '../../../Button';
 import BlockSpinner from '../../../../Views/SpinnerWrapper';
 
 import style from '../styles/addreview.module.scss';
+import ToolTip from '../../../ToolTip';
 
 const FormAddReviewController = ({ values, setFieldValue, canselationCallback, onChange, handleSubmit, productId, profileId }) => {
   return (
@@ -22,24 +23,38 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, o
         data-cy={`CheckBoxReview`}
       />
       <div className={style['productreviews__form-submit-btnwrap']}>
-        <Button
-          disabled={values.activeButton}
-          data-cy={`send_review`}
-          type="submit"
-          className={classNames({
-            [style['productreviews__form-submit-btndark']]: true,
-          })}
-          onClick={(e) => {
-            setFieldValue('productId', productId)
-            setFieldValue('profileId', profileId)
-            e.preventDefault();
-            handleSubmit()
-            // canselationCallback(e)
-          }}
+        <ToolTip
+          placement="bottom"
+          slot={'icon-right'}
+          className={style['productreviews__tooltip-send']}
+          active = { !!values.content && !!values.stars}
+          content={
+            !profileId?
+              'Что бы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться'
+                :!values.content? 'Вы не заполнили поле с отзывом'
+                  : !values.stars? 
+                    'Укажите пожалуйста рейтинг продукта, выделив звёзды'
+                    : null
+          }
         >
-          <Text text={'send'} />
-          {!values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad={50} /> : null}
-        </Button>
+          <Button
+            disabled={values.activeButton}
+            data-cy={`send_review`}
+            type="submit"
+            className={classNames({
+              [style['productreviews__form-submit-btndark']]: true,
+            })}
+            onClick={(e) => {
+              setFieldValue('productId', productId)
+              setFieldValue('profileId', profileId)
+              e.preventDefault();
+              handleSubmit()
+            }}
+          >
+            <Text text={'send'} />
+            {!values.activeButton && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad={50} /> : null}
+          </Button>
+        </ToolTip>
 
         <Button
           onClick={(e) => {

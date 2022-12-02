@@ -6,6 +6,7 @@ import DetailsOrders from '../../DetailsPage/DetailsOrders';
 import SidebarPersonalPage from '../../DetailsPage/SidebarPersonalPage';
 
 const OrderDetailsPersonalPageLayout = ({
+    amountNotifications,
     cabinet_site_menu,
     cabinet_menu,
     breadcrumbs,
@@ -56,72 +57,73 @@ const OrderDetailsPersonalPageLayout = ({
         <React.Fragment>
             <BlockGrid.Container>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    <BlockGrid.GridPageLK>
-                        
-                        <BlockGrid.GridPageLeftLK>
+                <BlockGrid.GridPageLK>
+
+                    <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
-                            shop={shop}
+                            amountNotifications = { amountNotifications }
+                            cabinet_site_menu={cabinet_site_menu}
+                            cabinet_menu={cabinet_menu}
                             create_shop={create_shop}
                             is_has_shop={is_has_shop}
-                            cabinet_menu={cabinet_menu}
-                            cabinet_site_menu={cabinet_site_menu}
-                            currency = { currency }
-                            balance = { balance }
-                            username = { username }
-                            role = { role }
+                            currency={currency}
+                            balance={balance}
+                            username={username}
+                            role={role}
+                            shop={shop}
                         />
-                        </BlockGrid.GridPageLeftLK>
-                        <BlockGrid.GridPageRightLK>
-                            <DetailsOrders
-                                role = { role }
-                                idOrder = { idOrder }
-                                status = { status }
-                                weight = { weight }
-                                services = { services }
-                                discount = { discount }
-                                currency = { currency }
-                                in_archive = { in_archive }
-                                total_cost = { total_cost }
-                                updated_at = { updated_at }
-                                order_cost = { order_cost }
-                                created_at = { created_at }
-                                numberOrder = { numberOrder }
-                                delivery_cost = { delivery_cost }
-                                delivery_method = { delivery_method }
-                                fullNumberOrder = { fullNumberOrder }
-                                delivery_address = { delivery_address }
-                                payment_method = { payment_method }
-                                specification = { specification }
-                                track_number = { track_number }
-                                dataOrderItems = { dataOrderItems }
+                    </BlockGrid.GridPageLeftLK>
+                    <BlockGrid.GridPageRightLK>
+                        <DetailsOrders
+                            role={role}
+                            idOrder={idOrder}
+                            status={status}
+                            weight={weight}
+                            services={services}
+                            discount={discount}
+                            currency={currency}
+                            in_archive={in_archive}
+                            total_cost={total_cost}
+                            updated_at={updated_at}
+                            order_cost={order_cost}
+                            created_at={created_at}
+                            numberOrder={numberOrder}
+                            delivery_cost={delivery_cost}
+                            delivery_method={delivery_method}
+                            fullNumberOrder={fullNumberOrder}
+                            delivery_address={delivery_address}
+                            payment_method={payment_method}
+                            specification={specification}
+                            track_number={track_number}
+                            dataOrderItems={dataOrderItems}
 
-                                order_items_chat = { order_items_chat }
-                                order_chat = { order_chat }
+                            order_items_chat={order_items_chat}
+                            order_chat={order_chat}
 
-                                openModalPay = { openModalPay }
-                                heandlerClickInfo = { heandlerClickInfo }
-                                handlerSpecification = { handlerSpecification }
-                                activeButtonSpecification = { activeButtonSpecification }
-                                deleteElementOrder = { deleteElementOrder }
-                                sendCommentFromTextField = { sendCommentFromTextField }
-                                clickOpenCommit = { clickOpenCommit }
-                                openModalImage = { openModalImage }
-                                openModalVideo = { openModalVideo }
-                                sendMessage = { sendMessage }
-                            />
+                            openModalPay={openModalPay}
+                            heandlerClickInfo={heandlerClickInfo}
+                            handlerSpecification={handlerSpecification}
+                            activeButtonSpecification={activeButtonSpecification}
+                            deleteElementOrder={deleteElementOrder}
+                            sendCommentFromTextField={sendCommentFromTextField}
+                            clickOpenCommit={clickOpenCommit}
+                            openModalImage={openModalImage}
+                            openModalVideo={openModalVideo}
+                            sendMessage={sendMessage}
+                        />
 
                         {
                             !!!is_has_shop ? (
                                 <CreateStore
-                                    role = { role } 
-                                    className = { 'mobile' }
-                                    create_shop = { '/sozdanie-internet-magazina' } //create_shop
+                                    role={role}
+                                    className={'mobile'}
+                                    create_shop={'/sozdanie-internet-magazina'} //create_shop
                                 />
                             ) : null
-                        } 
+                        }
 
-                        </BlockGrid.GridPageRightLK>
-                    </BlockGrid.GridPageLK>
+                    </BlockGrid.GridPageRightLK>
+                </BlockGrid.GridPageLK>
             </BlockGrid.Container>
         </React.Fragment>
     )

@@ -1,3 +1,4 @@
+@import '../../../../styles/variables.scss';
 .raiting-star {
 
     //.raiting-star__container{}
@@ -21,8 +22,11 @@
     &__label{
         padding: 0;
         display: ruby;
-        margin-left: 25px;
+        margin-left: 5px;
         white-space: pre;
+        @include mobile-min{
+            margin-left: 25px;
+        }
     }
 
 }

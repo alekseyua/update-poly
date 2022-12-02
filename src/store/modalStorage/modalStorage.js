@@ -33,6 +33,8 @@ const orderApi = api.orderApi;
  *            show: true,
  *            content: 'hhhhhhhhh'
  *          })
+ * closeModal: closeModal() || () => {}
+ * onClickCancel : () => {}
  * //})
  * } param
 */
@@ -273,7 +275,10 @@ export const modalStorage = store => {
                     title: ['продолжить покупки', 'перейти в карзину']
                 },
                 onClick: () => closeModalState(),
-                onClickCancel: () => obj.redirectTo('cart')
+                onClickCancel: () => {
+                    obj.redirectTo('cart')
+                    closeModalState()
+                }
             })
         } catch (err) {
             console.log('ERROR feedback', err)

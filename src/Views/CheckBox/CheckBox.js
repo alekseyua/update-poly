@@ -92,18 +92,21 @@ const CheckBox = ({
         key={name}
         onChange={()=>{}} //чтобы не ругался реакт
         ref={refCheck}  
-        type={'checkbox'}
+        type={ 'checkbox' }
         className={classNameCustom}
         disabled={disabled}
         checked={checked}
         label={label}
-        name={name}//iAgreeDataProcessing   ----- name="check" 
+        name = { name }//iAgreeDataProcessing   ----- name="check" 
         id={id}
-        value={value} 
+        value = { value } 
         {...props}
       />
         <label htmlFor="check" className={classNameLabelCheckBox}>
-          <span></span>{label}
+          <span></span>
+          <span>
+            {label}
+          </span>
         </label>
 
       {

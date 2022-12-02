@@ -3,6 +3,10 @@ import { useStoreon } from 'storeon/react';
 import OrdersPageLayout from './OrdersPageLayout';
 
 const OrdersPageLayoutContainer = ({
+            total_orders_price_unpaid,
+            total_orders_price_paid,
+            amountNotifications,
+            total_debt_orders,
             searchOrderForFio,
             cabinet_site_menu,
             dateFilterData,
@@ -110,6 +114,10 @@ const OrdersPageLayoutContainer = ({
 
     return (
         <OrdersPageLayout
+            total_orders_price_unpaid = { total_orders_price_unpaid }
+            total_orders_price_paid = { total_orders_price_paid }
+            amountNotifications = { amountNotifications }
+            total_debt_orders = { total_debt_orders }
             cabinet_site_menu = { cabinet_site_menu }
             searchOrderForFio = { searchOrderForFio }
             dateFilterData = { dateFilterData }

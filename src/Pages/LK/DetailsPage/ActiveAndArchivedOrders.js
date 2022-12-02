@@ -3,7 +3,10 @@ import ItemsInOrder from './ItemsInOrder';
 import OrderDetailsContent from './OrderDetailsContent';
 
 const ActiveAndArchivedOrders = ({
+  total_orders_price_unpaid,
+  total_orders_price_paid,
   getDataOrdersFilters,
+  total_debt_orders,
   searchOrderForFio,
   dateFilterData,
   tableBodyData,
@@ -26,6 +29,9 @@ const ActiveAndArchivedOrders = ({
   return (
     <OrderDetailsContent>
           <ItemsInOrder
+            total_orders_price_unpaid = { total_orders_price_unpaid }
+            total_orders_price_paid = { total_orders_price_paid }
+            total_debt_orders = { total_debt_orders }
             searchOrderForFio = { searchOrderForFio }
             dateFilterData = { dateFilterData}
             tableBodyData = { tableBodyData}

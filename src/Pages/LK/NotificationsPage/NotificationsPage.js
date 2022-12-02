@@ -7,7 +7,7 @@ const NotificationsPage = ({
 
     console.log({ NotificationsPage: context })
 
-    const {        
+    const {
         cabinet_site_menu,
         notifications,
         cabinet_menu,
@@ -16,27 +16,27 @@ const NotificationsPage = ({
         profile,
         shop,
     } = context;
-    
+
     const { user = {}, role, balance } = profile;
-    const notificationsPrifile = profile?.notifications
+    const amountNotifications = profile?.notifications
     const { username } = user;
     const stateActiveCheckNotice = false
     return (
         <NotificationsPageLayoutContainer
-            notificationsPrifile = { notificationsPrifile }
-            cabinet_site_menu = { cabinet_site_menu }
-            notifications = { notifications }           
-            cabinet_menu = { cabinet_menu }
-            breadcrumbs = { breadcrumbs }
-            create_shop = { shop?.shop_link }
-            is_has_shop = { shop?.is_has_shop }
-            currency = { currency }
-            username = { username }
-            balance = { balance }
-            shop = { shop }
-            role = { role }
+            amountNotifications={amountNotifications}
+            cabinet_site_menu={cabinet_site_menu}
+            notifications={notifications}
+            cabinet_menu={cabinet_menu}
+            breadcrumbs={breadcrumbs}
+            create_shop={shop?.shop_link}
+            is_has_shop={shop?.is_has_shop}
+            currency={currency}
+            username={username}
+            balance={balance}
+            shop={shop}
+            role={role}
 
-            stateActiveCheckNotice = { stateActiveCheckNotice }
+            stateActiveCheckNotice={stateActiveCheckNotice}
         />
     )
 }

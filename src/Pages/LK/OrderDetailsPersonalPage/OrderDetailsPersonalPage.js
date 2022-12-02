@@ -6,7 +6,7 @@ const OrderDetailsPersonalPage = ({
 
 }) => {
     // console.log('OrderDetailsPersonalPage = ', {context})
-    const {        
+    const {
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
@@ -16,24 +16,24 @@ const OrderDetailsPersonalPage = ({
         shop,
     } = context;
 
-    const { 
-        id, 
+    const {
+        id,
         status,
         weight,
         services,
-        discount, 
-        in_archive, 
+        discount,
+        in_archive,
         total_cost,
         updated_at,
         order_cost,
-        created_at, 
+        created_at,
         track_number,
-        delivery_cost, 
+        delivery_cost,
         specification,
         correspondence,
-        dataOrderItems, 
+        dataOrderItems,
         payment_method,
-        delivery_method, 
+        delivery_method,
         fullNumberOrder,
         delivery_address,
         deleteElementOrder,
@@ -45,41 +45,43 @@ const OrderDetailsPersonalPage = ({
 
     const { user = {}, role, balance } = profile;
     const { username } = user;
+    const amountNotifications = profile?.notifications;
 
     return (
         <OrderDetailsPersonalPageLayoutContainer
-        cabinet_site_menu = { cabinet_site_menu }
-        cabinet_menu = { cabinet_menu }
-        breadcrumbs = { breadcrumbs }
-        is_has_shop = { shop?.is_has_shop }
-        create_shop = { shop?.shop_link }
-        currency = { currency }
-        username = { username }
-        balance = { balance }
-        shop = { shop }
-        role = { role }
+            amountNotifications = { amountNotifications }
+            cabinet_site_menu={cabinet_site_menu}
+            cabinet_menu={cabinet_menu}
+            breadcrumbs={breadcrumbs}
+            is_has_shop={shop?.is_has_shop}
+            create_shop={shop?.shop_link}
+            currency={currency}
+            username={username}
+            balance={balance}
+            shop={shop}
+            role={role}
 
-        idOrder = { idOrder }
-        status = { status }
-        weight = { weight }
-        services = { services }
-        discount = { discount }
-        in_archive = { in_archive }
-        total_cost = { total_cost }
-        updated_at = { updated_at }
-        order_cost = { order_cost }
-        created_at = { created_at }
-        track_number = { track_number }
-        delivery_cost = { delivery_cost }
-        specification = { specification }
-        dataOrderItems = { dataOrderItems }
-        payment_method = { payment_method }
-        order_items_chat = { order_items_chat }
-        order_chat = { order_chat }
-        delivery_method = { delivery_method }
-        fullNumberOrder = { fullNumberOrder }
-        delivery_address = { delivery_address }
-        deleteElementOrder = { deleteElementOrder }
+            idOrder={idOrder}
+            status={status}
+            weight={weight}
+            services={services}
+            discount={discount}
+            in_archive={in_archive}
+            total_cost={total_cost}
+            updated_at={updated_at}
+            order_cost={order_cost}
+            created_at={created_at}
+            track_number={track_number}
+            delivery_cost={delivery_cost}
+            specification={specification}
+            dataOrderItems={dataOrderItems}
+            payment_method={payment_method}
+            order_items_chat={order_items_chat}
+            order_chat={order_chat}
+            delivery_method={delivery_method}
+            fullNumberOrder={fullNumberOrder}
+            delivery_address={delivery_address}
+            deleteElementOrder={deleteElementOrder}
         />
     )
 }

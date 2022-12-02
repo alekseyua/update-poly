@@ -18,13 +18,18 @@ const OrdersPage = ({
     } = context;
     
     const { orders, tableBodyData, dateFilterData, searchOrderForFio } = order;
-    const { user = {}, role, passport, organization, links, balance, id } = profile;
+    const { user = {}, role, passport, organization, links, balance, id, total_debt_orders, total_orders_price_unpaid, total_orders_price_paid } = profile;
     // const { is_has_shop, shop_link } = shop;
     const { username } = user;
+    const amountNotifications = profile?.notifications
     
     return (
         <>
         <OrdersPageLayoutContainer
+            total_orders_price_unpaid = { total_orders_price_unpaid }
+            total_orders_price_paid = { total_orders_price_paid }
+            amountNotifications = { amountNotifications }
+            total_debt_orders = { total_debt_orders }
             cabinet_site_menu = { cabinet_site_menu }
             searchOrderForFio = { searchOrderForFio }
             dateFilterData = { dateFilterData }

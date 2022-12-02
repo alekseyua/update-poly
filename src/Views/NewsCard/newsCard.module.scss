@@ -19,6 +19,7 @@
     @include flex(lt);
     align-items: stretch;
     height: 100%;
+    max-height: 350px;
     @include mobile {
       flex-direction: column;
     }

@@ -76,7 +76,7 @@ const ModalProviderView = ({
                 {
                     iconImage? 
                         <div className={styleModal['modal-provider__icon']} >
-                            <Icon src={iconImage} className={styleModal['modal-provider__success-error']} height={20} width={20}/> 
+                            <Icon src={iconImage} className={styleModal['modal-provider__success-error']} height = { 40 } width = { 40 }/> 
                         </div>                        
                         : null
                 }
@@ -94,7 +94,9 @@ const ModalProviderView = ({
                                 {content}
                         </div>
                     </>
-                        : <Icon src={spinnerCart2} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
+                        // : <Icon src={spinnerCart2} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
+                        : <h1 id="spinner" className={styleModal['modal-provider__spinner-text']}></h1>
+
                 }
                
                 {

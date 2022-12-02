@@ -3,8 +3,10 @@ import dropdownIcon from './common/dropdown.svg';
 import closeIcon from './common/close.svg';
 import logo from './logo/logo.svg'; 
 
+
 // ICONS
 import shoppingBag from './icon/shopping-bag.svg';
+import noticeIcon from './icon/email-notification-alert-icon.svg';
 import errorCanceled from './icon/errorCanceled.svg';
 import reward from './icon/reward.svg';
 import bayicon from './icon/bayicon.svg';
@@ -128,6 +130,8 @@ import defaultImageMarketInfo from './HeaderDropDownMenu/defaultImageMarketInfo.
 //auth
 import redWomen from './Auth/redWomen.png';
 
+
+
 //news
 import defaultImageCard from './news/defaultImageCard.png';
 
@@ -191,6 +195,7 @@ import spinnerShopping from './spinner/shopping-cart-gif-8.gif';
 
 
 export {
+  noticeIcon,
   spinnerCart2,
   spinnerShopping,
   spinnerCart,

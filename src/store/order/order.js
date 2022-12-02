@@ -312,23 +312,23 @@ export const order = store => {
 
     store.on('getOrders', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
-            const contextDate__gte = context.init_state.order?.dateFilterData?.created_at__gte;
-            const contextDate__lte = context.init_state.order?.dateFilterData?.created_at__lte;
+            const contextDate__gte = (context.init_state.order?.dateFilterData?.created_at__gte - new Date(5)) ?? new Date();
+            const contextDate__lte = context.init_state.order?.dateFilterData?.created_at__lte ?? new Date();
+
             let params = {
                 ...initialFiltersOrders,
-                created_at__lte: dayjs(api.language, contextDate__lte ?? new Date()).format(),                
+                created_at__lte: dayjs(api.language, contextDate__lte).format(),                
             }
-
+            
             contextDate__gte? params = { ...params, created_at__gte: dayjs(api.language, contextDate__gte).format() } : null;
-
-
+            
             obj?.created_at__gte ? params = { ...params, created_at__gte: dayjs(api.language, obj?.created_at__gte).format() }
-                : obj?.created_at__lte ? params = { ...params, created_at__lte: dayjs(api.language, obj?.created_at__lte).format() }
-                    : obj?.status ? params = { ...params, status: obj?.status }
-                        : obj?.q ? params = { ...params, q: obj?.q }
-                        : null
+            : obj?.created_at__lte ? params = { ...params, created_at__lte: dayjs(api.language, obj?.created_at__lte).format() }
+            : obj?.status ? params = { ...params, status: obj?.status }
+            : obj?.q ? params = { ...params, q: obj?.q }
+            : null
 
-            const res = await orderApi.getOrders(params);
+            const res = await orderApi.getOrders(params); 
             const tableBodyData = res.results;
             //const tableBodyData = fakeorder.results;
             let dataCreate = [];
@@ -337,9 +337,14 @@ export const order = store => {
                 : null;
             
             let data = {
-                created_at__gte: obj?.created_at__gte ? obj?.created_at__gte : contextDate__gte? contextDate__gte : new Date(dataCreate[0]) ?? new Date(),
-                created_at__lte: obj?.created_at__lte ? obj?.created_at__lte : contextDate__lte? contextDate__lte : new Date(dataCreate[dataCreate.length - 1]) ?? new Date(),
+                created_at__lte: obj?.created_at__lte ? obj?.created_at__lte : contextDate__lte? new Date(contextDate__lte) : new Date(dataCreate[dataCreate.length - 1]) ?? new Date(),
             };
+            obj?.created_at__gte || contextDate__gte ?
+               data = {
+                ...data,
+                created_at__gte: obj?.created_at__gte ? obj?.created_at__gte : contextDate__gte? new Date(contextDate__gte) : new Date(dataCreate[0]) ?? new Date()
+               }
+               : null 
 
             const newContext = {
                 ...context,

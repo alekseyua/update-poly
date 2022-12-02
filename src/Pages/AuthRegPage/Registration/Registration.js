@@ -10,53 +10,6 @@ import { useStoreon } from 'storeon/react';
 import style from '../styles/auth-regist.module.scss';
 import { useNavigate } from "react-router-dom";
 
-const initialState = {
-  step: 1, //0
-  role: ROLE.UNREGISTRED,
-  allSteps: 2,
-};
-const initialValuesFirstStep = {
-  lastname: '',
-  firstname: '',
-  patronymic: '',
-  username: '',
-  iAgreeDataProcessing: true,
-};
-const initialValuesMiddleStep = {
-  email: '',
-  phone: '',
-  password: '',
-  whereDidYouHearAboutService: '',
-  otherWhereDidHearAbout: '',
-  receiveNewsletters: true,
-};
-const initialValuesLastStep = {
-  companyName: '',
-  inn: '',
-  vk: '',
-  instagram: '',
-  facebook: '',
-};
-const initialValues = {
-  lastname: '',
-  firstname: '',
-  patronymic: '',
-  username: '',
-  iAgreeDataProcessing: null,
-  email: '',
-  phone: '',
-  password: '',
-  whereDidYouHearAboutService: '',
-  otherWhereDidHearAbout: '',
-  receiveNewsletters: false,
-  companyName: '',
-  inn: '',
-  vk: '',
-  instagram: '',
-  other: '',
-  error: '',
-};
-
 const Registration = (props) => {
   const { site_configuration } = props.context;
   const { page_type_auth, video_page } = site_configuration;
@@ -81,6 +34,7 @@ const Registration = (props) => {
 
   const onSaveFormData = (data, callbacks = {}) => {
     const { setFieldError = () => {} } = callbacks;
+    console.log({data})
     dispatch('setDataRegistration', data);
     nextStepOrSubmitRegData(data, setFieldError);
     setLoading(true)

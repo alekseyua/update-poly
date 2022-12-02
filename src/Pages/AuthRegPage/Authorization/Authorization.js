@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useStoreon } from 'storeon/react';
 
 import { secretWordEncoding, serializerUserDataDencrypt, serializerUserDataEncript } from '../../../helpers/encrypt';
-import { checkLocalStorage, getLocalStorage, removeLocalStorage, setLocalStorage } from '../../../helpers/helpers';
+import { checkLocalStorage, getLocalStorage, removeLocalStorage, setCookie, setLocalStorage } from '../../../helpers/helpers';
 import AuthorizationAndRegViews from '../../../Views/AuthorizationAndRegViews';
 import AuthorizationForm from './AuthorizationForm';
 import Text from '../../../helpers/Text';
 import { useNavigate } from 'react-router-dom';
 
 import style from '../styles/auth-regist.module.scss';
+import { COOKIE_KEYS, DEFAULT_CURRENCIES, ONE_YEARS } from '../../../const';
 
 
 const Authorization = (props) => {
@@ -60,6 +61,7 @@ const Authorization = (props) => {
   const onSubmit = (data, { setFieldError }) => {
     data.remember? onHandleChangeRemember(()=>{},data) : null;
     setLoading(true)
+    setCookie(COOKIE_KEYS.CURRENCIES, DEFAULT_CURRENCIES, ONE_YEARS)
     const params = {
       username: data.username,
       password: data.password,

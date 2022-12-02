@@ -1,4 +1,5 @@
 import api from '../../api/api'
+import { delay } from '../../helpers/helpers';
 import {
   initialValuesFirstStep,
   initialValuesMiddleStep,
@@ -15,7 +16,6 @@ import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 export const registration = store => {
   const apiUser = api.userApi;
 
-
   store.on('@init', () => ({ registration: { ...initialValuesRegistration } }));
   store.on('@init', () => ({ allSteps: 3 }));
   store.on('@init', () => ({ step: 0 }));
@@ -28,6 +28,7 @@ export const registration = store => {
 
   store.on('stepIncrement', ({ step }, s) => ({ step: s + 1 }))
   store.on('stepDecrement', ({ step }, s) => ({ step: s - 1 }))
+  store.on('resetStep', ({ step }, s) => ({ step: s }))
   store.on('setAllSteps', ({ allSteps }, s) => ({ allSteps: s }))
   //?! регистрация пользователя
 
@@ -37,6 +38,7 @@ export const registration = store => {
       let params = serializeDataRegistration(newValues, roleRegister);
       const res = await apiUser.registration(params);
       setLoading(false)
+      dispatch('resetStep', 0);
       dispatch('setModalState', {
         show: true,
         action: {
@@ -45,6 +47,22 @@ export const registration = store => {
         className: null,
         iconImage: successAlertIcon,
         title: res.username,
+        closeModal: () => dispatch('setModalState', {
+                      show: true,
+                      action: {
+                        title: ['Продолжить', null]
+                      },
+                      className: null,
+                      title: res.username,
+                      content: (
+                        <div>
+                          {
+                            Text({ text: 'lk_confirm_email' })
+                          }
+                        </div>
+                      ),
+                      onClick: () => redirectTo('/authorization')
+                    }),
         onClick: () => {
           dispatch('firstLogin', {
             // ? после регистрации авто авторизируемся
@@ -71,25 +89,30 @@ export const registration = store => {
         for (let key in data) {
           const element = Array.isArray(data[key]) ? data[key][0] : data[key];
           if (step === 1) {
-            dispatch('setModalState', { show: false })
+            // dispatch('setModalState', { show: false })
             if (initialValuesFirstStep.hasOwnProperty(key)) {
               setFieldError(key, element);
               status = false
+              setLoading(false)
               return error = false
             }
             (key === 'email' || key === 'phone' || key === 'whereDidYouHearAboutService' || key === 'password') && status ? error = true : error = false;
             dispatch('stepIncrement', step)
           } else if (step === 2) {
-            dispatch('setModalState', { show: false })
+            // dispatch('setModalState', { show: false })
             if (initialValuesMiddleStep.hasOwnProperty(key)) {
               setFieldError(key, element);
             }
+            setLoading(false)
             key === 'error' ? error = true : error = false;
+            if( key === 'email' ) return 
+            if( key === 'phone' ) return 
             if (roleRegister !== 1) dispatch('stepIncrement', step)
           } else {
             setFieldError(key, element);
+            setLoading(false)
             error = true;
-            dispatch('setModalState', { show: false })
+            // dispatch('setModalState', { show: false })
           }
         }
 
@@ -100,7 +123,7 @@ export const registration = store => {
     }
   })
   //?! проверка ключа с указаной почты
-  store.on('checkKey', async ({ closeModalState }, obj, { dispatch }) => {
+  store.on('checkKey', async ({ context, closeModalState }, obj, { dispatch }) => {
     /**
      *    @param {
      *    type: {
@@ -114,7 +137,7 @@ export const registration = store => {
     console.log('values submit code = ', {obj},{setErrors})
 
     try {
-
+      const url = obj?.url ?? '/juridical';
       const param = {
         key: +submit_code,
         type: 'auth',
@@ -123,7 +146,20 @@ export const registration = store => {
         password: password
       }
 
-      const res = await apiUser.checkKey(param)
+      await apiUser.checkKey(param)
+      // dispatch('getFaq')
+      delay(4000)
+      const res = await api.getPage({ url });
+
+      const newContext = {
+        ...context,
+        init_state: {
+            ...context.init_state,
+            ...res.init_state
+        }
+      }
+      console.log({newContext});
+      dispatch('context', newContext);
 
       dispatch('setModalState', {
         show: true,
@@ -133,11 +169,16 @@ export const registration = store => {
         className: null,
         iconImage: successAlertIcon,
         title: param.username,
-        onClick: () => redirectTo('/juridical'),
-        content: (<div>
-          <p><code>Email: {email}</code> привязан к вашим учетным данным</p>
-          <h5>{`${Text({ text: 'fun_shoping' })}`}</h5>
-        </div>)
+        onClick: async () => {
+          redirectTo(url);
+          closeModalState();
+        },
+        content: (
+                  <div>
+                    <p><code>Email: {email}</code> привязан к вашим учетным данным</p>
+                    <h5>{`${Text({ text: 'fun_shoping' })}`}</h5>
+                  </div>
+                )
       })
 
     } catch (err) {
@@ -206,7 +247,7 @@ export const registration = store => {
             {
               obj.type === 'restore' ?
                 <div>
-                  пороль сброшен, на почту отправлен новый код
+                  Пароль сброшен, на почту отправлен новый код
                   <br />
                 </div>
                 : <div>
@@ -281,7 +322,7 @@ export const registration = store => {
       show: true,
       title: username,
       content: <ModalSubmitCode
-        initialValuesSubmitCode={email ? { ...initialValuesSubmitCode, email } : initialValuesSubmitCode}
+        initialValuesSubmitCode={ email ? { ...initialValuesSubmitCode, email } : initialValuesSubmitCode }
         handleSubmit={handleSubmit}
         postKeyFromMail={postKeyFromMail}
         redirectTo={redirectTo}
@@ -300,10 +341,16 @@ export const registration = store => {
         username: username,
         password: password,
       }
+      debugger
+      // на этом запросе мы получаем токен пользователя
       const res = await apiUser.loginByUsername(params)
       setLoading(false)
-      console.log('log in', obj)
 
+      console.log('log in', {obj}, {res})
+      delay(1500)
+      obj.redirectTo('/juridical')
+      //?! сдесь обнавляем данные в хранилище
+      
       // ? запрос на подтверждение почты (авторизация при первой регистрации)
       dispatch('inputKeyFromEmail', {
         username: username,
@@ -315,9 +362,9 @@ export const registration = store => {
 
     } catch (err) {
       if (err) {
-        dispatch('setModalState', {
-          show: false,
-        })
+        // dispatch('setModalState', {
+        //   show: false,
+        // })
         const data = err.data;
         let error = false;
         for (const key in data) {

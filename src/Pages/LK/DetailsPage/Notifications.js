@@ -6,7 +6,7 @@ import Title from '../../../Views/Title';
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 
 const Notifications = ({
-    notificationsPrifile,
+    amountNotifications,
     heandlerReedNotic,
     heandlerDelNotic,
     notifications,
@@ -42,7 +42,7 @@ const Notifications = ({
                 stateActiveCheckNotice = { stateActiveCheckNotice }
             />
             {
-                !!notificationsPrifile && notifications.results.length > 0 ?
+                notifications.results.length > 0 ?
 
                     notifications.results.map((el) => {
                         return (

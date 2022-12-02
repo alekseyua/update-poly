@@ -160,6 +160,10 @@
     @include tablet-md {
       margin-left: 15px;
     }
+  //.cabinet-heading__debt{}
+    &__debt{
+      padding: 0;
+    }
   }
   //.cabinettop-filter{}
   &-topfilter {
@@ -169,14 +173,15 @@
     @include tablet-md {
       margin-left: 15px;
     }
+    @include mobile {
+      flex-direction: column-reverse;
+      // flex-direction: column;
+    }
     //.cabinet-topfilter__left
     &__left {
       max-width: 280px;
       min-width: 260px;
 
-    }
-    @include mobile {
-      flex-direction: column;
     }
     //.cabinet-topfilter__search-icon{}
     &__search-icon{

@@ -3,7 +3,7 @@ import { useStoreon } from 'storeon/react';
 import NotificationsPageLayout from './NotificationsPageLayout';
 
 const NotificationsPageLayoutContainer = ({
-    notificationsPrifile,
+    amountNotifications,
     cabinet_site_menu,
     notifications,
     cabinet_menu,
@@ -28,7 +28,7 @@ const NotificationsPageLayoutContainer = ({
         dispatch('deleteItemsNotice')
     }
     const heandlerCheckAllNotice = (idItem) =>{
-        console.log({check_items: idItem })
+
         const params = {
             idItems: +idItem
         }
@@ -36,7 +36,7 @@ const NotificationsPageLayoutContainer = ({
     }
 
     const heandlerCheckNotice = (idItem) =>{
-        // console.log({check_items: e })
+
         const params = {
             idItem: +idItem
         }
@@ -48,13 +48,12 @@ const NotificationsPageLayoutContainer = ({
         const params = {
             page: page
         }
-        console.log({params}, {page})
         dispatch('getNotice',params)
     }
 
     return (
         <NotificationsPageLayout
-            notificationsPrifile = { notificationsPrifile }
+            amountNotifications = { amountNotifications }
             cabinet_site_menu = { cabinet_site_menu }
             notifications = { notifications }
             cabinet_menu = { cabinet_menu }

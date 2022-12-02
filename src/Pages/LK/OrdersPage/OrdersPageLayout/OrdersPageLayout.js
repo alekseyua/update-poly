@@ -5,7 +5,11 @@ import SidebarPersonalPage from '../../DetailsPage/SidebarPersonalPage';
 import ActiveAndArchivedOrders from '../../DetailsPage/ActiveAndArchivedOrders';
 
 const OrdersPageLayout = ({
+    total_orders_price_unpaid,
+    total_orders_price_paid,
     getDataOrdersFilters,
+    amountNotifications,
+    total_debt_orders,
     searchOrderForFio,
     cabinet_site_menu,
     btnAddOrderItems,
@@ -42,20 +46,24 @@ const OrdersPageLayout = ({
                         
                         <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
-                            shop={shop}
-                            create_shop={create_shop}
-                            is_has_shop={is_has_shop}
-                            cabinet_menu={cabinet_menu}
-                            cabinet_site_menu={cabinet_site_menu}
+                            amountNotifications = { amountNotifications }
+                            cabinet_site_menu = { cabinet_site_menu }
+                            cabinet_menu = { cabinet_menu }
+                            create_shop = { create_shop }
+                            is_has_shop = { is_has_shop }
                             currency = { currency }
                             username = { username }
                             balance = { balance }
                             role = { role }
+                            shop = { shop }
                         />
                         </BlockGrid.GridPageLeftLK>
 
                         <BlockGrid.GridPageRightLK>
                         <ActiveAndArchivedOrders
+                            total_orders_price_unpaid = { total_orders_price_unpaid }
+                            total_orders_price_paid = { total_orders_price_paid }
+                            total_debt_orders = { total_debt_orders }
                             searchOrderForFio = { searchOrderForFio }
                             dateFilterData = { dateFilterData }
                             tableBodyData = { tableBodyData }

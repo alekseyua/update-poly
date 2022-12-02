@@ -127,7 +127,10 @@
       }
     }
   }
-
+  //.select__registration-where-Did-You-Hear-About-Service{}
+  &__registration-where-Did-You-Hear-About-Service{
+    padding: 0;
+  }
   //.select__option-item{}
   &__option-item {
     padding: 7px;
@@ -153,6 +156,14 @@
   &-order-list{
     padding: 0;
   }
+  //.select-chat-answer{}
+  &-chat-answer{
+    padding: 0;
+    &>div{
+      max-height: 146px;
+    }
+  }
+
 }
 
 

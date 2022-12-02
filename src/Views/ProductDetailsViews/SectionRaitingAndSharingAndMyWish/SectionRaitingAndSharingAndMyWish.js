@@ -13,7 +13,7 @@ const SectionRaitingAndSharingAndMyWish = ({
     title,
     is_liked,
     countRaiting,
-
+    allCountPercent,
     addLikeProductCard,
     removeLikeProductCard,
 }) => {
@@ -27,8 +27,8 @@ const SectionRaitingAndSharingAndMyWish = ({
                 max={max}
                 value={value}
                 labal={label}
-                ActiveStar = { 0 }//?!чтобы показать общий рейтинг товара
-                countRaiting={3}
+                ActiveStar = { allCountPercent }//?!чтобы показать общий рейтинг товара
+                countRaiting={countRaiting}
                 className = { style['prodpage__raiting-star--disable']}
                 label = { 'Отзыв(ов)' }
             />

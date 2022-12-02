@@ -23,14 +23,13 @@ const ColorsItems = ({
             <Text text="color" />: &nbsp;
           </span>
           {
-            colors.map(activeColor=> activeColor.selected? <span key={`color-${activeColor.id}`}>{activeColor.title}</span> : null)                              
+            colors.map( activeColor=> activeColor.selected? <span key={`color-${activeColor.id}`}> { activeColor.title } </span> : null )                              
           }
         </>
       </p>
-      <ul className={style['prodpage-colors__items']}>
+      <ul className={ style['prodpage-colors__items'] }>
         {
-          colors.map((el) => {
-          
+          colors.map((el) => {          
             return (
               <li
                 key={`element-color-${el.id}`}
@@ -45,7 +44,7 @@ const ColorsItems = ({
                   })}
                   onClick={() => {
                     handleChooseProduct(productId, el.id, sizes);
-                    setDisabledButton(true)
+                    setDisabledButton( true )
                   }}
                   variant="text"
                   style={{ backgroundColor: el.color, borderRadius: '1px', height: '100%' }}

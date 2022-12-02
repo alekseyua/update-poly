@@ -35,6 +35,7 @@ const ProductDetailsContainer = ({
         article,
         content,
         is_new,
+        review,
         prices,
         colors,
         sizes,
@@ -43,26 +44,29 @@ const ProductDetailsContainer = ({
         title,
         extra,
         id,
-        
+
     } = context.productDetails;
 
     const { role, status } = context.profile;
     const { dataReviewProductCount = null, product_reviews, pageReviewProduct = null } = reviews;
+    const countRaiting = review.all_count;
+    const allCountPercent = review.all_count_percent;
+
     const profileId = context.profile?.id;
     const { delivery_condition } = role_configuration;
     const handleChooseProduct = (productId, colorId, sizeId) => {
         const params = {
-                productId:productId,
-                color: colorId,
-                size: sizeId,
-                collection: null,
+            productId: productId,
+            color: colorId,
+            size: sizeId,
+            collection: null,
         }
         dispatch('getProductDetails', params)
     }
 
     const handlerOpenListCollection = (collections, title) => {
         dispatch('openModalCollections', {
-            collections, 
+            collections,
             title
         })
     }
@@ -70,9 +74,9 @@ const ProductDetailsContainer = ({
     const addLikeProductCard = (id) => {
 
         console.log('addWishList = ', id,
-        {a: location.pathname}
+            { a: location.pathname }
         )
-        dispatch('addWishList', { id: id, pathname: location.pathname})
+        dispatch('addWishList', { id: id, pathname: location.pathname })
     }
 
     const removeLikeProductCard = (id) => {
@@ -80,18 +84,19 @@ const ProductDetailsContainer = ({
         dispatch('removeWishList', { id: id, pathname: location.pathname })
     }
 
-    const openTableSize = () => {        
+    const openTableSize = () => {
         dispatch('openModalTableSize')
     }
 
 
-    console.log({delivery_condition})
+    console.log({ delivery_condition })
 
     return (
         <ProductDetails
             dataReviewProductCount={dataReviewProductCount}
-            delivery_condition = { delivery_condition }
+            delivery_condition={delivery_condition}
             defaultProductCard={defaultProductCard}
+            allCountPercent={allCountPercent}
             pageReviewProduct={pageReviewProduct}
             recommended_price={recommended_price}
             reviews_statistic={reviews_statistic}
@@ -103,6 +108,7 @@ const ProductDetailsContainer = ({
             in_cart_count={in_cart_count}
             is_collection={is_collection}
             reviews_count={reviews_count}
+            countRaiting={countRaiting}
             breadcrumbs={breadcrumbs}
             is_closeout={is_closeout}
             is_in_stock={is_in_stock}
@@ -110,7 +116,7 @@ const ProductDetailsContainer = ({
             recommended={recommended}
             product_rc={product_rc}
             profileId={profileId}
-            is_liked = { is_liked }
+            is_liked={is_liked}
             currency={currency}
             article={article}
             content={content}
@@ -128,9 +134,9 @@ const ProductDetailsContainer = ({
             // url={url}
             handleChooseProduct={handleChooseProduct}
             handlerOpenListCollection={handlerOpenListCollection}
-            addLikeProductCard = { addLikeProductCard }
-            removeLikeProductCard = { removeLikeProductCard }
-            openTableSize = { openTableSize }
+            addLikeProductCard={addLikeProductCard}
+            removeLikeProductCard={removeLikeProductCard}
+            openTableSize={openTableSize}
         />
     )
 }

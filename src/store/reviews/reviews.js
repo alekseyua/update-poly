@@ -6,6 +6,7 @@ import { addReviewsFunc } from './addReviews';
 import { initReviews, initialFetchFiltersReviews } from '../../helpers/initialValues/initialValues';
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 import { errorAlertIcon } from "../../images";
+import { ROLE } from "../../const";
 
 export const reviews = store => {
     const apiContent = api.contentApi;
@@ -190,6 +191,8 @@ export const reviews = store => {
 
     store.on('sendReview', async ({ context, closeModalState }, obj, { dispatch }) => {
         const { setValues } = obj.dataFormik;
+        const redirectTo = obj.redirectTo;
+        const { role } = context.init_state.profile;
         try{
             setValues({
                 activeSpinner: true
@@ -276,25 +279,38 @@ export const reviews = store => {
             setValues({
                 activeSpinner: false
             })
-            let error = [Text({text: 'error-on-server'})];
+            let error = ['Что бы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться'];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {
                     error.push(`${errors}`)
                 } else {
-                    error.push(`${errors[0]}`)
-                }
+                    if(errors.length)
+                       return error.push(`${errors[0]}`);
+                    errors?.detail? error.push(`${errors.detail}`) : null
+                }                
             }
-            dispatch('setModalState', {
+            let params = {
                 show: true,
                 content: textErrorMessage(error),
                 iconImage: errorAlertIcon,
                 addClass: 'modal-alert-error',
                 action: {
                     title: ['продолжить', null]
-                },
-                onClick: () => closeModalState()
-            })
+                },    
+                onClick: () => closeModalState(),
+            }
+            console.log({role})
+            role === ROLE.UNREGISTRED?
+                params = { 
+                    ...params, 
+                    action: {
+                        title: ['продолжить', 'зарегистрироваться']
+                    },
+                    onClickCancel: () => redirectTo('/registration')
+                }
+                : null
+            dispatch('setModalState', params)
         }
     })
 
@@ -306,8 +322,6 @@ export const reviews = store => {
         !!obj?.checkFilter ? params = { ...params, checkFilter: obj.checkFilter } : null;
         !!obj?.page ? params = { ...params, page: obj.page } : null;
         !!obj?.ordering ? params = { ...params, ordering: obj.ordering } : null;
-
-        console.log({ getReviews: params })
         const data = await apiContent.getReviews(params);
         const reviews = {
             "service_reviews": data.results.filter(el => !el.product),
@@ -389,7 +403,9 @@ export const reviews = store => {
                 if (typeof errors !== 'object') {
                     error.push(`${errors}`)
                 } else {
-                    error.push(`${errors[0]}`)
+                    if(errors.length)
+                       return error.push(`${errors[0]}`);
+                    errors?.detail? error.push(`${errors.detail}`) : null
                 }
             }
             dispatch('setModalState', {

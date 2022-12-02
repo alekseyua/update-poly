@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-right: 20px;
+    margin-right: 10px;
 
     &-trigger {
       border: none;
@@ -107,7 +107,8 @@
   //.social_opened{}
   &_opened{
     position: relative;
-    margin-right: 20px;
+    margin-right: 10px;
+
     @include mobile{
       //.social-list{}
       .social-list{

@@ -1,9 +1,12 @@
 import React from 'react';
-import style from './styles/menu.module.scss';
 import { Link } from 'react-router-dom';
+import Icon from '../Icon';
+import { noticeIcon } from '../../images';
 
+import style from './styles/menu.module.scss';
 
-const Menu = ({ cabinet_menu = [] }) => {  
+const Menu = ({ cabinet_menu = [], amountNotifications }) => {  
+
   return (
     <div 
       className={style['cabinet-menu__wrapper']}
@@ -26,6 +29,11 @@ const Menu = ({ cabinet_menu = [] }) => {
                       to={el.url}
                     >
                       {el.title}
+                      {
+                        el.id === 30 && !!amountNotifications? 
+                          <Icon src = { noticeIcon } width = { 15 } height = { 15 } />
+                          : null
+                      }
                     </Link>
                     <span className={style['cabinet-menu__bage']} slot={'suffix'}>
                       {el.notifi}

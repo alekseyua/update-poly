@@ -10,6 +10,7 @@ const Retailer = ({
   logOut,
   openMenuRef,
   stateOpen,
+  amountNotifications,
 }) => {
   return (
     <LayoutDropDownMenuAccount
@@ -22,7 +23,10 @@ const Retailer = ({
         titleRole={Text({ text: 'retailBuyer' })}
       />
       <DropDownHeaderLK.Line />
-      <DropDownHeaderLK.Menu cabinet_menu={cabinet_menu} />
+      <DropDownHeaderLK.Menu
+        cabinet_menu={cabinet_menu}
+        amountNotifications={amountNotifications}
+      />
       <DropDownHeaderLK.MarketInfo />
       <DropDownHeaderLK.Line />
       <DropDownHeaderLK.Logout onClick={logOut} />

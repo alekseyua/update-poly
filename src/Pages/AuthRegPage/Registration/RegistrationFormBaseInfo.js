@@ -16,6 +16,7 @@ import Form from '../../../Views/Form';
 
 import BlockSpinner from '../../../Views/SpinnerWrapper';
 import PersonalPageViews from '../../../Views/PersonalPageViews';
+import Offset from '../../../Views/Offset';
 
 const RegistrationFormBaseInfo = ({
   onSaveFormData,
@@ -192,6 +193,8 @@ const RegistrationFormBaseInfo = ({
               ) : null}
 
               {/* //! выбор соц сетей или другое поле */}
+              <AuthorizationAndRegViews.WrapperCheckBox>
+
               <Select
                 className={'select-mb_30'}
                 value={values.whereDidYouHearAboutService}
@@ -210,8 +213,9 @@ const RegistrationFormBaseInfo = ({
                   ) : null
                 }
                 options={whereDidYouHearAboutServiceOptions}
-                data-cy={'registration_where_Did_You_Hear_About_Service'}
+                addClass = { 'select__registration-where-Did-You-Hear-About-Service' }
               />
+              </AuthorizationAndRegViews.WrapperCheckBox>
               
 
                 {/* //! получать рассылку */}
@@ -245,7 +249,7 @@ const RegistrationFormBaseInfo = ({
                 form={'form-first-data'}
                 variant={'black_btn_full_width'}
                 type={'submit'}
-                data-cy={'button_registration'}
+                addClass = { 'button_registration' }
               >
                 {role === ROLE.RETAIL ? (
                   <Text text={'registration'} />
@@ -254,6 +258,7 @@ const RegistrationFormBaseInfo = ({
                 )}
                   {loading ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad = { 50 }/> : null}
               </Button>
+              
             </Form>
         )}
       }

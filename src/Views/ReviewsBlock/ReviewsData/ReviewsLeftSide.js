@@ -60,9 +60,9 @@ const ReviewsLeftSide = ({
               <div className={style['reviews__reviews-list-mb']}></div>
 
             </div>
-            : <BlockSpinner.SpinnerWrapper>
+            : <BlockSpinner.SpinnerCenter>
               <BlockSpinner.Spinner />
-            </BlockSpinner.SpinnerWrapper>
+            </BlockSpinner.SpinnerCenter>
           : null
         }
         <AddReviewContainer

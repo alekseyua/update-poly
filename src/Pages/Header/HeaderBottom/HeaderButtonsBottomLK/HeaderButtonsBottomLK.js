@@ -8,6 +8,7 @@ import DropdownMenuAccount from '../DropdownMenuAccount/DropdownMenuAccount';
 import SearchPageViews from '../../../../Views/SearchPageViews';
 
 import style from './headerbuttonsbottonlk.module.scss';
+import { searchContentSerializer } from '../../../../api/serializers';
 
 const HeaderButtonsBottomLK = ({
     profile,
@@ -85,12 +86,16 @@ const HeaderButtonsBottomLK = ({
         const clickOutsideArea = (e) => {(
             setSearchInputShow(true),
             (      e.target.getAttribute('name') === 'search__close' 
-                || e.target.getAttribute('name') === 'product-price'
+                || e.target.getAttribute('name') === 'product-price4'
                 || e.target.getAttribute('name') === 'product-price3'
                 || e.target.getAttribute('name') === 'product-price2'
                 || e.target.getAttribute('name') === 'product-price1'
-                || e.target.getAttribute('name') === 'product-price'  )?
-                     setSearchInputShow(false) 
+                || e.target.getAttribute('name') === 'product-price'
+                || e.target.getAttribute('name') === 'show-all'  )?
+                     (
+                        setSearchInputShow(false),
+                        dispatch('changeTextSearch', '')
+                     ) 
                      : null,
             searchBgRef.current.contains(e.target) || e.target.getAttribute('name') === 'input-search' 
             ) || (
@@ -112,6 +117,11 @@ const HeaderButtonsBottomLK = ({
         document.addEventListener('click', clickOutsideArea);
         return removeEventListener('click', clickOutsideArea);
     },[])
+
+    const openModalFeedback = () => {
+        console.log('click check access')
+     dispatch('feedback')
+   }
 
     return (
         <div
@@ -137,10 +147,11 @@ const HeaderButtonsBottomLK = ({
                     { 
                         !!textSearch?
                             <SearchPageViews.SearchResultsDropdown
-                                search={search}
+                                search={searchContentSerializer(search.results)}
                                 currency = {currency}
                                 urlShowAll={`/search?q=${textSearch}`} // нужно правильно сложить строку
                                 urlNothingSearch={''}
+                                handleClickSearchRoot = { handleClickSearchRoot }
                             />
                             : null
                     }
@@ -181,6 +192,7 @@ const HeaderButtonsBottomLK = ({
 
                     logOut={logOut}
                     getKeyForAccess={getKeyForAccess}
+                    openModalFeedback = { openModalFeedback } 
                 />
                 
                 

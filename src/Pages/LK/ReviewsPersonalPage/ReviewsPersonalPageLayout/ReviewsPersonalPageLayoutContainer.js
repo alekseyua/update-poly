@@ -3,6 +3,7 @@ import { useStoreon } from 'storeon/react';
 import ReviewsPersonalPageLayout from './ReviewsPersonalPageLayout';
 
 const ReviewsPersonalPageLayoutContainer = ({
+    amountNotifications,
     cabinet_site_menu,
     getMyReviewList,
     cabinet_menu,
@@ -29,6 +30,7 @@ const ReviewsPersonalPageLayoutContainer = ({
 
     return (
         <ReviewsPersonalPageLayout
+            amountNotifications={amountNotifications}
             cabinet_site_menu={cabinet_site_menu}
             getMyReviewList={getMyReviewList}
             cabinet_menu={cabinet_menu}

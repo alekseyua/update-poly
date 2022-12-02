@@ -1,3 +1,3 @@
-import VidjetChatComponent from './VidjetChatComponent';
+import VidjetChatContainer from './VidjetChatContainer';
 
-export default VidjetChatComponent;
+export default VidjetChatContainer;

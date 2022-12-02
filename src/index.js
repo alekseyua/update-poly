@@ -1,4 +1,6 @@
 import express from 'express';
+var https   = require('https');
+
 let app = require('./server').default;
 const path = require("path") // path module 
 const fs = require("fs") //file system module
@@ -16,13 +18,17 @@ if (module.hot) {
 }
 
 const port = process.env.PORT || 3000;
-// const options ={
-//   key:fs.readFileSync(path.join(__dirname,'cert', 'key.pem')),
-//   cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem')) 
-// }
+
+
+const options = {
+  //key: fs.readFileSync(__dirname + '/public/cert/privkey.pem', 'utf8'),
+  //cert: fs.readFileSync(__dirname + '/public/cert/cert.pem', 'utf8')
+};
+
+// ****************************** */
+
 export default express()
   .use((req, res) => app.handle(req, res))
-  // .use(options)
   .listen(port, function(err) {
     if (err) {
       console.error(err);
@@ -30,3 +36,13 @@ export default express()
     }
     console.log(`> Started on port ${port}`);
   });
+
+  // ***********************
+
+// var appHttps = express();
+// const httpsServer = https.createServer(options, app);
+// var host = 'httpsServer.address().address;'
+
+// httpsServer.listen(port, ()=>console.log('Server start ', + host + 'on port ', port))
+
+// *************************************** */

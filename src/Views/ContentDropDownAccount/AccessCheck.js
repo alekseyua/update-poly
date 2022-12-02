@@ -16,10 +16,10 @@ const AccessCheck = ({
   email,
   stateOpen,
   openMenuRef,
-  
   getKeyForAccess, 
+  openModalFeedback,
   }) => {
- 
+
   return (
     <LayoutDropDownMenuAccount
       stateOpen={stateOpen}
@@ -48,20 +48,28 @@ const AccessCheck = ({
       }
       </DefaultAuthText.HelpText>
       { role === ROLE.RETAIL?
-        <Button full variant={'gray_full_width'} onClick={()=>getKeyForAccess({
-          username: first_name,          
-          email: email
-        })} >
-          <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
-          {Text({ text: 'confirm' })}
-        </Button>
-        :<Button full variant={'gray_full_width'} to={'#'} onClick={()=>getKeyForAccess({
-          username: first_name,          
-          email: email
-        })} >
-          <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
-          {!checkEmail? Text({text: 'confirm_mail'}) : Text({text: 'varify_access'})}
-        </Button>
+          <Button full variant={'gray_full_width'} onClick={()=>getKeyForAccess({
+            username: first_name,          
+            email: email
+          })} 
+          >
+            <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
+            {Text({ text: 'confirm' })}
+          </Button>
+          : <Button 
+              full 
+              variant={'gray_full_width'} 
+              to={'#'} 
+              onClick={()=> checkEmail? openModalFeedback() : getKeyForAccess({
+                                    username: first_name,          
+                                    email: email
+                                })
+                      }
+              addClass = { 'auth-email' } 
+            >
+              <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-right'} bodrad = { 50 }/>
+              { !checkEmail? Text({text: 'confirm_mail'}) : Text({text: 'varify_access'}) }
+            </Button>
       }
       <DropDownHeaderLK.Logout onClick={logOut} />
     </LayoutDropDownMenuAccount>

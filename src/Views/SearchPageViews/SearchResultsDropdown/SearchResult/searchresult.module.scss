@@ -35,7 +35,7 @@
       text-overflow: ellipsis;
       word-wrap: break-word;
       pointer-events: none;
-      @extend %font-title;
+      @extend %font;
       @include mobile-sm {
         max-width: 165px;
       }

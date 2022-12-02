@@ -156,13 +156,22 @@
       //.cabinet-sidebar__menu-link{}
       &-link {
         padding: 9px 30px;
-        display: block;
+        display: flex;
         letter-spacing: 0.5px;
         color: $p;
         font-size: 16px;
         position: relative;
         width: 100%;
         word-wrap: initial;
+        justify-content: space-between;
+        &>div{
+          animation-name: recieveNotification;
+          animation-direction: alternate;
+          animation-duration: 1.5s;
+          animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          animation-iteration-count: infinite;
+          // opacity: 0;
+        }
 
         @include tablet-mmd {
           width: 33%;
@@ -256,5 +265,16 @@
 .desktop {
   @include mobile-lg {
     display: none;
+  }
+}
+
+@keyframes recieveNotification {
+  to {
+    filter: invert(0%);
+    opacity: 5%;
+  }
+  from {
+    filter: invert(20%);
+    opacity: 100%;
   }
 }

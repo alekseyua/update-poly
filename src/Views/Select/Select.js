@@ -8,6 +8,7 @@ import BlackStyle from './styles/blackStyle.module.scss';
 
 const Select = ({
   className,
+  addClass,
   label = "",
   placeholder,
   options = [],
@@ -22,6 +23,9 @@ const Select = ({
   /**
    * @param {
    *  onClick - возращает значение по элементу option
+   * onClick={(e) => {
+   *     const value = e.target.getAttribute('value');
+   *   }}
    *  option - [
    *  {
    *    title: 'title',
@@ -66,6 +70,7 @@ const Select = ({
     [style['select__body--active']]: active,
     [style[getVariantStyleSelect(variant)]]: !!variant,
     [style[className]]: !!className,
+    [style[addClass]]: !!addClass,
   });
 
   const handlerChangeList = () => {

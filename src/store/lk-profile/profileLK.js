@@ -259,22 +259,22 @@ export const profileLK = store => {
             ...context.init_state.profile,
             organization: {
               ...context.init_state.profile.organization,
-              inn: res.data.data.inn,
-              organization: res.data.data.organization,
+              inn: res.data?.inn ?? '',
+              organization: res.data?.organization ?? '',
             },
             links: {
               ...context.init_state.profile.links,
-              vk_link: res.data.data.vk_link,
-              insta_link: res.data.data.insta_link,
-              site_link: res.data.data.site_link
+              vk_link: res.data?.vk_link ?? '',
+              insta_link: res.data?.insta_link ?? '',
+              site_link: res.data?.site_link ?? ''
             },
             user: {
               ...context.init_state.profile.user,
-              username: res.data.data.username,
-              email: res.data.data.email,
-              first_name: res.data.data.first_name,
-              middle_name: res.data.data.middle_name,
-              last_name: res.data.data.last_name,
+              username: res.data.username,
+              email: res.data.email,
+              first_name: res.data.first_name,
+              middle_name: res.data.middle_name,
+              last_name: res.data.last_name,
             },
           }
         }

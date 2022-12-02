@@ -34,19 +34,19 @@ const AsyncPreviewSlider = AsyncComponent(() => {
     return import('../../../Views/PreviewProduct/PreviewSlider/PreviewSliderContainer');
 })
 
-const AsyncReviewsBlock = AsyncComponent(()=>{
+const AsyncReviewsBlock = AsyncComponent(() => {
     return import('../../../Views/ReviewsBlock/ReviewsContainer');
 })
 
 const AsyncRecomendetProduct = AsyncComponent(() => {
     return import('../../../Views/RecomendetProduct/RecomendentProductContainer');
-  });
+});
 
 const AsyncYouHaveAlreadyWatched = AsyncComponent(() => {
     return import('../../../Views/YouHaveAlreadyWatched/YouHaveAlreadyWatchedContainer.js');
 });
 
-const AsyncSectionRaitingAndSharingAndMyWish = AsyncComponent(()=> import('../../../Views/ProductDetailsViews/SectionRaitingAndSharingAndMyWish/SectionRaitingAndSharingAndMyWish'))
+const AsyncSectionRaitingAndSharingAndMyWish = AsyncComponent(() => import('../../../Views/ProductDetailsViews/SectionRaitingAndSharingAndMyWish/SectionRaitingAndSharingAndMyWish'))
 
 import SceletonBlock from '../../../Views/SceletonBlock';
 
@@ -62,6 +62,7 @@ const ProductDetails = ({
     delivery_condition,
     pageReviewProduct,
     recommended_price,
+    allCountPercent,
     reviews_statistic,
     product_rcAmount,
     product_reviews,
@@ -71,6 +72,7 @@ const ProductDetails = ({
     is_bestseller,
     is_collection,
     reviews_count,
+    countRaiting,
     recommended,
     is_closeout,
     breadcrumbs,
@@ -127,16 +129,18 @@ const ProductDetails = ({
                         >
                             {/* // ?! ДАННЫЕ НЕ ПРИХОДЯТ, ЖДЁМ ОТ БЭКА Raiting 
                             */}
-                            
+
                             <AsyncSectionRaitingAndSharingAndMyWish
-                                 is_liked = { is_liked }
-                                 title = { title }
-                                 value = {0}
-                                 label = {Text({ text: 'reviews-es' })}
-                                 max = {5}
-                                 
-                                 addLikeProductCard = { addLikeProductCard }
-                                 removeLikeProductCard = { removeLikeProductCard }
+                                allCountPercent={allCountPercent}
+                                countRaiting={countRaiting}
+                                is_liked={is_liked}
+                                title={title}
+                                value={0}
+                                label={Text({ text: 'reviews-es' })}
+                                max={5}
+
+                                addLikeProductCard={addLikeProductCard}
+                                removeLikeProductCard={removeLikeProductCard}
                             />
                         </BlockGrid.Row>
                         <BlockGrid.Row // ? 2 информационный ряд Brand
@@ -194,13 +198,13 @@ const ProductDetails = ({
                         <BlockGrid.Row  // ? 6 информационный ряд цветовая разкраска товара
                             className={style['preview-product-modal__row']}
                         >
-                            <Button 
-                                className="prodpage-sizes__btn" 
-                                variant="text" 
-                                onClick = { openTableSize }
-                            
+                            <Button
+                                className="prodpage-sizes__btn"
+                                variant="text"
+                                onClick={openTableSize}
+
                             >
-                                <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width = { 20 } height = { 20 } />
+                                <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width={20} height={20} />
                                 Таблица размеров
                             </Button>
                         </BlockGrid.Row>
@@ -257,7 +261,7 @@ const ProductDetails = ({
                                 is_in_stock={is_in_stock}
                                 productId={productId}
                                 role={role}
-                                url = { url }
+                                url={url}
                             />
                         </BlockGrid.Row>
 
@@ -281,39 +285,39 @@ const ProductDetails = ({
                         ) : null
                     }
                 </BlockGrid.Row>
-                
+
                 <BlockGrid.Row  // ? 13 информационный ряд c отзывами о товаре
                     className={style['preview-product-modal__row']}
                 >
-                  <AsyncReviewsBlock 
-                    dataReviewProductCount={dataReviewProductCount}
-                    pageReviewProduct={pageReviewProduct}
-                    reviews_statistic={reviews_statistic}
-                    product_reviews={product_reviews}
-                    reviews_count={reviews_count}
-                    profileId={profileId}
-                    productId={productId}
-                  />
+                    <AsyncReviewsBlock
+                        dataReviewProductCount={dataReviewProductCount}
+                        pageReviewProduct={pageReviewProduct}
+                        reviews_statistic={reviews_statistic}
+                        product_reviews={product_reviews}
+                        reviews_count={reviews_count}
+                        profileId={profileId}
+                        productId={productId}
+                    />
                 </BlockGrid.Row>
 
                 <BlockGrid.Row  // ? 14 информационный ряд Рекомендуемое
                     className={style['preview-product-modal__row']}
                 >
-                    <AsyncRecomendetProduct 
+                    <AsyncRecomendetProduct
                         recommended={recommended}
-                        currency={currency} 
-                        // setCardIdproductFromSlider={setCardIdproductFromSlider}
+                        currency={currency}
+                    // setCardIdproductFromSlider={setCardIdproductFromSlider}
                     />
-                    
+
                 </BlockGrid.Row>
 
                 <BlockGrid.Row  // ? 15 информационный ряд Вы уже смотрели
                     className={style['preview-product-modal__row']}
                 >
-                    <AsyncYouHaveAlreadyWatched 
+                    <AsyncYouHaveAlreadyWatched
                         youAlredyWatch={youAlredyWatch}
                         currency={currency}
-                    />                    
+                    />
                 </BlockGrid.Row>
 
             </BlockGrid.Container>

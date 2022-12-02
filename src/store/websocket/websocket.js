@@ -1,9 +1,10 @@
 import api from "../../api/api";
+import { serializeNotifications } from "../../api/ProfileApi/serializers";
 import { getCookie } from "../../helpers/helpers";
 
 export const websocket = store => {
   const orderApi = api.orderApi;
-  
+
   store.on('chatOrdersMessage/set', ({ context }, obj, { dispatch }) => {
     let messageChat = undefined;
     let messageItemsChat = undefined;
@@ -21,7 +22,7 @@ export const websocket = store => {
     } else if (order_message !== undefined) {
       messageChat = [...[order_message], ...messageOrderFromContext];
     }
-    
+
     if (order_items_chat !== undefined) {
       messageItemsChat = order_items_chat;
     } else if (order_item_message !== undefined) {
@@ -29,7 +30,7 @@ export const websocket = store => {
       messageItemsChat = messagesItemsOrderFromContext.map(item => {
         if (item.item_id === newObj.order_item_id) {
           item = {
-            chat_order_items: item.chat_order_items.concat(newObj).sort( (a,b)  => b.message_id - a.message_id),
+            chat_order_items: item.chat_order_items.concat(newObj).sort((a, b) => b.message_id - a.message_id),
             item_id: item.item_id
           }
         }
@@ -40,24 +41,22 @@ export const websocket = store => {
     const newContext = {
       ...context,
       "init_state": {
-          ...context.init_state,
-          order: {
-              ...context.init_state.order,
-              correspondence: {
-                order_chat: messageChat ?? messageOrderFromContext ?? [],
-                order_items_chat: messageItemsChat ?? messagesItemsOrderFromContext ?? [],
-              }
-          },
-          numberCurrentOrderForAddProduct: null,
+        ...context.init_state,
+        order: {
+          ...context.init_state.order,
+          correspondence: {
+            order_chat: messageChat ?? messageOrderFromContext ?? [],
+            order_items_chat: messageItemsChat ?? messagesItemsOrderFromContext ?? [],
+          }
+        },
+        numberCurrentOrderForAddProduct: null,
       },
-  }
-  
-  dispatch('context', newContext)
-
+    }
+    dispatch('context', newContext);
   })
 
   store.on('correspondence', async ({ context }, obj, { dispatch }) => {
-  
+
     const order_id = context.init_state.page_info.id;
     const urlChatItem = `wss://back.ftownpl.com:8443/ws/chat/${order_id}/?token=$${getCookie('ft_token')}`;
     let ws = {};
@@ -84,7 +83,7 @@ export const websocket = store => {
     }
 
     ws.onerror = (error) => {
-      alert(`[error] ${error.message}`);
+      alert(`[error] ${error.message} ${JSON.stringify(error, null, 4)}`);
     };
 
     const gettingData = () => {
@@ -100,72 +99,152 @@ export const websocket = store => {
   })
 
   store.on('changeStateIsnewMessage', async ({ context, closeModalState }, obj, { dispatch }) => {
-      
-  try{
-    const { idProduct } = obj;
-    const messagesItemsOrderFromContext = context.init_state.order.correspondence?.order_items_chat;
-    let massiveIdIsnew = []
-    let resChangeIsnew = []
-    // const newMessage = messagesItemsOrderFromContext.map( el => )
-    const newMessage = messagesItemsOrderFromContext.map(item => {
-      if (item.item_id === idProduct) {
-        item.chat_order_items.filter( el => {
-          if(el.is_new) massiveIdIsnew.push(el.message_id)
-        })
-         item = {
-           chat_order_items: item.chat_order_items.map( el => ({ ...el, is_new: false })),
-           item_id: item.item_id
-         }
-      }
-       return item
-    })
-    if ( !!massiveIdIsnew.length ){
-      resChangeIsnew  = await orderApi.postCorrespondence_order_item_remake_is_new({
-        order_item_id: idProduct,
-        ids: massiveIdIsnew
-      })
-    }
 
-    const newContext = {
-      ...context, 
-      "init_state": {
+    try {
+      const { idProduct } = obj;
+      const messagesItemsOrderFromContext = context.init_state.order.correspondence?.order_items_chat;
+      let massiveIdIsnew = []
+      let resChangeIsnew = []
+      // const newMessage = messagesItemsOrderFromContext.map( el => )
+      const newMessage = messagesItemsOrderFromContext.map(item => {
+        if (item.item_id === idProduct) {
+          item.chat_order_items.filter(el => {
+            if (el.is_new) massiveIdIsnew.push(el.message_id)
+          })
+          item = {
+            chat_order_items: item.chat_order_items.map(el => ({ ...el, is_new: false })),
+            item_id: item.item_id
+          }
+        }
+        return item
+      })
+      if (!!massiveIdIsnew.length) {
+        resChangeIsnew = await orderApi.postCorrespondence_order_item_remake_is_new({
+          order_item_id: idProduct,
+          ids: massiveIdIsnew
+        })
+      }
+
+      const newContext = {
+        ...context,
+        "init_state": {
           ...context.init_state,
           order: {
-              ...context.init_state.order,
-              correspondence: {
-                ...context.init_state.order.correspondence,
-                order_items_chat: newMessage ?? messagesItemsOrderFromContext ?? [],
-              }
+            ...context.init_state.order,
+            correspondence: {
+              ...context.init_state.order.correspondence,
+              order_items_chat: newMessage ?? messagesItemsOrderFromContext ?? [],
+            }
           },
           numberCurrentOrderForAddProduct: null,
-      },
-  }
-  
-  dispatch('context', newContext)
-  
-  } catch (err) {
-    console.log('ERROR removeItemFromOrder = ', err);
-    let error = [Text({text: 'error-on-server'})];
-    if (err?.data) {
+        },
+      }
+
+      dispatch('context', newContext)
+
+    } catch (err) {
+      console.log('ERROR removeItemFromOrder = ', err);
+      let error = [Text({ text: 'error-on-server' })];
+      if (err?.data) {
         const errors = err.data;
-        if ( typeof errors !== 'object') {
-            error.push(`${errors}`)
-        }else{
-            error.push(`${errors[0]}`)
+        if (typeof errors !== 'object') {
+          error.push(`${errors}`)
+        } else {
+          error.push(`${errors[0]}`)
         }
-        console.log({errors}, {err: typeof errors})
-    }
-    dispatch('setModalState', {
+        console.log({ errors }, { err: typeof errors })
+      }
+      dispatch('setModalState', {
         show: true,
         content: textErrorMessage(error),
         iconImage: errorAlertIcon,
         addClass: 'modal-alert-error',
         action: {
-            title: ['продолжить', null]
+          title: ['продолжить', null]
         },
         onClick: () => closeModalState()
-    })
-  }
+      })
+    }
   })
-  
+
+  store.on('notification', async ({ context }, obj, { dispatch }) => {
+
+    let newContext = context;
+    const user_id = obj
+    const urlChatItem = `wss://back.ftownpl.com:8443/ws/notifications/${user_id}/?token=$${getCookie('ft_token')}`;
+    let ws = {};
+    const startWs = () => {
+      ws = new WebSocket(urlChatItem); // создаем ws соединение
+    }
+
+    if (!!getCookie('ft_token')) {
+      startWs()
+      ws.onopen = (open) => {
+        gettingData()
+      }
+      ws.onclose = (close) => {
+        console.log({ close })
+        setTimeout(startWs(), 3000);
+        if (close.wasClean) {
+          console.log(`[close] Соединение закрыто чисто, код=${close.code} причина=${close.reason}`);
+        } else {
+          // например, сервер убил процесс или сеть недоступна
+          // обычно в этом случае event.code 1006
+          console.log(`[close] Соединение прервано, код=${close.code}`);
+        }
+      }
+    }
+
+    ws.onerror = (error) => {
+      alert(`[error] ${error.message} ${JSON.stringify(error, null, 4)}`);
+    };
+
+    const gettingData = () => {
+      if (!ws) return;
+      ws.onmessage = async e => {                //подписка на получение данных по вебсокету
+        let message = JSON.parse(e.data);
+
+        if (message?.notifications?.length) {
+          message = serializeNotifications({results: message.notifications})
+          newContext = {
+            ...context,
+            "init_state": {
+              ...context.init_state,
+              notifications: {
+                ...context.init_state.notifications,
+                count: message.results.length,
+                results: message.results.filter(el => message.results.length = 30),
+                selectItemsNotice: [],
+              }
+            },
+          }
+          return dispatch('context', newContext);
+        } else {
+          console.log(
+            {context},
+            {newContext}
+            )
+          message = serializeNotifications({results: [message.notification]})
+          newContext = {
+            ...newContext,
+            "init_state": {
+              ...newContext.init_state,
+              // notifications: {
+              //   ...newContext.init_state.notifications,
+              //   count: newContext.init_state.notifications.count + 1,
+              //   results: [ message.results[0], ...newContext.init_state.notifications.results ],
+              //   selectItemsNotice: [],
+              // },
+              profile: {
+                ...newContext.init_state.profile,
+                notifications: newContext.init_state.profile.notifications + 1,
+              }
+            },
+          }
+          await dispatch('context', newContext);
+          return  dispatch('getNotice');
+        };        
+      };
+    };
+  })
 }

@@ -16,7 +16,7 @@ const HeadChat = ({
           <Button
             variant="info"
             className={style['cabinet-orders-details__tooltip-icon']}
-            onClick = { () => heandlerClickInfo({status: 'chat'}) }
+            onClick = { () => heandlerClickInfo('chat') }
           >
             <Icon src={toolTipIcon} width={20} height = {20} />
           </Button>

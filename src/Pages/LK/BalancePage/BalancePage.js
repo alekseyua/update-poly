@@ -7,7 +7,7 @@ const BalancePage = ({
 
     // console.log({ BalancePage: context })
 
-    const {        
+    const {
         cabinet_site_menu,
         historyPayment,
         cabinet_menu,
@@ -17,24 +17,26 @@ const BalancePage = ({
         currency,
 
     } = context;
-    
-    const { user = {}, role, balance, passive_balance } = profile;
-    const { username } = user;
 
+    const { user = {}, role, balance, passive_balance, confirm_payments_cost } = profile;
+    const amountNotifications = profile?.notifications;
+    const { username } = user;
     return (
         <BalancePageLayoutContainer
-            cabinet_site_menu = { cabinet_site_menu }
-            passive_balance = { passive_balance }
-            historyPayment = { historyPayment }
-            cabinet_menu = { cabinet_menu }
-            breadcrumbs = { breadcrumbs }
-            create_shop = { shop?.shop_link }
-            is_has_shop = { shop?.is_has_shop }
-            currency = { currency }
-            username = { username }
-            balance = { balance }
-            role = { role }
-            shop = { shop }
+            amountNotifications={amountNotifications}
+            confirm_payments_cost={confirm_payments_cost}
+            cabinet_site_menu={cabinet_site_menu}
+            passive_balance={passive_balance}
+            historyPayment={historyPayment}
+            cabinet_menu={cabinet_menu}
+            breadcrumbs={breadcrumbs}
+            create_shop={shop?.shop_link}
+            is_has_shop={shop?.is_has_shop}
+            currency={currency}
+            username={username}
+            balance={balance}
+            role={role}
+            shop={shop}
         />
     )
 }

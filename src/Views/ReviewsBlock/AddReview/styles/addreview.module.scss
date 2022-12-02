@@ -2,7 +2,13 @@
 @import '../../../../styles/fonts/index.scss';
 
 .productreviews {
-
+    //.productreviews__tooltip-send{}
+    &__tooltip-send{
+        padding: 0;
+        left: 0 !important;
+        bottom: 50px;
+        min-height: 50px;
+    }
     //.productreviews__form{}
     &__form {
         background: rgba(243, 239, 243, 0.3);

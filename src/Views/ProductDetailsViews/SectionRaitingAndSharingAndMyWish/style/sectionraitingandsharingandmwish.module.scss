@@ -5,7 +5,8 @@
     //.prodpage__raitsharewish-container{}
     &__raitsharewish-container{
         padding: 0;
-        width: calc( 100% - 30px );
+        // width: calc( 100% - 30px );
+        width: 100%;
         display: flex;
         justify-content: space-between;
 
@@ -20,6 +21,8 @@
     //.prodpage__raitsharewish-button-btn{}
     &__raitsharewish-button-btn{
         padding: 0;
+        margin-right: 5px;
+        pointer-events: none;
     }
     //.prodpage__raiting-star--disable{}
     &__raiting-star--disable{

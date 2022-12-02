@@ -29,7 +29,8 @@ const CardCollectionView = ({
     ...props
 }) => {
     const { items } = props;
-    const colorCollections = colors.filter( el => el.id === items[0].size.color_id )
+    debugger
+    const colorCollections = colors.map( el => el.id === items[0].size.color_id? { ...el, selected: true } : null ).filter( el => el !== null )
     const sizeCollections = sizes.map( item =>  {
         const currentSize = items.filter( el => el.size.id === item.id );
         return {
@@ -42,7 +43,7 @@ const CardCollectionView = ({
     const handleChooseProduct = (productId, colorId, sizeId) => {
         console.log({productId}, {colorId}, {sizeId})
     }
-    console.log({props}, {sizeCollections})
+    console.log({props}, {colorCollections},{colors})
 
     return (
         <div

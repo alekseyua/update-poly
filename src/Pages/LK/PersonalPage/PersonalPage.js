@@ -27,12 +27,13 @@ const PersonalPage = ({
     const vk_link = links?.vk_link;
     const { addressDilivery } = order;
     const { username } = user;
-
+    const amountNotifications = profile?.notifications;
 
 
     return (
         <>
         <PersonalPageLayoutContainer
+           amountNotifications = { amountNotifications }
            receive_newsletter = { receive_newsletter }
            cabinet_site_menu = { cabinet_site_menu }
            addressDilivery = { addressDilivery }

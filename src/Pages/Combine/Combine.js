@@ -28,6 +28,7 @@ import ReviewsPersonalPage from '../LK/ReviewsPersonalPage/ReviewsPersonalPage';
 import WishPage from '../WishPage/WishPage';
 import ExportCatalog from '../ExportCatalog/ExportCatalog';
 import OrderDetailsPersonalPage from '../LK/OrderDetailsPersonalPage/OrderDetailsPersonalPage';
+import SearchPage from '../SearchPage/SearchPage';
 
 
 const Combine = ({...props}) => {
@@ -61,7 +62,7 @@ const Combine = ({...props}) => {
         36: BalancePage, //? кабинет баланс
         31: ReviewsPersonalPage, //? страница с деталкой заказа
         30: OrderDetailsPersonalPage, //? деталка заказа
-
+        15: SearchPage
         
     }
     

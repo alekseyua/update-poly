@@ -21,28 +21,29 @@ class Api extends AbstractBaseApi  {
 
     }
 
-    getPage = async (params, axiosParams) => {      
-        try{
-            // console.log('params[0]', params)
-            // console.log('axiosParams = ', axiosParams)
-            const slug = !!params.url ? `${params.url}` : '/';
-            const res = await this.get(`/content/page${slug}`, params, axiosParams);
-            return res.data
-        }catch(err){
-            console.log(`ERROR `, err)
-            return err;
-        }  
-    }
+  getPage = async (params, axiosParams) => {      
+      try{
+          // console.log('params[0]', params)
+          // console.log('axiosParams = ', axiosParams)
+          const slug = !!params.url ? `${params.url}` : '/';
+          const res = await this.get(`/content/page${slug}`, params, axiosParams);
+          return res.data
+      }catch(err){
+          console.log(`ERROR `, err)
+          return err;
+      }  
+  }
 
-    getSearch = async (params = {}) => {
-        try{
-            const res = await this.get('/content/search/', params);
-            return searchContentSerializer(res.data.results);
-        }catch(err){
-            new Error('Error has was request getSearch');
-            return console.log('error message: ', err.message)
-        }
-    };
+  getSearch = async (params = {}) => {
+      try{
+          const res = await this.get('/content/search/', params);
+          return res.data;
+          // return searchContentSerializer(res.data.results);
+      }catch(err){
+          new Error('Error has was request getSearch');
+          return console.log('error message: ', err.message)
+      }
+  };
 
 
   getUserBalance = async (params) => {
@@ -88,10 +89,10 @@ class Api extends AbstractBaseApi  {
     return res.data;
   };
 
-  getSearch = async (params = {}) => {
-    const res = await this.get('/content/search/', params);
-    return searchContentSerializer(res.data.results);
-  };
+  // getSearch = async (params = {}) => {
+  //   const res = await this.get('/content/search/', params);
+  //   return searchContentSerializer(res.data.results);
+  // };
 
   getMoreThanFiveProductsOfSearch = async (params = {}) => {
     const res = await this.get('/content/search/', params);

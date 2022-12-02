@@ -10,7 +10,10 @@ import DefaultEmptyOrder from './DefaultEmptyOrder';
 import dayjs from '../../../helpers/dayjs';
 import api from '../../../api/api';
 
-const ItemsInOrder = ({
+const ItemsInOrder = ({ 
+  total_orders_price_unpaid,
+  total_orders_price_paid,
+  total_debt_orders,
   searchOrderForFio,
   dateFilterData,
   tableBodyData,
@@ -157,6 +160,9 @@ const ItemsInOrder = ({
 
     <React.Fragment>
             < BaseInfoOrder
+              total_orders_price_unpaid = { total_orders_price_unpaid }
+              total_orders_price_paid = { total_orders_price_paid }
+              total_debt_orders = { total_debt_orders }
               searchOrderForFio = { searchOrderForFio }
               dateFilterData = { dateFilterData }
               loading = { loading }
@@ -167,6 +173,7 @@ const ItemsInOrder = ({
               changeValueSearch = { changeValueSearch }
               selectCreateFrom = { selectCreateFrom }
               selectCreateTo = { selectCreateTo }
+              currency = { currency }
             />
       <MyOrderViews.WrapperTable 
         loading = { loading }
