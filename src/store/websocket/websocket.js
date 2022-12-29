@@ -202,7 +202,9 @@ export const websocket = store => {
       if (!ws) return;
       ws.onmessage = async e => {                //подписка на получение данных по вебсокету
         let message = JSON.parse(e.data);
-
+        
+        if(!!!message.notifications.length) return
+        
         if (message?.notifications?.length) {
           message = serializeNotifications({ results: message.notifications })
           newContext = {
@@ -219,7 +221,6 @@ export const websocket = store => {
           }
           return dispatch('context', newContext);
         } else {
-
           message = serializeNotifications({ results: [message.notification] })
           newContext = {
             ...newContext,

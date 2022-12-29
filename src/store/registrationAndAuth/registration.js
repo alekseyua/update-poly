@@ -140,9 +140,13 @@ export const registration = store => {
      *    }
      *    @returns
      */
-    const { email, submit_code, username, password, redirectTo, setErrors } = obj;
+    const { email, submit_code, username, password, redirectTo, setErrors, setValues, values } = obj;
 
     try {
+      setValues({
+        ...values,
+        'activeSpinner': true
+      })
       const url = obj?.url ?? '/juridical';
       const param = {
         key: +submit_code,
@@ -153,7 +157,12 @@ export const registration = store => {
       }
 
       await apiUser.checkKey(param)
+
       delay(4000)
+      setValues({
+        ...values,
+        'activeSpinner': false
+      })
       const res = await api.getPage({ url });
 
       const newContext = {
@@ -188,7 +197,16 @@ export const registration = store => {
       console.log(err)
       if (err.status === 400) {
         setErrors({ 'errorCod': `${Text({ text: 'inputCod' })}` })
+        setValues({
+          ...values,
+          'activeSpinner': false,
+          'errorCod': `${Text({ text: 'inputCod' })}`
+        })
       }else{
+        setValues({
+          ...values,
+          'activeSpinner': false
+        })
         let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;
@@ -297,7 +315,7 @@ export const registration = store => {
 
     //?! проверяем код
     const handleSubmit = (values, callbacks) => {
-      const { setErrors } = callbacks;
+      const { setErrors, setValues } = callbacks;
       const params = {
         username: username,
         password: password,
@@ -306,8 +324,9 @@ export const registration = store => {
         type: obj.type,
         submit_code: values.submit_code,
         setErrors: setErrors,
-        redirectTo: redirectTo
-
+        redirectTo: redirectTo,
+        setValues: setValues,
+        values: values,
       }
       dispatch('checkKey', params)
     };

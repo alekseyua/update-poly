@@ -16,6 +16,7 @@ import CatalogLinkTransparentModal from './styles/CatalogLinkTransparentModal.mo
 import cabinetDefault from './styles/cabinetDefault.module.scss';
 import cabinetLinkblue from './styles/cabinetLinkblue.module.scss';
 import showMore from './styles/showMore.module.scss';
+import grayFullWidth from './styles/grayFullWidth.module.scss';
 import buttonRegistration from './styles/buttonRegistration.module.scss';
 import styleAddClass from './styles/addClass.module.scss';
 import style from './styles/icons.module.scss';
@@ -109,6 +110,8 @@ const Button = ({
         return showMore['show_more'];
       case 'button_registration':
         return buttonRegistration['button_registration'];
+      case 'gray_full_width':
+        return grayFullWidth['gray_full_width'];
       default: ''
     }
   }

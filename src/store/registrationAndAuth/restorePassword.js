@@ -34,7 +34,7 @@ export const restorePassword = store => {
         email: '',
         type: 'restore'
     }
-    store.on('openModalRestorePassword', ({ }, obj, { dispatch }) => {
+    store.on('openModalRestorePassword', ({ closeModalState }, obj, { dispatch }) => {
         const resetUserPassword = (values, { setFieldError }) => {
             //?! сделать переходы по шагам
             //?! послеввода пороля отправляем запрос на смену пароля 
@@ -45,7 +45,7 @@ export const restorePassword = store => {
                 nextStep: nextStep,
                 setFieldError: setFieldError
             }
-            dispatch('getNewSubmitCode', params);
+            dispatch('getNewSubmitCode', params); 
         }
 
         const nextStep = (email) => {
@@ -102,7 +102,7 @@ export const restorePassword = store => {
                         className: null,
                         iconImage: successAlertIcon,
                         title: res.username,
-                        onClick: () => dispatch('goToPage', {path: values.path}),
+                        onClick: () => closeModalState(),//dispatch('goToPage', {path: values.path}),
                         content: (
                           <div>
                             Вы успешно изминили пароль

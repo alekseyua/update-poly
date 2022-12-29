@@ -21,19 +21,22 @@ const FormSingnUp = ({ children, role, step }) => {
     [style['formSignIn__wrapper']]: true,
     [style['mt_50']]: !!step,
   });
+  console.log('step = ', step)
   return (
     <div className={wrapperCustomClassName}>
       <Title variant={'poppins'}>
         <Text text={'register'} />
       </Title>
       <div className={style['formSignIn__wrapper-title-help-text']}>
-        {step !== 0 ? (
+        {
+        step !== 0 ? (
           <div className={style['formSignIn__wrapper-title-help-text-line']}>
-            {step === 3 ? <HelpText role={role} /> : null}
+            { step === 3 ? <HelpText role={role} /> : null }
+            { step === 2 ? 'Указывайте актуальный адрес электронной почты, иначе Вы не сможете закончить регистрацию' : null }
           </div>
         ) : (
-          <Text text={'previewRegistrationText'} />
-        )}
+            <Text text={'previewRegistrationText'} />
+          )}
       </div>
       {children}
     </div>

@@ -10,6 +10,7 @@
     align-content: center;
     flex-wrap: wrap;
     margin-top: 15px;
+    width: 100%;
     @include laptop-sm {
       align-items: start;
     }

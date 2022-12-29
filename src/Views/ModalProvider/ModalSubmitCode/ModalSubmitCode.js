@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
 import ModalProvider from '../ModalProvider';
+import BlockSpinner from '../../SpinnerWrapper';
 import ErrorField from '../../ErrorField';
 import Button from '../../Button';
 import Input from '../../Input';
@@ -19,7 +20,7 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
       >
         {(props) => {
           const { setValues, values, errors, setErrors, handleSubmit} = props;
-
+console.log({errors})
           return (
             <Form
               id={'modal-submit-code'}
@@ -51,7 +52,7 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
                     }
                   )
                 }}
-                helpText={!!errors.errorCod ? <ErrorField message={errors.errorCod} /> : null}
+                helpText={ !!values.errorCod || !!errors.errorCod ? <ErrorField message={values.errorCod ?? errors.errorCod} /> : null}
               />
               <br />
               <Button
@@ -61,7 +62,7 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
                 disabled={values.activeBtn}
               >
                 отправить код
-                
+                {!values.activeBtn && values.activeSpinner ? <BlockSpinner.Spinner sizeWidth='20' sizeHeight='20' slot={'icon-left'} bodrad={50} /> : null}
               </Button>
               <ModalProvider.ModalSubmitCodeView email={values.email} postKeyFromMail={postKeyFromMail} />
             </Form>

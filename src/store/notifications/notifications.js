@@ -90,7 +90,7 @@ export const notifications = store => {
         const messageList = context.init_state.notifications.results;
         let res = await apiProfile.postNotificationsDel({ 'ids': newSelectItemsNotice })
         
-        res = serializeNotifications({ results: res })
+        res = serializeNotifications({ results: res });
         const countNoReadMessage = messageList.reduce((acc, cur) => {
             if (newSelectItemsNotice.includes(cur.id) && !cur.is_read) return ++acc
             return acc

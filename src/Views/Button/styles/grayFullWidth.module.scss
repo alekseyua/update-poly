@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.gray_full_width{
+    border: rgba(0,0,0,0);
+    text-align: center;
+    height: 46px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gx-color-white);
+    background-color: var(--gx-color-darkgray);
+    line-height: 45px;
+    border-radius: 2px;
+    padding: 0;
+    min-width: 245px;
+}

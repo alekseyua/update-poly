@@ -45,6 +45,8 @@ export const initialValuesSubmitCode = {
     submit_code: '',
     email: '',
     activeBtn: true,
+    activeSpinner: false,
+    errorCod: '',
 }
 
 export const initModalState = {
