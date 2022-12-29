@@ -5,18 +5,13 @@ import { textErrorMessage, textSuccessMessage } from "../modalStorage/modalWindo
 
 
 
-export const  faq = store => {
+export const faq = store => {
     const apiContent = api.contentApi;
 
-    store.on('getFaq', async ({context, closeModalState}, obj, { dispatch }) => {
+    store.on('getFaq', async ({ context, closeModalState }, obj, { dispatch }) => {
+        const getAnswers = await apiContent.getAnswers();
+        const getCategoryAnswer = await apiContent.getCategoryAnswer();
 
-        // let getAnswers = context.init_state.faq?.answerCategorys;
-        // let getCategoryAnswer = context.init_state.faq?.answers;
-        // if ( !getAnswers?.length || !getCategoryAnswer?.length ){  
-           const  getAnswers = await apiContent.getAnswers();
-            const getCategoryAnswer = await apiContent.getCategoryAnswer();
-        // }
-        console.log({getCategoryAnswer}, {getAnswers})
         const newContext = {
             ...context,
             init_state: {
@@ -27,11 +22,13 @@ export const  faq = store => {
                 }
             }
         };
-        return  dispatch('context', newContext)
+        return dispatch('context', newContext)
     });
 
-    store.on('sendMessageAdministrator', async ({ context, closeModalState }, obj, { dispatch } )=>{
-        try{
+    store.on('sendMessageAdministrator', async ({ context, closeModalState }, obj, { dispatch }) => {
+
+        try {
+            
             const { setFieldValue } = obj.func;
             setFieldValue('spinnerBtn', true)
             const params = {
@@ -46,7 +43,7 @@ export const  faq = store => {
             setFieldValue('email', '')
             setFieldValue('category', null)
             setFieldValue('question', '')
-
+            obj.toggleOpenChats();
             const text = 'Ваше обращение зарегистрировано и передано ответственному сотруднику. Благодарим Вас за сотрудничество!';
             dispatch('setModalState', {
                 show: true,
@@ -56,11 +53,11 @@ export const  faq = store => {
                     title: ['продолжить', null]
                 },
                 onClick: () => closeModalState()
-            })           
+            })
 
-        }catch(err){
+        } catch (err) {
             console.log('ERROR GET COUNTRY', err);
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {
@@ -69,6 +66,7 @@ export const  faq = store => {
                     error.push(`${errors[0]}`)
                 }
             }
+            obj.toggleOpenChats();
             dispatch('setModalState', {
                 show: true,
                 content: textErrorMessage(error),

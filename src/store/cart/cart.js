@@ -1,6 +1,6 @@
 import api from "../../api/api";
 import { ROLE } from "../../const";
-import { getActiveColor, getActiveSize } from "../../helpers/helpers";
+import { delay, getActiveColor, getActiveSize } from "../../helpers/helpers";
 import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
@@ -12,8 +12,15 @@ export const cart = store => {
     store.on('saveNumberProductAddToCart', ({ numberProductPastInCart }, obj, { dispatch }) => ({ numberProductPastInCart: obj.productId }))
 
     store.on('@init', () => ({ numberCurrentOrderForAddProduct: null }));
-    store.on('setNumberOrderForAddProducts', ({ context, closeModalState }, obj, { dispatch }) => {
+    store.on('setNumberOrderForAddProducts', async ({ context, closeModalState }, obj, { dispatch }) => {
         try {
+            let params = []
+            obj.numberOrder ?
+                params = [{
+                    add_product: true,
+                    add_order_id: +obj.numberOrder
+                }]
+                : null
 
             const newContext = {
                 ...context,
@@ -27,6 +34,8 @@ export const cart = store => {
                 },
             }
             dispatch('context', newContext)
+            await delay(1000)
+            dispatch('updateInProductCard', params)
             return { numberCurrentOrderForAddProduct: obj.numberOrder }
         } catch (err) {
             console.log('ERROR setNumberOrderForAddProducts = ', err);
@@ -61,12 +70,27 @@ export const cart = store => {
 
             let tempElement = true;
             let amountTrueItem = 0;
-            const valueEnableAllSelectFromServer = res.cartitem_set.reduce((prev, cur, index, arr) => {
-                const allCount = arr.length;
-                if (tempElement === cur.selected) amountTrueItem++
-                if (allCount === amountTrueItem) return true;
-                return false
-            }, 0)
+            let allCount = 0;
+            let valueEnableAllSelectFromServer = false;
+            if ( res.cartitem_set[0]?.items ){
+
+                await res.cartitem_set.reduce((prev, cur, index, arr) => {                            
+                    cur.items.filter( el => {
+                        allCount += cur.items.length;
+                        if (tempElement === el.selected) amountTrueItem++
+                        if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                        return valueEnableAllSelectFromServer = false                                
+                    })
+                }, 0)
+            }else{                        
+                await res.cartitem_set.reduce((prev, cur, index, arr) => {
+                    const allCount = arr.length;
+                    if (tempElement === cur.selected) amountTrueItem++
+                    if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                    return valueEnableAllSelectFromServer = false
+                }, 0)
+            }              
+    
 
             const newContext = {
                 ...context,
@@ -118,18 +142,36 @@ export const cart = store => {
     store.on('updateInProductCard', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
+            const {role} = context.init_state.profile;
             let tempElement = true;
             let amountTrueItem = 0;
-            const params = [...obj];
-            //?! необходимо реализовать выбирать добавлять и т.д. для опта
-            console.log({ params })
+            let allCount = 0;
+            let valueEnableAllSelectFromServer = false;
+            let params = [];
+            !!obj.length ?
+                role === ROLE.WHOLESALE? params = obj : params = [...obj]
+                : null;
+
             const res = await apiCart.updateCartData(params);
-            const valueEnableAllSelectFromServer = res.cartitem_set.reduce((prev, cur, index, arr) => {
-                const allCount = arr.length;
-                if (tempElement === cur.selected) amountTrueItem++
-                if (allCount === amountTrueItem) return true;
-                return false
-            }, 0)
+
+                    if ( res.cartitem_set[0]?.items ){
+
+                        await res.cartitem_set.reduce((prev, cur, index, arr) => {                            
+                            cur.items.filter( el => {
+                                allCount += cur.items.length;
+                                if (tempElement === el.selected) amountTrueItem++
+                                if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                                return valueEnableAllSelectFromServer = false                                
+                            })
+                        }, 0)
+                    }else{                        
+                        await res.cartitem_set.reduce((prev, cur, index, arr) => {
+                            const allCount = arr.length;
+                            if (tempElement === cur.selected) amountTrueItem++
+                            if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                            return valueEnableAllSelectFromServer = false
+                        }, 0)
+                    }
 
             const newContext = {
                 ...context,
@@ -254,19 +296,37 @@ export const cart = store => {
 
     })
 
-    store.on('selectAllItemsInCart', ({ context }, obj, { dispatch }) => {
+    store.on('selectAllItemsInCart', async ({ context }, obj, { dispatch }) => {
         try {
             const { dataCart } = context.init_state;
+            const { role } = context.init_state.profile;
             const { cartitem_set, enableAllSelect } = dataCart;
             let newCartItemSet = []
             let arrayForServerAllSelectItems = [];
-            newCartItemSet = cartitem_set.map(el => ({ ...el, selected: !enableAllSelect }))
-
-            arrayForServerAllSelectItems = newCartItemSet.map(el => ({
-                id: el.id,
-                qty: el.qty,
-                selected: el.selected
-            }))
+            if(!!!cartitem_set[0]?.items){
+                newCartItemSet = cartitem_set.map(el => ({ ...el, selected: !enableAllSelect }))                
+                arrayForServerAllSelectItems = newCartItemSet.map(el => ({
+                    id: +el.id,
+                    qty: +el.qty,
+                    selected: el.selected
+                }));    
+            }else{
+            newCartItemSet = cartitem_set.map( el => ({
+                    ...el,
+                    selected: !enableAllSelect,
+                    items: el.items.map( item => ({ ...item, selected: !enableAllSelect }))
+                }
+            ))
+                newCartItemSet.filter( el => {
+                    const newEl = el.items.map( item => ({ 
+                        id: +item.id,
+                        qty: +item.qty,
+                        selected: item.selected
+                    })) 
+                    arrayForServerAllSelectItems = [ ...arrayForServerAllSelectItems, ...newEl]
+                    }
+                )
+            }
 
             const newContext = {
                 ...context,
@@ -280,11 +340,13 @@ export const cart = store => {
                     }
                 },
             }
-
+            
             dispatch('context', newContext)
-            dispatch('updateInProductCard', arrayForServerAllSelectItems)
+            await delay(2000)
+            await dispatch('updateInProductCard', arrayForServerAllSelectItems)
+            
         } catch (err) {
-            console.log('ERROR selectAllItemsInCart');
+            console.log('ERROR selectAllItemsInCart', err);
         }
     })
 
@@ -292,7 +354,7 @@ export const cart = store => {
         try {
             const { dataCart } = context.init_state;
             const { cartitem_set, enableAllSelect } = dataCart;
-            const params = cartitem_set.map(el => el.selected ? ({ id: el.id, is_pack: el.is_pack }) : null).filter(el => el !== null);
+            const params = cartitem_set.map(el => el.selected ? ({ id: el.id, is_pack: el.is_pack, qty: el.qty }) : null).filter(el => el !== null);
             if (!params.length) {//?! нужен попап что не выбран не один элемент
                 console.log('нужен попап что не выбран не один элемент')
                 return
@@ -402,7 +464,7 @@ export const cart = store => {
                     size: getActiveSize(sizes),
                     qty: productDetails?.in_cart_count + obj.count ?? 1,
                 };
-
+                productDetails.is_collection ? params = { ...params, is_collection: productDetails.is_collection } : null
                 role === ROLE.WHOLESALE ? params = Object.assign({}, params, { add_product: true }) : null;
                 const res = await apiCart.addToCart(params);
                 dispatch('saveNumberProductAddToCart', { productId: obj.productId })
@@ -445,6 +507,23 @@ export const cart = store => {
             } else {
                 //?! необходимо сделать попап для что не зарегин и переход на авторизацию
                 console.log('необходимо сделать попап для что не зарегин и переход на авторизацию')
+                    return dispatch('setModalState', {
+                        show: true,
+                        addClass: 'modal-add-to-cart',
+                        iconImage: errorAlertIcon,
+                        content: (
+                            <div className={'modal-message'}>
+                                Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию
+                            </div>
+                        ),
+                        action: {
+                            title: ['Пройти регистрацию']
+                        },                    
+                        onClick: () => {
+                            obj.redirectTo('/registration')
+                            closeModalState()
+                        }
+                    })
             }
         } catch (err) {
             console.log('ERROR ADD TO CART ', err)

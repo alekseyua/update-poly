@@ -16,7 +16,7 @@ const HowToLayout = ({ title, content, openVidjet, breadcrumbs, slug }) => {
                 <Title variant={'information-payments__title'} type={'h1'}>
                     {
                         !!!title ?
-                            Text({ text: 'how-to' })
+                            Text({ text: 'how.choose.size' })
                             : title
                     }
                 </Title>

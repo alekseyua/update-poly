@@ -32,7 +32,7 @@
   }
   //.select__label{}
   &__label{
-    font-size: calc($fontSize - 6px);
+    font-size: calc($fontSize - 3px);
     color: $p;
     @extend %font;
     margin: 0 0 3px 10px;
@@ -159,8 +159,15 @@
   //.select-chat-answer{}
   &-chat-answer{
     padding: 0;
+    &>span{
+      color: $dg2;
+      font-size: 16px;
+      letter-spacing: 1.1px;
+      line-height: 140%;
+    }
     &>div{
       max-height: 146px;
+
     }
   }
 

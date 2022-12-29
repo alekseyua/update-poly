@@ -42,7 +42,14 @@
     //.export__select-btn{}
     &__select-btn{
         padding: 0;
-        min-width: 200px;
+        min-width: 212px;
+        &>button{
+            min-width: 212px;
+            &>div{
+                width: 33px;
+            }
+        }
+
     }
     //.export__select-btn-icon{}
     &__select-btn-icon{

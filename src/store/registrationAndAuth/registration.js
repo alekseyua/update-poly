@@ -1,4 +1,5 @@
 import api from '../../api/api'
+import { ROLE } from '../../const';
 import { delay } from '../../helpers/helpers';
 import {
   initialValuesFirstStep,
@@ -34,7 +35,7 @@ export const registration = store => {
 
   store.on('setRegistration', async ({ registration, step, roleRegister }, obj, { dispatch }) => {
     const { newValues, setFieldError, setLoading, redirectTo } = obj;
-    try {
+    try {      
       let params = serializeDataRegistration(newValues, roleRegister);
       const res = await apiUser.registration(params);
       setLoading(false)
@@ -55,7 +56,7 @@ export const registration = store => {
                       className: null,
                       title: res.username,
                       content: (
-                        <div>
+                        <div className={'modal-message'}>
                           {
                             Text({ text: 'lk_confirm_email' })
                           }
@@ -73,11 +74,17 @@ export const registration = store => {
           })
         },
         content: (
-          <>
-            {
-              Text({ text: 'goodRegistration' })
-            }
-          </>
+          roleRegister !== ROLE.RETAIL? 
+            <div className={'modal-message'}> 
+              {
+                Text({ text: 'goodRegistration_opt_drop' })
+              }
+            </div>
+            : <div className={'modal-message'}> 
+                {
+                  Text({ text: 'goodRegistration' })
+                }
+              </div>
         ),
       })
 
@@ -134,7 +141,6 @@ export const registration = store => {
      *    @returns
      */
     const { email, submit_code, username, password, redirectTo, setErrors } = obj;
-    console.log('values submit code = ', {obj},{setErrors})
 
     try {
       const url = obj?.url ?? '/juridical';
@@ -147,7 +153,6 @@ export const registration = store => {
       }
 
       await apiUser.checkKey(param)
-      // dispatch('getFaq')
       delay(4000)
       const res = await api.getPage({ url });
 
@@ -158,9 +163,7 @@ export const registration = store => {
             ...res.init_state
         }
       }
-      console.log({newContext});
       dispatch('context', newContext);
-
       dispatch('setModalState', {
         show: true,
         action: {
@@ -174,7 +177,7 @@ export const registration = store => {
           closeModalState();
         },
         content: (
-                  <div>
+                  <div className={'modal-message'}>
                     <p><code>Email: {email}</code> привязан к вашим учетным данным</p>
                     <h5>{`${Text({ text: 'fun_shoping' })}`}</h5>
                   </div>
@@ -221,7 +224,6 @@ export const registration = store => {
        * } 
        * @returns @param
        */
-      console.log('obj get submit code', obj)
       const param = {
         email: obj.email,
         type: obj.type,
@@ -246,11 +248,11 @@ export const registration = store => {
           <>
             {
               obj.type === 'restore' ?
-                <div>
+                <div className={'modal-message'}>
                   Пароль сброшен, на почту отправлен новый код
                   <br />
                 </div>
-                : <div>
+                : <div className={'modal-message'}>
                   <h2>код для "подтверждения почты"</h2>
                   <p>отправлен на указаную Вами при регистрации почту</p>
                   <br />
@@ -341,12 +343,9 @@ export const registration = store => {
         username: username,
         password: password,
       }
-      debugger
       // на этом запросе мы получаем токен пользователя
       const res = await apiUser.loginByUsername(params)
       setLoading(false)
-
-      console.log('log in', {obj}, {res})
       delay(1500)
       obj.redirectTo('/juridical')
       //?! сдесь обнавляем данные в хранилище

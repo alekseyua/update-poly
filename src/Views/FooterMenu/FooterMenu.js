@@ -13,8 +13,7 @@ const FooterMenu = (props) => {
         <nav>
           <ul className={style['footer-menu__list']}>
               {menu.map((el, key) => {
-                // console.log('el - ', el)
-                if( el.name === "Личный кабинет" && role === ROLE.UNREGISTRED ){
+                  if( el.name === "Личный кабинет" && role === ROLE.UNREGISTRED ){
                   newStyle = style['footer-menu__list-item--active']
                 }else{
                   newStyle = style['footer-menu__list-item']

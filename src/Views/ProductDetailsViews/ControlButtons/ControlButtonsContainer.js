@@ -65,7 +65,6 @@ const ControlButtonsContainer = ({
         }else{
           cartIcon = e.target.offsetParent.children[0].children[1].firstChild
         }
-        // console.log({e: e.target.offsetParent.children[0].children[1].firstChild})
         const cloneIcon = cartIcon.cloneNode(true)
         const cloneBackgroundImage = cartIcon.style.backgroundImage;
         const cloneIconWidth = cartIcon.offsetWidth;//ширина изображения
@@ -88,11 +87,7 @@ const ControlButtonsContainer = ({
       const getCartId = document.querySelector('#cart-id')
       const getCartIdTop = getCartId.getBoundingClientRect().top;// позиция изображения на странице от верха
       const getCartIdLeft = getCartId.getBoundingClientRect().left;// позиция изображения на странице от левого края
-      
-      console.log('data button = ',
-          {cloneIcon},
-          {getCartId}
-      )
+
       cloneIcon.style.cssText = `
         left: ${getCartIdLeft}px;
         top:  ${getCartIdTop}px;

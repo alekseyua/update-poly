@@ -63,7 +63,7 @@ const ExportCatalogLayout = ({
   resetAllFilters,
   resetContextFilter,
   checkIsShowCategorysAndProducType,
-  
+  offsetLeftBtnSubmit,
   onSelectedPhoto,
   currentPage,
   handlerChangePaginations,
@@ -125,6 +125,7 @@ const ExportCatalogLayout = ({
                         <Form novalidate onClick={handleSubmit}>
                           <CatalogViews.SubmitButton
                             isShowBtnSubmit={isShowBtnSubmit}
+                            offsetLeftBtnSubmit={offsetLeftBtnSubmit}
                             offsetTop={offsetTopBtnSubmit}
                             onClick={() => handleSubmit(values)}
                           />
@@ -321,7 +322,7 @@ const ExportCatalogLayout = ({
                                 })
                               : <BlockSpinner.SpinnerWrapper>
                                 <BlockSpinner.SpinnerCenter>
-                                  <BlockSpinner.Spinner sizeWidth="40" sizeHeight="40" />
+                                  <BlockSpinner.Spinner sizeWidth="40" sizeHeight="40" clearTime = {5000} />
                                 </BlockSpinner.SpinnerCenter>
                               </BlockSpinner.SpinnerWrapper>
                             }

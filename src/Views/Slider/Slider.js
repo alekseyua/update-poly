@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
-import Icon from '../Icon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -25,13 +24,6 @@ const Slider = ({
             // install Swiper modules
             modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
             {...paramsSlider}
-        // spaceBetween={50}
-        // slidesPerView={3}
-        // navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
         >            
             {
                 slidesData.map((el, i) => {

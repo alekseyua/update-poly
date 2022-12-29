@@ -16,11 +16,13 @@
   //.information-payments__wrapper{}
   &__wrapper {
     max-width: 924px;
+    line-height: 140%;
+    font-size: 14px;
     margin: 0 auto;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 60px;
     padding-bottom: 20px;
-
+    
     //.information-payments__wrapper-title{}
     &-title {
       background-color: rgba(var(--gx-color-lightpink-rgb), 0.3);
@@ -38,7 +40,25 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
-
+      line-height: 160%;
+      letter-spacing: .9px;
+      &> div{
+        &>div{
+          &>p{
+            &>span{
+              &>span{
+                input[type=checkbox]{
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+        &>p{
+          margin: 5px 0;
+          
+        }
+      }
       @media (max-width:680px) {
         padding: 9px;
         &>div>ul {
@@ -115,9 +135,9 @@
 
 //.information-howto{}
 .information-howto {
-  // max-width: 924px;
+  max-width: 924px;
   margin: 0 auto 60px;
-  padding: 0 15px;
+  // padding: 0 15px;
   @include mobile {
     padding: 0;
   }
@@ -126,6 +146,8 @@
   //.information-howto__wrapper{}
   &__wrapper {
     @include flex('st');
+    line-height: 140%;
+    font-size: 14px;
     margin-bottom: 30px;
   }
 
@@ -168,11 +190,11 @@
   //.information-howto__link{}
   &__link {
     display: block;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.07em;
     text-decoration-line: underline;
     color: $a2;
     cursor: pointer;
-
+    font-size: 16px;
     &:hover {
       color: #770d44;
     }
@@ -256,15 +278,15 @@
     text-align: center;
     color: var(--gx-color-primary);
   }
-
+//.subtitle-partnership{}
   &-partnership {
     // font-family: Noto Sans;
     @extend %font;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 23px;
     line-height: 140%;
-    text-align: center;
+    // text-align: center;
     color: var(--gx-color-primary);
 
     p {
@@ -425,7 +447,7 @@
     &-img {
       object-fit: cover;
     //  width: 100%;
-    //   height: 100%; 
+      height: 100%; 
     }
   }
   //.subcontent__content{}
@@ -449,6 +471,14 @@
       letter-spacing: 0.04em;
       color: var(--gx-color-primary);
       margin-bottom: 20px;
+      &>div{
+        &>ul{
+          &>li{
+            list-style-type: disc;
+            margin: 15px 0 15px 15px;
+          }
+        }
+      }
     }
 
     &-link {

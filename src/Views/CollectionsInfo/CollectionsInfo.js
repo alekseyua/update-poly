@@ -16,12 +16,7 @@ const CollectiionsInfo = ({
             {
                 collections.map((collect, index) => {
                     let res = collections[index].items.map(redeemed => redeemed.redeemed)
-                    let enableBtn = res.filter(item => item === false ? true : false)
-                    let colec = sortCollection(collect)
-                    console.log('popupe = ',
-                        {res},
-                        {colec}
-                    )
+
                     return (
                         <li
                             key={collect.id}

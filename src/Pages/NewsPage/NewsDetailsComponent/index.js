@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Breadcrumbs from '../../../Views/Breadcrumbs';
 import NewsDetailsViews from '../../../Views/NewsDetailsViews';
 import Title from '../../../Views/Title';
@@ -9,20 +9,13 @@ import dayjs from '../../../helpers/dayjs';
 
 // const apiContent = api.contentApi;
 
-const NewsDetailsComponent = ({title, breadcrumbs, created_at, content, ...props}) => {
+const NewsDetailsComponent = ({ title, breadcrumbs, created_at, content, ...props }) => {
   // ?! необходимо перенести получение данных storeon
   const navigate = useNavigate();
   const [imageOrVideoSet, setImageOrVideoSet] = useState([]);
   const gotoPrevPage = () => {
     navigate(-1);
   };
-  
-  // useEffect(() => {
-  //   apiContent.getNewsDetails(props.id).then((res) => {
-  //     console.log({res})
-  //     setImageOrVideoSet(res.media);
-  //   });
-  // }, [props.id]);
 
   return (
     <React.Fragment>

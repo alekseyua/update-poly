@@ -52,6 +52,8 @@
     //.catfilter-block__content{}
     &__content {
       padding: 0;
+    
+
     }
 
     //.catfilter-block__bottom{}
@@ -124,6 +126,7 @@
     position: relative;
     @include flex(sc);
     cursor: pointer;
+    padding-left: 5px;
     > div{  
       label {
         color: #000;
@@ -202,7 +205,10 @@
     &:hover {
       background-color: rgb(226, 67, 141);
     }
-
+    // @include laptop-min-md {
+    //   // left: calc( 5% + 115px );
+    //   @include adaptive-value('left', 250,25,px,2)
+    // }
     @include mobile {
       display: none;
     }

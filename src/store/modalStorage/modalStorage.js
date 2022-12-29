@@ -8,6 +8,7 @@ import { errorAlertIcon, successAlertIcon } from '../../images';
 import Text from '../../helpers/Text';
 import SubTitle from '../../Views/InformationViews/HowTo/SubTitle';
 import VidjetChatViews from '../../Views/VidjetChat/VidjetChatViews';
+import { ROLE } from '../../const';
 
 
 const contentApi = api.contentApi;
@@ -266,6 +267,7 @@ export const modalStorage = store => {
             const productSkuImage = product_sku.filter(el => el.color === colorActive)[0].image
             const image = productSkuImage ? productSkuImage : media[0].image;
             const is_collection = false
+            
             dispatch('setModalState', {
                 show: true,
                 title: title,

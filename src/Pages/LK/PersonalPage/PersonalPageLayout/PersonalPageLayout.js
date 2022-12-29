@@ -40,7 +40,6 @@ const PersonalPageLayout = ({
     changeReiciveNewLatters,
 }) => {
 
-    console.log('is_has_shop', !!!is_has_shop)
     return (
         <React.Fragment>
             <BlockGrid.Container>
@@ -48,8 +47,8 @@ const PersonalPageLayout = ({
                 <BlockGrid.GridPageLK>
 
                     <BlockGrid.GridPageLeftLK>
-                        <SidebarPersonalPage    
-                            amountNotifications = { amountNotifications }
+                        <SidebarPersonalPage
+                            amountNotifications={amountNotifications}
                             cabinet_site_menu={cabinet_site_menu}
                             cabinet_menu={cabinet_menu}
                             create_shop={create_shop}

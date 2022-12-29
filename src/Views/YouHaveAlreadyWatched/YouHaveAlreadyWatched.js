@@ -27,6 +27,7 @@ const YouHaveAlreadyWatched = ({
           slidesPerView={6}
           observer={true}
           observeSlideChildren
+          watchSlidesProgress= {true}
           breakpoints={{
             // when window width is >= 320px
             320: {
@@ -58,7 +59,7 @@ const YouHaveAlreadyWatched = ({
           {listAlreadySaw.map((el, i) => {
             const data = el.product;
             return (
-              <SwiperSlide key={el.id}>
+              <SwiperSlide key={`swiper-slide-you-have-watch-${i}`}>
                 <ProductCard
                   disabledHover
                   url={data.url}

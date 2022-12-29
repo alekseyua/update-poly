@@ -9,42 +9,29 @@ import ToolTip from '../../ToolTip';
 
 import style from '../styles/index.module.scss';
 
-const CardWoasale = ({ 
+const CardWoasale = ({
   changeAgreement,
-  currency, 
-  title, 
-  is_performed, 
-  condition, 
-  items, 
+  currency,
+  title,
+  is_performed,
+  condition,
+  items,
   isVisibleLine }) => {
-console.log('items', {items})
+
   return (
     <div className={style['wrapper-woosale']}>
-      {/* <Link>
-          <CartViews.Text type={'text-brand'}>{title}</CartViews.Text>
-        <div>
-          Кличества товара :  
-          :{items.length}
-        </div>
-      </Link> */}
       <SuccesMinOrder success={is_performed} messenge={condition} />
       {items.map((el) => {
-        
+
         const {
-          brand,
           change_agreement,
           color,
-          comment,
-          discount,
           id,
           image,
-          is_pack,
           old_price,
           price,
           qty,
           size,
-          title,
-          total_price,
           product,
           url,
         } = el;
@@ -57,9 +44,9 @@ console.log('items', {items})
                   <Link to={url.split('/').pop()}>
                     <div
                       className={style['order-card__img']}
-                      style={!!product?.image? {backgroundImage: `url(${product?.image})` } 
-                              : !!image? {backgroundImage: `url(${image})` } 
-                                : { backgroundImage: `url(${categoryCard1})` }}
+                      style={!!product?.image ? { backgroundImage: `url(${product?.image})` }
+                        : !!image ? { backgroundImage: `url(${image})` }
+                          : { backgroundImage: `url(${categoryCard1})` }}
                     ></div>
                   </Link>
                 </div>
@@ -88,14 +75,14 @@ console.log('items', {items})
                       {color}
                     </div>
                     <div className={style['order-card__content-card-info-agree']}>
-                    <ToolTip
-                      content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
-                      placement="top"
-                      className={style['ordering-card__tooltip']}
-                    >
+                      <ToolTip
+                        content="Заменить товар можно только на такой же, но в другом цвете и/или размере с соблюдением условия выкупа. Не забудьте в комментарии к товару указать свой выбор."
+                        placement="top"
+                        className={style['ordering-card__tooltip']}
+                      >
                         <CheckBox
-                          checked={ change_agreement }
-                          onChange={ e => changeAgreement(e, id, qty)}
+                          checked={change_agreement}
+                          onChange={e => changeAgreement(e, id, qty)}
                           label={'Согласие на замену'}
                           classNameLabel={style['order-card__change-text']}
                         />
@@ -137,7 +124,7 @@ console.log('items', {items})
                         :&nbsp;
                       </span>
                       <span>
-                        <span className={style['order-card__content-card-price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
+                        <span className={style['order-card__content-card-price--color']}>{(price * qty).toFixed(2)}</span>&nbsp;
                         {currency}
                       </span>
                     </div>
@@ -180,7 +167,7 @@ console.log('items', {items})
                   :&nbsp;
                 </span>
                 <span>
-                  <span className={style['order-card__content-card-price--color']}>{(price*qty).toFixed(2)}</span>&nbsp;
+                  <span className={style['order-card__content-card-price--color']}>{(price * qty).toFixed(2)}</span>&nbsp;
                   {currency}
                 </span>
               </div>
@@ -194,12 +181,3 @@ console.log('items', {items})
 };
 
 export default React.memo(CardWoasale);
-
-
-
-
-  
-  // dispatch('stateValuePoly/change',{
-  //   stateCart : true,
-  // });
-

@@ -96,7 +96,6 @@ const OrderDetailsPersonalPageLayoutContainer = ({
 
 
   const sendMessage = (values, { setFieldValue }) => {
-    console.log('send', { values })
 
     const params = {
       ...values,

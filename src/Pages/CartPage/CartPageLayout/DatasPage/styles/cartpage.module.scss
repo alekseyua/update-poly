@@ -2,7 +2,21 @@
 @import '../../../../../styles/fonts/index.scss';
 
 .cart-page {
-
+    //.cart-page__primacy{}
+    &__primacy{
+        &>:first-child{
+            padding: 0;
+            &::before{
+                padding: 0;
+            }
+            &::after{
+                padding: 0;
+            }
+        }
+        &>:last-child{
+            padding: 0;
+        }
+    }
     //.cart-page__selected-filters{}
     &__selected-filters {
         width: 100%;
@@ -342,6 +356,8 @@
     //.product-card__selected-checkbox{}
     &__selected-checkbox{
         padding: 0;
+        margin-right: 15px;
+
     }
     //.product-card__image-thumb{}
     &__image-thumb{

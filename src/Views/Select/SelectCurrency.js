@@ -41,7 +41,6 @@ const SelectCurrency = ({
 
   const hendlerClick = (e) => {
     const textItem = e.target.getAttribute('name');
-    console.log({textItem})
     setTextPlaceholder(textItem.toLocaleUpperCase())
     onClick(e)
   }

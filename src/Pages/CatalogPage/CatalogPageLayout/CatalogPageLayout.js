@@ -16,6 +16,7 @@ import EnabledFiltersOptions from './CatalogFilters/EnabledFiltersOptions';
 import EnabledFilters from './CatalogFilters/EnabledFilters';
 import Pagination from '../../../Views/Pagination';
 import Offset from "../../../Views/Offset";
+import NoProducts from "../../../Views/ProductDetailsViews/InfoBlockProducts";
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -68,9 +69,9 @@ const CatalogPageLayout = ({
   handlerChangePaginations ,
   showMore,
   showMoreSpinner,
+  offsetLeftBtnSubmit,
 }) => {
 
-console.log('!!!dataProducts?.results.length && showFilters', dataProducts?.results.length , showFilters)
   return (
     <React.Fragment>
       <Block.Container>
@@ -122,6 +123,7 @@ console.log('!!!dataProducts?.results.length && showFilters', dataProducts?.resu
                         <Form novalidate onClick={handleSubmit}>
                           <CatalogViews.SubmitButton
                             isShowBtnSubmit={isShowBtnSubmit}
+                            offsetLeftBtnSubmit={offsetLeftBtnSubmit}
                             offsetTop={offsetTopBtnSubmit}
                             onClick={() => handleSubmit(values)}
                           />
@@ -364,7 +366,9 @@ console.log('!!!dataProducts?.results.length && showFilters', dataProducts?.resu
                                   : null
                             }
                           </CatalogViews.WrapperCard> 
-                        :  null
+                        : <NoProducts>
+                          ПО ВАШЕМУ ЗАПРОСУ НИЧЕГО НЕ НАЙДЕНО.
+                        </NoProducts>
                         }
                        {
                           dataProducts?.results.length  < dataProducts?.count && currentPage * 30 < dataProducts?.count? (

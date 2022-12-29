@@ -17,8 +17,6 @@ const ProductsInStock = ({
   role,
 }) => {
 
-  // console.log('products', products)
-
   return (
     <ContainerProductCards.ContainerCard>
       <ProductsInStockLayoutContainer

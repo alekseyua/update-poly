@@ -5,8 +5,6 @@ const ReviewsPersonalPage = ({
     context
 }) => {
 
-    console.log({ ReviewsPersonalPage: context })
-
     const {
         cabinet_site_menu,
         cabinet_menu,

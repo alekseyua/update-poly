@@ -2,7 +2,6 @@ import React from 'react';
 import ExportCatalogLayoutContainer from './ExportCatalogLayout/ExportCatalogContainer';
 
 const ExportCatalog = (props) => {
-  console.log('Catalog context = ', props.context)
   const { 
     multy_choise_filters,
     filters_params, 

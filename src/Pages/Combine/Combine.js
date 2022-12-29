@@ -85,7 +85,7 @@ const Combine = ({...props}) => {
 
     const Page = PAGE_TYPES[dataContext?.type];
     const DevPage = PAGE_TYPES['loading-page']
-    // console.log('PAGE = ', !!Page)
+
     return (<>
         {
             !!Page? <Page context={dataContext.init_state} /> : <Grid.WrapperBlock>

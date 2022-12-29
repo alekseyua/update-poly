@@ -12,6 +12,7 @@ const SectionRaitingAndSharingAndMyWish = ({
     label,
     title,
     is_liked,
+    productId,
     countRaiting,
     allCountPercent,
     addLikeProductCard,
@@ -40,7 +41,10 @@ const SectionRaitingAndSharingAndMyWish = ({
                 >
                 </Sharing>
 
-                <Button onClick={is_liked? removeLikeProductCard : addLikeProductCard} className={style['prodpage__raitsharewish-button-btn']}>
+                <Button 
+                    onClick={ () => is_liked? removeLikeProductCard(productId) : addLikeProductCard(productId) } 
+                    className={style['prodpage__raitsharewish-button-btn']}
+                >
                     <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} width={25} height={25} />
                 </Button>
             </div>

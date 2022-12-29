@@ -18,7 +18,6 @@ const HeaderTop = ({
   currencies,
   ...props
 }) => {
-//  console.log('props header top', props)
 
   useEffect(()=>{
     !getCookie(COOKIE_KEYS.CURRENCIES)?
@@ -50,10 +49,6 @@ const HeaderTop = ({
       : CURRENCIES_DATA,
   };
   const [currenciesData, setCurrencies] = useState(defaultCurrenciesData);
-
-  // useEffect(()=>{
-  //   setCurrencies(prev => ({...prev, options: currencies }))
-  // },[currencies])
 
   const setCurrenciesData = (data) => {
     setCookie(COOKIE_KEYS.CURRENCIES, data.active, ONE_YEARS);

@@ -21,7 +21,6 @@ const OrderCar = ({
 				handlerSubmitOrder(values)
 			},7000)
 		}
-console.log('styleCar',styleCar)
     return(
 		<ToolTip
 			content = {

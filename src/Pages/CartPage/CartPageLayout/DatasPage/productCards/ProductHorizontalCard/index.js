@@ -64,37 +64,26 @@ const ProductHorizontalCard = ({
     [style['product-card__wrapper']]: true,
     [style['product-card__wrapper--delete']]: deleteItem
   })
-
+// console.log({url})
   return (
     <div
       className={styleDeleteItem}
     >
       <div className={style['product-card__wrapper-block']}>
         <div
-          className={'product-card__selected-checkbox'}
+          className={style['product-card__selected-checkbox']}
         >
         <CheckBox
           checked={selected}
           onChange={(e) => {
-            console.log('e check box product card', e.checked)
             contextUpdateProductFromCard(id, qty, !e.checked)
-
-            // const value = e.target.checked;
-            // select !== value ? setSelect(!select) : null
-            // if (value !== null && select !== value){
-            //   setSelect(!select)
-            //   updateProductFromCart({ 
-            //     id: id,
-            //     selected: value,
-            //     qty: countProducts,
-            //   });}
           }}
           />
         </div>
 
-        <Link to={ `/${url.split('/').pop()}` }>
+        {/* <Link to={ `/${url.split('/').pop()}` }>
           <img src={image} className={style['product-card__image-thumb']} />
-        </Link>
+        </Link> */}
         <div className={style['product-card__base-info']}>
         
           <div className={style['product-card__base-info-brand']}>{ brand }</div>
@@ -192,8 +181,8 @@ const ProductHorizontalCard = ({
               disabled={qty === in_stock_count}
               // onChange={changeState}
               onClick={ () => {
-                console.log('click')
-                incCounterProduct(id, qty, selected) }} 
+                incCounterProduct(id, qty, selected) 
+              }} 
               variant={'counter-btn'} 
               slot={'suffix'}
               >

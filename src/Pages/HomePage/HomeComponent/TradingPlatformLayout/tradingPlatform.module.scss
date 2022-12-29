@@ -13,7 +13,8 @@
     padding: 0;
     &>video{
       height: 100%;
-      object-fit: fill;
+      object-fit: cover;
+
     }
   }
   // height: calc(100vh - 160px);
@@ -129,15 +130,7 @@
     color: var(--gx-color-primary);
 
   }
-//.trading-platform__filters{}
-  &__filters {
-    width: 100%;
-    flex-wrap: inherit;
 
-    @include mobile {
-      flex-wrap: wrap;
-    }
-  }
 //.trading-platform__link{}
   &__link {
     // display: block;
@@ -170,6 +163,14 @@
       width: 0;
     }
   }
+  //.trading-platform__filters{}
+  &__filters {
+    flex-wrap: inherit;
+    width: 100%;
+    @include mobile {
+      flex-wrap: wrap;
+    }
+  }
   //.trading-platform__filter{}
   &__filter {
     margin-right: 10px;
@@ -184,7 +185,11 @@
     display: inline-flex;
     align-items: center;
     margin-bottom: 5px;
-
+    @include mobile {     
+      padding: 15px 20px;
+      height: 35px;
+    }
+    
     &:last-child {
       margin-right: 0;
     }

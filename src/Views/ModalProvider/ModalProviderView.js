@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import Text from '../../helpers/Text';
-import { spinnerCart, spin, spinnerShopping, spinnerCart2 } from '../../images';
 import Button from '../Button';
 import Icon from '../Icon/Icon';
 import Title from '../Title';
@@ -23,7 +22,7 @@ const ModalProviderView = ({
     content,
     show,
     action = null,
-    title = <Text text={'admin'}/>,
+    title = <Text text={'admin'} />,
     children,
     onClickCancel = null,
     onClick,
@@ -31,101 +30,98 @@ const ModalProviderView = ({
     closeModal,
     addClass,
     style,
-    ...props}) => {
+    ...props }) => {
 
-    const [ showPopup, setShowPopup ] = useState({
-        container : 'modal-provider__container',
+    const [showPopup, setShowPopup] = useState({
+        container: 'modal-provider__container',
         popup: 'modal-provider__body'
     });
 
-    useEffect(()=>{
+    useEffect(() => {
 
         if (show) {
             setShowPopup({
                 container: 'modal-provider__container--show',
                 popup: 'modal-provider__body--show'
             })
-        }else{
+        } else {
             setShowPopup({
-                container : 'modal-provider__container',
+                container: 'modal-provider__container',
                 popup: 'modal-provider__body'
             })
         }
 
-    },[ show ])
+    }, [show])
 
-    // console.log('onClickCancel', onClickCancel)
-    // console.log('style = ', styleModal)
-
-    return(<div 
-            className={styleModal[showPopup.container]}
+    return (<div
+        className={styleModal[showPopup.container]}
+    >
+        <div
+            className={classNames({
+                [styleModal[showPopup.popup]]: true,
+                [styleModal['modal-provider__spinner-loader']]: !!!content,
+                [styleModal[addClass]]: !!addClass
+            })
+            }
+            style={style}
         >
             <div
-                className={classNames({
-                    [styleModal[showPopup.popup]]:true,
-                    [styleModal['modal-provider__spinner-loader']]: !!!content,
-                    [styleModal[addClass]]: !!addClass
-                })
-                }
-                style={style}
-            >
-                <div 
-                    className={styleModal['modal-provider__close']}
-                    onClick={closeModal}
-                ></div>
-                {
-                    iconImage? 
-                        <div className={styleModal['modal-provider__icon']} >
-                            <Icon src={iconImage} className={styleModal['modal-provider__success-error']} height = { 40 } width = { 40 }/> 
-                        </div>                        
-                        : null
-                }
+                className={styleModal['modal-provider__close']}
+                onClick={closeModal}
+            ></div>
+            {
+                iconImage ?
+                    <div className={styleModal['modal-provider__icon']} >
+                        <Icon src={iconImage} className={styleModal['modal-provider__success-error']} height={40} width={40} />
+                    </div>
+                    : null
+            }
 
-                
-                {
-                    content?
+
+            {
+                content ?
                     <>
-                        { 
-                            !!title? 
-                                <div className={styleModal['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div> 
-                                : null 
+                        {
+                            !!title ?
+                                <div className={styleModal['modal-provider__title']} ><Title type={'h1'}>{title}</Title></div>
+                                : null
                         }
                         <div className={styleModal['modal-provider__content']}>
-                                {content}
+                            {content}
                         </div>
                     </>
-                        // : <Icon src={spinnerCart2} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
-                        : <h1 id="spinner" className={styleModal['modal-provider__spinner-text']}></h1>
+                    // : <Icon src={spinnerCart2} className={styleModal['modal-provider__spinner']} height={70} width={70}/>
+                    : <h1 id="spinner" className={styleModal['modal-provider__spinner-text']}></h1>
 
-                }
-               
-                {
-                    action?
-                        <div className={styleModal['modal-provider__action-container']}>
-                            <Button 
-                                onClick={onClick}
-                                variant={'black_btn_full_width-modal'}
-                            >
-                                {action.title[0]}
-                            </Button>
+            }
 
-                            {
-                                onClickCancel?
-                                    <Button 
-                                        onClick={onClickCancel}
-                                        variant={'black_btn_full_width-modal'}
-                                    >
-                                        {action.title[1]}
-                                    </Button>
-                                    : null
-                            }
-                        </div>
-                        : null
-                }
-                    
-            </div>
-            {children}
+            {
+                action ?
+                    <div className={styleModal['modal-provider__action-container']}>
+                        <Button
+                            onClick={onClick}
+                            variant={'black_btn_full_width-modal'}
+                        >
+                            {action.title[0]}
+                        </Button>
+
+                        {
+                            onClickCancel ?
+                                <Button
+                                    onClick={onClickCancel}
+                                    variant={'black_btn_full_width-modal'}
+                                >
+                                    {action.title[1]}
+                                </Button>
+                                : null
+                        }
+                    </div>
+                    : null
+            }
+
         </div>
+        {children}
+    </div>
     )
 }
 

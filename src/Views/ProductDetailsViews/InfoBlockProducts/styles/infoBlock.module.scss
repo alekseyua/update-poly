@@ -1,0 +1,15 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/fonts/index.scss';
+.info-block{
+
+    // .info-block__about-products{}
+    &__about-products{
+        font-size: 38px;
+        text-transform: uppercase;
+        color: var(--gx-color-primary);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        padding-top: 10px;
+    }
+}

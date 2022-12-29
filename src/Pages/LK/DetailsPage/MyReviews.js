@@ -7,32 +7,31 @@ const MyReviews = ({
     openModalAddReview,
     changePaginationsMyReviews,
 }) => {
-    console.log('getMyReviewList',getMyReviewList)
 
     return (
         <React.Fragment>
-            <MyReviewsViews.ProfileLevelData 
+            <MyReviewsViews.ProfileLevelData
 
-            openModalAddReview = { openModalAddReview }
+                openModalAddReview={openModalAddReview}
             />
-             <MyReviewsViews.WrapperHistory>
-              <MyReviewsViews.HistoryHead />
+            <MyReviewsViews.WrapperHistory>
+                <MyReviewsViews.HistoryHead />
                 {
-                    getMyReviewList?.results?
-                        getMyReviewList.results.sort((a,b)=> b.id - a.id).map((el, i) => {
-                            return  <MyReviewsViews.Card 
-                                        key = { `card-review-${el.id}` }
+                    getMyReviewList?.results ?
+                        getMyReviewList.results.sort((a, b) => b.id - a.id).map((el, i) => {
+                            return <MyReviewsViews.Card
+                                key={`card-review-${el.id}`}
 
-                                        // i = { i } 
-                                        {...el} 
-                                    />;
+                                // i = { i } 
+                                {...el}
+                            />;
                         })
-                    : null
+                        : null
                 }
                 <Pagination allCount={getMyReviewList?.count} count={10} handlerChangePaginations={changePaginationsMyReviews} />
-            </MyReviewsViews.WrapperHistory> 
+            </MyReviewsViews.WrapperHistory>
         </React.Fragment>
-        
+
     )
 }
 

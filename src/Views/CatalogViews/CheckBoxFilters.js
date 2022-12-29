@@ -99,16 +99,19 @@ const CheckBoxFilters = ({
 
           {/* //?! производитель польша 
           */}
-          <CheckBox
-            checked={valueCheckBoxFilters.is_polish}
-            id={'is_polish'}
-            name={'is_polish'}
-            value={'is_polish'}
-            onChange={handleChangeFilters}
-            variant="light"
-            label={Text({ text: 'is_polish' })}
-            data-cy={`sellOutCheckBox`}
-          ></CheckBox>
+          <div className={style['catfilter-item']}>
+            <CheckBox
+              checked={valueCheckBoxFilters.is_polish}
+              id={'is_polish'}
+              name={'is_polish'}
+              value={'is_polish'}
+              onChange={handleChangeFilters}
+              variant="light"
+              label={Text({ text: 'is_polish' })}
+              data-cy={`sellOutCheckBox`}
+            ></CheckBox>
+          </div>
+          
         </div>
       </div>
 

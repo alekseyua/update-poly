@@ -2,7 +2,7 @@ import React from "react";
 import { useStoreon } from "storeon/react";
 import ProductCard from './ProductCard';
 import { defaultProductCard } from '../../images'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProductCardContainer = ({
     key,
@@ -28,14 +28,37 @@ const ProductCardContainer = ({
 
     const { dispatch } = useStoreon();
     const location = useLocation();
+    const navigate = useNavigate();
     const defaultImageSet = [defaultProductCard];
 
     const addLikeProductCard = (id) => {
-        dispatch('addWishList', { id: id, pathname: location.pathname})
+        const params = { 
+            id: id, 
+            whereLike: 'product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('addWishList', params)
     }
 
     const removeLikeProductCard = (id) => {
-        dispatch('removeWishList', { id: id, pathname: location.pathname })
+        const params = { 
+            id: id, 
+            whereLike: 'product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('removeWishList', params)
     }
 
     const handleQuickView = (id, url) => {

@@ -32,7 +32,7 @@ const ControlButtons = ({
                     <Button
                         disabled={in_cart_count > 1 ? false : in_cart_count === 1 ? true : stateInStockeBtn}
                         onClick={(e) => {
-                            cloneCart(e)
+                            //role !== ROLE.UNREGISTRED? cloneCart(e) : null;
                             addToCartProduct( -1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__descrement-button']}
@@ -56,7 +56,7 @@ const ControlButtons = ({
                     <Button
                         disabled={stateInStockeBtn}
                         onClick={(e) => {
-                            cloneCart(e)
+                            role !== ROLE.UNREGISTRED? cloneCart(e) : null;
                             addToCartProduct( 1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__increment-button']}
@@ -74,7 +74,7 @@ const ControlButtons = ({
                     <Button
                         disabled={stateInStockeBtn}
                         onClick={(e) => {
-                            cloneCart(e)
+                            role !== ROLE.UNREGISTRED? cloneCart(e) : null;
                             addToCartProduct( 1, modalView, productId );
                         }}
                         className={style['prodpage-control-buttons__fierst-add-to-cart']}

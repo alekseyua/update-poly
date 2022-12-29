@@ -21,18 +21,12 @@ export const pageContent = store => {
     store.on('context', ({ context, countWishList, page }, data, { dispatch }) => {
     const currency = getCookie(COOKIE_KEYS.CURRENCIES)?.toLocaleUpperCase()
     const token = getCookie('ft_token');
-        console.log('кто выполняется первым context')
     if (!(!!token)){ 
-        console.log('start unregister sw')
         serviceWorker.unregister();
       }else{
-        console.log('start register sw')        
         serviceWorker.register();
       }
-      
 
-
-    //   console.log('---------------------------------------------', {data})
         return { context: { 
             ...data, 
             "init_state": {
@@ -55,7 +49,6 @@ export const pageContent = store => {
             const { url, redirectTo } = obj;
             //?! пока пользователь не зарегиный у него не все данные в таблице нужно учесть 
             
-            console.log('******url store******', {url}, {a: currency} )
             //?! Здесь будем обнулять данные при переходе по страницам
             let newContext = {
                 ...context,
@@ -145,7 +138,6 @@ export const pageContent = store => {
             dispatch('context', newContext)
             
             const res = await api.getPage({ url })
-            console.log({resrequest: res})
 
             if(res.init_state?.code === 403) return redirectTo('/authorization')
 
@@ -232,7 +224,6 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null                        
                     },
                 }
-                // console.log('newContext = ', newContext)
                 
                 return dispatch('context', newContext)
             }
@@ -246,7 +237,6 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,                        
                     },
                 }
-                // console.log('newContext = ', newContext)
                 
                 return dispatch('context', newContext)
             }
@@ -260,12 +250,11 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
             if (url === '/news') {
-                //    console.log('ressss === ', resss) 
                 
                 newContext = {
                     ...newContext,
@@ -275,7 +264,7 @@ export const pageContent = store => {
                         ...res.init_state,                        
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 dispatch('context', newContext)
                 return dispatch('getNews');
@@ -306,7 +295,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
@@ -320,7 +309,7 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,                        
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
@@ -335,7 +324,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
@@ -350,7 +339,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
@@ -365,7 +354,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }            
@@ -380,7 +369,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }            
@@ -395,7 +384,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }
@@ -409,7 +398,7 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,                        
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 return dispatch('context', newContext)
             }            
@@ -425,8 +414,7 @@ export const pageContent = store => {
                         
                     },
                 }
-                // console.log('newContext = ', newContext)
-                console.log('start get context reviews')
+                
                 dispatch('getReviewsContext');
                 
                 return dispatch('context', newContext)
@@ -486,8 +474,6 @@ export const pageContent = store => {
                         },
                     },
                 }
-                // debugger
-                console.log({newContext})
                 dispatch('context', newContext);
                 
                 return dispatch('getExportCatalog')
@@ -523,14 +509,17 @@ export const pageContent = store => {
             if (url === '/cart') {
                 
                 const { role } = res.init_state.profile;
-
                 if ( role === ROLE.UNREGISTRED ) return (
                    dispatch('setModalState',{
                         show: true,
-                        content: 'Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию',
+                        content: (
+                            <div className={'modal-message'}>
+                                Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию
+                            </div>
+                            ),
                         iconImage: errorAlertIcon,
                         action: {
-                        title: ['Зарегистрироваться', null]
+                        title: ['Пройти регистрацию', null]
                         },
                         onClick: () => {
                             redirectTo('/registration')
@@ -541,9 +530,7 @@ export const pageContent = store => {
                             closeModalState()
                         }
                     })
-                )
-
-                const { cart } = context.init_state.profile;
+                )            
 
                 let newContext = {
                     ...context,
@@ -554,32 +541,44 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,                    
                     }
                 }
-
+                const { cart } = newContext.init_state.profile;
                 if ( !!cart ){
 
                     const resList = await orderApi.listOrderItem();
-                    const resBalance = await api.getUserBalance({"currency": currency})
+                    const resBalance = await api.getUserBalance({"currency": currency});
                     const resDataCart = await apiCart.getCartData();
-    
-    
     
                     let tempElement = true;
                     let amountTrueItem = 0;
-                    const valueEnableAllSelectFromServer = resDataCart.cartitem_set.reduce((prev, cur, index, arr) => {
-                        const allCount = arr.length;
-                        if (tempElement === cur.selected) amountTrueItem++
-                        if (allCount === amountTrueItem) return true;
-                        return false
-                    }, 0)
+                    let allCount = 0;
+                    let valueEnableAllSelectFromServer = false;
+                    if ( resDataCart.cartitem_set[0]?.items ){
+
+                        await resDataCart.cartitem_set.reduce((prev, cur, index, arr) => {                            
+                            cur.items.filter( el => {
+                                allCount += cur.items.length;
+                                if (tempElement === el.selected) amountTrueItem++
+                                if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                                return valueEnableAllSelectFromServer = false                                
+                            })
+                        }, 0)
+                    }else{                        
+                        await resDataCart.cartitem_set.reduce((prev, cur, index, arr) => {
+                            const allCount = arr.length;
+                            if (tempElement === cur.selected) amountTrueItem++
+                            if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                            return valueEnableAllSelectFromServer = false
+                        }, 0)
+                    }              
     
                     newContext = {
-                        ...context,
+                        ...newContext,
                         "type": res.type,
                         "init_state": {
-                            ...context.init_state,
+                            ...newContext.init_state,
                             ...res.init_state,
                             dataCart: {
-                                ...context.init_state.dataCart,
+                                ...newContext.init_state.dataCart,
                                 cartitem_set: resDataCart.cartitem_set,
                                 in_stock: resDataCart.in_stock,
                                 ...resDataCart,
@@ -588,13 +587,13 @@ export const pageContent = store => {
                                 valueButtonNextToOrder: Text({text: 'go.to.registration'})
                             },                            
                             listCurrentOrder: {
-                                ...context.init_state.listCurrentOrder,
+                                ...newContext.init_state.listCurrentOrder,
                                 count: resList.count,
                                 results: resList.results,
                                 ...resList,
                             },
                             profile:{
-                                ...context.init_state.profile,
+                                ...newContext.init_state.profile,
                                 balance: resBalance.balance,
                                 opt_minimum_price: resBalance.opt_minimum_price,
                                 passive_balance: resBalance.passive_balance,
@@ -627,9 +626,6 @@ export const pageContent = store => {
                                 : url.includes('is_closeout')? params = {...params, is_closeout: true}
                                     : url.includes('category')? params = {...params, categories: !!Number(url.split("=").pop())?[Number(url.split("=").pop())]:[]}
                                         : null
-
-                // console.log({params})
-                // console.log('!!Number("http://localhost:5000/catalog?category=16".split(" ").pop())? [] :', !!Number(url.split("=").pop())?[Number(url.split("=").pop())]:[])
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -668,15 +664,12 @@ export const pageContent = store => {
                     },
                 };
                 
-                console.log({resSearch})
-                
                 dispatch('context', newContext)
 
             }
 
 
             if (url.includes('/product-')) {           
-                console.log('url')
                 const productId = window.location.pathname.split('-')[1]; //res.init_state.page_info.id;
                 const resProducts = await apiContent.getProduct(productId)
                 const activeColor = getActiveColor(resProducts.colors)
@@ -717,25 +710,57 @@ export const pageContent = store => {
             if (url === '/order') {
             
                 const resBalance = await api.getUserBalance({"currency": currency});
+                const resCart = await apiCart.getCartData();
+
                 const paramsAddress = {
                     page: 1
                 }
 
-            console.log('STORE CONTEXT IN ORDER = ', 
-            {context}
-            
-            )         
+            let tempElement = true;
+            let amountTrueItem = 0;
+            let allCount = 0;
+            let valueEnableAllSelectFromServer = false;
+
+            if ( resCart.cartitem_set[0]?.items ){
+                await resCart.cartitem_set.reduce((prev, cur, index, arr) => {                            
+                    cur.items.filter( el => {
+                        allCount += cur.items.length;
+                        if (tempElement === el.selected) amountTrueItem++
+                        if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                        return valueEnableAllSelectFromServer = false                                
+                    })
+                }, 0)
+            }else{                        
+                await resCart.cartitem_set.reduce((prev, cur, index, arr) => {
+                    const allCount = arr.length;
+                    if (tempElement === cur.selected) amountTrueItem++
+                    if (allCount === amountTrueItem) return valueEnableAllSelectFromServer = true;
+                    return valueEnableAllSelectFromServer = false
+                }, 0)
+            }              
+    
                 const newContext = {
                     ...context,
                     "type": res.type,
                     "init_state": {
                         ...context.init_state,
                         ...res.init_state, 
+                        dataCart: {
+                            ...context.init_state.dataCart,
+                            cartitem_set: resCart.cartitem_set,
+                            in_stock: resCart.in_stock,
+                            ...resCart,
+                            enableAllSelect: valueEnableAllSelectFromServer,
+                            agreeWitheRegulations: true,
+                        },
                         profile:{
                             ...context.init_state.profile,
+                            ...res.init_state.profile,
                             balance: resBalance.balance,
                             opt_minimum_price: resBalance.opt_minimum_price,
                             passive_balance: resBalance.passive_balance,
+
+                            cart: resCart.in_cart
                         }, 
                     }
                 }
@@ -743,10 +768,10 @@ export const pageContent = store => {
 
                 dispatch('context', newContext);
 
-                const timerTimeout = setTimeout(()=>{
-                    dispatch('getDataCart')
-                    return () => clearTimeout(timerTimeout);
-                },200);               
+                // const timerTimeout = setTimeout(()=>{
+                //     dispatch('getDataCart')
+                //     return () => clearTimeout(timerTimeout);
+                // },200);               
                 
                 const timerTimeoutAddress = setTimeout(()=>{
                     dispatch('getAdresses', paramsAddress)
@@ -762,7 +787,6 @@ export const pageContent = store => {
                 const resOrders = await orderApi.getOrders();
                 const tableBodyData = resOrders.results;
                 const resBalance = await api.getUserBalance({"currency": currency});
-                console.log({resBalance})
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -817,7 +841,6 @@ export const pageContent = store => {
                         
                     },
                 }
-                console.log('newContext = ', res.init_state)
                 
                 dispatch('context', newContext)
 
@@ -830,8 +853,8 @@ export const pageContent = store => {
 
             if (url.includes('/orders/20') || url.includes('/20' )) {
                 const numberId = url.split('/').pop().split('-').pop()
+                const resBalance = await api.getUserBalance({"currency": currency});
                 const dataOrderItems = await orderApi.getOrderItems({ order_id: numberId });
-                console.log({dataOrderItems})
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -843,10 +866,21 @@ export const pageContent = store => {
                             fullNumberOrder: url.split('/').pop(),
                             dataOrderItems: dataOrderItems,
                         },
+                        profile:{
+                            ...context.init_state.profile,
+                            ...res.init_state.profile,
+                            balance: resBalance.balance,
+                            total_debt_orders: resBalance.total_debt_orders || 0,
+                            opt_minimum_price: resBalance.opt_minimum_price,
+                            passive_balance: resBalance.passive_balance,
+                            confirm_payments_cost: resBalance.confirm_payments_cost,
+                            total_orders_price_paid: resBalance.total_orders_price_paid,
+                            total_orders_price_unpaid: resBalance.total_orders_price_unpaid
+                        }, 
                         numberCurrentOrderForAddProduct: null,
                     },
                 }
-                // console.log('newContext = ', newContext)
+                
                 
                 dispatch('context', newContext)
                 dispatch('correspondence');    
@@ -866,7 +900,6 @@ export const pageContent = store => {
                         numberCurrentOrderForAddProduct: null,                       
                     },
                 }
-                console.log('newContext = ', res.init_state)
                 
                 dispatch('context', newContext)
                 
@@ -879,7 +912,6 @@ export const pageContent = store => {
 
             if (url === '/balance') {   
                 const resBalance = await api.getUserBalance({"currency": currency});
-                console.log({resBalance})
                 const newContext = {
                     ...context,
                     "type": res.type,
@@ -935,7 +967,6 @@ export const pageContent = store => {
                 dispatch('notification', res.init_state.profile.id)
             }
         } catch (err) {
-            console.log('ERROR CONTEXT PAGE', err)
             let error = [Text({text: 'error-on-server'})];
             if (err?.data) {
                 const errors = err.data;

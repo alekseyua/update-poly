@@ -2,6 +2,7 @@ import React from "react";
 import PreviewProductCardModal from "./PreviewProductCardModal";
 import { defaultProductCard } from '../../../images';
 import { useStoreon } from 'storeon/react';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PreviewProductCardModalContainer = ({
     url,
@@ -39,8 +40,10 @@ const PreviewProductCardModalContainer = ({
     status,
 }) => {
     const { dispatch } = useStoreon();
-
+    const navigate = useNavigate();
+    const location = useLocation();
     const handleChooseProduct = (productId, color, size) => {
+
         /**
          * @param {
          *  productId - номер товара,
@@ -65,17 +68,35 @@ const PreviewProductCardModalContainer = ({
     }
 
     const addLikeProductCard = (id) => {
-        console.log('addWishList = ', id,
-        {a: location.pathname}
-        )
-        dispatch('addWishList', { id: id, pathname: location.pathname})
+        const params = { 
+            id: id,
+            whereLike: 'product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('addWishList', params)
     }
 
     const removeLikeProductCard = (id) => {
-        console.log('removeWishList = ', id)
-        dispatch('removeWishList', { id: id, pathname: location.pathname })
+         const params = { 
+            id: id, 
+            whereLike: 'product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('removeWishList', params)
     }
-
+ 
     return (
         <PreviewProductCardModal
             defaultProductCard={defaultProductCard}

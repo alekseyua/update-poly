@@ -2,10 +2,9 @@ import React from 'react';
 import OrderingPageLayoutContainer from './OrderingPageLayout/OrderingPageLayoutContainer';
 
 const OrderingPage = ({
-    ...props
+    context
 }) => {
-    console.log({ OrderingPage: props.context })
-    const { context } = props;
+console.log({context})    
     const {
         numberCurrentOrderForAddProduct,
         role_configuration,
@@ -36,10 +35,9 @@ const OrderingPage = ({
     const {
         delivery_condition,        
     } = role_configuration;
-
     const shriveledCartContent = {
-        cart_items: dataCart.cartitem_set.filter( el => el.selected),
-        in_stock: dataCart.in_stock.filter( el => el.selected),
+        cart_items: dataCart.cartitem_set.filter( el => el.is_selected ),
+        in_stock: dataCart.in_stock.filter( el => el.is_selected ),
         selected: dataCart.selected,
     }
 

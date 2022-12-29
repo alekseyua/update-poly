@@ -3,6 +3,7 @@ import Api from '../../api';
 
 const serializeNotifications = (data) => {
   data.results = data.results.map((el) => {
+    console.log({data},{el})
     return {
       ...el,
       created_at: dayjs(Api.language, el.created_at).format('DD MMMM, HH:mm'),

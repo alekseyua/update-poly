@@ -18,6 +18,7 @@ const RecomendetProduct = ({ recommended = [], currency }) => {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         navigation={recommended.length > 6}
         noSwiping
+        watchSlidesProgress= {true}
         spaceBetween={10}
         speed={400}
         slidesPerView={6}
@@ -51,7 +52,7 @@ const RecomendetProduct = ({ recommended = [], currency }) => {
         {recommended.map((el, i) => {
           const data = el;
           return (
-            <SwiperSlide key={el.id}>
+            <SwiperSlide key={`swiper-slide-recomendet-${i}`}>
               <ProductCard
                 disabledHover
                 url={data.url}

@@ -7,19 +7,18 @@ import InformationReviewsLayoutContainer from './InformationReviewsLayout/Inform
 
 const InformationReviews = (props) => {
 
-  // console.log('information reviews = ', props);
   const { breadcrumbs, page_info, reviews, site_configuration, profile } = props.context;
   const { id } = profile;
   const { title } = page_info;
-  const  { insta_link } = site_configuration
+  const { insta_link } = site_configuration
 
   return (
     <InformationReviewsLayoutContainer
-    title={title}
-    breadcrumbs={breadcrumbs}
-    reviews={reviews}
-    insta_link={insta_link}
-    profile={id}
+      title={title}
+      breadcrumbs={breadcrumbs}
+      reviews={reviews}
+      insta_link={insta_link}
+      profile={id}
     />
   );
 };

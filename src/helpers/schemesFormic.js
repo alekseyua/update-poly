@@ -472,7 +472,6 @@ export const feedbackSheme = () => {
          .test({
           message: 'На данный момент система не поддерживает pdf формат',
           test: (file, context) => {
-            console.log({file}, {context})
             if (file === null) return true//Yup.string()
             const isValid = ['pdf'].includes(file[0].name.split('.').pop());
             if (isValid) context?.createError();

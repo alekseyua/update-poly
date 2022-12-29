@@ -75,7 +75,7 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
         onSubmit={onSubmit}
       >
         {({ handleSubmit, handleChange, handleBlur, values, errors, setFieldValue, touched }) => {
-          console.log({ values })
+
           return (
             <Form onSubmit={handleSubmit} >
               <BlockGrid.Container>
@@ -313,6 +313,7 @@ export const listCurrentOrders = (listOrders, changeStatusOrder, currency) => {
         }}
         options={options}
         placeholder={'Сделайте Ваш выбор'}
+
       ></Select>
     </ModalChooseOrderInList.ModalChooseOrderInListContainer>
   )
@@ -1067,7 +1068,6 @@ export const accountDelete = async (deleteAccountFunc, closeModalState, userId) 
                       if (value === 'delete') {
                         setFieldValue('enadledNext', false)
                       }
-                      console.log({ value })
                       handleChange(e)
                     }}
                     label={'Для удаления аккаунта введите текст delete'}
@@ -1363,8 +1363,7 @@ export const getMyCash = async (first_name, last_name, middle_name, dispatch, re
 }
 
 export const contentInfoOrder = (status, role, numberOrder) => {
-console.log(typeof status, typeof 'chat', status.status, status.status === 'chat')
-let comment = ''
+  let comment = ''
   return (
     <p
       style={
@@ -1375,30 +1374,30 @@ let comment = ''
         }
       }
     >
-    
+
       {
-          status === 'payment_waiting'?
-                `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
-                : status === 'in_process' ?
-                  `Ваш заказ №{numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. ${role === ROLE.RETAIL ? '' : ' Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта'}`
-                  : status === 'packaging' ?
-                      `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
-                      : status === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
-                        `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
-                        : status === 'delivery_paid' ?
-                          `Ваш заказ №${numberOrder} готов к отправке.`
-                          : status === 'sended' ?
-                            `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
-                            : status === 'canceled' ?
-                              `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
-                              : status === 'return' ?
-                                `По Заказу №${numberOrder} оформлен возврат`
-                                 : status === 'chat' ?
-                                      `Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате`
-                                      : role === ROLE.WHOLESALE? 
-                                          `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву` 
-                                          : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
-          }
+        status === 'payment_waiting' ?
+          `Ваш заказ №${numberOrder} уже получен нами, ожидаем поступление оплаты за заказ. В течении суток необходимо прикрепить чек оплаты, либо заказ будет отменен.`
+          : status === 'in_process' ?
+            `Ваш заказ №{numberOrder} оплачен и передан в работу Менеджеру по закупкам. Вас будут информировать о ходе закупки. Если товар в статусе "Заказано"-товар заказан у поставщика. Ожидаем поступления на склад. ${role === ROLE.RETAIL ? '' : ' Если товар в статусе "В сборе" это значит, что идет сбор на размерный ряд. Как только ряд будет собран совместно всеми участниками сбора, статус товара изменится на "Товар оплачен". С этого момента отмена всего заказа возможна только через Администрацию сайта'}`
+            : status === 'packaging' ?
+              `Ваш заказ  №${numberOrder} находится на упаковке и будет отправлен в течении двух рабочих дней`
+              : status === 'delivery_payment_waiting' && role === ROLE.DROPSHIPPER ?
+                `На Вашем балансе не хватает средств для оплаты стоимости доставки заказа №${numberOrder}. Пожалуйста, пополните баланс.`
+                : status === 'delivery_paid' ?
+                  `Ваш заказ №${numberOrder} готов к отправке.`
+                  : status === 'sended' ?
+                    `Ваш заказ №${numberOrder} отправлен. Трек номер доступен в личном кабинете`
+                    : status === 'canceled' ?
+                      `Заказ №${numberOrder} был отменен ${comment ? comment : ''}.`
+                      : status === 'return' ?
+                        `По Заказу №${numberOrder} оформлен возврат`
+                        : status === 'chat' ?
+                          `Сообщения в чате отправляются только для Менеджера по упаковке. Как только статус заказа будет «Заказ на упаковке», Ваши сообщения станут доступны Менеджеру, и  в случае необходимости, он сможет ответить в этом же чате`
+                          : role === ROLE.WHOLESALE ?
+                            `Ваш заказ №${numberOrder} выкуплен и передан на отправку. Ожидайте поступления товара на склад в Москву`
+                            : `Ваш заказ №${numberOrder} выкуплен и передан на упаковку. Ожидайте номер отправления в течении двух рабочих дней`
+      }
 
     </p>
 
@@ -1411,88 +1410,88 @@ export const contentInfoCollection = (collections, title, product, recommended_p
     <React.Fragment>
       <BlockGrid.Container>
         {/* <BlockGrid.BlockCenter> */}
-          {/* <BlockGrid.Row>  */}
-            <BlockGrid.BlockContainerCollections>
-              {
-                collections.length?
-                  collections.map( ( el, i ) => {
+        {/* <BlockGrid.Row>  */}
+        <BlockGrid.BlockContainerCollections>
+          {
+            collections.length ?
+              collections.map((el, i) => {
 
-                    return(
-                      <CardCollectionView
-                        key = { i }
-                        title = { title }
-                        number = { i + 1 }
-                        role = { role }
-                        image = { product.product_sku }
-                        prices = { product.prices }
-                        colors = { product.colors }
-                        sizes = { product.sizes }
-                        recommended_price = { recommended_price }
-                        currency = { currency }
-                        { ...el }
-                      />
-                    )
-                  })
-                  : <>Данный товар отсутствует в сборах</>
-              }
-            </BlockGrid.BlockContainerCollections>           
-          {/* </BlockGrid.Row> */}
+                return (
+                  <CardCollectionView
+                    key={i}
+                    title={title}
+                    number={i + 1}
+                    role={role}
+                    image={product.product_sku}
+                    prices={product.prices}
+                    colors={product.colors}
+                    sizes={product.sizes}
+                    recommended_price={recommended_price}
+                    currency={currency}
+                    {...el}
+                  />
+                )
+              })
+              : <>Данный товар отсутствует в сборах</>
+          }
+        </BlockGrid.BlockContainerCollections>
+        {/* </BlockGrid.Row> */}
         {/* </BlockGrid.BlockCenter> */}
       </BlockGrid.Container>
     </React.Fragment>
   )
 }
 
-export const openPhotoForSiew = ( image, urlProduct ) => {
+export const openPhotoForSiew = (image, urlProduct) => {
 
   return (
     <React.Fragment>
       <BlockGrid.Container>
         <BlockGrid.BlockCenter>
-          <BlockGrid.Row>            
-            <PhotoView image = { image } url = { urlProduct } />
+          <BlockGrid.Row>
+            <PhotoView image={image} url={urlProduct} />
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>
       </BlockGrid.Container>
     </React.Fragment>
   )
 }
-export const openVideoForSiew = ( video, preview, urlProduct ) => {
+export const openVideoForSiew = (video, preview, urlProduct) => {
 
   return (
     <React.Fragment>
       <BlockGrid.Container>
         <BlockGrid.BlockCenter>
-          <BlockGrid.Row>            
-            <VideoView video = { video } preview = { perview } url = { urlProduct } />
+          <BlockGrid.Row>
+            <VideoView video={video} preview={perview} url={urlProduct} />
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>
       </BlockGrid.Container>
     </React.Fragment>
   )
 }
-export const openTableSize = ( ) => {
+export const openTableSize = () => {
 
   return (
     <React.Fragment>
       <BlockGrid.Container>
         <BlockGrid.BlockCenter>
-          <BlockGrid.Row>            
-           <WorldStandardSizesChart
-           />
+          <BlockGrid.Row>
+            <WorldStandardSizesChart
+            />
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>
       </BlockGrid.Container>
     </React.Fragment>
   )
 }
-export const openVidjetChat = (  ) => {
+export const openVidjetChat = () => {
 
   return (
     <React.Fragment>
       <BlockGrid.Container>
         <BlockGrid.BlockCenter>
-          <BlockGrid.Row>            
+          <BlockGrid.Row>
 
           </BlockGrid.Row>
         </BlockGrid.BlockCenter>

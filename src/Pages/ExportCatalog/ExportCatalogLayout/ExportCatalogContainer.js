@@ -25,6 +25,7 @@ const ExportCatalogLayoutContainer = ({
   const { dispatch } = useStoreon();
   const [showFilters, setShowFilters] = useState(false);
   const [offsetTopBtnSubmit, setOffsetTopBtnSubmit] = useState(0)
+  const [offsetLeftBtnSubmit, setOffsetLeftBtnSubmit] = useState(0)
   const [valueProducts, setValueProducts] = useState(initialValuesFilters)
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
   const [filterParams, setFilterParams] = useState({ ...initValueCheckBoxFilters })
@@ -43,7 +44,8 @@ const ExportCatalogLayoutContainer = ({
     const eventDocument = (e) => {
 
       if (e.target.getAttribute('name') === 'apply' || e.target.getAttribute('datanoclick') === 'noClick') setIsShowBtnSubmit(false);
-      setOffsetTopBtnSubmit(e.y)
+      setOffsetTopBtnSubmit(e.y);
+      setOffsetLeftBtnSubmit(document.querySelector('main').offsetLeft);
     };
     document.addEventListener('click', eventDocument);
     return () => document.removeEventListener('click', eventDocument);
@@ -68,7 +70,6 @@ const ExportCatalogLayoutContainer = ({
     let value;
     if( typeof filterParams[key] === 'string' ) value = '';
     if( typeof filterParams[key] === 'boolean' ) value = !filterParams[key];
-    // console.log('filterParams->key] = ', key, ' value : ', value)
     if( typeof filterParams[key] === 'object' ) value = filterParams[key].filter(el=>el !== id)
 
     dispatch('changeParamsFiltersPhoto', {
@@ -222,7 +223,7 @@ const ExportCatalogLayoutContainer = ({
       currentPage = { currentPage }
       isFilters={isFilters}
       loadData={loadData}
-      
+      offsetLeftBtnSubmit={offsetLeftBtnSubmit}
       handlerChangePaginations = { handlerChangePaginations }
       downloadSelectPhoto = { downloadSelectPhoto }
       selectedAllPhoto = { selectedAllPhoto }

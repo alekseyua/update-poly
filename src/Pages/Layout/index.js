@@ -9,7 +9,7 @@ import { useStoreon } from 'storeon/react';
 
 import style from './layout.module.scss';
 import cogoToast from 'cogo-toast';
-import { getCookie } from '../../helpers/helpers'; 
+import { getCookie } from '../../helpers/helpers';
 import VidjetChatContainer from '../../Views/VidjetChat';
 import ButtonScrollTop from '../../Views/ButtonScrollTop';
 import Cookie from '../../Views/Cookie/Cookie';
@@ -20,23 +20,25 @@ const Layout = (props) => {
 
   const { modalState, dispatch } = useStoreon('modalState');
   const { closeModalState } = useStoreon('closeModalState');
-  const [ dataPage, setDataPage ] = useState(props.context);
+  const [dataPage, setDataPage] = useState(props.context);
   const [notice, setNotice] = useState(null)
 
   const logoLinkGoto = '/'
   const description = 'описание сайта '
-  useEffect(()=>{
-    setDataPage(prev => ({...prev, ...props.context}))
-  },[props.context])
-  
+  useEffect(() => {
+    setDataPage(prev => ({ ...prev, ...props.context }))
+  }, [props.context])
+
   const { title } = dataPage.init_state.page_info
   const { answerCategorys, answers } = dataPage.init_state.faq;
-  console.log({props: props.context},{dataPage})
+
   useEffect(() => {
     if (notice !== null) {
-      console.log({notice})
       //сдесь происходит магия запуска обнавления контекста 
-      if ([notice].includes('на Товар оплачен')) console.log('observer work good!!!') //dispatch('')
+      console.log({notice})
+      if ([notice].includes('на Товар оплачен')) console.log('observer work good на Товар оплачен !!!') //dispatch('')
+      if ([notice].includes('Вы пополнили баланс на')) console.log('observer work good Вы пополнили баланс на !!!') //dispatch('')
+
       const { hide } = cogoToast.success(notice, {
         position: 'top-center',
         heading: `Уведомление `,
@@ -49,9 +51,9 @@ const Layout = (props) => {
     }
   }, [notice])
 
-  useEffect(() => {
-    if (navigator.serviceWorker) {
-      console.log('navigator.serviceWorker',navigator.serviceWorker)
+  useEffect( async () => {
+    if (await navigator.serviceWorker) {
+      console.log('navigator.serviceWorker', await navigator.serviceWorker)
       const listener = event => {
         // console.log({event})
         const { notification } = event.data
@@ -64,7 +66,7 @@ const Layout = (props) => {
       navigator.serviceWorker.addEventListener('message', listener);
       return removeEventListener('message', listener);
     }
-  },[])
+  }, [])
 
 
   // useEffect(()=>{
@@ -96,31 +98,31 @@ const Layout = (props) => {
   }
 
   return (
-      <ModalProvider.ModalProviderView
-        show={modalState.show}
-        content={modalState.content}
-        action={modalState.action}
-        title={modalState.title}
-        addClass={modalState.addClass}
-        onClick={modalState.onClick}
-        closeModal={modalState.closeModal? modalState.closeModal : closeModalState} 
-        onClickCancel = { modalState.onClickCancel}
-        iconImage={modalState.iconImage}
-        style={modalState.style}
-      >
+    <ModalProvider.ModalProviderView
+      show={modalState.show}
+      content={modalState.content}
+      action={modalState.action}
+      title={modalState.title}
+      addClass={modalState.addClass}
+      onClick={modalState.onClick}
+      closeModal={modalState.closeModal ? modalState.closeModal : closeModalState}
+      onClickCancel={modalState.onClickCancel}
+      iconImage={modalState.iconImage}
+      style={modalState.style}
+    >
       <Helmet>
         <title>{title}</title>
-        <meta name="description" content={description} /> 
-     </Helmet>
+        <meta name="description" content={description} />
+      </Helmet>
 
-    <div className={style['layout__container']}>
+      <div className={style['layout__container']}>
         <div className='goto'></div>
         <header className={style['layout__header']}>
-          <Header 
-            logo={dataPage.init_state.site_configuration.logo_1} 
-            logoLinkGoto={logoLinkGoto} 
+          <Header
+            logo={dataPage.init_state.site_configuration.logo_1}
+            logoLinkGoto={logoLinkGoto}
             header_menu={dataPage.init_state.header_menu}
-            currency = {dataPage.init_state.currency}
+            currency={dataPage.init_state.currency}
             main_menu={dataPage.init_state.main_menu}
             cabinet_menu={dataPage.init_state.cabinet_menu}
             profile={dataPage.init_state.profile}
@@ -130,29 +132,29 @@ const Layout = (props) => {
         </header>
 
         <main className={style['layout__main']}>
-          <VidjetChatContainer 
-            answers = { answers }
-            categorys = { answerCategorys }
+          <VidjetChatContainer
+            answers={answers}
+            categorys={answerCategorys}
           />
-          
+
           <Outlet />
 
-          <ButtonScrollTop/>
+          <ButtonScrollTop />
         </main>
 
         <footer className={style['layout__footer']}>
-          <Footer 
-            footer_menu = {dataPage.init_state.footer_menu}
-            site_configuration = {dataPage.init_state.site_configuration}
-            role_configuration = {dataPage.init_state.role_configuration}
-            year = {dataPage.init_state.year}
-            profile = {dataPage.init_state.profile}
-            activeButton = { dataPage.init_state.activeButton}
+          <Footer
+            footer_menu={dataPage.init_state.footer_menu}
+            site_configuration={dataPage.init_state.site_configuration}
+            role_configuration={dataPage.init_state.role_configuration}
+            year={dataPage.init_state.year}
+            profile={dataPage.init_state.profile}
+            activeButton={dataPage.init_state.activeButton}
           />
         </footer>
-        <Cookie openModalFeedbackReedFile={openModalFeedbackReedFile} policy={dataPage.init_state.site_configuration.policy}/>
-    </div>
-      </ModalProvider.ModalProviderView>
+        <Cookie openModalFeedbackReedFile={openModalFeedbackReedFile} policy={dataPage.init_state.site_configuration.policy} />
+      </div>
+    </ModalProvider.ModalProviderView>
   );
 };
 

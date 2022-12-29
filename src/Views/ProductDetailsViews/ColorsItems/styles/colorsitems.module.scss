@@ -29,12 +29,14 @@
     &__btn{
         padding: 0;
         pointer-events: all;
+        box-shadow: 0 0 0 3px var(--gx-color-gray) inset;
         &:hover{
             cursor: pointer;
         }
+        //.prodpage-colors__btn--active{}
         &--active{
-            box-shadow: inset 3px 3px 3px #000, inset -4px -4px 3px #000;
-            transform: scale(120%);
+            box-shadow: inset 2px 2px 3px #000, inset -2px -2px 3px #000;
+            transform: scale(1.1);
             pointer-events: none;
             &:hover{
                 cursor: not-allowed;

@@ -7,7 +7,7 @@ import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 export const payment = store => {
     const orderApi = api.orderApi;
 
-    store.on('payment', async ({ context, numberCurrentOrderForAddProduct, closeModalState }, obj, { dispatch }) => {
+    store.on('payment', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
             const { role, balance, user } = context.init_state.profile
@@ -15,6 +15,7 @@ export const payment = store => {
             const { currency } = context.init_state;
             const { priceDilivery } = context.init_state.order
             const { price, discount, total_price } = context.init_state.cart_content
+
             let params = {
                 payment_method: obj.payment_methods,
                 delivery_method: obj.variant,
@@ -25,10 +26,10 @@ export const payment = store => {
                 order_cost: price,
                 discount: discount,
                 total_cost: price,
-                add_goods_order_id: +numberCurrentOrderForAddProduct ?? 0, // localStore берём номер заказа куда добавить товар по старому отправляем 0 если нет добавления
+                add_goods_order_id: +obj.numberCurrentOrderForAddProduct ?? 0, // localStore берём номер заказа куда добавить товар по старому отправляем 0 если нет добавления
             };
 
-            role === ROLE.RETAIL && !!!numberCurrentOrderForAddProduct?
+            role === ROLE.RETAIL && !!!obj.numberCurrentOrderForAddProduct?
                 params = {
                     ...params,
                     delivery_cost: priceDilivery.price,
@@ -58,10 +59,10 @@ export const payment = store => {
             }
             dispatch('context', newContext)
             //?! если добовляем в заказ переходим на страницу orders
-                if(numberCurrentOrderForAddProduct){
+                if(obj.numberCurrentOrderForAddProduct){
 
                     dispatch('setNumberOrderForAddProducts', {numberOrder: null} );    
-                    const message = ['Товары добавлены в Ваш заказ', 'Приятного шопинга в мире моды']
+                    const message = [`Товары добавлены в Ваш заказ №${obj.numberCurrentOrderForAddProduct}`, 'Приятного шопинга в мире моды']
                     dispatch('setModalState', {
                         show: true,
                         content: textErrorMessage(message),
@@ -70,8 +71,14 @@ export const payment = store => {
                         action: {
                             title: ['продолжить', null]
                         },
-                        onClick: () => obj.redirectTo('/orders'),
-                        closeModal: () => obj.redirectTo('/orders')
+                        onClick: () => (
+                            obj.redirectTo('/orders'),
+                            closeModalState()
+                            ),
+                        closeModal: () => (
+                            obj.redirectTo('/orders'),
+                            closeModalState()
+                            )
                     })
                     return //obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')
                 }
@@ -94,7 +101,7 @@ export const payment = store => {
                 //?! если больше переходим на страницу orders
                 
                 //'Благодарим за оплату! Ваш баланс будет пополнен примерно в течении 2х рабочих дней.'
-                const message = ['Денежные средства будут списаны с Вашего счёта', 'Приятного шопинга в мире моды']
+                const message = ['Денежные средства будут списаны с Вашего счёта автоматически', 'Приятного шопинга в мире моды']
                     dispatch('setModalState', {
                         show: true,
                         content: textErrorMessage(message),
@@ -103,8 +110,14 @@ export const payment = store => {
                         action: {
                             title: ['продолжить', null]
                         },
-                        onClick: () => obj.redirectTo('/orders'),
-                        closeModal: () => obj.redirectTo('/orders')
+                        onClick: () => (
+                            obj.redirectTo('/orders'),
+                            closeModalState()
+                            ),
+                        closeModal: () => (
+                            obj.redirectTo('/orders'),
+                            closeModalState()
+                            )
                     })
                 return
                     //obj?.redirectTo? obj.redirectTo('/orders') : console.log('Samething went wrong!!!')

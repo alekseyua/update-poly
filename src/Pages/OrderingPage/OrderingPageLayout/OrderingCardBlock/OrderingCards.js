@@ -19,7 +19,6 @@ const OrderingCards = ({
   const { dispatch } = useStoreon();
   const changeAgreement = (e, id, qty) => {
     const checked = e.checked
-    console.log('checked = ', checked)
     const params = {
       changeAgreement: checked,
       productId: id,
@@ -28,7 +27,6 @@ const OrderingCards = ({
     dispatch('changeAgreement-products', params)
   };
 
-  // console.log('cart_content', cart_content, role)
   return (
     <OrderingViews.CardsSection>
       {
@@ -40,8 +38,8 @@ const OrderingCards = ({
                 const isVisibleLine = cart_items.length - 1 !== i;
                 return (
                   <OrderingViews.CardWoasale
-                    changeAgreement = { changeAgreement }
-                    values = { values }
+                    changeAgreement={changeAgreement}
+                    values={values}
                     isVisibleLine={isVisibleLine}
                     key={`${el.id}-WHOLESALE`}
                     currency={currency}
@@ -58,7 +56,7 @@ const OrderingCards = ({
                     in_stock.map((el) => {
                       return (
                         <OrderingViews.CardDropAndRetail
-                          changeAgreement = { changeAgreement }
+                          changeAgreement={changeAgreement}
                           key={`${el.id}`}
                           currency={currency}
                           el={el}
@@ -78,7 +76,7 @@ const OrderingCards = ({
               shriveledCartContent.cart_items.map((el, i) => {
                 return (
                   <OrderingViews.CardDropAndRetail
-                    changeAgreement = { changeAgreement }
+                    changeAgreement={changeAgreement}
                     currency={currency}
                     count={i}
                     role={role}

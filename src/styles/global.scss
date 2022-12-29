@@ -54,7 +54,12 @@ h6 {
 
 body, html {
   background-color: #fff;
+  color: var(--gx-color-primary);
+  line-height: 1.4;
 }
+html, body, img, div, a, table {
+  image-rendering: -webkit-optimize-contrast !important;
+  }
 
 
 .video-react-video {
@@ -235,6 +240,23 @@ div#pdfviewer-specif> div > div.viewer-layout-main {
   }
 }
 
+.sendpulse-send-to-tg.xlarge.blue{
+  width: 162px;
+  right: -53px;
+  position: fixed !important;
+  transform: scale(0.5) translate(136px, -55px);
+  transition: all .8s ease-out;
+  &:hover{
+    transform: scale(0.8) translate(-20px, -50px);
+  }
+  @include tablet-md{
+    transform: scale(0.5) translate(104px, -66px);
+    &:hover{
+      transform: scale(0.5) translate(104px, -66px);
+    }
+  }
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -248,6 +270,19 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: rgb(0, 0, 0);
   -webkit-box-shadow: 0 0 0px 1000px #fff0 inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.information-delivery__wrapper-important-exchange{
+  padding: 15px 1px;
+  font-weight: 200;
+}
+
+.modal-message{
+  padding: 15px;
+  font-size: 21px;
+  text-align: center;
+  letter-spacing: 1.1px;
+  line-height: 160%;
 }
 
 @keyframes pulse-mobile{

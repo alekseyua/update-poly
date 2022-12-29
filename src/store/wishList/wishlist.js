@@ -1,4 +1,5 @@
 import api from "../../api/api";
+import { ROLE } from "../../const";
 import Text from "../../helpers/Text";
 import { errorAlertIcon } from "../../images";
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
@@ -6,10 +7,10 @@ import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
 export const wishList = store => {
     const apiProfile = api.profileApi;
 
-    store.on('@init', ()=>({countWishList: 0}));
+    store.on('@init', () => ({ countWishList: 0 }));
 
-   
-      store.on('getWishlist', async ({ context, closeModalState }, obj, { dispatch }) => {
+
+    store.on('getWishlist', async ({ context, closeModalState }, obj, { dispatch }) => {
 
         try {
 
@@ -17,30 +18,26 @@ export const wishList = store => {
                 page_size: 30,
                 page: obj?.page || 1
             }
-            
-            const res = await  apiProfile.getWishlist(params);
-           
+
+            const res = await apiProfile.getWishlist(params);
+
             const newContext = {
                 ...context,
                 "init_state": {
                     ...context.init_state,
                     profile: {
                         ...context.init_state.profile,
-                        list_wishes: res,                        
+                        list_wishes: res,
                     }
                 },
             }
-            console.log('STORE CONTEXT IN list_wishes = ', 
-            {newContext}            
-            )
 
             dispatch('context', newContext)
 
-            // console.log('result get data cart = ', res)
 
         } catch (err) {
             console.log('ERROR IN GET DATA list_wishes STORE', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {
@@ -61,45 +58,126 @@ export const wishList = store => {
             })
         }
 
-    })
+    }) 
 
     store.on('addWishList', async ({ context, closeModalState }, obj, { dispatch }) => {
-        console.log('test add wish list',{obj})
-        try{           
-            let newDataProductsResults = context.init_state.dataProducts.results;
 
+        try {
+            console.log({context}, {obj})            
+            const { role } = context.init_state.profile;
+            if ( role === ROLE.UNREGISTRED ) return (
+                dispatch('setModalState',{
+                     show: true,
+                     content: (
+                        <div className={'modal-message'}>
+                            Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию
+                        </div>
+                        ),
+                     iconImage: errorAlertIcon,
+                     action: {
+                     title: ['Пройти регистрацию', null]
+                     },
+                     onClick: () => {
+                         obj.redirectTo('/registration')
+                         closeModalState()
+                     }                     
+                 })
+             )            
+            let newDataProductsResults = context.init_state?.dataProducts?.results || [];
+            let newDataProductsResultsYouAlredyWatch = context.init_state?.youAlredyWatch?.results || [];
+            let recommended = context.init_state?.recommended;
             const params = {
                 product: obj.id,
             }
-
-            const resAddWishList = await apiProfile.postWishlist(params);
-            newDataProductsResults = newDataProductsResults.map( el => el.id === obj.id? {...el, is_liked: true} : el)
-            const newContext = {
+            let newContext = {
                 ...context,
+                        "init_state": {
+                            ...context.init_state,
+
+                        }
+            }
+            const resAddWishList = await apiProfile.postWishlist(params);
+
+            switch ( obj.whereLike ) {
+                case 'product':
+                    newDataProductsResults = newDataProductsResults.map(el => el.id === obj.id ? { ...el, is_liked: true } : el);
+                    newDataProductsResultsYouAlredyWatch = newDataProductsResultsYouAlredyWatch.map(el => el.id === obj.id ? { ...el, is_liked: true } : el);
+
+                    newDataProductsResults && newDataProductsResults.map( el => el.id === obj.id && el.is_liked).includes(true)?
+                        newContext = {
+                            ...newContext,
+                            "init_state": {
+                                ...newContext.init_state,
+                                dataProducts: {
+                                    ...newContext.init_state.dataProducts,
+                                    results: newDataProductsResults
+                                },
+                            },
+                        }
+                        : null;
+                        
+                        newDataProductsResultsYouAlredyWatch && newDataProductsResultsYouAlredyWatch.map( el => el.id === obj.id && el.is_liked).includes(true)?
+                            newContext = {
+                                ...newContext,
+                                "init_state": {
+                                    ...newContext.init_state,
+                                    youAlredyWatch: {
+                                        ...newContext.init_state.youAlredyWatch,
+                                        results: newDataProductsResultsYouAlredyWatch
+                                    },
+                                },
+                            }
+                            : null;
+
+                        recommended && recommended.map( el => el.id === obj.id).includes(true)?
+                            newContext = {
+                                ...newContext,
+                                "init_state": {
+                                    ...newContext.init_state,
+                                    recommended: recommended.map(el => el.id === obj.id ? { ...el, is_liked: true } : el),
+                                },
+                            }
+                            : null;
+                            
+                case 'detail-product':
+                    newContext = {
+                        ...newContext,
+                        "init_state": {
+                            ...newContext.init_state,
+                            productDetails: {
+                                ...newContext.init_state.productDetails,
+                                is_liked: true
+                            },
+                        },
+                    }
+                default: 
+            }
+
+            newContext = {
+                ...newContext,
                 "init_state": {
-                    ...context.init_state,
-                    dataProducts: {
-                        ...context.init_state.dataProducts,
-                        results: newDataProductsResults
-                    },
+                    ...newContext.init_state,
                     profile: {
-                        ...context.init_state.profile,
-                        wishlist: +context.init_state.profile.wishlist + 1
+                        ...newContext.init_state.profile,
+                        wishlist: +newContext.init_state.profile.wishlist + 1
                     }
                 },
             }
+
             dispatch('context', newContext);
 
-            if(obj?.pathname === '/wishlist'){
-                const timerSetTimout = setTimeout(()=>{
+            if (obj?.pathname === '/wishlist') {
+                const timerSetTimout = setTimeout(() => {
                     dispatch('getWishlist')
-                    return ()=>clearTimeout(timerSetTimout)
-                },400)
+                    return () => clearTimeout(timerSetTimout)
+                }, 400)
             }
+
+
 
         } catch (err) {
             console.log('Error add wish list ', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {
@@ -122,60 +200,134 @@ export const wishList = store => {
     })
 
     store.on('removeWishList', async ({ context, closeModalState }, obj, { dispatch }) => {
-        console.log('test remove wish list', {obj})
-        try{
-            let newContext = {}
-            const resRemoveWishList = await apiProfile.deleteWishlist(obj.id);
-            
-            if (context.init_state.dataProducts){
-                let newDataProductsResults = context.init_state.dataProducts.results;
-                newDataProductsResults = newDataProductsResults.map( el => el.id === obj.id? {...el, is_liked: false} : el)
-                newContext = {
-                    ...context,
-                    "init_state": {
-                        ...context.init_state,
-                        dataProducts: {
-                            ...context.init_state.dataProducts,
-                            results: newDataProductsResults
-                        },
-                        profile: {
-                            ...context.init_state.profile,
-                            wishlist: +context.init_state.profile.wishlist - 1
+
+        try {           
+            const { role } = context.init_state.profile;
+            if ( role === ROLE.UNREGISTRED ) return (
+                dispatch('setModalState',{
+                     show: true,
+                     content: (
+                        <div className={'modal-message'}>
+                            Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию
+                        </div>
+                        ),
+                     iconImage: errorAlertIcon,
+                     action: {
+                     title: ['Пройти регистрацию', null]
+                     },
+                     onClick: () => {
+                         obj.redirectTo('/registration')
+                         closeModalState()
+                     }                     
+                 })
+             )            
+            let newDataProductsResults = context.init_state?.dataProducts?.results || [];
+            let newDataProductsResultsYouAlredyWatch = context.init_state?.youAlredyWatch?.results || [];
+            let wishList = context.init_state.profile?.list_wishes?.results;
+            let recommended = context.init_state?.recommended;
+            let newContext = {
+                ...context,
+                        "init_state": {
+                            ...context.init_state,
+
                         }
-                    },
-                }
             }
-            if(context.init_state.profile?.list_wishes?.results.length > 0){
-                newContext = {
-                    ...context,
-                    "init_state": {
-                        ...context.init_state,                        
-                        profile: {
-                            ...context.init_state.profile,
-                            wishlist: +context.init_state.profile.wishlist - 1,
-                            list_wishes: {
-                                ...context.init_state.profile.list_wishes,
-                                count: context.init_state.profile.list_wishes.count - 1,
-                                results: context.init_state.profile.list_wishes.results.filter( el => el.product.id !== obj.id )
+            const resAddWishList = await apiProfile.deleteWishlist(obj.id);
+            console.log({obj}, {wishList})
+            switch ( obj.whereLike ) {
+                case 'product':
+                    newDataProductsResults = newDataProductsResults.map(el => el.id === obj.id ? { ...el, is_liked: false } : el);
+                    newDataProductsResultsYouAlredyWatch = newDataProductsResultsYouAlredyWatch.map(el => el.id === obj.id ? { ...el, is_liked: false } : el);
+
+                    newDataProductsResults && newDataProductsResults.map( el => el.id === obj.id && !el.is_liked).includes(true)?
+                        newContext = {
+                            ...newContext,
+                            "init_state": {
+                                ...newContext.init_state,
+                                dataProducts: {
+                                    ...newContext.init_state.dataProducts,
+                                    results: newDataProductsResults
+                                },
+                            },
+                        }
+                        : null;
+                        
+                        newDataProductsResultsYouAlredyWatch && newDataProductsResultsYouAlredyWatch.map( el => el.id === obj.id && !el.is_liked).includes(true)?
+                            newContext = {
+                                ...newContext,
+                                "init_state": {
+                                    ...newContext.init_state,
+                                    youAlredyWatch: {
+                                        ...newContext.init_state.youAlredyWatch,
+                                        results: newDataProductsResultsYouAlredyWatch
+                                    },
+                                },
                             }
-                        }
-                    },
-                }
+                            : null;
+
+                        wishList && wishList.map( el => el.product.id === obj.id).includes(true)?
+                            newContext = {
+                                ...newContext,
+                                "init_state": {
+                                    ...newContext.init_state,
+                                    profile: {
+                                        ...newContext.init_state.profile,
+                                        list_wishes: {
+                                            ...newContext.init_state.profile.list_wishes,
+                                            results: wishList.filter(el => el.product.id !== obj.id),
+                                        }
+                                    }
+                                },
+                            }
+                            : null;
+
+                        recommended && recommended.map( el => el.id === obj.id).includes(true)?
+                            newContext = {
+                                ...newContext,
+                                "init_state": {
+                                    ...newContext.init_state,
+                                    recommended: recommended.map(el => el.id === obj.id ? { ...el, is_liked: false } : el),
+                                },
+                            }
+                            : null;
+
+
+                case 'detail-product':
+                    newContext = {
+                        ...newContext,
+                        "init_state": {
+                            ...newContext.init_state,
+                            productDetails: {
+                                ...newContext.init_state.productDetails,
+                                is_liked: false
+                            },
+                        },
+                    }
+                default: 
             }
+                 newContext = {
+                        ...newContext,
+                        "init_state": {
+                            ...newContext.init_state,
+                            profile: {
+                                ...newContext.init_state.profile,
+                                wishlist: +newContext.init_state.profile.wishlist - 1
+                            }
+                        },
+                    }
+            dispatch('context', newContext);
 
-           
-        dispatch('context', newContext)
 
-            if(obj?.pathname === '/wishlist' && context.init_state.profile.list_wishes.results.length === 1){
-                const timerSetTimout = setTimeout(()=>{
+            if (obj?.pathname === '/wishlist' && context.init_state.profile.list_wishes.results.length === 1) {
+                const timerSetTimout = setTimeout(() => {
                     dispatch('getCatalog')
-                    return ()=>clearTimeout(timerSetTimout);
-                },400)
+                    return () => clearTimeout(timerSetTimout);
+                }, 400)
             }
 
         } catch (err) {
             console.log('Error add wish list ', err)
-            let error = [Text({text: 'error-on-server'})];
+            let error = [Text({ text: 'error-on-server' })];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {

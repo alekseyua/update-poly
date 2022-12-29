@@ -60,6 +60,7 @@ const DropdownMenuAccount = (props) =>{
             last_name={last_name}
             cabinet_menu={cabinet_menu}        
             logOut={logOut}
+            shop={shop}
             page_type_auth={page_type_auth}
             openMenuRef={openMenuRef}
             stateOpen={stateOpen}

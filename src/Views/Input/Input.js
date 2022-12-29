@@ -22,7 +22,7 @@ const Input = ({
   helpText,
   ...props
 }) => {
-  // console.log('props input search', props)
+
   const inputRef = useRef(null);
 
   const variantEnum = {

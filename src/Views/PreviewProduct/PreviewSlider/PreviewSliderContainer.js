@@ -85,12 +85,10 @@ const PreviewSliderContainer = ({
           }
           {
             imageOrVideoSet.map((el, i) => {
-              // console.log('element', el)
               if (el.type === 'video') {
                 <SwiperSlide 
                   key={v4()}
                   className = { style['swipper__prev-slide--vertical']}
-
                 >
                   <Video
                     autoPlay

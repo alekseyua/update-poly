@@ -138,7 +138,7 @@ const ProductDetails = ({
                                 value={0}
                                 label={Text({ text: 'reviews-es' })}
                                 max={5}
-
+                                productId = { productId }
                                 addLikeProductCard={addLikeProductCard}
                                 removeLikeProductCard={removeLikeProductCard}
                             />
@@ -199,10 +199,10 @@ const ProductDetails = ({
                             className={style['preview-product-modal__row']}
                         >
                             <Button
-                                className="prodpage-sizes__btn"
+                                className=""
                                 variant="text"
                                 onClick={openTableSize}
-
+                                addClass = {'prodpage-sizes__btn'}
                             >
                                 <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width={20} height={20} />
                                 Таблица размеров

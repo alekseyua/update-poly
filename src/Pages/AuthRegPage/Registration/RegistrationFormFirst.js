@@ -33,7 +33,7 @@ const RegistrationFormFirst = ({
   initialValues,
   loading,
 }) => {
-console.log({initialValues})
+
   return (
     <Formik
       validationSchema={signUpFirstFormSchema(errorsMessenge)}
@@ -42,7 +42,7 @@ console.log({initialValues})
     >
       {
         ({ values, handleBlur, errors, touched, setFieldValue, handleSubmit })=>{
-          console.log({values})
+
           return (
             <Form id={'form-second-data'} onSubmit={handleSubmit}>
               <Input

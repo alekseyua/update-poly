@@ -5,8 +5,6 @@ const NotificationsPage = ({
     context
 }) => {
 
-    console.log({ NotificationsPage: context })
-
     const {
         cabinet_site_menu,
         notifications,
@@ -20,7 +18,8 @@ const NotificationsPage = ({
     const { user = {}, role, balance } = profile;
     const amountNotifications = profile?.notifications
     const { username } = user;
-    const stateActiveCheckNotice = false
+    const stateActiveCheckNotice = false;
+
     return (
         <NotificationsPageLayoutContainer
             amountNotifications={amountNotifications}

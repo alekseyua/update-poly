@@ -5,15 +5,14 @@ const SearchPage = ({
     context,
 }) => {
 
-    // console.log({context})
     const { breadcrumbs, currency, profile } = context;
     const { role } = profile;
 
     return (
         <SearchPageLayoutContainer
-            breadcrumbs = { breadcrumbs }
-            currency = { currency }
-            role = { role }
+            breadcrumbs={breadcrumbs}
+            currency={currency}
+            role={role}
         />
     )
 }

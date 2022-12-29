@@ -19,6 +19,9 @@
     max-width: 320px; //?! сделать 320 чтобы одна картачка на экран ???????
     display: grid;
     justify-items: center;
+    &:hover {
+      transform: none;
+    }
   }
 
   //.product-card__wrap{}
@@ -280,6 +283,7 @@
     position: relative;
     margin-top: 14px;
     margin-bottom: 0px;
+    pointer-events: none;
   }
 
   //.product-card__favorite{}
@@ -288,20 +292,10 @@
     position: absolute;
     z-index: 10000;
     top: -10px;
-    // right: 0;
-    right: 20px;
-    --icon-width: 20px;
-    --icon-height: 18px;
-    --gx-input-height-medium: auto;
-    --gx-input-border-width: 0;
-    --gx-spacing-large: 0;
+    right: 20px;    
     line-height: 1;
     transform: translateX(-5px);
-
-    &::part(base) {
-      box-shadow: none;
-      color: var(--gx-color-red);
-    }
+    pointer-events: all;
   }
 
   //.product-card__brand{}
@@ -315,6 +309,7 @@
     text-transform: uppercase;
     color: var(--gx-color-primary);
     opacity: 0.25;
+    pointer-events: none;
   }
 
   //.product-card__name{}

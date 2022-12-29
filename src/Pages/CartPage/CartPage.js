@@ -2,7 +2,7 @@ import React from 'react';
 import CartPageLayoutContainer from './CartPageLayout/CartPageLayoutContainer';
 
 const CartPage = ({...props}) => {
-    console.log('cart page = ',props.context)
+
     const { 
         numberCurrentOrderForAddProduct = null,
         listCurrentOrder,

@@ -169,6 +169,7 @@
   "step": "Step",
   "registration": "register",
   "goodRegistration": "You have successfully registered, enjoy shopping in the fashion world!",
+  "goodRegistration_opt_drop": "You have successfully registered. After confirming the e-mail, your application will be sent to the Administrator for consideration. In case of a positive decision, you will receive a notification by mail, and you will be able to start cooperation on wholesale terms.",
   "notRegistration": "To take advantage of all the possibilities of cooperation, you need to register",
   "whereDidYouHearAboutService": "Where did you hear about the service",
   "receiveNewsletters": "Receive newsletters",

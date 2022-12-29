@@ -52,8 +52,6 @@ const OrderingPageLayout = ({
     labelLink,
 }) => {
 
-
-    console.log('numberCurrentOrderForAddProduct', typeof numberCurrentOrderForAddProduct, ' : ', numberCurrentOrderForAddProduct )
     return (
         <React.Fragment>
             <BlockGrid.Container>
@@ -72,7 +70,7 @@ const OrderingPageLayout = ({
                 {
                     shriveledCartContent.selected ?
                         <Formik
-                            initialValues={initialValuesOrder}
+                            initialValues={{...initialValuesOrder, numberCurrentOrderForAddProduct: numberCurrentOrderForAddProduct}}
                             onSubmit={handlerSubmitOrder}
                         >
                             {
@@ -148,7 +146,7 @@ const OrderingPageLayout = ({
                                                         {/* //?! товара (-ов)
                                 */}
                                                         <BlockText type={'text-sub'}>
-                                                            { shriveledCartContent.selected } <Text text={'product.s'} />
+                                                            {shriveledCartContent.selected} <Text text={'product.s'} />
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -161,7 +159,7 @@ const OrderingPageLayout = ({
                                                         {/* //?! 0
                                 */}
                                                         <BlockText type={'text-default-currency'}>
-                                                            { cart_content?.total_price ?? 0 } { currency }
+                                                            {cart_content?.total_price ?? 0} {currency}
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -175,7 +173,7 @@ const OrderingPageLayout = ({
                                                                 </BlockText>
 
                                                                 <BlockText type={'sale-text--red'}>
-                                                                    { cart_content?.discount ?? 0 } { currency }
+                                                                    {cart_content?.discount ?? 0} {currency}
                                                                 </BlockText>
 
                                                                 <BlockText type={'text-default'}>
@@ -183,10 +181,10 @@ const OrderingPageLayout = ({
                                                                 </BlockText>
 
                                                                 <BlockText type={'sale-text--red'}>
-                                                                    { priceDilivery?.price ?? 0 } { currency }
+                                                                    {priceDilivery?.price ?? 0} {currency}
                                                                 </BlockText>
                                                             </BlockRightSide>
-                                                            
+
                                                         ) : ROLE.WHOLESALE === role ? (
                                                             <div>
                                                                 Доставка: <span>По тарифам КАРГО</span>
@@ -206,9 +204,9 @@ const OrderingPageLayout = ({
                                                             <Text text={'total.payable'} />:
                                                         </BlockText>
                                                         <BlockText type={'text-title'}>
-                                                            { priceDilivery?.price && ROLE.RETAIL === role ?
-                                                                ( cart_content?.total_price + priceDilivery?.price ).toFixed(2)
-                                                                : cart_content?.total_price ?? 0 } { currency }
+                                                            {priceDilivery?.price && ROLE.RETAIL === role ?
+                                                                (cart_content?.total_price + priceDilivery?.price).toFixed(2)
+                                                                : cart_content?.total_price ?? 0} {currency}
                                                         </BlockText>
                                                     </BlockRightSide>
 
@@ -216,12 +214,12 @@ const OrderingPageLayout = ({
                             */}
                                                     <BlockRightSide mb={20}>
                                                         <OrderCarButton
-                                                            numberCurrentOrderForAddProduct = { numberCurrentOrderForAddProduct }
-                                                            handlerSubmitOrder = { handlerSubmitOrder }
-                                                            setStyleCar = { setStyleCar }
-                                                            styleCar = { styleCar }
-                                                            enabled = { !!numberCurrentOrderForAddProduct? false : (!values.agree_personal_data || !values.payment_methods || !values.variant || !values.selectedAdress) }
-                                                            values = { values }
+                                                            numberCurrentOrderForAddProduct={numberCurrentOrderForAddProduct}
+                                                            handlerSubmitOrder={handlerSubmitOrder}
+                                                            setStyleCar={setStyleCar}
+                                                            styleCar={styleCar}
+                                                            enabled={!!numberCurrentOrderForAddProduct ? false : (!values.agree_personal_data || !values.payment_methods || !values.variant || !values.selectedAdress)}
+                                                            values={values}
                                                         />
                                                     </BlockRightSide>
                                                     {/* //?! 

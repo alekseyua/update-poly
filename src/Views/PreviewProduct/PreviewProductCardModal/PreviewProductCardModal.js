@@ -95,6 +95,7 @@ const PreviewProductCardModal = ({
                             */}
                             
                             <AsyncSectionRaitingAndSharingAndMyWish
+                                 productId = { productId }
                                  is_liked = { is_liked }
                                  title = { title }
                                  value = { 0 }

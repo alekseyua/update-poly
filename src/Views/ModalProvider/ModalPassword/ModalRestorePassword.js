@@ -16,7 +16,7 @@ const ModalRestorePassword = ({ initialValueRestorePassword, resetUserPassword }
     requiredField: Text({ text: 'requiredField' }),
     email: Text({ text: 'notValidEmail' }),
   };
-  
+
   return (
     <>
       <ModalProvider.ModalRestorePasswordTitle title={'Сброс пароля'} mb={'30px'} />
@@ -25,10 +25,10 @@ const ModalRestorePassword = ({ initialValueRestorePassword, resetUserPassword }
         initialValues={initialValueRestorePassword}
         validationSchema={confirmEmail(errorsMessenge)}
       >
-        {({ handleSubmit, handleChange, handleBlur, values, touched, isSubmitting, errors }) => {
-          // console.log('values reset password', values)
+        {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => {
+
           return (
-            <Form 
+            <Form
               className="form-horizontal"
               onSubmit={handleSubmit}
             >

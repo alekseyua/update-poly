@@ -24,9 +24,15 @@
     &__textarea{
         padding: 11px;        
         position: relative;
+        font-size: $fontSize + 2px;
+        width: 100%;
+        letter-spacing: 1.1px;
+        line-height: 140%;
         &::placeholder{
-            font-size: 14px;
             color: $dg2;
+            font-size: 16px;
+            letter-spacing: 1.1px;
+            line-height: 140%;
         }
     }
     //.textarea__help-text{}

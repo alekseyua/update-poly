@@ -211,6 +211,12 @@ $fontSize: 14px;//16px
   }
 }
 
+@mixin laptop-min-md {
+  @media screen and (min-width: 1400px) {
+    @content;
+  }
+}
+
 @mixin laptop-sm {
   @media screen and (max-width: 1366px) {
     @content; 

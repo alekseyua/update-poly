@@ -28,6 +28,9 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
             >
               <ModalProvider.ModalRestorePasswordDesc mb={'5px'}>
                 {/* добавить надписи для разных ролей */}
+                <div className={'modal-message'}>                  
+                  Чтобы воспользоваться всеми возможностями сотрудничества, подтвердите почту и дождитесь проверки администратора
+                </div>
                 Мы отправили код подтверждения на Ваш e-mail
               </ModalProvider.ModalRestorePasswordDesc>
               <Input

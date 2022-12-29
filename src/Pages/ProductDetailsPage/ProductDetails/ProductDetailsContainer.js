@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 import { defaultProductCard } from '../../../images';
 import ProductDetails from './ProductDetails';
@@ -8,7 +9,6 @@ const ProductDetailsContainer = ({
     ...props
 }) => {
     const { dispatch } = useStoreon();
-    console.log('props product details = ', context)
     const {
         role_configuration,
         recommended_price,
@@ -47,7 +47,9 @@ const ProductDetailsContainer = ({
 
     } = context.productDetails;
 
-    const { role, status } = context.profile;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { role, status} = context.profile;
     const { dataReviewProductCount = null, product_reviews, pageReviewProduct = null } = reviews;
     const countRaiting = review.all_count;
     const allCountPercent = review.all_count_percent;
@@ -72,24 +74,39 @@ const ProductDetailsContainer = ({
     }
 
     const addLikeProductCard = (id) => {
-
-        console.log('addWishList = ', id,
-            { a: location.pathname }
-        )
-        dispatch('addWishList', { id: id, pathname: location.pathname })
+        console.log({id})
+        const params = { 
+            id: id, 
+            whereLike: 'detail-product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('addWishList', params)
     }
 
     const removeLikeProductCard = (id) => {
-        console.log('removeWishList = ', id)
-        dispatch('removeWishList', { id: id, pathname: location.pathname })
+        const params = { 
+            id: id, 
+            whereLike: 'detail-product',
+            pathname: location.pathname,        
+            redirectTo: (path) => {
+                const timerTimeout = setTimeout(() => {
+                navigate(path);
+                return () => clearTimeout(timerTimeout);
+                }, 500)
+            }
+        }
+        dispatch('removeWishList', params)
     }
 
     const openTableSize = () => {
         dispatch('openModalTableSize')
     }
-
-
-    console.log({ delivery_condition })
 
     return (
         <ProductDetails

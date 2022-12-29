@@ -232,9 +232,6 @@ export const order = store => {
                 order_id: obj.id,
             }
             const res = await api.orderApi.cancelOrder(params);
-
-            console.log('results cancelOrder = ', {res} )
-
             const newContext = {
                 ...context, 
                 "init_state": {
@@ -393,7 +390,6 @@ export const order = store => {
                 qty: +obj.qty,
             }
             const res = await apiCart.updateCartData([params]);
-            console.log({ res })
             const newContext = {
                 ...context,
                 "init_state": {

@@ -328,6 +328,7 @@ const CartPageLayout = ({
                                     handleAgreeWitheRegulations(checked);
                                 }}
                                 label={labelLink()}
+                                classNameLabel = {style['cart-page__primacy']}
                             >
                             </CheckBox>
                     </WrapperRightSide>

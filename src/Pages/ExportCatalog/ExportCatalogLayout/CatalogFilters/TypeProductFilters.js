@@ -52,7 +52,6 @@ const TypeProductFilters = ({
     };
 
     if (!Array.isArray(data)) {
-      console.log('IF NO ARRAY DATA CATEGORORY')
       data = data.results;
     }
     data.forEach((category) => {

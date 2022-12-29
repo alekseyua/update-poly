@@ -15,12 +15,12 @@ const HeaderButtonsBottomLK = ({
     currency,
     ...props
 }) => {
-    // console.log({props})
+
     const inCartProducts = profile?.cart;
     const inWishlist = profile?.wishlist;
     const inNotification = profile?.notifications;
     const [searchInputShow, setSearchInputShow] = useState(false);
-    const [ stateOpen, setStateOpen ] = useState(false);
+    const [stateOpen, setStateOpen] = useState(false);
     const { textSearch, dispatch } = useStoreon('textSearch');
     const { search } = useStoreon('search');
     const searchBgRef = useRef(null);
@@ -28,12 +28,11 @@ const HeaderButtonsBottomLK = ({
     const navigate = useNavigate();
 
     const handleClickSearchRoot = () => {
-        console.log('click search', searchInputShow)
-        setSearchInputShow(c=>!c);
+        setSearchInputShow(c => !c);
     }
 
-    const handlerProfileLk = () => setStateOpen(c=>!c);
-    
+    const handlerProfileLk = () => setStateOpen(c => !c);
+
     const handlerChangeValue = (e) => {
         let value = e.target.value;
         dispatch('setInputSearchValue', value)
@@ -41,33 +40,32 @@ const HeaderButtonsBottomLK = ({
 
     const logOut = () => {
         // ?!выход
-        // console.log('logout account HeaderButtonsBottomLK')
         dispatch('setModalState', {
             show: true,
         })
         const params = {
             redirectTo: (path) => {
-                const timerTimeout = setTimeout(()=>{
+                const timerTimeout = setTimeout(() => {
                     navigate(path);
                     return () => clearTimeout(timerTimeout);
-                },3000)
+                }, 3000)
             }
         }
         dispatch('logoutOut', params)
     }
 
-    const getKeyForAccess = (data) =>{
+    const getKeyForAccess = (data) => {
 
         //?!отправляем запрос на почту
         const paramsSendEmail = {
-            type : 'resend',
+            type: 'resend',
             email: data.email,
             username: data.username,
             redirectTo: (path) => {
-                const timerTimeout = setTimeout(()=>{
+                const timerTimeout = setTimeout(() => {
                     navigate(path);
                     return () => clearTimeout(timerTimeout);
-                },2000)
+                }, 2000)
             }
         }
         dispatch('getNewSubmitCode', paramsSendEmail)
@@ -76,28 +74,29 @@ const HeaderButtonsBottomLK = ({
         //     username: data.username, 
         //     type : 'resend',
         //     email: data.email,
-           
+
         // }
         // dispatch('inputKeyFromEmail', params)
     }
 
     // !?закрываем строку поиска при клике вне поля с поиском
-    useEffect(()=>{
-        const clickOutsideArea = (e) => {(
-            setSearchInputShow(true),
-            (      e.target.getAttribute('name') === 'search__close' 
-                || e.target.getAttribute('name') === 'product-price4'
-                || e.target.getAttribute('name') === 'product-price3'
-                || e.target.getAttribute('name') === 'product-price2'
-                || e.target.getAttribute('name') === 'product-price1'
-                || e.target.getAttribute('name') === 'product-price'
-                || e.target.getAttribute('name') === 'show-all'  )?
-                     (
+    useEffect(() => {
+        const clickOutsideArea = (e) => {
+            (
+                setSearchInputShow(true),
+                (e.target.getAttribute('name') === 'search__close'
+                    || e.target.getAttribute('name') === 'product-price4'
+                    || e.target.getAttribute('name') === 'product-price3'
+                    || e.target.getAttribute('name') === 'product-price2'
+                    || e.target.getAttribute('name') === 'product-price1'
+                    || e.target.getAttribute('name') === 'product-price'
+                    || e.target.getAttribute('name') === 'show-all') ?
+                    (
                         setSearchInputShow(false),
                         dispatch('changeTextSearch', '')
-                     ) 
-                     : null,
-            searchBgRef.current.contains(e.target) || e.target.getAttribute('name') === 'input-search' 
+                    )
+                    : null,
+                searchBgRef.current.contains(e.target) || e.target.getAttribute('name') === 'input-search'
             ) || (
                 setSearchInputShow(false),
                 dispatch('changeTextSearch', '')
@@ -105,23 +104,22 @@ const HeaderButtonsBottomLK = ({
         }
         document.addEventListener('click', clickOutsideArea);
         return removeEventListener('click', clickOutsideArea);
-    },[])
+    }, [])
 
     // !?закрываем меню при клике вне меню
-    useEffect(()=>{
+    useEffect(() => {
         const clickOutsideArea = (e) => (
             openMenuRef.current.contains(e.target) //|| e.target.getAttribute('name') === 'lk-menu'
         ) || (
-            setStateOpen(false)
-        );
+                setStateOpen(false)
+            );
         document.addEventListener('click', clickOutsideArea);
         return removeEventListener('click', clickOutsideArea);
-    },[])
+    }, [])
 
     const openModalFeedback = () => {
-        console.log('click check access')
-     dispatch('feedback')
-   }
+        dispatch('feedback')
+    }
 
     return (
         <div
@@ -144,14 +142,14 @@ const HeaderButtonsBottomLK = ({
                         inputValue={textSearch}
                         handleClickSearchRoot={handleClickSearchRoot}
                     />
-                    { 
-                        !!textSearch?
+                    {
+                        !!textSearch ?
                             <SearchPageViews.SearchResultsDropdown
                                 search={searchContentSerializer(search.results)}
-                                currency = {currency}
+                                currency={currency}
                                 urlShowAll={`/search?q=${textSearch}`} // нужно правильно сложить строку
                                 urlNothingSearch={''}
-                                handleClickSearchRoot = { handleClickSearchRoot }
+                                handleClickSearchRoot={handleClickSearchRoot}
                             />
                             : null
                     }
@@ -171,19 +169,19 @@ const HeaderButtonsBottomLK = ({
                     to={'/catalog'}
                     className={style['header-buttons__links']}
                 >
-                <span
-                    className={'_icon-clothes-hanger-svgrepo-com'}
-                ></span>
+                    <span
+                        className={'_icon-clothes-hanger-svgrepo-com'}
+                    ></span>
                 </Link>
             </div>
-            
+
             {/* //!own lk office */}
             <div
                 className={style['header-buttons__lk-profile-btn']}
                 onClick={handlerProfileLk}
                 ref={openMenuRef}
             >
-                
+
                 <DropdownMenuAccount
                     site_configuration={props.site_configuration}
                     cabinet_menu={props.cabinet_menu}
@@ -192,17 +190,17 @@ const HeaderButtonsBottomLK = ({
 
                     logOut={logOut}
                     getKeyForAccess={getKeyForAccess}
-                    openModalFeedback = { openModalFeedback } 
+                    openModalFeedback={openModalFeedback}
                 />
-                
-                
-                
+
+
+
                 <span
                     className={'_icon-user'}
                     dataintro={"step7"}
                     name={'lk-menu'}
                 >
-                 {
+                    {
                         !!inNotification ?
                             <span
                                 className={style['header-buttons__count-in']}
@@ -210,20 +208,20 @@ const HeaderButtonsBottomLK = ({
                                 {inNotification}
                             </span>
                             : null
-                    }   
+                    }
                 </span>
             </div>
             <div
                 className={style['header-buttons__lk-profile-btn']}
             >
-                 <Link
+                <Link
                     className={style['header-buttons__links']}
                     to={'/wishlist'}
-                >                    
+                >
                     <span
                         className={'_icon-favorite'}
-                        >
-                            
+                    >
+
                         {
                             !!inWishlist ?
                                 <span
@@ -239,14 +237,14 @@ const HeaderButtonsBottomLK = ({
             <div
                 className={style['header-buttons__lk-profile-btn']}
             >
-                 <Link
-                    className={style['header-buttons__links']}  
+                <Link
+                    className={style['header-buttons__links']}
                     to={'/cart'}
-                >   
+                >
                     <span
                         className={'_icon-cart'}
-                        id={'cart-id'}     
-                    >                        
+                        id={'cart-id'}
+                    >
                         {
                             !!inCartProducts ?
                                 <span

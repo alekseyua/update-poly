@@ -26,15 +26,9 @@ const BaseInfoOrder = ({
   currency,
 }) => {
 
-  console.log(
-    {dateFilterData}
-  )
-  // gte - с
-  // lte - по
-  
- return (
+  return (
     <div className={style['cabinet-content']}>
-      <div className={style['cabinet-heading']}>  
+      <div className={style['cabinet-heading']}>
         <Text text={'my.orders'} />
         <div
           className={style['cabinet-heading__debt']}
@@ -42,70 +36,70 @@ const BaseInfoOrder = ({
 
         </div>
       </div>
-          <div className={style['cabinet-topfilter']}>
-            <div className={style['cabinet-topfilter__left']}>
-              <Select
-                className = { 'select-order-list' }
-                placeholder = { options[0].title }
-                options = { options }
-                onClick = { changeStatusFilter }
-              />
-            </div>
+      <div className={style['cabinet-topfilter']}>
+        <div className={style['cabinet-topfilter__left']}>
+          <Select
+            className={'select-order-list'}
+            placeholder={options[0].title}
+            options={options}
+            onClick={changeStatusFilter}
+          />
+        </div>
 
-          {
-            dateFilterData ?
-              <div className={style['wrapper_filter-group']}>
-                <DatePicker
-                  clearIcon={null}
-                  // name = { 'created_at__gte'}
-                  onChange={selectCreateTo}
-                  value={ dateFilterData.created_at__gte ?? new Date() }
-                  format={'dd.MM.yyyy'}
-                  className={classNames({
-                    datepicker: true,
-                    [style['wrapper_filter-group__datepicker']]: true,
-                  })}
-                />
-                <span className={style['wrapper_filter-group__datepicker-hyphen']}>-</span>
-                <DatePicker
-                  clearIcon={null}
-                  // name = { 'created_at__lte'}
-                  className={classNames({
-                    datepicker: true,
-                    [style['wrapper_filter-group__datepicker']]: true,
-                  })}
-                  onChange={selectCreateFrom}
-                  value={ dateFilterData.created_at__lte } 
-                  format={'dd.MM.yyyy'}
-                />
-              </div>
-              : null
-          }
-          </div>
-           {
-              dateFilterData ?
-            <div className={style['cabinet-topfilter__left']}>
-              <Input
-                className={'cabinet-lk__search'}
-                value = { searchOrderForFio ? searchOrderForFio : '' }
-                name = { 'search-order' }
-                onChange = { changeValueSearch }
-                placeholder = { 'Поиск по ФИО' }
-                helpText = {
-                  <Icon src = {searchIcon} className = { style['cabinet-topfilter__search-icon'] } width = { 20 } height = { 20 } />
-                }
+        {
+          dateFilterData ?
+            <div className={style['wrapper_filter-group']}>
+              <DatePicker
+                clearIcon={null}
+                // name = { 'created_at__gte'}
+                onChange={selectCreateTo}
+                value={dateFilterData.created_at__gte ?? new Date()}
+                format={'dd.MM.yyyy'}
+                className={classNames({
+                  datepicker: true,
+                  [style['wrapper_filter-group__datepicker']]: true,
+                })}
+              />
+              <span className={style['wrapper_filter-group__datepicker-hyphen']}>-</span>
+              <DatePicker
+                clearIcon={null}
+                // name = { 'created_at__lte'}
+                className={classNames({
+                  datepicker: true,
+                  [style['wrapper_filter-group__datepicker']]: true,
+                })}
+                onChange={selectCreateFrom}
+                value={dateFilterData.created_at__lte}
+                format={'dd.MM.yyyy'}
               />
             </div>
             : null
-          }
-          <PersonalPageViews.InfoPayWrapper>
-            <PersonalPageViews.InfoPayGreyText>
-              Сумма оплаченных заказов {total_orders_price_paid} {' '} {currency}
-            </PersonalPageViews.InfoPayGreyText>
-            <PersonalPageViews.InfoPayGreyText>
-              Сумма неоплаченных товаров {total_orders_price_unpaid} {' '} {currency}
-            </PersonalPageViews.InfoPayGreyText>
-          </PersonalPageViews.InfoPayWrapper>
+        }
+      </div>
+      {
+        dateFilterData ?
+          <div className={style['cabinet-topfilter__left']}>
+            <Input
+              className={'cabinet-lk__search'}
+              value={searchOrderForFio ? searchOrderForFio : ''}
+              name={'search-order'}
+              onChange={changeValueSearch}
+              placeholder={'Поиск по ФИО'}
+              helpText={
+                <Icon src={searchIcon} className={style['cabinet-topfilter__search-icon']} width={20} height={20} />
+              }
+            />
+          </div>
+          : null
+      }
+      <PersonalPageViews.InfoPayWrapper>
+        <PersonalPageViews.InfoPayGreyText>
+          Сумма оплаченных заказов {total_orders_price_paid} {' '} {currency}
+        </PersonalPageViews.InfoPayGreyText>
+        <PersonalPageViews.InfoPayGreyText>
+          Сумма неоплаченных товаров {total_orders_price_unpaid} {' '} {currency}
+        </PersonalPageViews.InfoPayGreyText>
+      </PersonalPageViews.InfoPayWrapper>
     </div>
   );
 };

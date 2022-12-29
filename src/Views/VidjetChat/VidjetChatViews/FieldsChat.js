@@ -19,6 +19,7 @@ const FieldsChat = ({
   options = [],
   submitQuestrion,
   successResponse,
+  toggleOpenChats,
 }) => {
 
   return (
@@ -47,7 +48,8 @@ const FieldsChat = ({
               email: '',
               category: null,
               question: '',
-              spinnerBtn: false
+              spinnerBtn: false,
+              toggleOpenChats: toggleOpenChats,
             }}
             onSubmit={submitQuestrion}
           >

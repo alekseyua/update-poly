@@ -5,7 +5,7 @@ const OrderDetailsPersonalPage = ({
     context,
 
 }) => {
-    // console.log('OrderDetailsPersonalPage = ', {context})
+
     const {
         cabinet_site_menu,
         cabinet_menu,
@@ -49,7 +49,7 @@ const OrderDetailsPersonalPage = ({
 
     return (
         <OrderDetailsPersonalPageLayoutContainer
-            amountNotifications = { amountNotifications }
+            amountNotifications={amountNotifications}
             cabinet_site_menu={cabinet_site_menu}
             cabinet_menu={cabinet_menu}
             breadcrumbs={breadcrumbs}

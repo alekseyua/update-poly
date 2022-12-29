@@ -4,10 +4,9 @@ import InformationContactsContainer from './InformationContactsLayout/Informatio
 
 
 const InformationContacts = (props) => {
-  console.log('informationContacts = ', props)
+
   const { breadcrumbs, page_info } = props.context;
   const { components } = page_info;
-
 
   //todo: можно пропсом кастрировать футер
   return (

@@ -12,7 +12,7 @@
     // width: 1400px;
     // @include adaptive-value('width',400,150,px,2)
     @include adaptive-value ('width',1400,320,px,2);
-    height: 720px;
+    // height: 720px;
     margin: 0 auto;
     @media (max-width: 787px) {
       // height: 100%;
@@ -67,6 +67,7 @@
     position: relative;
     height: 110px;
     margin: 0 auto;
+    margin-bottom: 20px;
     @include adaptive-value('margin-top',67,5,px,2);
     @include adaptive-value('width',750,320,px,2);
 

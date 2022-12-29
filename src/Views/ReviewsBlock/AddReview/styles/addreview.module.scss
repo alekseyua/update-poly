@@ -4,7 +4,7 @@
 .productreviews {
     //.productreviews__tooltip-send{}
     &__tooltip-send{
-        padding: 0;
+        padding: 8px;
         left: 0 !important;
         bottom: 50px;
         min-height: 50px;
@@ -34,6 +34,7 @@
     //.productreviews__form-submit-wrappar{}
     &__form-submit-wrappar {
         @include flex('sc');
+        margin-top: 25px;
         &>:first-child{
             align-self: flex-start;
             margin-top: 10px;
@@ -41,6 +42,13 @@
             &>label{
                 font-size: 12px;
                 margin-right: 25px;
+                &>:first-child{
+                    margin-left: 10px;
+                }
+                &>:last-child{
+                    margin-left: 25px;
+                    border: none;
+                }
             }
         }
 
@@ -110,6 +118,16 @@
     //.productreviews__form-raiting{}
     &__form-raiting {
         padding: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        align-content: center;
+        &>:first-child{
+            margin-right: 5px;
+            font-size: 15px;
+            letter-spacing: 1.1px;
+            line-height: 160%;
+        }
         @include tablet-md {
             margin-bottom: 15px;
         }
@@ -132,7 +150,7 @@
     //.productreviews__form-upload-desc{}
     &__form-upload-desc {
         padding: 0;
-        font-size: 12px;
+        font-size: 14px;
         color: $dg2;
         align-self: center;
     }
@@ -159,6 +177,7 @@
     &__form-upload-image {
         padding: 0;
         width: 20px;
+        
     }
 
     //.productreviews__form-addprod-image{}
@@ -174,7 +193,7 @@
     //.productreviews__form-upload-button{}
     &__form-upload-button {
         color: var(--gx-color-primary);
-        font-size: 12px;
+        font-size: 15px;
         padding: 0px 5px;
         letter-spacing: 0.4px;
         border: none;
@@ -206,7 +225,6 @@
         line-height: var(--gx-line-height-normal);
         letter-spacing: var(--gx-input-letter-spacing);
         background-color: var(--gx-input-background-color);
-        // border: solid var(--gx-input-border-width) var(--gx-input-border-color);
         vertical-align: middle;
         transition: var(--gx-transition-fast) color, var(--gx-transition-fast) border, var(--gx-transition-fast) box-shadow;
         cursor: text;
@@ -215,12 +233,14 @@
         border-radius: var(--gx-input-border-radius-medium);
         font-size: var(--gx-input-font-size-medium);
         box-shadow: inset 1px 1px 2px 1px $dg, inset -1px -1px 2px 1px $dg;
-        padding: 5px;
+        padding: 15px;
 
         &::placeholder {
-            color: var(--gx-input-placeholder-color);
             user-select: none;
-            padding: 5px;
+            color: $dg2;
+            font-size: 16px;
+            letter-spacing: 1.1px;
+            line-height: 140%;
         }
     }
 

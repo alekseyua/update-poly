@@ -70,7 +70,6 @@ export const websocket = store => {
         gettingData()
       }
       ws.onclose = (close) => {
-        console.log({ close })
         setTimeout(startWs(), 3000);
         if (close.wasClean) {
           console.log(`[close] Соединение закрыто чисто, код=${close.code} причина=${close.reason}`);
@@ -205,7 +204,7 @@ export const websocket = store => {
         let message = JSON.parse(e.data);
 
         if (message?.notifications?.length) {
-          message = serializeNotifications({results: message.notifications})
+          message = serializeNotifications({ results: message.notifications })
           newContext = {
             ...context,
             "init_state": {
@@ -220,21 +219,12 @@ export const websocket = store => {
           }
           return dispatch('context', newContext);
         } else {
-          console.log(
-            {context},
-            {newContext}
-            )
-          message = serializeNotifications({results: [message.notification]})
+
+          message = serializeNotifications({ results: [message.notification] })
           newContext = {
             ...newContext,
             "init_state": {
               ...newContext.init_state,
-              // notifications: {
-              //   ...newContext.init_state.notifications,
-              //   count: newContext.init_state.notifications.count + 1,
-              //   results: [ message.results[0], ...newContext.init_state.notifications.results ],
-              //   selectItemsNotice: [],
-              // },
               profile: {
                 ...newContext.init_state.profile,
                 notifications: newContext.init_state.profile.notifications + 1,
@@ -242,8 +232,8 @@ export const websocket = store => {
             },
           }
           await dispatch('context', newContext);
-          return  dispatch('getNotice');
-        };        
+          return dispatch('getNotice');
+        };
       };
     };
   })

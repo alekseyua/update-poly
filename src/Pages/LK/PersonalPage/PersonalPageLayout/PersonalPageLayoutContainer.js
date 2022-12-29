@@ -45,7 +45,6 @@ const PersonalPageLayoutContainer = ({
     }
   
     const changePassword = (e) => {
-        console.log({e})
         dispatch('openModalRestorePassword')
     }
 

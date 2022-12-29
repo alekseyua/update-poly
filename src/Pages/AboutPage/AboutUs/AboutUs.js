@@ -78,7 +78,7 @@ const AboutUs = (props) => {
                   style={{backgroundImage: `url(${pic4})` }}
                 ></div>
                 <div className={style["experiens-about__title"]}>более 10000</div>
-                <div className={style["experiens-about__description"]}>товаров в наличии</div>
+                <div className={style["experiens-about__description"]}>товаров в каталоге</div>
               </div>
             </div>
           </div>

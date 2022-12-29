@@ -20,14 +20,13 @@ const Pagination = ({
     count = 0,
     ...props
 }) => {
-    // console.log('props =', props)
+
     const [activeStyle, setActiveStyle] = useState('pagination__item-active');
     const [dinamicLocation, setDinamicLocation] = useState('center');
     const [elItems, setElItems] = useState(currentPage)
     const { } = props;
     let pages = Math.ceil((!!searchCount ? searchCount : allCount) / count);
     const listNumber = new Array(pages).fill('').map((_, i) => i + 1);
-
 
     useEffect(() => {
         setElItems(currentPage);
@@ -44,13 +43,11 @@ const Pagination = ({
     }, [currentPage])
 
     useEffect(() => {
-        // console.log('searchCount', searchCount)
         if (searchCount > 0)
             pages = Math.ceil(searchCount / count);
     }, [searchCount])
 
     const handlerClickItem = (e) => {
-        console.log({ e: e.target.id })
         const dataId = +e.target.id;
         setElItems(dataId);
         setActiveStyle('pagination__item-active');
@@ -71,12 +68,11 @@ const Pagination = ({
 
             >
                 {
-
                     listNumber.map(el => {
 
                         return (
                             pages > 1 ?
-                                 <div
+                                <div
                                     key={el}
                                     id={el}
                                     className={
@@ -85,7 +81,7 @@ const Pagination = ({
                                             : style['pagination__item']
                                     }
                                     onClick={handlerClickItem}
-                                    style = {{
+                                    style={{
                                         display: elItems - 1 === el || elItems - 2 === el || elItems === el || elItems + 1 === el || elItems + 2 === el ? `flex` : `none`
                                     }}
                                 >

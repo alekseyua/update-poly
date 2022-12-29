@@ -30,7 +30,7 @@
   }
   //.grid__row{}
   &__row{
-    padding: 15px 0;
+    padding: 15px 0 0;
   }
 
 }
@@ -44,13 +44,14 @@
     max-width: $maxWidthContainer + px;
     padding: 0 10px;
     position: relative;
+    
     @include mobile {
       padding: 0;
     }
   }
   //.block__feedback-content{}
   &__feedback-content{
-    padding: 0;
+    padding: 0; 
   }
   //.block__payment-content{}
   &__payment-content{

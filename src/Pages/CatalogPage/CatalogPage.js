@@ -2,7 +2,7 @@ import React from 'react';
 import CatalogPageLayoutContainer from './CatalogPageLayout/CatalogPageLayoutContainer';
 
 const CatalogPage = (props) => {
-  // console.log('Catalog context = ', props.context)
+
   const { 
     multy_choise_filters,
     youAlredyWatch,

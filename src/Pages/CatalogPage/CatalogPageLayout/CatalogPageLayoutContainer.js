@@ -25,12 +25,12 @@ const CatalogPageLayoutContainer = ({
   const [showFilters, setShowFilters] = useState(false);
   const [showMoreSpinner, setShowMoreSpinner] = useState(false);
   const [offsetTopBtnSubmit, setOffsetTopBtnSubmit] = useState(0)
+  const [offsetLeftBtnSubmit, setOffsetLeftBtnSubmit] = useState(0)
   const [valueProducts, setValueProducts] = useState(initialValuesFilters)
   const [isShowBtnSubmit, setIsShowBtnSubmit] = useState(false);
   const [filterParams, setFilterParams] = useState(initValueCheckBoxFilters)
 
   const loadData = (data) => {
-    console.log('click change')
     setShowFilters(false)
     dispatch('changeParamsFilters', {
       valueCheckBoxFilters: { ...filterParams, ...data }
@@ -45,6 +45,7 @@ const CatalogPageLayoutContainer = ({
     const eventDocument = (e) => {
       if (e.target.getAttribute('name') === 'apply' || e.target.getAttribute('datanoclick') === 'noClick') setIsShowBtnSubmit(false);
       setOffsetTopBtnSubmit(e.y)
+      setOffsetLeftBtnSubmit(document.querySelector('main').offsetLeft)
     };
     document.addEventListener('click', eventDocument);
     return () => document.removeEventListener('click', eventDocument);
@@ -195,6 +196,7 @@ const CatalogPageLayoutContainer = ({
       showFilters={showFilters}
       isShowBtnSubmit={isShowBtnSubmit}
       offsetTopBtnSubmit={offsetTopBtnSubmit}
+      offsetLeftBtnSubmit = { offsetLeftBtnSubmit }
       setOffsetTopBtnSubmit={setOffsetTopBtnSubmit}
       youAlredyWatch = { youAlredyWatch }
 

@@ -4,11 +4,11 @@ import { getActiveColor, getActiveSize } from '../../helpers/helpers';
 export const ProductDetails = store => {
     const apiContent = api.contentApi;
 
-    store.on('getProductDetails', async ( { context }, obj, { dispatch }) => {
-        try{
+    store.on('getProductDetails', async ({ context }, obj, { dispatch }) => {
+        try {
             const { productId } = obj;
             const params = {
-                id:productId,
+                id: productId,
                 color: getActiveColor(obj.color),
                 size: getActiveSize(obj.size),
                 collection: null,
@@ -17,12 +17,12 @@ export const ProductDetails = store => {
             const res = await apiContent.getProduct(productId, params)
 
             let newMedia = [];
-            res.product_sku.filter( el => el.color === params.color? newMedia.push({
+            res.product_sku.filter(el => el.color === params.color ? newMedia.push({
                 image: el.image,
                 image_thumb: el.image_thumb,
                 type: 'image',
-            }) : null );
-                    console.log({newMedia})
+            }) : null);
+
             const updateContext = {
                 ...context,
                 init_state: {
@@ -47,26 +47,21 @@ export const ProductDetails = store => {
                         brand: res.brand,
                         title: res.title,
                         id: res.id,
-                    
+
                     }
                 }
             }
-            console.log({ updateContext_store: updateContext }, {res}, {newMedia}, {context})
-            
-            const timerGetReviews = setTimeout(()=>{
+
+            const timerGetReviews = setTimeout(() => {
                 dispatch('getReviewsProducts', params)
                 return () => clearTimeout(timerGetReviews);
-            },500)
-            
-            // const timerGetAlreadyWatch = setTimeout(()=>{
-            //     dispatch('getYouAlreadyWatch');
-            //     return () => clearTimeout(timerGetAlreadyWatch);
-            // },4000)
-            
+            }, 500)
+
+
             dispatch('context', updateContext)
-        }catch(err){
+        } catch (err) {
             console.log('Sorry something went wrong :) ', err)
-            if (err.statusText === 'Not Found'){
+            if (err.statusText === 'Not Found') {
                 dispatch('setModalState', {
                     show: true,
                     content: (
@@ -82,49 +77,49 @@ export const ProductDetails = store => {
 
 
 
-const getMediaForColor = (media, product_sku, colorsn) => {
-    // console.log('color func', colorsn)
-    let newSku = [];
-    media = media.map(item => {
-        if (item !== null) {
-            if (item.type === 'image') {
-                return item = {
-                    image: item.image,
-                    image_thumb: item.image_thumb,
-                    type: item?.type ? item.type : 'image',
-                    color: 0,
-                }
-            } else {
-                return item = {
-                    preview: item.preview,
-                    type: item.type,
-                    video: item.video
-                }
-            }
-        }
-    });
-    !!product_sku ? (
-        newSku = product_sku.map(item => ({
-            image: item.image,
-            image_thumb: item.image_thumb,
-            type: item?.type ? item.type : 'image',
-            color: item.color,
-        })),
-        newSku = newSku.filter(item => item !== null && (item?.image || item?.video) !== '-' && item.color === colorsn?.id && (item?.image || item?.video) !== undefined)
-    )
-        : null;
+// const getMediaForColor = (media, product_sku, colorsn) => {
 
-    let allNewSku = newSku;
-    media = media.filter(item => (item?.image || item?.video) !== '-' || (item?.image || item?.video) !== undefined);
-    allNewSku = allNewSku.filter(item => (item?.image || item?.video) !== '-' || (item?.image || item?.video) !== undefined);
-    media = [...newSku, ...media, ...allNewSku];
-    media = media.filter((image, index, self) => {
-        if (image.type === 'image') {
-            return index === self.findIndex(t => t.image === image.image)
-        } else {
-            return index === self.findIndex(t => t.video === image.video)
-        }
-    })
+//     let newSku = [];
+//     media = media.map(item => {
+//         if (item !== null) {
+//             if (item.type === 'image') {
+//                 return item = {
+//                     image: item.image,
+//                     image_thumb: item.image_thumb,
+//                     type: item?.type ? item.type : 'image',
+//                     color: 0,
+//                 }
+//             } else {
+//                 return item = {
+//                     preview: item.preview,
+//                     type: item.type,
+//                     video: item.video
+//                 }
+//             }
+//         }
+//     });
+//     !!product_sku ? (
+//         newSku = product_sku.map(item => ({
+//             image: item.image,
+//             image_thumb: item.image_thumb,
+//             type: item?.type ? item.type : 'image',
+//             color: item.color,
+//         })),
+//         newSku = newSku.filter(item => item !== null && (item?.image || item?.video) !== '-' && item.color === colorsn?.id && (item?.image || item?.video) !== undefined)
+//     )
+//         : null;
 
-    return media
-}
+//     let allNewSku = newSku;
+//     media = media.filter(item => (item?.image || item?.video) !== '-' || (item?.image || item?.video) !== undefined);
+//     allNewSku = allNewSku.filter(item => (item?.image || item?.video) !== '-' || (item?.image || item?.video) !== undefined);
+//     media = [...newSku, ...media, ...allNewSku];
+//     media = media.filter((image, index, self) => {
+//         if (image.type === 'image') {
+//             return index === self.findIndex(t => t.image === image.image)
+//         } else {
+//             return index === self.findIndex(t => t.video === image.video)
+//         }
+//     })
+
+//     return media
+// }

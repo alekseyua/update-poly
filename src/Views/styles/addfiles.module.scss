@@ -28,7 +28,7 @@
     //.files-uploud__form-submit-wrappar{}
     &__form-submit-wrappar {
         @include flex('sc');
-
+        margin-top: 25px;
         @include tablet-md {
             flex-direction: column;
             & > div{
@@ -92,6 +92,16 @@
     //.files-uploud__form-raiting{}
     &__form-raiting {
         padding: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        align-content: center;
+        &>:first-child{
+            margin-right: 5px;
+            font-size: 15px;
+            letter-spacing: 1.1px;
+            line-height: 160%;
+        }
         @include tablet-md {
             margin-bottom: 15px;
         }
@@ -115,7 +125,7 @@
     //.files-uploud__form-upload-desc{}
     &__form-upload-desc {
         padding: 0;
-        font-size: 12px;
+        font-size: 14px;
         color: $dg2;
         align-self: center;
     }
@@ -160,7 +170,7 @@
     //.files-uploud__form-upload-button{}
     &__form-upload-button {
         color: var(--gx-color-primary);
-        font-size: 12px;
+        font-size: 15px;
         padding: 0px 5px;
         letter-spacing: 0.4px;
         border: none;

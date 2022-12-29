@@ -7,7 +7,6 @@ export const notifications = store => {
     const apiProfile = api.profileApi;
 
     store.on('getNotice', async ({ context }, obj, { dispatch }) => {
-        console.log('кто выполняется первым getNotice')
 
         const params = {
             page: obj?.page ?? 1,
@@ -90,8 +89,8 @@ export const notifications = store => {
         })
         const messageList = context.init_state.notifications.results;
         let res = await apiProfile.postNotificationsDel({ 'ids': newSelectItemsNotice })
-        console.log({res})
-        res = serializeNotifications({results: res})
+        
+        res = serializeNotifications({ results: res })
         const countNoReadMessage = messageList.reduce((acc, cur) => {
             if (newSelectItemsNotice.includes(cur.id) && !cur.is_read) return ++acc
             return acc
@@ -117,21 +116,21 @@ export const notifications = store => {
 
     //?! выбранные элементы  уведомлений меняем статус на прочитанные
     store.on('reedItemsNotice', async ({ context }, obj, { dispatch }) => {
-        console.log({ newSelectItemsNotice })
+
         if (!!!newSelectItemsNotice.length) return dispatch('setModalState', {
             show: true,
             title: 'Уведомление',
             iconImage: errorAlertIcon,
             content: <div
-                        className={'modal-notification--noselect'}
-                    >
-                        Вы не выбрали ни одного элемента для изменений
-                    </div>
+                className={'modal-notification--noselect'}
+            >
+                Вы не выбрали ни одного элемента для изменений
+            </div>
         });
         const messageList = context.init_state.notifications.results;
 
         let res = await apiProfile.postNotificationsReed({ 'ids': newSelectItemsNotice });
-        res = serializeNotifications({results: res})
+        res = serializeNotifications({ results: res })
         const countNoReadMessage = messageList.reduce((acc, cur) => {
             if (newSelectItemsNotice.includes(cur.id) && !cur.is_read) return ++acc
             return acc

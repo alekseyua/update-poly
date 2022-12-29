@@ -21,8 +21,9 @@
     &__recommended{
         &> p{
             padding-bottom: 5px;
+            color: var(--gx-color-darkgray2);
             span {
-                color: $a2;
+                color: var(--gx-color-red);
             }
         }
     }

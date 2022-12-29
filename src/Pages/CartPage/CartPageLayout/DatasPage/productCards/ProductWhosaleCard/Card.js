@@ -65,7 +65,7 @@ const Card = ({
     >
      <div className={style['product-card__wrapper-block']}>
         <div
-          className={'product-card__selected-checkbox'}
+          className={style['product-card__selected-checkbox']}
         >
           <CheckBox
             checked={selected}

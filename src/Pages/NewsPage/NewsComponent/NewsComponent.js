@@ -10,17 +10,17 @@ import SpinnerWrapper from '../../../Views/SpinnerWrapper';
 import Spinner from '../../../Views/SpinnerWrapper/Spinner';
 
 // const apiContent = api.contentApi;
-const NewsComponent = ({ titlePage = 'новости', ...props }) => {
-  // console.log('props news component', props)
+const NewsComponent = ({
+  titlePage = 'новости',
+  ...props
+}) => {
+
   const { dispatch } = useStoreon('');
   const { news = [], rubrics = [], breadcrumbs = [] } = props;
-  const [ activeRubrics, setActiveRubrics ] = useState(null)
-
-
+  const [activeRubrics, setActiveRubrics] = useState(null);
 
   const handleFilter = (id) => {
-    console.log('handleFilter id', id);
-    dispatch('getNews',{id: id})
+    dispatch('getNews', { id: id })
     setActiveRubrics(id)
   };
 
@@ -29,7 +29,7 @@ const NewsComponent = ({ titlePage = 'новости', ...props }) => {
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <Title variant={'page__news'} type={'h1'}>
         {
-          Text({text: 'news'})
+          Text({ text: 'news' })
         }
       </Title>
       <>
@@ -41,22 +41,22 @@ const NewsComponent = ({ titlePage = 'новости', ...props }) => {
         <NewViews.NewsContainer
         >
           {
-            !news.length?
-                  <Spinner />
-            : 
+            !news.length ?
+              <Spinner />
+              :
               news.map((el, i) => {
-              return (
-                <NewsCard
-                  key={el.id}
-                  id={el.id}
-                  img={el.image}
-                  title={el.title}
-                  date={el.created_at}
-                  description={el.description}
-                  url={`/${el.url}`}
-                />
-              );
-            })
+                return (
+                  <NewsCard
+                    key={el.id}
+                    id={el.id}
+                    img={el.image}
+                    title={el.title}
+                    date={el.created_at}
+                    description={el.description}
+                    url={`/${el.url}`}
+                  />
+                );
+              })
           }
         </NewViews.NewsContainer>
         <NewViews.PaginationContainer>

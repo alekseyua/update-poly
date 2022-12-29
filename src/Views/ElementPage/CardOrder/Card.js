@@ -65,23 +65,6 @@ const Card = ({
     }
   };
 
-  // useEffect(()=>{
-  //   const dataChatItem = chatOrdersMessage.filter(item=> item.item_id === id)
-  //   if(dataChatItem[0] !== undefined){
-  //     const messages = dataChatItem[0].chat_order_items
-  //     const result = []
-  //     const data = messages.filter(el =>{
-  //       if(el.is_new && el.user === "Менеджер") {
-  //         result.push(+el.message_id)
-  //         setIdMessagers(result)
-  //         setIdOrderMessagers(el.order_item_id)
-  //       }
-  //     })
-  //     setcorrespondenceState(messages)
-  //   }
-  // },[chatOrdersMessage])
-
-
   const initValuesMessageProduct = {
     files: null,
     message: '',
@@ -91,8 +74,6 @@ const Card = ({
     activeBtnMessageForProduct: true
   }
 
-
-  console.log({ contextChats })
   return (
     <div className={classNames({
       [style['cabinet-orders-details__card']]: true,
@@ -179,17 +160,17 @@ const Card = ({
                     </div>
                     : null
                 }
-                 <div
+                <div
                   className={style['cabinet-orders-details__base-info-desc-date-status']}
                 >
                   {
-                    redeemed? 
-                    dayjs(api.language, redeemed).format('DD.MM.YYYY')
-                      : sended?
-                      dayjs(api.language, sended).format('DD.MM.YYYY')
+                    redeemed ?
+                      dayjs(api.language, redeemed).format('DD.MM.YYYY')
+                      : sended ?
+                        dayjs(api.language, sended).format('DD.MM.YYYY')
                         : null
-                      
-                  } 
+
+                  }
                 </div>
 
               </div>
@@ -223,7 +204,7 @@ const Card = ({
         onSubmit={sendMessage}
       >
         {({ values, errors, handleSubmit, handleChange, setFieldValue }) => {
-            console.log({values})
+
           return (
             <Form
               id={id}
@@ -241,7 +222,7 @@ const Card = ({
                   })}
                 >
                   <div
-                    onClick={ () => clickOpenCommit(values, setFieldValue) }
+                    onClick={() => clickOpenCommit(values, setFieldValue)}
                     className={style['cabinet-orders-details__comment-field-message']}
                   >
                     {
@@ -264,7 +245,7 @@ const Card = ({
                                 {values.upDownBtn ?
                                   el.is_new ?
                                     <div
-                                      onClick={() =>  clickOpenCommit(values, setFieldValue) }
+                                      onClick={() => clickOpenCommit(values, setFieldValue)}
                                       className={style['cabinet-orders-details__comment-bell']}
                                     ></div>
                                     : null

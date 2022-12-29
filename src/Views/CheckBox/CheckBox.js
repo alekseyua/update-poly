@@ -102,7 +102,10 @@ const CheckBox = ({
         value = { value } 
         {...props}
       />
-        <label htmlFor="check" className={classNameLabelCheckBox}>
+        <label 
+          htmlFor="check" 
+          className={classNameLabelCheckBox}
+        >
           <span></span>
           <span>
             {label}

@@ -68,7 +68,7 @@
         // width: 100vw;
         // height: 100vh;
         width: auto;
-        transition: all 2s ease-in-out;
+        transition: all .8s ease-in-out;
 
         //.modal-provider__container--show{}
         &--show {
@@ -95,7 +95,7 @@
         opacity: 0;
         visibility: hidden;
         position: absolute;
-        transition: opacity 2s;
+        transition: opacity .8s;
         z-index: 9999999;
         &>.modal-provider__spinner {
             display: none;
@@ -122,7 +122,7 @@
 
             // height: 100%;
             border-radius: 7px;
-            transition: opacity 3s, visibility 3s;
+            transition: opacity .9s, visibility .9s;
             // display: grid;
             grid-template-columns: minmax(320px, 80vw);
             min-height: 250px;

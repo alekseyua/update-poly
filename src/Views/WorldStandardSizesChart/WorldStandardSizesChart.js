@@ -7,8 +7,13 @@ import Button from '../Button';
 
 import style from '../InformationViews/styles/index.module.scss';
 import styleTable from '../Table/styles/table.module.scss';
+import { useStoreon } from 'storeon/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_configuration = {} }) => {
+const WorldStandardSizesChart = ({ slug = '', productTableVariant = '', site_configuration = {} }) => {
+  const { dispatch } = useStoreon();
+  const navigate = useNavigate();
+  const location = useLocation();
   const tableHeaderDataRu = [
     [
       {
@@ -737,6 +742,14 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
 
   const styleTableHowto = !!productTableVariant ? 'information-howto-small-table' : 'information-howto-table';
 
+  const handlerClickBtnHowTo = (e) => {
+    e.preventDefault();
+    dispatch('setModalState', {
+      show: false,
+    })
+    navigate('/information/how_to')
+  }
+
   return (
     <React.Fragment>
       <h3
@@ -755,7 +768,7 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
             [style['information-howto__switcher-heading']]: true,
             [style['active']]: russiasStandart,
           })}
-          onClick={() => russiasStandart?null:handClick()}
+          onClick={() => russiasStandart ? null : handClick()}
         >
           <Text text={!!productTableVariant ? 'ru.size' : 'russian.standart.size'} />
         </div>
@@ -764,26 +777,27 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
             [style['information-howto__switcher-heading']]: true,
             [style['active']]: !russiasStandart,
           })}
-          onClick={ () => russiasStandart? handClick() : null }
+          onClick={() => russiasStandart ? handClick() : null}
         >
-          <Text text={ !!productTableVariant? 'er.size' : 'euro.standart.size'} />
+          <Text text={!!productTableVariant ? 'er.size' : 'euro.standart.size'} />
         </div>
       </div>
       {russiasStandart ? (
         <Table
-          classNameTable = { styleTableHowto }
-          tableBodyData = { state.tableBodyDataRu }
-          tableHeaderData = { !!productTableVariant? [] : state.tableHeaderDataRu }
+          classNameTable={styleTableHowto}
+          tableBodyData={state.tableBodyDataRu}
+          tableHeaderData={!!productTableVariant ? [] : state.tableHeaderDataRu}
         />
       ) : (
 
         <Table
-          classNameTable = { styleTableHowto }
-          tableBodyData = { state.tableBodyDataEu }
-          tableHeaderData = { !!productTableVariant? [] : state.tableHeaderDataEu }
+          classNameTable={styleTableHowto}
+          tableBodyData={state.tableBodyDataEu}
+          tableHeaderData={!!productTableVariant ? [] : state.tableHeaderDataEu}
         />
       )}
-        {slug !== 'how_to'?
+      {
+        location.pathname !== "/information/how_to" ?
           <div>
             <p>
               * Приведенные данные в таблице являются ориентиром для самостоятельного определения
@@ -791,13 +805,13 @@ const WorldStandardSizesChart = ({ slug='', productTableVariant = '', site_confi
               сайте, могут отличаться. Если вы затрудняетесь с определением своего размера, просьба
               обратиться в нашу техническую поддержку.
             </p>
-            
-            <Button href={'/information/how_to'} variant={'cancel-black-full'}>
+
+            <Button href={'#'} variant={'cancel-black-full'} onClick={handlerClickBtnHowTo} >
               <Text text={'how.choose.size'} />
             </Button>
           </div>
-        :null
-        }
+          : null
+      }
     </React.Fragment>
   );
 };

@@ -24,7 +24,6 @@ const Registration = (props) => {
     },2000)
   }
   const nextStepOrSubmitRegData = (newValues, setFieldError) => { 
-    console.log({step})
     if (step >= 0) {
       dispatch('setRegistration', { newValues, setFieldError, setLoading, redirectTo})
     } else {
@@ -34,7 +33,6 @@ const Registration = (props) => {
 
   const onSaveFormData = (data, callbacks = {}) => {
     const { setFieldError = () => {} } = callbacks;
-    console.log({data})
     dispatch('setDataRegistration', data);
     nextStepOrSubmitRegData(data, setFieldError);
     setLoading(true)

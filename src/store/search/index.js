@@ -4,7 +4,6 @@ import { textErrorMessage } from '../modalStorage/modalWindow/modalWindow';
 
 
 const search = store =>{
-    // let text = '';
 
     store.on('@init',()=>({search : {}}))
     store.on('@init', (_, text = '')=>({textSearch: text}))
@@ -18,7 +17,6 @@ const search = store =>{
     store.on('setInputSearchValue', async ({ context, search, closeModalState }, value, { dispatch })=>{
         try{
             dispatch('changeTextSearch', value)
-            console.log({value})
             dispatch('changeTextSearchStore', value)
             const { role } = context.init_state.profile;
             

@@ -33,7 +33,6 @@ const SocialLinks = ({site_configuration}) => {
     },
   ];
   const redirectURL = (path)=>{ 
-    console.log({path})
     window.open(path, '_blank') 
   }
   return (

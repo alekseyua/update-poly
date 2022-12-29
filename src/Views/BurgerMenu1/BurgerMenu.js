@@ -36,7 +36,6 @@ const BurgerMenu = ({ itemIds, site_configuration }) => {
     const { height } = useDimensions(containerRef);
 
     const toggleOpen = () => {
-        console.log('toggle burger menu')
         setToggleOpen(c=>!c)
     }
 

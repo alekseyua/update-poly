@@ -41,8 +41,6 @@ const ModalAddReview = ({
               <textarea
                 value={!!values.content ? values.content : ''}
                 onChange={(e) => {
-                  // console.log('test input text area = ', {values}, { e: e.target.value })
-                  // !!e.target.value && !!values.stars && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                   !!e.target.value && !!values.stars ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                   handleChange(e)
                 }}
@@ -50,11 +48,6 @@ const ModalAddReview = ({
                 placeholder={Text({ text: 'text-review' })}
                 name={'content'}
               ></textarea>
-
-              {/* <ReviewsElementBlock.FormAddReviewUploadImage
-                values={values}
-                setFieldValue={setFieldValue}
-              /> */}
               <AddUploadFiles
                 name={'uploadFiles'}
                 type={'file'}
@@ -66,19 +59,14 @@ const ModalAddReview = ({
                 multiple={null}
                 setFieldValue={setFieldValue}
                 onChange={(e) => {
-                  // console.log('test upload', {values}, {e: e.currentTarget.files.length})
-                  // !!values.content && !!values.stars && !!e.currentTarget.files.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                   !!values.content && !!values.stars ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                 }}
               />
-
 
               <ReviewsElementBlock.FormAddReviewRating
                 values={values}
                 setFieldValue={setFieldValue}
                 onChange={(e, countStar) => {
-                  // console.log('test star =', {values}, { e: e}, {value})
-                  // !!values.content && !!countStar && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : setFieldValue( 'activeButton', true );
                   !!values.content && !!countStar ? setFieldValue('activeButton', false) : setFieldValue('activeButton', true);// проверка без изображения
                 }}
               />
@@ -97,11 +85,7 @@ const ModalAddReview = ({
                 handleSubmit={handleSubmit}
                 productId={productId}
                 profileId={profileId}
-                onChange={(value) => {
-                  console.log('test ', { values }, { value })
-
-                  // values.content && !!values.stars && value && !!values.uploadFiles.length? setFieldValue( 'activeButton', false ) : null;
-                }}
+                onChange={() => {}}
               />
 
             </ReviewsElementBlock.FormAddReview>

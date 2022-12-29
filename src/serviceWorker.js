@@ -22,8 +22,7 @@ export async function register() {
   
   async function registerValidSW(swUrl) {
     const VAPID_PUBLIC_KEY = "BIqYIeK2W_V6W4O-i6iW0D3DLat9obm70B-PeFSjWEVwr1PeVD45N0mLPtRnhBC1Tn2AZu-fBJi-aJpwf2OCtOM"
-    const VAPID_PRIVATE_KEY = "MI6i6VXcslXjGHm1dEsui3CmkOdNyGmWjspu11MyiYc";
-    console.log({swUrl})
+
       try{
         // const checkRegistration = await window.navigator.serviceWorker.ready;
         // console.log('checkRegistration', checkRegistration);

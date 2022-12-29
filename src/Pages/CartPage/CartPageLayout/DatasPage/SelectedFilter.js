@@ -15,7 +15,9 @@ const SelectedFilter = (
     // setEnab, 
     // enab
   }
+
 ) => {
+
   return (
     <div className={style['cart-page__selected-filters']}>
       <CheckBox

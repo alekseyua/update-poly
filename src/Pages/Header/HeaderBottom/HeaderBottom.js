@@ -11,9 +11,8 @@ const HeaderBottom = ({
     profile,
     ...props
 }) => {
-//  console.log('headerBottom props',props )
 
-return (
+    return (
         <div
             className={classNames({
                 [style['bottom-header']]: true,
@@ -26,7 +25,7 @@ return (
                     <div className={style['bottom-header-logo']}>
                         <Logo
                             logo={props.logo}
-                            logoLinkGoto={props.logoLinkGoto} 
+                            logoLinkGoto={props.logoLinkGoto}
                             siteLocation={'head-bottom'}
                         />
                     </div>
@@ -36,11 +35,11 @@ return (
                     </div>
                 </div>
 
-                <HeaderButtonsBottomLK 
+                <HeaderButtonsBottomLK
                     site_configuration={props.site_configuration}
-                    cabinet_menu = { cabinet_menu }
-                    currency = { currency }
-                    profile = { profile }
+                    cabinet_menu={cabinet_menu}
+                    currency={currency}
+                    profile={profile}
                 />
 
             </div>

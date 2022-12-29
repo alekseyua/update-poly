@@ -22,7 +22,7 @@ export const reviews = store => {
             isLiked = currentProduct_reviews?.is_current_user_liked
             let postLikes;
             let count = 0;
-            console.log({isLiked})
+
             if (isLiked) {
                 postLikes = await apiContent.postLikes({ profile: obj.profileId, review: obj.id, is_active: false })
                 count = -1
@@ -48,7 +48,6 @@ export const reviews = store => {
                     }
                 }
             }
-            // console.log('updateContext',updateContext)
 
             return dispatch('context', updateContext)
         } catch (err) {
@@ -162,7 +161,6 @@ export const reviews = store => {
                     }
                 }
             }
-            console.log({updateContext})
             return dispatch('context', updateContext);
 
         } catch (err) {
@@ -279,7 +277,7 @@ export const reviews = store => {
             setValues({
                 activeSpinner: false
             })
-            let error = ['Что бы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться'];
+            let error = ['Чтобы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться'];
             if (err?.data) {
                 const errors = err.data;
                 if (typeof errors !== 'object') {
@@ -300,12 +298,11 @@ export const reviews = store => {
                 },    
                 onClick: () => closeModalState(),
             }
-            console.log({role})
             role === ROLE.UNREGISTRED?
                 params = { 
                     ...params, 
                     action: {
-                        title: ['продолжить', 'зарегистрироваться']
+                        title: ['остаться', 'Пройти регистрацию']
                     },
                     onClickCancel: () => redirectTo('/registration')
                 }
@@ -392,7 +389,6 @@ export const reviews = store => {
                     }
                 }
             }
-            console.log({updateContext})
             return dispatch('context', updateContext);
 
         } catch (err) {

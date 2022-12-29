@@ -16,7 +16,6 @@ const CheckBoxFiltersContainer = ({
       ...valueCheckBoxFilters,
       [key]: !value
     }
-    console.log('data test = ', data)
     loadData(data)
   };
 

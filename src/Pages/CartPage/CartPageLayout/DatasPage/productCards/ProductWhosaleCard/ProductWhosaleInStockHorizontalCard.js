@@ -9,11 +9,7 @@ const ProductWhosaleInStockHorizontalCard = ({
   updateProductFromCart,
   deleteProductFromCart,
 }) => {
-
   
-
-
-  // console.log('items', items)
   return (
     <div className={style['wrapper-woosale']}>
       <CartViews.Line />

@@ -10,7 +10,6 @@ const ModalAddressWrapper = ({ children, closeModal, isSaved}) => {
   const [isShowChat, setisShowChat] = useState(faq.show);
 
   const openFormRequest = () => {
-    console.log(`open form request`)
     dispatch('faq/update', {
       show: !isShowChat,
     });

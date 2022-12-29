@@ -19,12 +19,20 @@
     }
     //.input__input{}
     &__input{
-        font-size: $fontSize;
+        font-size: $fontSize + 2px;
         width: 100%;
+        letter-spacing: 1.1px;
+        line-height: 140%;
+        &::placeholder{
+            color: $dg2;
+            font-size: 16px;
+            letter-spacing: 1.1px;
+            line-height: 140%;
+        }
     }
     //.input__label{}
     &__label{
-        font-size: $fontSize;
+        font-size: calc($fontSize - 3px);
         color: $p;
         @extend %font;
         margin: 0 0 0 10px;

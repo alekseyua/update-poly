@@ -3,7 +3,7 @@ import Text from '../../helpers/Text';
 import classNames from 'classnames';
 import style from './styles/index.module.scss';
 
-const SubmitButton = ({ offsetTop = 0, isShowBtnSubmit, onClick, floatRigth = false }) => {
+const SubmitButton = ({ offsetTop = 0, isShowBtnSubmit, offsetLeftBtnSubmit, onClick, floatRigth = false }) => {
   if (!isShowBtnSubmit) return null;
   return (
     <div
@@ -12,7 +12,7 @@ const SubmitButton = ({ offsetTop = 0, isShowBtnSubmit, onClick, floatRigth = fa
         [style['catfilter-showme']]: true,
         [style['catfilter-showme--rigth']]: floatRigth
       })}
-      style={{ top: `${offsetTop}px` }}
+      style={{ top: `${offsetTop}px`, left: `${offsetLeftBtnSubmit + 100}px` }}
       data-cy={`catfilter-showme`}
     >
       <span 

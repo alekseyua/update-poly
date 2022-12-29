@@ -111,7 +111,6 @@ const HistoryPayments = ({
 
   const handleRequisites = (e) => {
     const indexElement = e.target.getAttribute('data-index');
-    console.log({ indexElement }, { e: e.target })
     setNumIndex(+indexElement)
   }
   useEffect(() => {

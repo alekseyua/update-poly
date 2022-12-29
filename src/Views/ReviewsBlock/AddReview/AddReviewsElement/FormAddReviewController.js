@@ -30,7 +30,7 @@ const FormAddReviewController = ({ values, setFieldValue, canselationCallback, o
           active = { !!values.content && !!values.stars}
           content={
             !profileId?
-              'Что бы воспользоваться всеми возможностями сотрудничества, необходимо зарегистрироваться'
+              'Чтобы полноценно воспользоваться всеми возможностями сотрудничества, необходимо пройти регистрацию'
                 :!values.content? 'Вы не заполнили поле с отзывом'
                   : !values.stars? 
                     'Укажите пожалуйста рейтинг продукта, выделив звёзды'

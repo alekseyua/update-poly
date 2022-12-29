@@ -48,7 +48,6 @@ const ASSET_URLS = [
 ]
 
 self.addEventListener('install', async ()=>{
-    console.log('install sw');
     try{
         const cache = await caches.open(STATIC_CACHE_NAME);
         await cache.addAll(ASSET_URLS);
@@ -77,10 +76,8 @@ self.addEventListener('fetch', async (event)=>{
     const {request} = event;
     const url = new URL(request.url);
     if(url.origin === location.origin){
-        console.log('cacheFirst')
        event.respondWith(cacheFirst(request));
     }else{
-        console.log('networkFirst')
       event.respondWith(networkFirst(request));
     }
 })
@@ -88,7 +85,6 @@ self.addEventListener('fetch', async (event)=>{
 async function cacheFirst(request){
     try{
         const cached = await caches.match(request);
-        console.log({cached}, {request})
         // ?? - иначе
         return cached ?? await fetch(request)
     }catch(err){console.log('Erroe: ',err)};
@@ -126,7 +122,6 @@ self.addEventListener('push', (event)=>{
         try {
                 // Push is a JSON                
                 const response_json = event.data.json();//JSON.parse(event.data);//
-                console.log('response_json',response_json)
                  title = response_json.title || title;
                  message = deleteTag(response_json.body);
                  message_tag = response_json.tag || message_tag;
@@ -134,7 +129,6 @@ self.addEventListener('push', (event)=>{
         } catch (err) {
                 // Push is a simple text
                 const response_text = event.data.text();//JSON.parse(event.data);//
-                console.log('response_text',response_text)
                  message = deleteTag(event.data.text());
         }
 
@@ -149,32 +143,25 @@ self.addEventListener('push', (event)=>{
 
 
 
-                    event.waitUntil(
-            
+                    event.waitUntil(            
                         self.clients.matchAll().then(async (clientList) => {
-                            // console.log('clientList = ',clientList)
                             if (clientList.length > 0) {
                                 for(let j = 0; j < clientList.length; j++){
                                     let res = clientList[j].visibilityState;
                                     if (res === "visible") {//focused: true
                                         const client = await clientList[j]
-                                        // console.log('client:', client)
                                         const idClient = await clientList[j].id
                                         if (!client) return
                                         client.postMessage({
                                             notification: options,
                                         })
                                         console.log('client list > 0 and browser active this good!!! ')
-
-                                    } else {
-        
+                                    } else {        
                                         console.log('client list > 0 and browser no active ')
                                         return event.waitUntil(self.registration.showNotification(title, options));           
                                     }
                                 }
                             }else{
-                                // 
-                                console.log('client list ziro ')
                                 return self.registration.showNotification(title, options);
                             }
                         })

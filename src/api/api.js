@@ -113,7 +113,6 @@ class Api extends AbstractBaseApi  {
 }
 
 const MAIN_URL = process.env.RAZZLE_APP_API_URL;
-console.log('MAIN_URL', MAIN_URL)
 
 const api = new Api(MAIN_URL)
 

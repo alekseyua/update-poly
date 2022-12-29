@@ -40,22 +40,20 @@ const OrderBaseDetails = ({
   openModalPay,
   heandlerClickInfo,
 }) => {
-// console.log({delivery_address})
-  // if (delivery_address) return (<></>);
 
   const {
-    city,
-    country,
-    first_name,
-    flat,
-    house,
+    city = '',
+    country = '',
+    first_name = '',
+    flat = '',
+    house = '',
     id,
-    last_name,
-    middle_name,
-    phone,
-    post_code,
+    last_name = '',
+    middle_name = '',
+    phone = '',
+    post_code = '',
     profile,
-    street,
+    street = '',
   } = delivery_address;
 
   const getIconFromStatus = (id) => {
@@ -81,45 +79,41 @@ const OrderBaseDetails = ({
     }
   };
 
-
-
-
-
   return (
     <div className={style['cabinet-orders-details__ordercard']}>
       <div className={style['cabinet-orders-details__wrapper']}>
         <div className={style['cabinet-orders-details__leftside']}>
           <div className={style['cabinet-orders-details__paystatus']}>
-          <div className={style['cabinet-orders-details__paystatus-icon']}>
+            <div className={style['cabinet-orders-details__paystatus-icon']}>
 
-            <Icon
-              src={getIconFromStatus(status.id)}
-              className={style['cabinet-orders-details__icon']}
-              width = {20}
-              height = { 20 }
+              <Icon
+                src={getIconFromStatus(status.id)}
+                className={style['cabinet-orders-details__icon']}
+                width={20}
+                height={20}
               />
-          </div>
-          <div className={style['cabinet-orders-details__paystatus-text']}>            
-            {status.title}
-          </div>
-          <div className={style['cabinet-orders-details__paystatus-button']}>
-            <div className='inner-areon'>
-              <button
-                variant="info"
-                className={style['cabinet-orders-details__tooltipicon']}
-                onClick={ () => heandlerClickInfo(status.id) }
-              >
-                <Icon src={toolTipIcon} 
-                  width = {20}
-                  height = { 20 }
-                />
-              </button>
             </div>
-          </div>
+            <div className={style['cabinet-orders-details__paystatus-text']}>
+              {status.title}
+            </div>
+            <div className={style['cabinet-orders-details__paystatus-button']}>
+              <div className='inner-areon'>
+                <button
+                  variant="info"
+                  className={style['cabinet-orders-details__tooltipicon']}
+                  onClick={() => heandlerClickInfo(status.id)}
+                >
+                  <Icon src={toolTipIcon}
+                    width={20}
+                    height={20}
+                  />
+                </button>
+              </div>
+            </div>
 
             {
-              status.id === 'payment_waiting' ?
-                <Button onClick={ () => openModalPay(numberOrder, total_cost) } variant={'cabinet_default'}>
+              status.id === 'payment_waiting' ? 
+                <Button onClick={() => openModalPay(numberOrder, total_cost)} variant={'cabinet_default'}>
                   оплатить заказ
                 </Button>
                 : null
@@ -127,31 +121,31 @@ const OrderBaseDetails = ({
           </div>
           <div className={style['cabinet-orders-details__middle']}>
             <div className={style['cabinet-orders-details__pay']}>
-              <Icon 
-                src={wallet} 
-                className={style['cabinet-orders-details__icon']} 
-                width = {20}
-                height = { 20 }
+              <Icon
+                src={wallet}
+                className={style['cabinet-orders-details__icon']}
+                width={20}
+                height={20}
               />
               {payment_method}
             </div>
             <div className={style['cabinet-orders-details__delivery']}>
-              <Icon 
-                src={truck} 
-                className={style['cabinet-orders-details__icon']} 
-                width = {20}
-                height = { 20 }
+              <Icon
+                src={truck}
+                className={style['cabinet-orders-details__icon']}
+                width={20}
+                height={20}
               />
               {delivery_method}
             </div>
           </div>
           <div className={style['cabinet-orders-details__address']}>
-            <Icon 
-              src={addressIcon} 
-              alt="address" 
-              className={style['cabinet-address__icon']} 
-              width = {20}
-              height = { 20 }
+            <Icon
+              src={addressIcon}
+              alt="address"
+              className={style['cabinet-address__icon']}
+              width={20}
+              height={20}
             />
             <div className={style['cabinet-address__desc']}>
               <div className={style['cabinet-address__value']}>

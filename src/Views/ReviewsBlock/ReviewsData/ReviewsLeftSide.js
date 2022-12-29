@@ -6,7 +6,6 @@ import ShowMoreBtn from '../../InformationViews/ShowMoreBtn';
 import BlockSpinner from '../../SpinnerWrapper';
 
 import style from '../styles/reviews.module.scss';
-// const contentApi = api.contentApi;
 
 const ReviewsLeftSide = ({
   pageReviewProduct,
@@ -14,14 +13,12 @@ const ReviewsLeftSide = ({
   reviews_count,
   profileId,
   productId,
-  count,  
+  count,
   showMore = () => { },
-  
+
 }) => {
-  // console.log('*******************************',{product_reviews})
 
   return (
-
     <div>
       {
         !!reviews_count ?
@@ -64,12 +61,12 @@ const ReviewsLeftSide = ({
               <BlockSpinner.Spinner />
             </BlockSpinner.SpinnerCenter>
           : null
-        }
-        <AddReviewContainer
-          productId={productId}
-          profileId={profileId}
-        />
-        
+      }
+      <AddReviewContainer
+        productId={productId}
+        profileId={profileId}
+      />
+
     </div>
   );
 };

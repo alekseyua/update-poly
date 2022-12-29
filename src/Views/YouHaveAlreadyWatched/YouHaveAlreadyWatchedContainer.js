@@ -9,7 +9,7 @@ const YouHaveAlreadyWatchedContainer = ({
     return (
         <>
         {   
-            youAlredyWatch?.results.length?
+            youAlredyWatch?.results?.length?
                 <YouHaveAlreadyWatched
                     listAlreadySaw={youAlredyWatch.results}
                     currency={currency}

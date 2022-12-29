@@ -113,15 +113,18 @@ const ProductCard = (props) => {
               className={classNames({
                 [style['product-card__favorite']]: true,
               })}
-              onClick={() => {
-                is_liked?
-                removeLikeProductCard(id)
-                : addLikeProductCard(id);
-              }}
+              
             >
               <div
               >
-                <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} height={20} width={20}/>
+                <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} height={20} width={20}
+                onClick={() => {
+                  console.log('test')
+                  is_liked?
+                  removeLikeProductCard(id)
+                  : addLikeProductCard(id);
+                }}
+                />
               </div>
              
             </Button>
