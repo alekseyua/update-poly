@@ -754,6 +754,7 @@
         },
         "notifications": {
             "count": 0,
+            "tempNotice": [],
             "results": [],
             "selectItemsNotice": []
         },
@@ -793,7 +794,10 @@
             "status": 0,
             "opt_minimum_price": 0,
             "wishlist": 0,
-            "list_wishes": []
+            "list_wishes": {
+                "count": 0,
+                "results": []
+            }
         },
         "historyPayment": {
             "count": 0,

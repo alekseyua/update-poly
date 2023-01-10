@@ -45,7 +45,7 @@ const SectionRaitingAndSharingAndMyWish = ({
                     onClick={ () => is_liked? removeLikeProductCard(productId) : addLikeProductCard(productId) } 
                     className={style['prodpage__raitsharewish-button-btn']}
                 >
-                    <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} width={25} height={25} />
+                    <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} fill={'#a3a3a3'} width={20} height={20} />
                 </Button>
             </div>
         </div>

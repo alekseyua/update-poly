@@ -12,6 +12,7 @@ const BalancePageLayoutContainer = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    isLoading,
     username,
     currency,
     balance,
@@ -46,6 +47,7 @@ const BalancePageLayoutContainer = ({
             create_shop={create_shop}
             is_has_shop={is_has_shop}
             breadcrumbs={breadcrumbs}
+            isLoading={isLoading}
             currency={currency}
             username={username}
             balance={balance}

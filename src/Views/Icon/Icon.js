@@ -16,6 +16,9 @@ import style from './icon.module.scss';
 
 const Icon = ({
     invert = '0%', 
+    opacity = '1',
+    brightness = '1',
+    fill = '',
     onClick, 
     className,
     slot,
@@ -45,9 +48,10 @@ const Icon = ({
                 backgroundImage: `url(${src})`,
                 width: `${width}px`,
                 height:`${height}px`,
-                filter: `invert(${invert})`,
+                filter: `invert(${invert}) opacity(${opacity}) brightness(${brightness})`,
                 pointerEvents: pointerEvents,
-                borderRadius: `${bodrad}%`
+                borderRadius: `${bodrad}%`,
+                fill: `${fill}`
             }}            
         >
         </div>

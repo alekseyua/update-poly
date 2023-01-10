@@ -17,9 +17,15 @@
   }
   //.cabinet-menu__item{}
   &__item{
-    padding: 5px 0;
+    padding: 10px 0;
+    &:hover{
+      background-color: #ebcae42e;
+    }
     &:not(:last-child){
       margin-bottom: 5px;
+    }
+    &>a:hover{
+      color: $a2;
     }
   }
   //.cabinet-menu__link{}
@@ -30,6 +36,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    padding: 0 15px;
     &>div{
       animation-name: recieveNotification;
       animation-direction: alternate;

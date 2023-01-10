@@ -19,11 +19,26 @@
     }
     //.prodpage-price__recommended{}
     &__recommended{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         &> p{
-            padding-bottom: 5px;
+            // padding-bottom: 5px;
             color: var(--gx-color-darkgray2);
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 12px;
+            line-height: 17px;
+            align-items: center;
+            letter-spacing: .04em;
+            margin: 0;
+
             span {
                 color: var(--gx-color-red);
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: .1em;
+                text-transform: uppercase;
             }
         }
     }

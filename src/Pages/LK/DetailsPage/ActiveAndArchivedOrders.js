@@ -8,16 +8,17 @@ const ActiveAndArchivedOrders = ({
   getDataOrdersFilters,
   total_debt_orders,
   searchOrderForFio,
+  btnAddOrderItems,
   dateFilterData,
   tableBodyData,
-  loading,
+  sendToArchive,
+  btnDelOrder,
+  isLoading,
   currency,
+  loading,
   options,
   profile,
   orders,
-  btnAddOrderItems,
-  sendToArchive,
-  btnDelOrder,
 
   changeStatusFilter,
   changeValueSearch,
@@ -35,9 +36,10 @@ const ActiveAndArchivedOrders = ({
             searchOrderForFio = { searchOrderForFio }
             dateFilterData = { dateFilterData}
             tableBodyData = { tableBodyData}
+            isLoading={isLoading}
+            currency = { currency }
             options = { options }              
             loading = { loading }
-            currency = { currency }
             profile = { profile }
             orders = { orders }
 

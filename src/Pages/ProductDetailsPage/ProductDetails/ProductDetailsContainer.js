@@ -74,7 +74,6 @@ const ProductDetailsContainer = ({
     }
 
     const addLikeProductCard = (id) => {
-        console.log({id})
         const params = { 
             id: id, 
             whereLike: 'detail-product',

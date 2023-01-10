@@ -1,16 +1,23 @@
 import api from "../../api/api";
 import { serializeNotifications } from "../../api/ProfileApi/serializers";
-import { getCookie } from "../../helpers/helpers";
+import { delay, getCookie } from "../../helpers/helpers";
 
 export const websocket = store => {
   const orderApi = api.orderApi;
 
-  store.on('chatOrdersMessage/set', ({ context }, obj, { dispatch }) => {
+  store.on('@init', () => ({correspondence: {
+    order_chat: [],
+    order_items_chat: [],
+    } 
+  }) 
+  )
+  store.on('chatOrdersMessage/set', ({ context, correspondence }, obj, { dispatch }) => {
     let messageChat = undefined;
     let messageItemsChat = undefined;
-    const messageOrderFromContext = context.init_state.order.correspondence?.order_chat;
-    const messagesItemsOrderFromContext = context.init_state.order.correspondence?.order_items_chat;
-
+    const messageOrderFromContext = correspondence?.order_chat;
+    const messagesItemsOrderFromContext = correspondence?.order_items_chat;
+    // const messageOrderFromContext = context.init_state.order.correspondence?.order_chat;
+    // const messagesItemsOrderFromContext = context.init_state.order.correspondence?.order_items_chat;
     const order_items_chat = obj?.order_items_chat;
     const order_message = obj?.order_message;
     const order_item_message = obj?.order_item_message;
@@ -27,6 +34,7 @@ export const websocket = store => {
       messageItemsChat = order_items_chat;
     } else if (order_item_message !== undefined) {
       let newObj = order_item_message;
+      console.log({messagesItemsOrderFromContext})
       messageItemsChat = messagesItemsOrderFromContext.map(item => {
         if (item.item_id === newObj.order_item_id) {
           item = {
@@ -38,25 +46,55 @@ export const websocket = store => {
       })
     }
 
-    const newContext = {
-      ...context,
-      "init_state": {
-        ...context.init_state,
-        order: {
-          ...context.init_state.order,
-          correspondence: {
-            order_chat: messageChat ?? messageOrderFromContext ?? [],
-            order_items_chat: messageItemsChat ?? messagesItemsOrderFromContext ?? [],
-          }
-        },
-        numberCurrentOrderForAddProduct: null,
-      },
+    // console.log({messageItemsChat})
+    // const newContext = {
+    //   ...context,
+    //   "init_state": {
+    //     ...context.init_state,
+    //     order: {
+    //       ...context.init_state.order,
+    //       correspondence: {
+    //         ...context.init_state.order.correspondence,
+    //         order_chat: messageChat ?? messageOrderFromContext ?? [],
+    //         order_items_chat: messageItemsChat ?? messagesItemsOrderFromContext ?? [],
+    //       }
+    //     },
+    //     numberCurrentOrderForAddProduct: null,
+    //   },
+    // }
+    debugger
+    return {
+      correspondence: {
+        ...correspondence,
+        order_chat: messageChat ?? messageOrderFromContext ?? [],
+        order_items_chat: messageItemsChat ?? messagesItemsOrderFromContext ?? [],
+      }
     }
-    dispatch('context', newContext);
+    // console.log(newContext.init_state.order.correspondence)
+    console.log('add context chatOrdersMessage/set')
+    // dispatch('context', newContext);
   })
 
-  store.on('correspondence', async ({ context }, obj, { dispatch }) => {
 
+
+// store.on('setChatOrder', ({chatOrder}, obj, {dispatch}) => {
+// console.log({obj})
+// const { message } = obj;
+// return {
+// chatOrder: {
+// ...notificationTest,
+// count: message.results.length,
+// results: message.results.filter(el => message.results.length = 30),
+// selectItemsNotice: [],
+// }
+// }
+// })
+
+
+
+
+  store.on('correspondence', async ({ context }, obj, { dispatch }) => {
+    console.log('call chat messages')
     const order_id = context.init_state.page_info.id;
     const urlChatItem = `wss://back.ftownpl.com:8443/ws/chat/${order_id}/?token=$${getCookie('ft_token')}`;
     let ws = {};
@@ -67,6 +105,7 @@ export const websocket = store => {
     if (!!getCookie('ft_token')) {
       startWs()
       ws.onopen = (open) => {
+        console.log('auto call chat messages')
         gettingData()
       }
       ws.onclose = (close) => {
@@ -89,6 +128,7 @@ export const websocket = store => {
       if (!ws) return;
       ws.onmessage = e => {                //подписка на получение данных по вебсокету
         const message = JSON.parse(e.data);
+        console.log({messageSW: message})
         if (Object.keys(message)) {
           dispatch('chatOrdersMessage/set', message)
         }
@@ -104,7 +144,6 @@ export const websocket = store => {
       const messagesItemsOrderFromContext = context.init_state.order.correspondence?.order_items_chat;
       let massiveIdIsnew = []
       let resChangeIsnew = []
-      // const newMessage = messagesItemsOrderFromContext.map( el => )
       const newMessage = messagesItemsOrderFromContext.map(item => {
         if (item.item_id === idProduct) {
           item.chat_order_items.filter(el => {
@@ -138,7 +177,7 @@ export const websocket = store => {
           numberCurrentOrderForAddProduct: null,
         },
       }
-
+      console.log('add context changeStateIsnewMessage')
       dispatch('context', newContext)
 
     } catch (err) {
@@ -167,7 +206,7 @@ export const websocket = store => {
   })
 
   store.on('notification', async ({ context }, obj, { dispatch }) => {
-
+    console.log('call when arrive notification')
     let newContext = context;
     const user_id = obj
     const urlChatItem = `wss://back.ftownpl.com:8443/ws/notifications/${user_id}/?token=$${getCookie('ft_token')}`;
@@ -179,6 +218,7 @@ export const websocket = store => {
     if (!!getCookie('ft_token')) {
       startWs()
       ws.onopen = (open) => {
+        console.log('auto call notifications')
         gettingData()
       }
       ws.onclose = (close) => {
@@ -203,24 +243,11 @@ export const websocket = store => {
       ws.onmessage = async e => {                //подписка на получение данных по вебсокету
         let message = JSON.parse(e.data);
         
-        if(!!!message.notifications.length) return
         
-        if (message?.notifications?.length) {
+        if (message?.notifications?.length) {          
           message = serializeNotifications({ results: message.notifications })
-          newContext = {
-            ...context,
-            "init_state": {
-              ...context.init_state,
-              notifications: {
-                ...context.init_state.notifications,
-                count: message.results.length,
-                results: message.results.filter(el => message.results.length = 30),
-                selectItemsNotice: [],
-              }
-            },
-          }
-          return dispatch('context', newContext);
-        } else {
+          dispatch('setNotificationTest', {message})
+        } else if(message?.notification){
           message = serializeNotifications({ results: [message.notification] })
           newContext = {
             ...newContext,
@@ -231,11 +258,36 @@ export const websocket = store => {
                 notifications: newContext.init_state.profile.notifications + 1,
               }
             },
-          }
-          await dispatch('context', newContext);
+          }          
+          dispatch('context', newContext);
+          console.log('add context notification')
           return dispatch('getNotice');
         };
       };
     };
   })
+  
+  store.on('@init', () => ({notificationTest: {
+                                                count: 0, 
+                                                selectItemsNotice:[],
+                                                isSelectAllItems: false,               
+                                                results: []
+                                              }
+                          }) 
+  )
+
+  store.on('setNotificationTest', ({notificationTest}, obj, {dispatch}) => {
+    console.log({obj})
+    const { message } = obj;
+    return {
+      notificationTest: {
+        ...notificationTest,
+        count: message.results.length,
+        results: message.results.filter(el => message.results.length = 30),
+        selectItemsNotice: [],
+      }
+    }
+  })
+
+
 }

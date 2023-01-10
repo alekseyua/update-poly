@@ -5,6 +5,8 @@ import logo from './logo/logo.svg';
 
 
 // ICONS
+import telegram from './icon/telegram.svg';
+import telegram1 from './icon/telegram-1.svg';
 import shoppingBag from './icon/shopping-bag.svg';
 import noticeIcon from './icon/email-notification-alert-icon.svg';
 import errorCanceled from './icon/errorCanceled.svg';
@@ -194,7 +196,10 @@ import spinnerCart2 from './spinner/spinner2.gif';
 import spinnerShopping from './spinner/shopping-cart-gif-8.gif';
 
 
+
 export {
+  telegram1,
+  telegram,
   noticeIcon,
   spinnerCart2,
   spinnerShopping,

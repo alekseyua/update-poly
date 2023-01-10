@@ -24,9 +24,14 @@
     }
     //.productdescription__text-article{}
     &__text-article{
-        text-transform: uppercase;
         @extend %font;
         font-size: 15px;
+        font-weight: 200;
+        text-transform: uppercase;
+        &>strong{
+            text-transform: none;
+        }
+
     }
     //.productdescription__row{}
     &__row{

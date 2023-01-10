@@ -3,37 +3,39 @@ import CatalogPageLayoutContainer from './CatalogPageLayout/CatalogPageLayoutCon
 
 const CatalogPage = (props) => {
 
-  const { 
+  const {
     multy_choise_filters,
     youAlredyWatch,
-    filters_params, 
-    dataProducts, 
+    filters_params,
+    dataProducts,
     currentPage,
-    breadcrumbs, 
-    categories, 
-    page_info, 
-    products = [], 
+    breadcrumbs,
+    categories,
+    page_info,
+    isLoading,
+    products = [],
     currency,
-    profile, 
+    profile,
   } = props.context;
-  
+
   const { content } = page_info;
   const { role } = profile;
 
   return (
     <CatalogPageLayoutContainer
-      multy_choise_filters = { multy_choise_filters }
-      youAlredyWatch = { youAlredyWatch }
-      filters_params = { filters_params }
-      dataProducts = { dataProducts }
-      breadcrumbs = { breadcrumbs }
-      currentPage = { currentPage }
-      categories = { categories }
-      currency = { currency }
-      products = { products }
-      content = { content }
-      role = { role }
-      />
+      multy_choise_filters={multy_choise_filters}
+      youAlredyWatch={youAlredyWatch}
+      filters_params={filters_params}
+      dataProducts={dataProducts}
+      breadcrumbs={breadcrumbs}
+      currentPage={currentPage}
+      categories={categories}
+      isLoading={isLoading?.isLoadingCatalog}
+      currency={currency}
+      products={products}
+      content={content}
+      role={role}
+    />
   )
 }
 

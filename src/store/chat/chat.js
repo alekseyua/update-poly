@@ -13,11 +13,12 @@ export const chat = store => {
       fd.set('order_item_id', idProduct);
       fd.set('message', message);
       files ? fd.set('files', files[0]) : null;
-      const res = await orderApi.postCorrespondence_order_item(fd);
-      setFieldValue('message', '')
-      setFieldValue('upDownBtn', false)
-      setFieldValue('files', null)
+      
       setFieldValue('activeBtnMessageForProduct', true)
+      const res = await orderApi.postCorrespondence_order_item(fd);
+      setFieldValue('upDownBtn', false)
+      setFieldValue('message', '')
+      setFieldValue('files', null)
 
     } catch (err) {
       console.log('ERROR sendMessageProduct = ', err);
@@ -52,11 +53,11 @@ export const chat = store => {
       fd.set('order', idProduct);
       fd.set('message', message);
       files ? fd.set('files', files[0]) : null;
+      setFieldValue('activeBtnMessageForProduct', true)
       const res = await orderApi.postCorrespondence(fd);
       setFieldValue('message', '')
       setFieldValue('upDownBtn', false)
       setFieldValue('files', null)
-      setFieldValue('activeBtnMessageForProduct', true)
 
     } catch (err) {
       console.log('ERROR sendMessageChatProduct = ', err);

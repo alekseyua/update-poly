@@ -4,7 +4,7 @@ import OrderingPageLayoutContainer from './OrderingPageLayout/OrderingPageLayout
 const OrderingPage = ({
     context
 }) => {
-console.log({context})    
+ 
     const {
         numberCurrentOrderForAddProduct,
         role_configuration,
@@ -36,10 +36,12 @@ console.log({context})
         delivery_condition,        
     } = role_configuration;
     const shriveledCartContent = {
-        cart_items: dataCart.cartitem_set.filter( el => el.is_selected ),
-        in_stock: dataCart.in_stock.filter( el => el.is_selected ),
+        cart_items: dataCart.cartitem_set.filter( el => el.is_selected? el.is_selected : el.selected ),
+        in_stock: dataCart.in_stock.filter( el => el.is_selected? el.is_selected : el.selected ),
         selected: dataCart.selected,
     }
+    console.log({dataCart})
+    console.log({shriveledCartContent})
 
     return (
         <OrderingPageLayoutContainer

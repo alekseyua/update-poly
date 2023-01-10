@@ -2,10 +2,9 @@ import api from "../../api/api";
 import Text from "../../helpers/Text";
 import Grid from '../../Views/GridContainerBlock';
 import { addReviewsFunc } from './addReviews';
-
 import { initReviews, initialFetchFiltersReviews } from '../../helpers/initialValues/initialValues';
 import { textErrorMessage } from "../modalStorage/modalWindow/modalWindow";
-import { errorAlertIcon } from "../../images";
+import { errorAlertIcon, successAlertIcon } from "../../images";
 import { ROLE } from "../../const";
 
 export const reviews = store => {
@@ -272,6 +271,18 @@ export const reviews = store => {
          }
          // dispatch('getReviewsProducts', paramsUpdateReview)
          //?! 3) Показывать попап что отзыв отправлен на модерацию + 
+         const message = ['Большое спасибо за то, что Вы нашли время на оценку наших услуг и написали отзыв! Он отобразится на сайте после модерации'];
+         dispatch('setModalState', {
+            show: true,
+            content: textErrorMessage(message),
+            iconImage: successAlertIcon,
+            addClass: 'modal-alert-error',
+            action: {
+                title: ['продолжить', null]
+            },
+            onClick: () => closeModalState()
+        })
+
         } catch (err) {
             console.log('ERROR GET ', err);
             setValues({
@@ -378,7 +389,6 @@ export const reviews = store => {
             }
 
             const dataReview = await apiContent.getMyReviewList(params);
-
             const updateContext = {
                 ...context,
                 init_state: {
@@ -386,7 +396,11 @@ export const reviews = store => {
                     reviews: {
                         ...context.init_state.reviews,
                         getMyReviewList: dataReview
-                    }
+                    },
+                    isLoading: {
+                        ...context.init_state.isLoading,                        
+                        isLoadingReviewsLK: true,                        
+                    },
                 }
             }
             return dispatch('context', updateContext);

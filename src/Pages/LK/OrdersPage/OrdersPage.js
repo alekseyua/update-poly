@@ -9,6 +9,7 @@ const OrdersPage = ({
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
+        isLoading,
         statuses,
         currency,
         profile,
@@ -37,6 +38,7 @@ const OrdersPage = ({
                 breadcrumbs={breadcrumbs}
                 create_shop={shop?.shop_link}
                 is_has_shop={shop?.is_has_shop}
+                isLoading={isLoading?.isLoadingOrders}
                 profileId={id}
                 username={username}
                 currency={currency}

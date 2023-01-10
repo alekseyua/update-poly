@@ -10,7 +10,7 @@ const NoProducts = ({
     </BlockSpinner.SpinnerCenter>);
     useEffect(()=>{    
         const timerTimeOut = setTimeout(()=>{
-            console.log('start render step 2')
+
             setDataText(
                 <div
                 className={style['info-block__about-products']}

@@ -84,7 +84,7 @@ const BaseInfoOrder = ({
               value={searchOrderForFio ? searchOrderForFio : ''}
               name={'search-order'}
               onChange={changeValueSearch}
-              placeholder={'Поиск по ФИО'}
+              placeholder={'Введите имя получателя'}
               helpText={
                 <Icon src={searchIcon} className={style['cabinet-topfilter__search-icon']} width={20} height={20} />
               }
@@ -94,10 +94,10 @@ const BaseInfoOrder = ({
       }
       <PersonalPageViews.InfoPayWrapper>
         <PersonalPageViews.InfoPayGreyText>
-          Сумма оплаченных заказов {total_orders_price_paid} {' '} {currency}
+          Сумма оплаченных заказов {total_orders_price_paid ?? 0} {' '} {currency}
         </PersonalPageViews.InfoPayGreyText>
         <PersonalPageViews.InfoPayGreyText>
-          Сумма неоплаченных товаров {total_orders_price_unpaid} {' '} {currency}
+          Сумма неоплаченных товаров {total_orders_price_unpaid ?? 0} {' '} {currency}
         </PersonalPageViews.InfoPayGreyText>
       </PersonalPageViews.InfoPayWrapper>
     </div>

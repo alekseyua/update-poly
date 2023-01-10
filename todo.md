@@ -14,6 +14,10 @@ Replace Autoprefixer browsers option to Browserslist config.
 `Password: ABkxb52RF8 `
 ` Выделенный IP: 91.218.229.240 `
 
+/var/telegram/telegram_avtorazborov_bot/static/admin
+`Выделенный IP: 95.181.224.33`
+`Login: root`
+`Password: 6ctDioxzCm`
 
 Чтобы выбирать язык необходимо реализовать lang
 

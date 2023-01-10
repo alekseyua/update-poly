@@ -5,11 +5,13 @@ import NotificationsPageLayout from './NotificationsPageLayout';
 const NotificationsPageLayoutContainer = ({
     amountNotifications,
     cabinet_site_menu,
+    isLoadingAction,
     notifications,
     cabinet_menu,
     breadcrumbs,
     create_shop,
     is_has_shop,
+    isLoading,
     currency,
     username,
     balance,
@@ -18,8 +20,9 @@ const NotificationsPageLayoutContainer = ({
 
     stateActiveCheckNotice,
 }) => {
-    const { dispatch } = useStoreon();
+    const { dispatch, notificationTest } = useStoreon('notificationTest');
 
+    console.log({notificationTest})
 
     const heandlerReedNotic = () => {
         dispatch('reedItemsNotice')
@@ -27,7 +30,7 @@ const NotificationsPageLayoutContainer = ({
     const heandlerDelNotic = () => {
         dispatch('deleteItemsNotice')
     }
-    const heandlerCheckAllNotice = (idItem) =>{
+    const heandlerCheckAllNotice = (idItem) => {
 
         const params = {
             idItems: +idItem
@@ -35,7 +38,7 @@ const NotificationsPageLayoutContainer = ({
         dispatch('checkedAllItemsNotice', params)
     }
 
-    const heandlerCheckNotice = (idItem) =>{
+    const heandlerCheckNotice = (idItem) => {
 
         const params = {
             idItem: +idItem
@@ -48,30 +51,33 @@ const NotificationsPageLayoutContainer = ({
         const params = {
             page: page
         }
-        dispatch('getNotice',params)
+        dispatch('getNotice', params)
     }
 
     return (
         <NotificationsPageLayout
-            amountNotifications = { amountNotifications }
-            cabinet_site_menu = { cabinet_site_menu }
-            notifications = { notifications }
-            cabinet_menu = { cabinet_menu }
-            breadcrumbs = { breadcrumbs }            
-            create_shop = { create_shop }
-            is_has_shop = { is_has_shop }
-            currency = { currency }
-            username = { username }
-            balance = { balance }
-            shop = { shop }
-            role = { role }
+            amountNotifications={notificationTest?.count}
+            isSelectAllItems={notificationTest.isSelectAllItems}
+            cabinet_site_menu={cabinet_site_menu}
+            isLoadingAction={isLoadingAction}
+            notifications={notificationTest}
+            cabinet_menu={cabinet_menu}
+            breadcrumbs={breadcrumbs}
+            create_shop={create_shop}
+            is_has_shop={is_has_shop}
+            isLoading={isLoading}
+            currency={currency}
+            username={username}
+            balance={balance}
+            shop={shop}
+            role={role}
 
-            heandlerReedNotic={heandlerReedNotic} 
-            heandlerDelNotic={heandlerDelNotic} 
-            heandlerCheckAllNotice = { heandlerCheckAllNotice }
-            heandlerCheckNotice = { heandlerCheckNotice }
-            stateActiveCheckNotice = { stateActiveCheckNotice }
-            changePaginations = { changePaginations }
+            heandlerReedNotic={heandlerReedNotic}
+            heandlerDelNotic={heandlerDelNotic}
+            heandlerCheckAllNotice={heandlerCheckAllNotice}
+            heandlerCheckNotice={heandlerCheckNotice}
+            stateActiveCheckNotice={notificationTest.isSelectAllItems}
+            changePaginations={changePaginations}
         />
     )
 }

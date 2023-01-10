@@ -7,15 +7,17 @@ import Notifications from '../../DetailsPage/Notifications';
 
 const NotificationsPageLayout = ({
     amountNotifications,
+    cabinet_site_menu,
+    isLoadingAction,
+    cabinet_menu,
     breadcrumbs,
-    shop,
     create_shop,
     is_has_shop,
-    cabinet_menu,
-    cabinet_site_menu,
-    balance,
+    isLoading,
     username,
     currency,
+    balance,
+    shop,
     role,
 
     notifications,
@@ -50,14 +52,16 @@ const NotificationsPageLayout = ({
 
                     <BlockGrid.GridPageRightLK>
                         <Notifications
-                            amountNotifications={amountNotifications}
-                            notifications={notifications}
-                            heandlerReedNotic={heandlerReedNotic}
-                            heandlerDelNotic={heandlerDelNotic}
                             heandlerCheckAllNotice={heandlerCheckAllNotice}
                             stateActiveCheckNotice={stateActiveCheckNotice}
+                            amountNotifications={amountNotifications}
                             heandlerCheckNotice={heandlerCheckNotice}
                             changePaginations={changePaginations}
+                            heandlerReedNotic={heandlerReedNotic}
+                            heandlerDelNotic={heandlerDelNotic}
+                            isLoadingAction={isLoadingAction}
+                            notifications={notifications}
+                            isLoading={isLoading}
                         />
                     </BlockGrid.GridPageRightLK>
                 </BlockGrid.GridPageLK>

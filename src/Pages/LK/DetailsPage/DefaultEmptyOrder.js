@@ -16,7 +16,7 @@ const DefaultEmptyOrder = ({ textMessage }) => {
            {
               textMessage?
                 textMessage
-                : 'Добавляйте товары в карзину и оформляйте заказы. Желаем приятного шоппинга в мире моды!'
+                : 'Добавляйте товары в корзину и оформляйте заказы. Желаем приятного шоппинга в мире моды!'
            }
           </TextUnderTitle>
           <LinkToCatalog to={'/catalog'}>

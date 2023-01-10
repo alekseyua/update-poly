@@ -12,7 +12,7 @@
     @include mobile {
       margin-bottom: 10px;
     }
-    > label {  //??? нужно просмотреть что бы ни чего не сломалось в других местах сделал для каталога
+    > label {  //??? нужно просмотреть чтобы ни чего не сломалось в других местах сделал для каталога
         color: #000;
     }
   }
@@ -20,7 +20,7 @@
   //.checkbox__label{}
   &__label {
     @extend %font;
-    font-size: $fontSize;
+    font-size: $fontSize - 2px;
     // margin-left: 10px;
     display: inline-block; // to make it easier to click
     color: $dg2;

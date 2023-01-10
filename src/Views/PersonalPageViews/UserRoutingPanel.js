@@ -46,7 +46,7 @@ const UserRoutingPanel = ({
             <Text text={'balance'} />:
           </div>
           <div className={style['cabinet-sidebar__balance-value']}>
-            {balance}&nbsp;
+            {balance ?? 0}&nbsp;
             {currency}
           </div>
         </div>

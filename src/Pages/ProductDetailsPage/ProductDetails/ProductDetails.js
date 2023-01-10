@@ -204,7 +204,7 @@ const ProductDetails = ({
                                 onClick={openTableSize}
                                 addClass = {'prodpage-sizes__btn'}
                             >
-                                <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width={20} height={20} />
+                                <Icon slot="icon-left" src={hanger} className="prodpage-sizes__icon" width={15} height={15} />
                                 Таблица размеров
                             </Button>
                         </BlockGrid.Row>

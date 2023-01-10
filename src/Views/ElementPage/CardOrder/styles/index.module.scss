@@ -247,8 +247,24 @@
         overflow-y: auto;
         position: relative;
         max-height: 300px;
+        &::after{
+            position: absolute;
+            content: '-';
+            right: 20px;
+            top: 0;
+            font-size: 25px;
+            pointer-events: none;
+          }
         &.active {
           height: 45px;
+          &::after{
+            position: absolute;
+            content: '+';
+            right: 20px;
+            top: 0;
+            font-size: 25px;
+            pointer-events: none;
+          }
         }
     }
     //.cabinet-orders-details__comment-field-message{}

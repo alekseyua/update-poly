@@ -18,7 +18,7 @@ const SendChatBlock = ({
     return (
         <div className={style['cabinet-orders-details__comment-send']}>
             <Input
-                placeholder={'Оставить комментарий к товару'}
+                placeholder={'«Написать упаковщику»'}
                 className={'cabinet-orders-details__comment-input'}
                 name={ nameInput }
                 value={values.message}

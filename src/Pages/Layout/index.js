@@ -13,6 +13,7 @@ import { getCookie } from '../../helpers/helpers';
 import VidjetChatContainer from '../../Views/VidjetChat';
 import ButtonScrollTop from '../../Views/ButtonScrollTop';
 import Cookie from '../../Views/Cookie/Cookie';
+import VidjetTelegramContainer from '../../Views/VidjetTelegram';
 
 
 const Layout = (props) => {
@@ -34,7 +35,7 @@ const Layout = (props) => {
 
   useEffect(() => {
     if (notice !== null) {
-      //сдесь происходит магия запуска обнавления контекста 
+      //здесь происходит магия запуска обнавления контекста 
       console.log({notice})
       if ([notice].includes('на Товар оплачен')) console.log('observer work good на Товар оплачен !!!') //dispatch('')
       if ([notice].includes('Вы пополнили баланс на')) console.log('observer work good Вы пополнили баланс на !!!') //dispatch('')
@@ -53,7 +54,6 @@ const Layout = (props) => {
 
   useEffect( async () => {
     if (await navigator.serviceWorker) {
-      console.log('navigator.serviceWorker', await navigator.serviceWorker)
       const listener = event => {
         // console.log({event})
         const { notification } = event.data
@@ -69,28 +69,7 @@ const Layout = (props) => {
   }, [])
 
 
-  // useEffect(()=>{
-  //   console.log('show modal window')
-  //   dispatch('setModalState',{
-  //     show: true,
-  //     className: null,
-  //     // iconImage: errorAlertIcon,
-  //     // title: 'testing popup',
-  //     // content: (
-  //     //   <div>
-  //     //     <i>{ Text({ text : 'error_server' }) }</i>
-  //     //     <p>{ Text({ text : 'call_admin' }) }</p>
-  //     //   </div>
-  //     // ),
-  //     // action : { title : ['next step', null]},
-  //     // onClick : ()=>dispatch('setModalState',{
-  //     //             show: true,
-  //     //             content: 'hhhhhhhhh'
-  //     //           })     
-  //   })
-  // },[])
-
-  const openModalFeedbackReedFile = (link, title) => {
+   const openModalFeedbackReedFile = (link, title) => {
     dispatch('pdf-viewer', {
       link: link,
       title: title
@@ -132,6 +111,8 @@ const Layout = (props) => {
         </header>
 
         <main className={style['layout__main']}>
+          <VidjetTelegramContainer
+          />
           <VidjetChatContainer
             answers={answers}
             categorys={answerCategorys}

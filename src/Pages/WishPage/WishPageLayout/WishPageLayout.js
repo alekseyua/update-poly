@@ -9,6 +9,7 @@ const WishPageLayout = ({
     recomendetProducts,
     breadcrumbs,
     list_wishes,
+    isLoading,
     currency,
     wishlist,
     role,
@@ -16,23 +17,17 @@ const WishPageLayout = ({
     changePaginationsWishList,
 }) => {
 
-    if ( !!!wishlist ) {
-        return <DefaultWishPagePreview
-                    recomendetProducts = { recomendetProducts } 
-                    breadcrumbs = { breadcrumbs }
-                    currency = { currency }
-                />;
-      }
-
+   
     return (
-        <BlockGrid.Container>
-            <Breadcrumbs breadcrumbs={breadcrumbs}/>
+        <BlockGrid.Container>            
             <MyWishList
-                list_wishes = { list_wishes }
-                currency = { currency }
-                
-                changePaginationsWishList = { changePaginationsWishList }
-            />            
+                changePaginationsWishList={changePaginationsWishList}
+                recomendetProducts={recomendetProducts}
+                breadcrumbs={breadcrumbs}
+                list_wishes={list_wishes}
+                isLoading={isLoading}
+                currency={currency}
+            />
         </BlockGrid.Container>
     )
 }

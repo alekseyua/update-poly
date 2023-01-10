@@ -53,9 +53,16 @@ h6 {
 }
 
 body, html {
+  @extend %font;
+  font-weight: 400;
   background-color: #fff;
   color: var(--gx-color-primary);
   line-height: 1.4;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 html, body, img, div, a, table {
   image-rendering: -webkit-optimize-contrast !important;
@@ -240,6 +247,30 @@ div#pdfviewer-specif> div > div.viewer-layout-main {
   }
 }
 
+.inner-chat-teleg{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: pulse-mobile 1.5s infinite;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  position: fixed;
+  z-index: 400;
+  bottom: 128px;
+  right: 53px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+
+  @include mobile {
+    bottom: 141px;
+    right: 17px;
+  }
+  &:hover{
+    animation: none;
+    cursor: pointer;
+  }
+}
+
 .sendpulse-send-to-tg.xlarge.blue{
   width: 162px;
   right: -53px;
@@ -276,7 +307,9 @@ select:-webkit-autofill:focus {
   padding: 15px 1px;
   font-weight: 200;
 }
-
+.react-date-picker__calendar.react-date-picker__calendar--open{
+  z-index: 999;
+}
 .modal-message{
   padding: 15px;
   font-size: 21px;

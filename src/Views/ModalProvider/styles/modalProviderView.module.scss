@@ -326,6 +326,8 @@
     //.modal-payment{}
     &-payment {
         padding: 0;
+        overflow: auto;
+        @include scrollbar;
         // height: 100%;
         max-width: 550px;
         &>div.modal-provider__content{
@@ -383,6 +385,8 @@
     //.modal-get-my-cash{}
     &-get-my-cash{
         height: 100%;
+        overflow: auto;
+        @include scrollbar;
         @include mobile-min {
             min-width: 500px;
         }

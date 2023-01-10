@@ -119,7 +119,6 @@ const ProductCard = (props) => {
               >
                 <Icon src={is_liked ? favoriteFilledIcon : favoriteIcon} height={20} width={20}
                 onClick={() => {
-                  console.log('test')
                   is_liked?
                   removeLikeProductCard(id)
                   : addLikeProductCard(id);

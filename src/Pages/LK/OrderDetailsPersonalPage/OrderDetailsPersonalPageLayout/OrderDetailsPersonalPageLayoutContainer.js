@@ -38,8 +38,11 @@ const OrderDetailsPersonalPageLayoutContainer = ({
   order_chat,
 }) => {
 
-  const { dispatch } = useStoreon();
+  const { dispatch, correspondence } = useStoreon('correspondence');
   const numberOrder = fullNumberOrder?.split('-').pop();
+
+console.log({correspondence})
+
   const openModalPay = (NumberOrder, total_cost) => {
     const params = {
       order_id: NumberOrder,
@@ -134,8 +137,8 @@ const OrderDetailsPersonalPageLayoutContainer = ({
       order_cost={order_cost}
       created_at={created_at}
       numberOrder = { numberOrder }
-      order_items_chat = { order_items_chat }
-      order_chat = { order_chat }
+      order_items_chat = { correspondence?.order_items_chat }
+      order_chat = { correspondence?.order_chat }
       delivery_cost={delivery_cost}
       delivery_method={delivery_method}
       fullNumberOrder={fullNumberOrder}

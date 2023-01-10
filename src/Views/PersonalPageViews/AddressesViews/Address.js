@@ -44,7 +44,7 @@ const Address = (props) => {
             value = {id}
             onClick={(e) => deleteAddress(+e.target.value)}
             variant={'cabinet-delete__address'}
-            className={style['cabinet-address__link--blue']}
+            className={style['cabinet-address__link']}
             data-cy={'delete_address_button'}
           >
             <Text text={'delete'} />

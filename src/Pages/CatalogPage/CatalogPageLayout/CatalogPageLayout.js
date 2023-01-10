@@ -17,6 +17,7 @@ import EnabledFilters from './CatalogFilters/EnabledFilters';
 import Pagination from '../../../Views/Pagination';
 import Offset from "../../../Views/Offset";
 import NoProducts from "../../../Views/ProductDetailsViews/InfoBlockProducts";
+import { ROLE } from "../../../const";
 
 const AsynColorsFilters = AsyncComponent(() => {
   return import('./CatalogFilters/ColorsFilters');
@@ -48,7 +49,7 @@ const CatalogPageLayout = ({
   isShowBtnSubmit,
   offsetTopBtnSubmit,
   youAlredyWatch,
-  
+  isLoading,
   content,
   dataProducts,
   valueProducts,
@@ -66,7 +67,7 @@ const CatalogPageLayout = ({
   resetAllFilters,
   resetContextFilter,
   checkIsShowCategorysAndProducType,
-  handlerChangePaginations ,
+  handlerChangePaginations,
   showMore,
   showMoreSpinner,
   offsetLeftBtnSubmit,
@@ -148,17 +149,17 @@ const CatalogPageLayout = ({
 
                           }
 
-                          {/* {role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ?*/}
-
-                          <AsyncBrandsFilters
-                            brands={valueProducts.brands}
-                            values={values}
-                            openBtnSubmit={openBtnSubmit}
-                            setValues={setValues}
-                            role={role}
-                          />
-
-                          {/* : null} */}
+                          {
+                            role !== ROLE.RETAIL && role !== ROLE.UNREGISTRED ?
+                              <AsyncBrandsFilters
+                                brands={valueProducts.brands}
+                                values={values}
+                                openBtnSubmit={openBtnSubmit}
+                                setValues={setValues}
+                                role={role}
+                              />
+                              : null
+                          }
 
                           <AsynColorsFilters
                             colors={valueProducts.colors}
@@ -186,7 +187,7 @@ const CatalogPageLayout = ({
                                 e.preventDefault();
                                 handleSubmit();
                                 // setShowFilters(false)
-                            
+
                               }}
                               variant={'catalog_mobile__apply'}
                             >
@@ -204,26 +205,23 @@ const CatalogPageLayout = ({
                 showFilters ? */}
 
 
-                  <CatalogViews.Catalog>
-                    <WarningBlock
-                      variant={'catalog-wrapper'}
-                      textWarning = { content? <div dangerouslySetInnerHTML = {{ __html: content }}></div> : '' }
-                    />
-                    <CatalogViews.SortSelect
-                      valueOptionsSort={filterParams.ordering}
-                      selectedSortFilters={(selected) => {
-                        return loadData({ ordering: selected });
-                      }}
-                      options={options}
-                    />
-                    {/* {status === 'loading' ? ( */}
-                    {/* { 
-                     !!dataProducts?.result?.length ? (
-                      <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                          <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
-                        </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                     ) : ( */}
+              <CatalogViews.Catalog>
+                <WarningBlock
+                  variant={'catalog-wrapper'}
+                  textWarning={content ? <div dangerouslySetInnerHTML={{ __html: content }}></div> : ''}
+                />
+                {
+                  isLoading ?
                     <>
+                      <CatalogViews.SortSelect
+                        valueOptionsSort={filterParams.ordering}
+                        selectedSortFilters={(selected) => {
+                          return loadData({ ordering: selected });
+                        }}
+                        options={options}
+                      />
+
+
                       <CatalogViews.Tags>
 
                         <EnabledFiltersOptions
@@ -301,7 +299,7 @@ const CatalogPageLayout = ({
                           resetContextFilter={resetContextFilter}
                           keyFilter={'is_not_range'}
                         />
-                        
+
                         <EnabledFilters
                           enabledFilterData={filterParams}
                           defaultFilterData={valueProducts}
@@ -330,73 +328,76 @@ const CatalogPageLayout = ({
                         !!!dataProducts?.results.length && showFilters ? <CatalogViews.EmptyCatalog /> : null
                       }
                       {
-                        !!dataProducts?.results.length?
+                        !!dataProducts?.results.length ?
                           <CatalogViews.WrapperCard>
                             {
-                                dataProducts.results.map((el) => {
+                              dataProducts.results.map((el) => {
                                 return (
                                   <AsyncProductCard
-                                    role = { role }
-                                    key = { `${el.title}-${el.id}` }
-                                    title = { el.title }
-                                    id = { el.id }
-                                    url = { el.url }
-                                    brand = { el.brand }
-                                    prices = { el.prices }
-                                    stock = { el.stock }
-                                    colors = { el.colors }
-                                    sizes = { el.sizes }
-                                    images = { el.images }
-                                    isSales = { el.isSales }
-                                    isNew = { el.isNew }
-                                    isHit = { el.isHit }                                  
-                                    is_liked = { el.is_liked }
-                                    product_rc = { el.product_rc }
-                                    article = { el.article }
-                                    currency = { currency }
+                                    role={role}
+                                    key={`${el.title}-${el.id}`}
+                                    title={el.title}
+                                    id={el.id}
+                                    url={el.url}
+                                    brand={el.brand}
+                                    prices={el.prices}
+                                    stock={el.stock}
+                                    colors={el.colors}
+                                    sizes={el.sizes}
+                                    images={el.images}
+                                    isSales={el.isSales}
+                                    isNew={el.isNew}
+                                    isHit={el.isHit}
+                                    is_liked={el.is_liked}
+                                    product_rc={el.product_rc}
+                                    article={el.article}
+                                    currency={currency}
                                   />
-                                  );
-                                })
+                                );
+                              })
                             }
                             {
-                              showMoreSpinner?
-                                  <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                                    <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
-                                  </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
-                                  : null
+                              showMoreSpinner ?
+                                <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                                  <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
+                                </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                                : null
                             }
-                          </CatalogViews.WrapperCard> 
-                        : <NoProducts>
-                          ПО ВАШЕМУ ЗАПРОСУ НИЧЕГО НЕ НАЙДЕНО.
-                        </NoProducts>
-                        }
-                       {
-                          dataProducts?.results.length  < dataProducts?.count && currentPage * 30 < dataProducts?.count? (
-                            <Button full onClick={showMore} variant={'show_more'}>
-                              <Text text={'show.more'} />
-                            </Button>
-                          ) : null
-                        }
+                          </CatalogViews.WrapperCard>
+                          : <NoProducts>
+                            ПО ВАШЕМУ ЗАПРОСУ НИЧЕГО НЕ НАЙДЕНО.
+                          </NoProducts>
+                      }
+                      {
+                        dataProducts?.results.length < dataProducts?.count && currentPage * 30 < dataProducts?.count ? (
+                          <Button full onClick={showMore} variant={'show_more'}>
+                            <Text text={'show.more'} />
+                          </Button>
+                        ) : null
+                      }
 
                       <Pagination
-                        location = {'left'}
-                        count = { 30 }
-                        allCount ={ dataProducts?.count }
-                        currentPage = { currentPage ?? 1 }
-                        handlerChangePaginations = { handlerChangePaginations }
+                        location={'left'}
+                        count={30}
+                        allCount={dataProducts?.count}
+                        currentPage={currentPage ?? 1}
+                        handlerChangePaginations={handlerChangePaginations}
                       />
                     </>
-                    {/* )} */}
-                  </CatalogViews.Catalog>
-                  {/* : null
+                    : <BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                      <BlockSpinner.Spinner sizeHeight="30" sizeWidth="30" />
+                    </BlockSpinner.SpinnerWrapperSpinnerCenterMargin>
+                }
+              </CatalogViews.Catalog>
+              {/* : null
               } */}
             </React.Fragment>
           </CatalogViews.Row>
         </React.Fragment>
       </Block.Container>
-      <AsyncYouHaveAlreadyWatched 
-        youAlredyWatch = { youAlredyWatch }
-        currency = { currency }
+      <AsyncYouHaveAlreadyWatched
+        youAlredyWatch={youAlredyWatch}
+        currency={currency}
       />
       <Offset offset={'catalog'} />
     </React.Fragment>

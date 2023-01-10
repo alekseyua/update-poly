@@ -90,6 +90,7 @@
     //.cabinet-form__link--blue{}
     &__link--blue{
       padding: 0;
+      color: #1d11f3;
     }
     //.cabinet-form-block{}
     &-block {
@@ -200,10 +201,15 @@
     &:hover {
       background: #fcfbfc;
     }
-
+     //.cabinet-address__link{}
+     &__link{
+      padding: 0;
+      color: $rd;
+    }
     //.cabinet-address__link--blue{}
     &__link--blue{
       padding: 0;
+      color: rgb(27, 34, 236);
     }
     //.cabinet-address__new{}
     &__new {

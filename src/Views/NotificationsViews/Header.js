@@ -12,7 +12,7 @@ const Header = ({
   heandlerCheckAllNotice,
   stateActiveCheckNotice,
 }) => {
-
+console.log({stateActiveCheckNotice})
   return (
     <div className={style["cabinet-notifications__head"]}>
       <CheckBox 

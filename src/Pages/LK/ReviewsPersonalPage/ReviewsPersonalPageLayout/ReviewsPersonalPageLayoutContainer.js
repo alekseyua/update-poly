@@ -10,6 +10,7 @@ const ReviewsPersonalPageLayoutContainer = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    isLoading,
     currency,
     username,
     balance,
@@ -37,6 +38,7 @@ const ReviewsPersonalPageLayoutContainer = ({
             create_shop={create_shop}
             is_has_shop={is_has_shop}
             breadcrumbs={breadcrumbs}
+            isLoading={isLoading}
             currency={currency}
             username={username}
             balance={balance}

@@ -38,7 +38,7 @@ const OrderDetailsPersonalPage = ({
         delivery_address,
         deleteElementOrder,
     } = order;
-
+console.log({correspondence})
     const idOrder = id;
     const order_chat = correspondence?.order_chat;
     const order_items_chat = correspondence?.order_items_chat;

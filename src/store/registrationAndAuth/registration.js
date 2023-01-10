@@ -33,7 +33,7 @@ export const registration = store => {
   store.on('setAllSteps', ({ allSteps }, s) => ({ allSteps: s }))
   //?! регистрация пользователя
 
-  store.on('setRegistration', async ({ registration, step, roleRegister }, obj, { dispatch }) => {
+  store.on('setRegistration', async ({ registration, step, roleRegister, closeModalState }, obj, { dispatch }) => {
     const { newValues, setFieldError, setLoading, redirectTo } = obj;
     try {      
       let params = serializeDataRegistration(newValues, roleRegister);
@@ -65,13 +65,14 @@ export const registration = store => {
                       onClick: () => redirectTo('/authorization')
                     }),
         onClick: () => {
-          dispatch('firstLogin', {
-            // ? после регистрации авто авторизируемся
-            username: params.username,
-            password: params.password,
-            email: params.email,
-            redirectTo: redirectTo
-          })
+            dispatch('firstLogin', {
+              // ? после регистрации авто авторизируемся
+              username: params.username,
+              password: params.password,
+              roleRegister: roleRegister,
+              email: params.email,
+              redirectTo: redirectTo
+            })          
         },
         content: (
           roleRegister !== ROLE.RETAIL? 
@@ -347,6 +348,7 @@ export const registration = store => {
         handleSubmit={handleSubmit}
         postKeyFromMail={postKeyFromMail}
         redirectTo={redirectTo}
+        roleRegister = { obj?.roleRegister }
       />
     })
   })
@@ -364,10 +366,10 @@ export const registration = store => {
       }
       // на этом запросе мы получаем токен пользователя
       const res = await apiUser.loginByUsername(params)
-      setLoading(false)
       delay(1500)
+      setLoading(false)
       obj.redirectTo('/juridical')
-      //?! сдесь обнавляем данные в хранилище
+      //?! здесь обнавляем данные в хранилище
       
       // ? запрос на подтверждение почты (авторизация при первой регистрации)
       dispatch('inputKeyFromEmail', {
@@ -376,6 +378,7 @@ export const registration = store => {
         type: 'resend',
         email: email,
         redirectTo: redirectTo,
+        roleRegister: obj?.roleRegister,
       })
 
     } catch (err) {

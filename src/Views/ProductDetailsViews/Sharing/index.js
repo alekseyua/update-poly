@@ -87,7 +87,7 @@ const Sharing = ({
                   onClick={() => setStyleSocialItems(c=>!c)}
                   className={style['prodpage__button_group-btn']}
               >
-                  <Icon src={shareIcon} width = {25} height = {25} />
+                  <Icon src={shareIcon} width = {20} height = {20} />
               </Button>
 
               <div className={style["social-list"]}>

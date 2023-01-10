@@ -49,7 +49,7 @@ const Labels = ({
               [style[el.modifyClass]]: el.modifyClass,
             })}
           >
-            <Icon src={el.icon}  width={el.modifyClass === 'long'? '90' : '40'} height={'40'}/>
+            <Icon src={el.icon}  width={el.modifyClass === 'long'? '90' : '40'} height={'30'} />
           </li>
         );
       })}

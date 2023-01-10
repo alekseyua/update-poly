@@ -197,28 +197,37 @@
 }
 .cart {
   @include h(2);
-  text-transform: uppercase;
-  color: $p;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 32px;
   @extend %font;
+  color: $p;
+  text-align: left;
+  padding-right: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 130%;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
 .cart-order{
   @include h(2);
   text-transform: uppercase;
+
   color: $p;
   font-style: normal;
   font-weight: bold;
   font-size: 22px;
-  @extend %font-title;
+  font-family: Noto Sans;
   text-align: center;
   margin-top: 20px;
 }
 
 .order{
   font-size: 25px;
+}
+.lk-message{
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .news-details-page__title {

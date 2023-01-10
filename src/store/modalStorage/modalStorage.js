@@ -274,7 +274,7 @@ export const modalStorage = store => {
                 addClass: 'modal-add-to-cart',
                 content: addToCart(product_rcAmount, is_collection, product_rc, old_price, currency, color, price, image, title, size, role),
                 action: {
-                    title: ['продолжить покупки', 'перейти в карзину']
+                    title: ['продолжить покупки', 'перейти в корзину']
                 },
                 onClick: () => closeModalState(),
                 onClickCancel: () => {

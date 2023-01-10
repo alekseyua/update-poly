@@ -16,6 +16,7 @@ const BalancePageLayout = ({
     is_has_shop,
     create_shop,
     breadcrumbs,
+    isLoading,
     username,
     currency,
     balance,
@@ -59,10 +60,11 @@ const BalancePageLayout = ({
                             openModalGetMyCache={openModalGetMyCache}
                         />
                         <HistoryPayments
-                            historyPayment={historyPayment}
-                            currency={currency}
-                            confirm_payments_cost={confirm_payments_cost}
                             changePaginationsPayments={changePaginationsPayments}
+                            confirm_payments_cost={confirm_payments_cost}
+                            historyPayment={historyPayment}
+                            isLoading={isLoading}
+                            currency={currency}
                         />
                     </BlockGrid.GridPageRightLK>
                 </BlockGrid.GridPageLK>

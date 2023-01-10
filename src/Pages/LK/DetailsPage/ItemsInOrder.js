@@ -7,8 +7,11 @@ import Button from '../../../Views/Button';
 import Table from '../../../Views/Table';
 import Text from '../../../helpers/Text';
 import DefaultEmptyOrder from './DefaultEmptyOrder';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
 import dayjs from '../../../helpers/dayjs';
 import api from '../../../api/api';
+import Title from '../../../Views/Title';
+import Offset from '../../../Views/Offset';
 
 const ItemsInOrder = ({ 
   total_orders_price_unpaid,
@@ -17,6 +20,7 @@ const ItemsInOrder = ({
   searchOrderForFio,
   dateFilterData,
   tableBodyData,
+  isLoading,
   currency,
   loading,
   profile,
@@ -185,7 +189,8 @@ const ItemsInOrder = ({
           tableBodyData={createTdForTable(tableBodyData, currency)}
         />
         {
-          !!tableBodyData?.length ?
+          isLoading?
+           !!tableBodyData?.length ?
             <Pagination
               location={'center'}
               count={30}
@@ -193,9 +198,16 @@ const ItemsInOrder = ({
               currentPage={currentPage ?? 1}
               handlerChangePaginations={handlerChangePaginations}
             />
-            : <DefaultEmptyOrder 
-              textMessage = { searchOrderForFio? `который бы соответствовал критериям поиска ${searchOrderForFio}` : '' }
-            />
+            : <Title variant={'lk-message'} type={'h1'}>
+              <Offset offset={20} />
+                { searchOrderForFio? `У Вас нет ни одного заказа который бы соответствовал критериям поиска: ${searchOrderForFio}` : 'У Вас нет ни одного заказа.' }
+              </Title> 
+          : <BlockSpinner.SpinnerWrapper>
+            <BlockSpinner.Spinner sizeWidth={40} sizeHeight={40} />
+          </BlockSpinner.SpinnerWrapper>
+          // <DefaultEmptyOrder 
+            //   textMessage = { searchOrderForFio? `который бы соответствовал критериям поиска ${searchOrderForFio}` : '' }
+            // />
         }
       </MyOrderViews.WrapperTable>
     </React.Fragment>

@@ -9,6 +9,7 @@ const ReviewsPersonalPage = ({
         cabinet_site_menu,
         cabinet_menu,
         breadcrumbs,
+        isLoading,
         currency,
         profile,
         reviews,
@@ -29,6 +30,7 @@ const ReviewsPersonalPage = ({
             is_has_shop={shop?.is_has_shop}
             create_shop={shop?.shop_link}
             breadcrumbs={breadcrumbs}
+            isLoading={isLoading?.isLoadingReviewsLK}
             currency={currency}
             username={username}
             balance={balance}

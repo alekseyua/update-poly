@@ -15,7 +15,7 @@ const FormBottom = ({ onClickChangePassword, children, phone }) => {
         <Button 
           variant = { "cabinet-linkblue" } 
           onClick = { onClickChangePassword } 
-          className = { style['cabinet-form__link--blue'] }
+          className = { style[ phone? '' : 'cabinet-form__link--blue'] }
         >
           <Text text = { phone? 'changePhone' : 'changePasswor' } />
         </Button>

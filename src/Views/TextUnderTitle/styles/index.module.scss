@@ -31,16 +31,23 @@
 //.text-content__cart-info{
 .text-content{
   &__cart-info{
-    @extend %font;
+    // @extend %font;
+    // font-style: normal;
+    // font-weight: normal;
+    // font-size: 18px;
+    // line-height: 140%;
+    // text-align: justify;
+    // padding-left: 70px;
+    // padding-right: 70px;
+    // margin-bottom: 20px;
+    // color: #282534;
     font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
+    font-weight: 400;
+    font-size: 14px;
     line-height: 140%;
-    text-align: justify;
-    padding-left: 70px;
-    padding-right: 70px;
-    margin-bottom: 20px;
-    color: #282534;
+    color: var(--gx-color-primary);
+    max-width: 475px;
+    margin: 15px 0;
     @include padding-for-mobile;
   }
   

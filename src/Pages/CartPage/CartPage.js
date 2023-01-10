@@ -11,6 +11,7 @@ const CartPage = ({...props}) => {
         breadcrumbs,
         recommended,
         page_info, 
+        isLoading,
         dataCart, 
         currency, 
         profile, 
@@ -44,7 +45,6 @@ const CartPage = ({...props}) => {
             textConditionPayPart_2 = { textConditionPayPart_2 }
             valueButtonNextToOrder = { valueButtonNextToOrder }
             agreeWitheRegulations = { agreeWitheRegulations }
-
             recomendetProducts = { dataProducts?.results || recommended || youAlredyWatch?.results }
             opt_minimum_price = { opt_minimum_price }
             listCurrentOrder = { listCurrentOrder }
@@ -55,6 +55,7 @@ const CartPage = ({...props}) => {
             cartitem_set = { cartitem_set }
             breadcrumbs = { breadcrumbs }
             total_price = { total_price }
+            isLoading ={isLoading?.isLoadingCart}
             selected = { selected }
             currency = { currency }
             in_stock = { in_stock }

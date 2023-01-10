@@ -12,6 +12,9 @@
         margin-right: 10px;
         margin-bottom: 10px;
         padding: 0;
+        &>span:first-child{
+            color: $dg2;
+        }
     }
     //.prodpage-colors__items{}
     &__items{

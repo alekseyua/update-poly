@@ -6,11 +6,12 @@ import ErrorField from '../../ErrorField';
 import Button from '../../Button';
 import Input from '../../Input';
 import Form from '../../Form';
+import Text from '../../../helpers/Text';
+import { ROLE } from '../../../const';
 
 
-const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMail }) => {
-
-
+const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMail, roleRegister }) => {
+  
   return (
     <>
       <ModalProvider.ModalRestorePasswordTitle title={'Введите код'} mb={'10px'} />
@@ -20,7 +21,6 @@ const ModalSubmitCode = ({ initialValuesSubmitCode, handleSubmit, postKeyFromMai
       >
         {(props) => {
           const { setValues, values, errors, setErrors, handleSubmit} = props;
-console.log({errors})
           return (
             <Form
               id={'modal-submit-code'}
@@ -30,7 +30,12 @@ console.log({errors})
               <ModalProvider.ModalRestorePasswordDesc mb={'5px'}>
                 {/* добавить надписи для разных ролей */}
                 <div className={'modal-message'}>                  
-                  Чтобы воспользоваться всеми возможностями сотрудничества, подтвердите почту и дождитесь проверки администратора
+                  {/* Чтобы воспользоваться всеми возможностями сотрудничества, подтвердите почту и дождитесь проверки администратора */}
+                  {
+                    roleRegister === ROLE.RETAIL?
+                       null
+                      : Text({ text: 'lk_confirm_email'})
+                  }
                 </div>
                 Мы отправили код подтверждения на Ваш e-mail
               </ModalProvider.ModalRestorePasswordDesc>

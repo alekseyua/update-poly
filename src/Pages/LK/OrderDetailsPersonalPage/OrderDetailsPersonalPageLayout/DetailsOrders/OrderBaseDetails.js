@@ -40,7 +40,6 @@ const OrderBaseDetails = ({
   openModalPay,
   heandlerClickInfo,
 }) => {
-
   const {
     city = '',
     country = '',

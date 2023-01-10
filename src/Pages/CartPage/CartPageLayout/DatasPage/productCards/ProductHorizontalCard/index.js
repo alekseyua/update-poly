@@ -81,9 +81,9 @@ const ProductHorizontalCard = ({
           />
         </div>
 
-        {/* <Link to={ `/${url.split('/').pop()}` }>
+        <Link to={ `/${url.split('/').pop()}` }>
           <img src={image} className={style['product-card__image-thumb']} />
-        </Link> */}
+        </Link>
         <div className={style['product-card__base-info']}>
         
           <div className={style['product-card__base-info-brand']}>{ brand }</div>

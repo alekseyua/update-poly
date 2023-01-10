@@ -59,23 +59,6 @@ const Card = ({
     }
   };
 
-  // useEffect(()=>{
-  //   const dataChatItem = chatOrdersMessage.filter(item=> item.item_id === id)
-  //   if(dataChatItem[0] !== undefined){
-  //     const messages = dataChatItem[0].chat_order_items
-  //     const result = []
-  //     const data = messages.filter(el =>{
-  //       if(el.is_new && el.user === "Менеджер") {
-  //         result.push(+el.message_id)
-  //         setIdMessagers(result)
-  //         setIdOrderMessagers(el.order_item_id)
-  //       }
-  //     })
-  //     setcorrespondenceState(messages)
-  //   }
-  // },[chatOrdersMessage])
-
-
   const initValuesMessageProduct = {
     files: null,
     message: '',

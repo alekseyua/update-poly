@@ -47,7 +47,6 @@ export const cart = store => {
                 } else {
                     error.push(`${errors[0]}`)
                 }
-                console.log({ errors }, { err: typeof errors })
             }
             dispatch('setModalState', {
                 show: true,
@@ -107,7 +106,11 @@ export const cart = store => {
                     profile: {
                         ...context.init_state.profile,
                         cart: res.in_cart
-                    }
+                    },
+                    isLoading: {
+                        ...context.init_state.isLoading,
+                        isLoadingCart: true,
+                    },
                 },
             };
 
@@ -505,9 +508,7 @@ export const cart = store => {
                 }
 
             } else {
-                //?! необходимо сделать попап для что не зарегин и переход на авторизацию
-                console.log('необходимо сделать попап для что не зарегин и переход на авторизацию')
-                    return dispatch('setModalState', {
+                            return dispatch('setModalState', {
                         show: true,
                         addClass: 'modal-add-to-cart',
                         iconImage: errorAlertIcon,

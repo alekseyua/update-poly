@@ -37,7 +37,6 @@ export const balance = store => {
                 }else{
                     error.push(`${errors[0]}`)
                 }
-                console.log({errors}, {err: typeof errors})
             }
             dispatch('setModalState', {
                 show: true,
@@ -65,8 +64,12 @@ export const balance = store => {
                 ...context,
                 "init_state": {
                     ...context.init_state,
-                    historyPayment: res
-                }
+                    historyPayment: res,
+                    isLoading: {
+                        ...context.init_state.isLoading,                        
+                        isLoadingArchivePayments: true,
+                    },
+                } 
             }
 
             dispatch('context', newContext);

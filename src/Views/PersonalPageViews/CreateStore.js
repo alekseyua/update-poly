@@ -17,7 +17,7 @@ const CreateStore = ({ create_shop = '#', role, className }) => {
   });
   
   return (
-  //  <Link to={create_shop} className={customClassName} //сдесь ссылка на страницу заказа магазина
+  //  <Link to={create_shop} className={customClassName} //здесь ссылка на страницу заказа магазина
     <Link to={'#'} className={customClassName}
 
     >

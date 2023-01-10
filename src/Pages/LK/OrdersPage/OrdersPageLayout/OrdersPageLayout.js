@@ -21,6 +21,7 @@ const OrdersPageLayout = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    isLoading,
     profileId,
     username,
     currency,
@@ -42,48 +43,49 @@ const OrdersPageLayout = ({
         <React.Fragment>
             <BlockGrid.Container>
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    <BlockGrid.GridPageLK>
-                        
-                        <BlockGrid.GridPageLeftLK>
+                <BlockGrid.GridPageLK>
+
+                    <BlockGrid.GridPageLeftLK>
                         <SidebarPersonalPage
-                            amountNotifications = { amountNotifications }
-                            cabinet_site_menu = { cabinet_site_menu }
-                            cabinet_menu = { cabinet_menu }
-                            create_shop = { create_shop }
-                            is_has_shop = { is_has_shop }
-                            currency = { currency }
-                            username = { username }
-                            balance = { balance }
-                            role = { role }
-                            shop = { shop }
+                            amountNotifications={amountNotifications}
+                            cabinet_site_menu={cabinet_site_menu}
+                            cabinet_menu={cabinet_menu}
+                            create_shop={create_shop}
+                            is_has_shop={is_has_shop}
+                            currency={currency}
+                            username={username}
+                            balance={balance}
+                            role={role}
+                            shop={shop}
                         />
-                        </BlockGrid.GridPageLeftLK>
+                    </BlockGrid.GridPageLeftLK>
 
-                        <BlockGrid.GridPageRightLK>
+                    <BlockGrid.GridPageRightLK>
                         <ActiveAndArchivedOrders
-                            total_orders_price_unpaid = { total_orders_price_unpaid }
-                            total_orders_price_paid = { total_orders_price_paid }
-                            total_debt_orders = { total_debt_orders }
-                            searchOrderForFio = { searchOrderForFio }
-                            dateFilterData = { dateFilterData }
-                            tableBodyData = { tableBodyData }
-                            loading = {loading}
-                            profile = {profile}
-                            options = { options }              
-                            orders = { orders }
-                            currency = { currency }
+                            total_orders_price_unpaid={total_orders_price_unpaid}
+                            total_orders_price_paid={total_orders_price_paid}
+                            total_debt_orders={total_debt_orders}
+                            searchOrderForFio={searchOrderForFio}
+                            dateFilterData={dateFilterData}
+                            tableBodyData={tableBodyData}
+                            isLoading={isLoading}
+                            currency={currency}
+                            loading={loading}
+                            profile={profile}
+                            options={options}
+                            orders={orders}
 
-                            getDataOrdersFilters = { getDataOrdersFilters }
-                            changeStatusFilter = { changeStatusFilter }
-                            changeValueSearch = { changeValueSearch }
-                            selectCreateFrom = { selectCreateFrom }
-                            selectCreateTo = { selectCreateTo }
-                            btnAddOrderItems = { btnAddOrderItems }
-                            sendToArchive = { sendToArchive }
-                            btnDelOrder = { btnDelOrder }
+                            getDataOrdersFilters={getDataOrdersFilters}
+                            changeStatusFilter={changeStatusFilter}
+                            changeValueSearch={changeValueSearch}
+                            selectCreateFrom={selectCreateFrom}
+                            selectCreateTo={selectCreateTo}
+                            btnAddOrderItems={btnAddOrderItems}
+                            sendToArchive={sendToArchive}
+                            btnDelOrder={btnDelOrder}
                         />
-                        </BlockGrid.GridPageRightLK>
-                    </BlockGrid.GridPageLK>
+                    </BlockGrid.GridPageRightLK>
+                </BlockGrid.GridPageLK>
             </BlockGrid.Container>
         </React.Fragment>
     )

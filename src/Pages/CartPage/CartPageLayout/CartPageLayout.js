@@ -42,6 +42,7 @@ const CartPageLayout = ({
     valueButton,
     front_admin,
     currency,
+    isLoading,
     in_stock,
     selected,
     in_cart,
@@ -59,7 +60,6 @@ const CartPageLayout = ({
     decCounterProduct,
     incCounterProduct,
 }) => {
-
     const labelLink = () => {
         return (
             <div
@@ -144,7 +144,8 @@ const CartPageLayout = ({
                             : null
                     }
                     {
-                        (!!!cartitem_set.length && !!!in_stock.length && profileInCart > 0 ) ?
+                        // (!!!cartitem_set.length && !!!in_stock.length && profileInCart > 0 ) ?
+                        !isLoading?
                             <BlockSpinner.SpinnerWrapper>
                                 <BlockSpinner.SpinnerCenter>
                                     <BlockSpinner.Spinner sizeWidth='30' sizeHeight='30' />

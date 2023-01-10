@@ -8,12 +8,15 @@ import PersonalPageViews from '../../../Views/PersonalPageViews';
 import Button from '../../../Views/Button';
 import Title from '../../../Views/Title';
 import Input from '../../../Views/Input';
+import BlockSpinner from '../../../Views/SpinnerWrapper';
+import Offset from '../../../Views/Offset';
 
 const HistoryPayments = ({
-  historyPayment,
-  currency,
-  confirm_payments_cost,
   changePaginationsPayments,
+  confirm_payments_cost,
+  historyPayment,
+  isLoading,
+  currency,
 }) => {
 
   const fileInputRef = React.useRef(null);
@@ -217,8 +220,6 @@ const HistoryPayments = ({
     return results;
   };
 
-
-
   return (
     <MyOrderViews.WrapperTable>
       <Title variant={'cabinet__heading'} type={'h3'}>
@@ -240,11 +241,25 @@ const HistoryPayments = ({
         tableHeaderData={tableHeaderData}
         tableBodyData={createTdForTable(historyPayment.results, currency)}
       />
-      <Pagination
-        allCount={historyPayment?.count ?? 0}
-        count={10}
-        handlerChangePaginations={changePaginationsPayments}
-      />
+      {
+        isLoading?
+          !!historyPayment.results.length?
+            <Pagination
+              allCount={historyPayment?.count ?? 0}
+              count={10}
+              handlerChangePaginations={changePaginationsPayments}
+            />
+            : <Title variant={'lk-message'} type={'h1'}>
+                  <Offset offset={20} />
+                  У Вас нет ни одного платежа
+                  <Offset offset={20} />
+              </Title> 
+          : 
+              <BlockSpinner.SpinnerWrapper>
+                <BlockSpinner.Spinner sizeWith={40} sizeHeight={40} />
+              </BlockSpinner.SpinnerWrapper>
+
+      }
     </MyOrderViews.WrapperTable>
   );
 };

@@ -12,9 +12,10 @@ const BalancePage = ({
         historyPayment,
         cabinet_menu,
         breadcrumbs,
+        isLoading,
+        currency,
         profile,
         shop,
-        currency,
 
     } = context;
 
@@ -32,6 +33,7 @@ const BalancePage = ({
             breadcrumbs={breadcrumbs}
             create_shop={shop?.shop_link}
             is_has_shop={shop?.is_has_shop}
+            isLoading={isLoading?.isLoadingArchivePayments}
             currency={currency}
             username={username}
             balance={balance}

@@ -16,6 +16,7 @@ const CatalogPageLayoutContainer = ({
   breadcrumbs,
   currentPage,
   categories = [],
+  isLoading,
   products,
   currency,
   content,
@@ -199,7 +200,7 @@ const CatalogPageLayoutContainer = ({
       offsetLeftBtnSubmit = { offsetLeftBtnSubmit }
       setOffsetTopBtnSubmit={setOffsetTopBtnSubmit}
       youAlredyWatch = { youAlredyWatch }
-
+      isLoading={isLoading}
       content={content}
       getTitleForDocument = { getTitleForDocument }
       valueProducts = { valueProducts }

@@ -83,7 +83,7 @@ const ControlButtonsContainer = ({
       `
       //добавляем клон на страницу
       document.body.append(cloneIcon)
-      // получаем координаты карзины по id 'cart-id'
+      // получаем координаты корзины по id 'cart-id'
       const getCartId = document.querySelector('#cart-id')
       const getCartIdTop = getCartId.getBoundingClientRect().top;// позиция изображения на странице от верха
       const getCartIdLeft = getCartId.getBoundingClientRect().left;// позиция изображения на странице от левого края

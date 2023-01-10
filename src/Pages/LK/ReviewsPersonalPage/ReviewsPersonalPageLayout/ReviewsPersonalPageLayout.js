@@ -13,6 +13,7 @@ const ReviewsPersonalPageLayout = ({
     breadcrumbs,
     create_shop,
     is_has_shop,
+    isLoading,
     currency,
     username,
     balance,
@@ -46,6 +47,7 @@ const ReviewsPersonalPageLayout = ({
                     </BlockGrid.GridPageLeftLK>
                     <BlockGrid.GridPageRightLK>
                         <MyReviews
+                            isLoading={isLoading}
                             getMyReviewList={getMyReviewList}
                             openModalAddReview={openModalAddReview}
                             changePaginationsMyReviews={changePaginationsMyReviews}

@@ -18,20 +18,27 @@ export const wishList = store => {
                 page_size: 30,
                 page: obj?.page || 1
             }
-
-            const res = await apiProfile.getWishlist(params);
-
+            // const res = await apiProfile.getWishlist(params);
+            if(context.init_state.profile.role === ROLE.UNREGISTRED) return 
+            let res = await apiProfile.getWishlist(params)
             const newContext = {
                 ...context,
                 "init_state": {
                     ...context.init_state,
                     profile: {
                         ...context.init_state.profile,
-                        list_wishes: res,
-                    }
-                },
+                        list_wishes: {
+                            ...context.init_state.profile.list_wishes,
+                            count: res?.count ?? 0,
+                            results: res?.results ?? [],
+                        }
+                    },
+                    isLoading: {
+                        ...context.init_state.isLoading,
+                        isLoadingMywish: true,
+                    },
+                }
             }
-
             dispatch('context', newContext)
 
 

@@ -6,6 +6,7 @@ const WishPageLayoutContainer = ({
     recomendetProducts,
     breadcrumbs,
     list_wishes,
+    isLoading,
     currency,
     wishlist,
     role,
@@ -21,13 +22,14 @@ const WishPageLayoutContainer = ({
 
     return (
         <WishPageLayout
+            changePaginationsWishList={changePaginationsWishList}
             recomendetProducts={recomendetProducts}
             breadcrumbs={breadcrumbs}
             list_wishes={list_wishes}
+            isLoading={isLoading}
             wishlist={wishlist}
             currency={currency}
 
-            changePaginationsWishList={changePaginationsWishList}
         />
     )
 }

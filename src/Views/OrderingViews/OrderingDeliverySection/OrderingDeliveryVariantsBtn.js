@@ -22,7 +22,7 @@ const OrderingDeliveryVariantsBtn = ({
           return (
           <ToolTip
             key={v4()}
-            content="сдесь можно выбрать почтовую службу"
+            content="здесь можно выбрать почтовую службу"
             placement="top-start"
             className = { style['ordering__button-tooltip'] }
           >

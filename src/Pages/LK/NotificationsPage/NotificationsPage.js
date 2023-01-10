@@ -10,12 +10,13 @@ const NotificationsPage = ({
         notifications,
         cabinet_menu,
         breadcrumbs,
+        isLoading,
         currency,
         profile,
         shop,
     } = context;
-
     const { user = {}, role, balance } = profile;
+
     const amountNotifications = profile?.notifications
     const { username } = user;
     const stateActiveCheckNotice = false;
@@ -24,6 +25,7 @@ const NotificationsPage = ({
         <NotificationsPageLayoutContainer
             amountNotifications={amountNotifications}
             cabinet_site_menu={cabinet_site_menu}
+            isLoadingAction={isLoading?.isLoadingActionNotice}
             notifications={notifications}
             cabinet_menu={cabinet_menu}
             breadcrumbs={breadcrumbs}
@@ -32,6 +34,7 @@ const NotificationsPage = ({
             currency={currency}
             username={username}
             balance={balance}
+            isLoading={isLoading?.isLoadingNotice}
             shop={shop}
             role={role}
 

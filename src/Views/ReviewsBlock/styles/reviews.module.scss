@@ -131,6 +131,7 @@
         &-description {
             min-width: fit-content;
             width: 25%;
+
         }
         //.reviews__indicator-line-container{}
         &-line-container {
@@ -182,7 +183,7 @@
         //.reviews__indicator-description{}
         &-counter,
         &-description {
-            font-size: 14px;
+            font-size: 12px;
             margin: 14px 5px 0 0;
         }
     }

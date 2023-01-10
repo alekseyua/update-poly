@@ -81,12 +81,14 @@ export const feedback = async (onSubmit, dispatch, fullName, email, closeModalSt
               <BlockGrid.Container>
                 <Title mb={'40px'} title={'Форма обратной связи'} />
                 <WarningBlock
-                  textWarning={'В случае возниконовения вопросов Вы можете свызаться с нами с помощью формы ниже. Ответ по Вашему обращению Вы получите в течении 3х рабочих дней на указанный почтовый адрес'}
+                  // textWarning={'В случае возниконовения вопросов Вы можете свызаться с нами с помощью формы ниже. Ответ по Вашему обращению Вы получите в течении 3х рабочих дней на указанный почтовый адрес'}
+                  textWarning={'В случае возникновения вопросов Вы можете связаться с нами с помощью формы ниже. Ответ по Вашему обращению будет отправлен в течении 3х рабочих дней на указанный почтовый адрес'}
+
                 />
                 <BlockGrid.BlockFeedback>
                   <Select
                     autocomplete={'off'}
-                    placeholder={'Выбирете раздел'}
+                    placeholder={'Выберите раздел'}
                     variant={'select-feedback'}
                     name={'problem_area'}
                     value={values.problem_area}
@@ -600,6 +602,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
           "init_state": {
             ...context.init_state,
             order: {
+              ...context.init_state.order,
               addressDilivery: {
                 ...context.init_state.order.addressDilivery,
                 count: context.init_state.order.addressDilivery.count + 1,
@@ -641,6 +644,7 @@ export const addAddressForPost = async (currency, first_name, last_name, middle_
           "init_state": {
             ...context.init_state,
             order: {
+              ...context.init_state.order,
               addressDilivery: {
                 ...context.init_state.order.addressDilivery,
                 results: changeDataAddressInMassive

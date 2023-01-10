@@ -1,12 +1,16 @@
 @import '../../styles/variables.scss';
 
 .wrapper{
-    padding: 15px;
+    padding: 15px 0;
     border: 1px solid $dg;
     background-color: $g2;
     position: absolute;
     width: 275px;
     transform: translate(-175px,45px);
+    &>a{
+        margin: 0 auto;
+        max-width: 250px;
+    }
     &::before{
         content: '';
         // top: 0;

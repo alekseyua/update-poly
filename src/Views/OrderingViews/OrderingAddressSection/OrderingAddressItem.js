@@ -34,7 +34,7 @@ const OrderingAddressItem = ({
   })
   return (
     // <GxTooltip 
-    //   content="сдесь можно выбрать адрес доставки"
+    //   content="здесь можно выбрать адрес доставки"
     //   placement="top-start"
     // >
       // <Radio

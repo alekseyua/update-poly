@@ -33,7 +33,7 @@ const ReviewsContainer = ({
   const openModalFinalyAddReview = () => {
     console.log('Должна появиться модальная форма с добавлением отзыва')
   }
-
+ 
   return (
     <BlockReviews.SectionReviews>
       <BlockReviews.ReviewsRow>

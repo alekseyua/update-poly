@@ -21,7 +21,6 @@ const FormSingnUp = ({ children, role, step }) => {
     [style['formSignIn__wrapper']]: true,
     [style['mt_50']]: !!step,
   });
-  console.log('step = ', step)
   return (
     <div className={wrapperCustomClassName}>
       <Title variant={'poppins'}>
